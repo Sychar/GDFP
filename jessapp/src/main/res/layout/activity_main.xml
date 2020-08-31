@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F2000000"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- hier wurde eine vertikal layout geschrieben ,
+     die in der linke Seite vom dem bildschirm liegz -->
+    <LinearLayout
+        style="@style/genralstyle"
+        android:id="@+id/linke_layout"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--datum zeigen-->
+        <!-- verfaheren Button -->
+        <TextView
+            android:id="@+id/date2"
+            android:layout_width="match_parent"
+            android:layout_height="126dp"
+            android:background="@drawable/border2"
+            android:paddingTop="30dp"
+            android:paddingLeft="5dp"
+            android:text="Datum"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"></TextView>
+
+        <Button
+
+            style="@style/genralstyle"
+            android:drawableTop="@drawable/verharen1"
+            android:paddingTop="12dp"
+            android:id="@+id/button_menu"
+            android:layout_width="120dp"
+            android:layout_height="124dp"
+            android:background="@drawable/border2"
+            android:text="verfahen"
+            android:textColor="@android:color/white">
+
+        </Button>
+        <!-- kennlinie Button -->
+        <Button
+            android:drawableTop="@drawable/kenn"
+            android:paddingTop="12dp"
+            style="@style/genralstyle"
+            android:id="@+id/kenn"
+            android:layout_width="120dp"
+            android:layout_height="124dp"
+            android:background="@drawable/border2"
+            android:text="Kennlinie"
+            android:textColor="@android:color/white">
+
+        </Button>
+        <!-- BetriebsArt Button -->
+        <Button
+            android:paddingTop="12dp"
+            style="@style/genralstyle"
+            android:drawableTop="@drawable/betriebsart"
+            android:id="@+id/Betribsart"
+            android:layout_width="120dp"
+            android:layout_height="125dp"
+            android:background="@drawable/border2"
+            android:text="BetribsART"
+            android:textColor="@android:color/white">
+
+        </Button>
+        <ImageButton
+            android:src="@drawable/menuf"
+            style="@style/genralstyle"
+
+            android:id="@+id/setting"
+            android:textSize="17dp"
+            android:textColor="@android:color/white"
+            android:layout_width="120dp"
+            android:layout_height="125dp"
+            android:background="@drawable/border2">
+
+        </ImageButton>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/obere_layout"
+        android:layout_width="865dp"
+        android:layout_height="105dp"
+        android:orientation="horizontal"
+        android:layout_toRightOf="@id/linke_layout"
+
+        >
+
+        <TextView
+            style="@style/genralstyle"
+            android:id="@+id/anzeige1"
+            android:layout_width="210dp"
+            android:layout_height="74dp"
+            android:background="@drawable/border2"
+            android:gravity="center"
+            android:text="Anzeige1"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="25sp">
+
+        </TextView>
+
+        <TextView
+            style="@style/genralstyle"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:id="@+id/anzeige2"
+            android:text="Anzeige2"
+            android:textColor="@android:color/white"
+            android:layout_width="210dp"
+            android:layout_height="74dp"
+            android:background="@drawable/border2">
+
+        </TextView>
+        <TextView
+            style="@style/genralstyle"
+            android:gravity="center"
+            android:textSize="24sp"
+            android:id="@+id/anzeige3"
+            android:text="Anzeige3"
+            android:textColor="@android:color/white"
+            android:layout_width="420dp"
+            android:layout_height="74dp"
+            android:background="@drawable/border2">
+
+        </TextView>
+
+    </LinearLayout>
+<FrameLayout
+    android:id="@+id/framelayout"
+    android:layout_width="785dp"
+    android:layout_height="440dp"
+    android:layout_marginLeft="40dp"
+    android:layout_below="@id/obere_layout"
+
+    android:layout_toRightOf="@id/linke_layout">
+
+    <LinearLayout
+        android:layout_marginLeft="40dp"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="400dp">
+ <TextView
+     style="@style/genralstyle"
+     android:layout_width="300dp"
+     android:layout_height="70dp"
+     android:textColor="#ffff"
+     android:text="Verfahren"
+     android:background="@drawable/border2"
+     android:gravity="center"
+
+android:layout_gravity="center_horizontal"
+     android:textSize="20sp">
+    </TextView>
+    <ScrollView
+        style="@style/genralstyle"
+        android:fillViewport="true"
+        android:layout_marginRight="40dp"
+       android:layout_gravity="center_vertical"
+        android:layout_marginTop="5dp"
+        android:layout_width="650dp"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".View.Verfahren">
+            <LinearLayout
+
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/border2"
+                android:layout_width="590dp"
+                android:layout_height="90dp"
+             >
+
+                <Button
+                    android:id="@+id/MMNormal_btn"
+                    style="@style/genralstyle"
+                    android:layout_width="1dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:gravity="center"
+                    android:text="MIG/MAG NORMAL"
+                    android:textColor="#ffff"></Button>
+
+                <Button
+                    android:id="@+id/MMSynergy_btn"
+                    style="@style/genralstyle"
+                    android:layout_width="1dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:gravity="center"
+                    android:text="MIG/MAF Synergy"
+                    android:textColor="#ffff"></Button>
+
+                <Button
+                    android:id="@+id/MMPuls_btn"
+                    style="@style/genralstyle"
+                    android:layout_width="1dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:gravity="center"
+                    android:text="MIG/MAG puls"
+                    android:textColor="#ffff"></Button>
+
+                <Button
+                    android:id="@+id/ElectrodeMMA_btn"
+                    style="@style/genralstyle"
+                    android:layout_width="1dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:gravity="center"
+                    android:text="Electrode MMA"
+                    android:textColor="#ffff"></Button>
+            </LinearLayout>
+            <LinearLayout
+
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/border2"
+                android:layout_width="590dp"
+                android:layout_height="90dp"
+                >
+                <Button
+                    style="@style/genralstyle"
+                    android:id="@+id/WIG_btn"
+                    android:layout_weight="1"
+                    android:layout_width="1dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/border2"
+                    android:text="WIG"
+                    android:textColor="#ffff"
+                    android:gravity="center"> </Button>
+
+                <Button
+                    android:id="@+id/WIGPulsen_btn"
+                    style="@style/genralstyle"
+                    android:layout_width="1dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:gravity="center"
+                    android:text="WIG pulsen"
+                    android:textColor="#ffff"></Button>
+
+                <Button
+                    android:id="@+id/WIGSpeed_btn"
+                    style="@style/genralstyle"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:gravity="center"
+                    android:text="WIG speed"
+                    android:textColor="#ffff"></Button>
+
+                <Button
+                    android:id="@+id/WIGSpeedPulsen_btn"
+                    style="@style/genralstyle"
+                    android:layout_width="1dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border2"
+                    android:gravity="center"
+                    android:text="WIG Speed+pulsen"
+                    android:textColor="#ffff"></Button>
+            </LinearLayout>
+
+
+
+        </LinearLayout
+            >
+    </ScrollView>
+
+    </LinearLayout
+        >
+
+</FrameLayout>
+<fragment
+    android:id="@+id/fragment_test"
+    android:layout_width="820dp"
+    android:layout_height="match_parent"
+    android:layout_below="@id/obere_layout"
+    tools:layout="@layout/fragment_kennline"
+    class="com.jess.gdfp.View.BlankFragment"
+    android:layout_toRightOf="@id/linke_layout">
+
+
+</fragment>
+    <fragment
+        android:id="@+id/frgment_Betriebsart"
+        android:layout_width="745dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/obere_layout"
+        tools:layout="@layout/fragment_betriebs_art"
+        class="com.jess.gdfp.View.BetriebsArt"
+        android:layout_toRightOf="@+id/linke_layout"></fragment>
+    <RelativeLayout
+        android:textStyle="bold"
+        android:id="@+id/circleButton"
+        android:layout_width="350dp"
+        android:layout_height="450dp"
+        android:layout_below="@id/obere_layout"
+        android:layout_toRightOf="@id/linke_layout"
+
+
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="320dp"
+                android:layout_height="3200dp"
+                android:layout_centerInParent="true"
+                android:indeterminate="false"
+
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/custom_progressbar_drawable"
+                />
+
+
+            <TextView
+                android:textColor="@android:color/white"
+                android:text="Ampere"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:id="@+id/txtpro"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/progressBar"
+                android:layout_centerInParent="true"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <Button
+                style="@style/genralstyle"
+                android:id="@+id/button1"
+                android:layout_width="280dp"
+                android:layout_height="280dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/round_button"></Button>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:textStyle="bold"
+        android:id="@+id/untere_layout"
+        android:layout_width="840dp"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:layout_below="@id/circleButton"
+        android:layout_toRightOf="@id/linke_layout">
+
+
+        <Button
+            android:text="fav1"
+            style="@style/genralstyle"
+            android:drawableTint="@android:color/white"
+            android:drawableEnd="@drawable/fav"
+            android:layout_width="213dp"
+            android:layout_height="70dp"
+            android:background="@drawable/border2"
+            android:textAlignment="center"
+            android:textColor="@android:color/white">
+
+        </Button>
+        <Button
+            style="@style/genralstyle"
+            android:text="fav2"
+            android:textColor="@android:color/white"
+            android:layout_width="213dp"
+            android:layout_height="70dp"
+            android:background="@drawable/border2">
+
+        </Button>
+        <Button
+            style="@style/genralstyle"
+            android:text="Fav3"
+            android:textColor="@android:color/white"
+            android:layout_width="211dp"
+            android:layout_height="70dp"
+            android:background="@drawable/border2">
+
+        </Button>
+        <Button
+            style="@style/genralstyle"
+            android:text="Fav4"
+            android:textColor="@android:color/white"
+            android:layout_width="210dp"
+            android:layout_height="70dp"
+            android:background="@drawable/border2">
+
+        </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/rechte_layout"
+        android:layout_width="103dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="0dp"
+        android:layout_toLeftOf="@id/untere_layout"
+        android:orientation="vertical">
+
+        <Button
+
+            style="@style/genralstyle"
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:background="@drawable/border2"
+            android:padding="20dp"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="16sp"></Button>
+        <!-- verfaheren Button -->
+        <Button
+            android:paddingTop="12dp"
+            android:drawableTop="@drawable/standby"
+            style="@style/genralstyle"
+            android:id="@+id/testbutton"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/border2"
+            android:text="OFF">
+
+        </Button>
+
+
+        <!-- kennlinie Button -->
+
+        <!-- Droosel Button -->
+        <ImageButton
+            android:src="@drawable/home2"
+            style="@style/genralstyle"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:id="@+id/backhome"
+            android:text="Home"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:background="@drawable/border2">
+
+        </ImageButton>
+
+        <Button
+            android:paddingTop="12dp"
+            android:drawableTop="@drawable/droessel"
+            style="@style/genralstyle"
+            android:id="@+id/drossel"
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:background="@drawable/border2"
+            android:text="Drossel"
+            android:textColor="@android:color/white"
+            android:textSize="17sp">
+
+        </Button>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="125dp"
+            android:background="@drawable/border2"
+            android:orientation="vertical">
+
+            <Button
+                android:background="#80000000"
+                style="@style/genralstyle"
+                android:paddingTop="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:text="JOB"
+                android:textColor="@android:color/white"
+                android:textSize="17dp">
+            </Button>
+            <TextView
+                style="@style/genralstyle"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:paddingBottom="12dp"
+                android:gravity="center"
+                android:id="@+id/job_Nummer"
+                android:textAlignment="center"
+                android:text="NR"
+                android:textColor="@android:color/white"
+                android:textSize="17dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/zweitelayout"
+        android:orientation="vertical"
+        android:layout_width="490dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@+id/rechte_layout"
+        android:layout_toRightOf="@+id/circleButton"
+        android:layout_below="@+id/obere_layout">
+        <LinearLayout
+
+            android:layout_width="500dp"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/genralstyle"
+                android:id="@+id/korrektur"
+                android:gravity="center"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:background="@drawable/border2"
+                android:text="Korrektur"
+                android:textColor="@android:color/white"
+                android:layout_width="155dp"
+                android:layout_height="60dp">
+
+            </TextView>
+            <TextView
+                style="@style/genralstyle"
+                android:id="@+id/Mm"
+                android:textSize="30sp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:background="@drawable/border2"
+                android:text= "Mm"
+                android:layout_width="155dp"
+                android:layout_height="60dp">
+
+            </TextView>
+
+            <TextView
+                style="@style/genralstyle"
+                android:id="@+id/strom"
+                android:layout_width="151dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/border2"
+                android:gravity="center"
+                android:text="Strom"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="30sp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="490dp"
+            android:layout_height="190dp"
+            android:orientation="horizontal">
+
+                <Button
+                    style="@style/genralstyle"
+                    android:id="@+id/btn_korrektur"
+                    android:layout_width="155dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/border2"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"></Button>
+
+
+            <Button
+                style="@style/genralstyle"
+                    android:id="@+id/btn_mm"
+                    android:layout_width="155dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/border2"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"></Button>
+
+
+            <Button
+                    style="@style/genralstyle"
+                    android:id="@+id/btn_current"
+                    android:layout_width="155dp"
+                    android:layout_height="90dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="40sp"
+                    android:background="@drawable/border2"></Button>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/progressBar_layout"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/circleButton"
+        android:layout_width="480dp"
+        android:layout_height="130dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/zweitelayout">
+
+        <Button
+            android:onClick="onpressed_Minus_plus"
+            android:id="@+id/minus"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            android:text="-- Weich"
+            android:textSize="20sp"></Button>
+
+        <ProgressBar
+            android:scaleX="-1"
+            android:minHeight="30dip"
+            android:layout_marginTop="20dp"
+            style="@style/progress"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:id="@+id/progress"
+            android:layout_centerHorizontal="false"
+            android:layout_centerVertical="false"
+            android:max="100"
+            android:progress="30"/>
+
+
+        <ProgressBar
+
+            android:minHeight="30dip"
+            android:layout_marginTop="20dp"
+            style="@style/progress"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:id="@+id/progress1"
+            android:layout_centerHorizontal="false"
+            android:layout_centerVertical="false"
+            android:max="100"
+            android:progress="30"/>
+
+
+        <!--     <ProgressBar
+                 android:layout_marginTop="10dp"
+                 android:layout_marginLeft="10dp"
+                 style="?android:attr/progressBarStyleHorizontal"
+                 android:layout_width="150dp"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/progress1"
+                 android:layout_centerHorizontal="true"
+                 android:layout_centerVertical="true"
+                 android:max="100"
+                 android:progress="40"/>-->
+        <Button
+            android:onClick="onpressed_Minus_plus"
+            android:id="@+id/plus"
+            android:textAlignment="center"
+            android:text="+ hart"
+            android:textSize="20sp"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
+            ></Button>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

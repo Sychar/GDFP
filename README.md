@@ -1,0 +1,3 @@
+# SerialPortExample
+
+[THIS EXAMPLE IS VERY OUTDATED. PLEASE GO TO THE USBSERIAL REPO FOR BETTER EXAMPLES](https://github.com/felHR85/UsbSerial)

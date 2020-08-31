@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#111"
+    android:scaleType="fitCenter"
+    tools:context=".View.Setting">
+
+    <LinearLayout
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal">
+
+
+ <Button
+     android:background="@drawable/border2"
+     android:id="@+id/jobsUser"
+     android:scaleType="fitCenter"
+     android:layout_width="150dp"
+     android:layout_height="150dp"
+     android:layout_marginLeft="30dp"
+     android:textColor="#ffff"
+
+     android:text="Jobs"></Button>
+
+
+    <Button
+        android:id="@+id/dlogger"
+        android:scaleType="fitCenter"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="30dp"
+        android:textSize="15sp"
+        android:text="Datenlogger"
+        android:textColor="#fff"
+        android:background="@drawable/border2"></Button>
+
+
+    <Button
+
+        android:background="@drawable/border2"
+        android:id="@+id/kennlinie"
+        android:textColor="#fff"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="30dp"
+        android:text="Kennlinie"></Button>
+
+
+    <Button
+        android:background="@drawable/border2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="30dp"
+        android:textColor="#ffff"
+        android:text="Setting"></Button>
+
+
+    <Button
+        android:id="@+id/accoutnt"
+        android:background="@drawable/border2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:textColor="#ffff"
+        android:layout_marginLeft="30dp"
+        android:text="ACCOUNT"></Button>
+
+    </LinearLayout>
+
+
+</LinearLayout>

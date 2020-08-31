@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.DatalistView">
+
+    <RelativeLayout
+        android:background="#555"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:textColor="#960018"
+            android:layout_marginTop="15dp"
+            android:layout_width="160dp"
+            android:textSize="25sp"
+            android:layout_marginLeft="20dp"
+            android:layout_height="50dp"
+            android:text="DatenLogger"
+            ></TextView>
+        <Button
+            android:onClick="close"
+            android:layout_marginTop="8dp"
+            android:textColor="#960018"
+            android:backgroundTint="#fff"
+            android:layout_alignParentRight="true"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:text="close"></Button>
+    </RelativeLayout>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:columnCount="4"
+
+        android:rowCount="1">
+
+    <TextView
+
+        android:background="#009456"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Time "
+
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    <TextView
+        android:id="@+id/lenth"
+        android:background="#009456"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_height="wrap_content"
+        android:text="  Lenght"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/canid"
+        android:background="#009456"
+        android:layout_width="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_columnSpan="1"
+        android:layout_rowSpan="1"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="CanId"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:background="#009456"
+
+        android:layout_columnSpan="1"
+        android:layout_rowSpan="1"
+        android:layout_columnWeight="1"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Data"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    </GridLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/datalistview"
+        ></ListView>
+</LinearLayout>

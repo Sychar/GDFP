@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/one"
+        android:title="KORREKTUR"/>
+
+    <item
+        android:id="@+id/two"
+        android:title="M_MIN"/>
+
+    <item
+        android:id="@+id/k"
+        android:title="VOLT"/>
+    <item
+        android:id="@+id/b"
+        android:title="AMPERE"/>
+
+
+
+
+
+</menu>

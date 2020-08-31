@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:background="#111111"
+    android:orientation="vertical"
+    tools:context=".View.JobsUser">
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="180dp"
+        android:layout_width="650dp"
+        android:layout_height="100dp"
+        app:cardBackgroundColor="@color/head">
+
+        >
+        <LinearLayout
+            android:background="@drawable/border2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+
+            >
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Num"
+                android:textColor="#ffffff"
+                android:textSize="20sp">
+            </TextView>
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:paddingRight="10dp"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:textSize="20sp">
+            </TextView>
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TIME"
+                android:textSize="20sp">
+            </TextView>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+    <ListView
+        android:id="@+id/list_for_jobs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+</LinearLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+<GridLayout
+    android:layout_width="match_parent"
+    android:layout_height="30sp"
+    android:columnCount="4"
+    android:rowCount="1"
+    >
+    <TextView
+        android:id="@+id/id"
+        android:background="#006bc5"
+        android:layout_columnWeight="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:gravity="center"
+
+        android:text="12"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+    <TextView
+        android:id="@+id/lenth_"
+        android:background="#3369b4"
+        android:layout_marginLeft="12dp"
+        android:layout_columnWeight="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/canid_"
+        android:background="#4668a4"
+        android:layout_marginLeft="12dp"
+        android:layout_columnWeight="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/Mydata_"
+        android:background="#526693"
+        android:layout_marginLeft="12dp"
+        android:layout_columnWeight="2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="45 34 43 43 34 34 "
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+</GridLayout>
+
+</LinearLayout>
+

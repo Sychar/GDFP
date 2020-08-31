@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.Account_deteils">
+
+   <android.support.v7.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="80dp"
+       >
+       <LinearLayout
+           android:background="#845bb0"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="horizontal">
+       <TextView
+           android:textColor="#111"
+           android:layout_marginLeft="10dp"
+           android:gravity="center_vertical"
+           android:layout_width="wrap_content"
+           android:layout_weight="1"
+           android:textSize="20sp"
+           android:layout_height="match_parent"
+           android:text="Select">
+       </TextView>
+       <TextView
+           android:textColor="#111"
+           android:layout_marginLeft="10dp"
+           android:gravity="center_vertical"
+           android:layout_width="wrap_content"
+           android:textSize="20sp"
+         android:layout_weight="3"
+           android:layout_height="match_parent"
+           android:text="Name">
+
+       </TextView>
+       <TextView
+           android:textColor="#111"
+           android:gravity="center_vertical"
+           android:layout_weight="3"
+           android:textSize="20sp"
+           android:layout_width="wrap_content"
+           android:layout_height="match_parent"
+           android:text="preveligen">
+
+       </TextView>
+</LinearLayout>
+
+   </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/rv"
+    >
+
+    </android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="300dp"
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/add"
+            android:background="@drawable/daten_bank_button"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="ADD">
+
+        </Button>
+        <Button
+            android:id="@+id/remove"
+            android:background="@drawable/daten_bank_button"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="Remove">
+
+        </Button>
+        <Button
+            android:id="@+id/back"
+            android:background="@drawable/daten_bank_button"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:text="back">
+
+        </Button>
+
+    </LinearLayout>
+
+</LinearLayout>

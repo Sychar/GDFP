@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GDFP</string>
+    <!-- Toast message in editor when new pet has been successfully inserted [CHAR LIMIT=NONE] -->
+
+</resources>

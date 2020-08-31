@@ -1,0 +1,60 @@
+{
+  "variant": {
+    "module": {
+      "rootBuildGradleFolder": "C:\\Users\\saljendi\\Desktop\\jessapp",
+      "sdkFolder": "C:\\Users\\saljendi\\AppData\\Local\\Android\\Sdk",
+      "isNativeCompilerSettingsCacheEnabled": false,
+      "isBuildOnlyTargetAbiEnabled": true,
+      "splitsAbiFilterSet": [],
+      "intermediatesFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\build\\intermediates",
+      "gradleModulePathName": ":jessapp",
+      "moduleRootFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp",
+      "makeFile": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\src\\main\\jni\\Android.mk",
+      "buildSystem": "NDK_BUILD",
+      "compilerSettingsCacheFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\.cxx",
+      "cxxFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx",
+      "ndkFolder": "C:\\Users\\saljendi\\AppData\\Local\\Android\\Sdk\\ndk\\21.3.6528147",
+      "ndkVersion": "21.3.6528147",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "cmakeToolchainFile": "."
+    },
+    "buildSystemArgumentList": [],
+    "cFlagList": [],
+    "cppFlagsList": [],
+    "variantName": "debug",
+    "soFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\build\\intermediates\\ndkBuild\\debug\\lib",
+    "objFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\build\\intermediates\\ndkBuild\\debug\\obj\\local",
+    "jsonFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\ndkBuild\\debug",
+    "gradleBuildOutputFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\cxx\\debug",
+    "isDebuggableEnabled": true,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": []
+  },
+  "abi": "X86_64",
+  "abiPlatformVersion": 22,
+  "cxxBuildFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\ndkBuild\\debug\\x86_64",
+  "jsonFile": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\ndkBuild\\debug\\x86_64\\android_gradle_build.json",
+  "gradleBuildOutputFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\cxx\\debug\\x86_64",
+  "objFolder": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\build\\intermediates\\ndkBuild\\debug\\obj\\local\\x86_64",
+  "buildCommandFile": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\ndkBuild\\debug\\x86_64\\build_command.txt",
+  "buildOutputFile": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\ndkBuild\\debug\\x86_64\\build_output.txt",
+  "modelOutputFile": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\ndkBuild\\debug\\x86_64\\build_model.json",
+  "jsonGenerationLoggingRecordFile": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\ndkBuild\\debug\\x86_64\\json_generation_record.json",
+  "compileCommandsJsonFile": "C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\.cxx\\ndkBuild\\debug\\x86_64\\compile_commands.json"
+}

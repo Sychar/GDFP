@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GDFP</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="serial_port">Rxd port</string>
+    <string name="serial_port1">Txd port</string>
+    <color name="startblue">#09c6df</color>
+    <string name="LWD">Frame length</string>
+    <string name="Canid">CanId</string>
+    <string name="Data">Data</string>
+    <string name="DL">Data length</string>
+    <string name="CRC">CRC32</string>
+    <string name="header">Header</string>
+    <string name="footer">Footer</string>
+    <string name="title_activity_data_base">DataBase</string>
+    <string name="editor_insert_pet_successful">Pet saved</string>
+
+    <!-- Toast message in editor when new pet has failed to be inserted [CHAR LIMIT=NONE] -->
+    <string name="editor_insert_pet_failed">Error with saving pet</string>
+    <string name="title_activity_job_view">JobView</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

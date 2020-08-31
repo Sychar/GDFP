@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.JobView">
+    <RelativeLayout
+        android:background="#4fa5d5"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_alignParentLeft="true"
+            android:textColor="#960018"
+            android:layout_marginTop="15dp"
+            android:layout_width="120dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp"
+            android:layout_height="50dp"
+            android:text="JOBS"
+            ></TextView>
+        <Button
+            android:onClick="ExitJobs"
+            android:layout_marginTop="10dp"
+            android:id="@+id/exitjob"
+            android:textColor="#960018"
+            android:backgroundTint="#fff"
+            android:layout_alignParentRight="true"
+            android:layout_width="120dp"
+            android:layout_height="50dp"
+            android:text="Exit"></Button>
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/listjob"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </ListView>
+
+</LinearLayout>

@@ -1,0 +1,4 @@
+include ':jessapp', ':library:project:libs'
+rootProject.name='GDFP'
+
+//, ':library:project'

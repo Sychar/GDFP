@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<manifest package="com.jess.gdfp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:versionCode="10000"
+        android:versionName="1.0.0">
+
+<!--    <uses-sdk android:targetSdkVersion="19" />-->
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+<!--    <uses-permission android:name= "android.permission.CALL_PHONE" />-->
+
+    <!-- If your app targets Android 9 or lower, you can declareACCESS_COARSE_LOCATION instead. -->
+
+<!--    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+<!--    <uses-feature android:name="android.hardware.usb.host" android:required="true"/>-->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
+    <application
+        android:theme="@style/AppBaseTheme.sakhr"
+        android:screenOrientation="portrait"
+        android:label="@string/app_name"
+        android:icon="@drawable/ic_launcher"
+        android:allowBackup="true"
+        android:supportsRtl= "true">
+
+    <!-- android:name=".Application"> -->
+    <!-- <uses-library android:name="com.google.android.things" /> -->
+
+        <activity android:name=".View.kennlinie"></activity>
+        <activity android:name=".Kennlinie" />
+        <activity android:name=".View.Add_Account" />
+        <activity android:name=".View.Account_deteils" />
+        <activity android:name=".View.UserDeatils" />
+        <activity android:name=".View.JobsUser" />
+        <activity android:name=".View.Setting" />
+        <activity android:name=".View.JobsDetails" />
+        <activity
+            android:name=".View.JobView"
+            android:label="@string/title_activity_job_view"
+            android:theme="@style/AppBaseTheme.sakhr.NoActionBar" />
+        <activity android:name=".View.Verfahren" android:theme="@style/AppBaseTheme.sakhr"/>
+        <activity android:name=".View.DatalistView"/>
+        <activity android:name=".View.D_Base"/>
+        <activity android:name=".View.listitem1"/>
+
+        <activity android:name=".MainActivity"
+                  android:label="@string/app_name"
+                  android:windowSoftInputMode="stateHidden">
+
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.HOME" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+
+    </activity>
+
+<!--    <receiver-->
+<!--        android:name="com.jess.gdfp.StartMyActivityAtBootReceiver"-->
+<!--        android:label="StartMyServiceAtBootReceiver">-->
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.BOOT_COMPLETED"/>-->
+<!--        </intent-filter>-->
+<!--    </receiver>-->
+
+<!--    <receiver-->
+<!--        android:name=".StartMyActivityAtBootReceiver"-->
+<!--        android:enabled="true"-->
+<!--        android:exported="false">-->
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--        </intent-filter>-->
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.PACKAGE_REPLACED" />-->
+
+<!--            <data android:scheme="package" />-->
+<!--        </intent-filter>-->
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.PACKAGE_ADDED" />-->
+
+<!--            <data android:scheme="package" />-->
+<!--        </intent-filter>-->
+<!--    </receiver>-->
+
+    <service
+        android:name="com.jess.gdfp.UartService"
+        android:enabled="true"/>
+    <service
+        android:name="com.jess.gdfp.BluetoothLEService"
+        android:enabled="true"/>
+
+    <provider
+        android:name=".DatenBank.MyDataProvider"
+        android:exported="false"
+        android:authorities="com.example.android.infos"/>
+
+        <provider
+            android:name=".DatenBank.JopDataProvider"
+            android:authorities="com.jess.gdfp.jobs"
+            android:exported="false" />
+</application>
+
+</manifest>
