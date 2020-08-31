@@ -35,6 +35,7 @@ import com.jess.gdfp.DatenBank.JobContract;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.JobsDetails;
+import com.jess.gdfp.View.Setting;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private  TextView TxtPr;
     private static TextView txtprogress;
     public TextView TxtProgress;
-    private Button Setting;
+    private ImageButton Setting;
     private View frame;
     private View kenn_fragment;
     private View betriebsart_fragement;
@@ -935,6 +936,13 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         setVisibility();
 
         mHandler = new UartService.MyHandler();
+        Setting= findViewById(R.id.setting);
+        Setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivityController.onClick_newActivity(com.jess.gdfp.View.Setting.class);
+            }
+        });
         serial_init();
 
         testbtn = findViewById(R.id.testbutton);
@@ -2589,6 +2597,15 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         } catch (IOException e){
             Log.e(TAG,"Cant write to the console");
         }
+    }
+
+    void ausblinden_drossel(){
+        progressBarPlus.setVisibility(View.GONE);
+        progressBarMinus.setVisibility(View.INVISIBLE);
+        //  circle_button.setVisibility(View.GONE);
+        minus_button.setVisibility(View.GONE);
+        plus.setVisibility(View.INVISIBLE);
+        droessel.setEnabled(false);
     }
 }
 
