@@ -44,12 +44,12 @@ public class JobsUser extends AppCompatActivity {
 
     private  ArrayList initJobs(){
         ArrayList jobs =new ArrayList<>();
-        jobs.add(new Jobs("11","1","1"));
-        jobs.add(new Jobs("11","2","1"));
-        jobs.add(new Jobs("11","3","1"));
-        jobs.add(new Jobs("11","4","1"));
-        jobs.add(new Jobs("11","5","1"));
-        jobs.add(new Jobs("11","6","1"));
+        jobs.add(new Jobs("12:00","1","sakhr"));
+        jobs.add(new Jobs("11:00","2","Doel"));
+        jobs.add(new Jobs("11:30","3","JJ"));
+        jobs.add(new Jobs("11:14","4","user1"));
+        jobs.add(new Jobs("11:58","5","user2"));
+        jobs.add(new Jobs("11:22","6","user3"));
         return jobs;
     }
 
