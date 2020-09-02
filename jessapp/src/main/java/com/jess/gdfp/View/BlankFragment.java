@@ -305,7 +305,7 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
      List  detail3 = new ArrayList<>();
      detail3.add(new Kennline_text("0.8"));
     double count= 9;
-     for (int i=1;i<230;i++){
+     for (int i=1;i<153;i++){
       detail3.add(new Kennline_text(Double.toString(count/10)));
       //System.out.println(count);
          count =  count + 1;

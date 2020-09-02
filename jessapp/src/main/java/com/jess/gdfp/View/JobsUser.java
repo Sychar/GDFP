@@ -19,37 +19,36 @@ import java.util.List;
 public class JobsUser extends AppCompatActivity {
     private Intent intent;
     CardView myCardView;
-    private  ArrayList<Jobs> jobs;
+    private ArrayList<Jobs> jobs;
+
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_user);
-        myCardView =(CardView) findViewById(R.id.card_view);
-       // myCardView.setCardBackgroundColor(Color.TRANSPARENT);
+        myCardView = (CardView) findViewById(R.id.card_view);
+        // myCardView.setCardBackgroundColor(Color.TRANSPARENT);
         ListView rv = findViewById(R.id.list_for_jobs);
-        jobs=initJobs();
-        final jobAdapter myjobAdapte= new jobAdapter(this,jobs);
+        jobs = initJobs();
+        final jobAdapter myjobAdapte = new jobAdapter(this, jobs);
         rv.setAdapter(myjobAdapte);
 
-
-
-
     }
-   public void jobuser (View view){
-        intent = new Intent(this, UserDeatils.class);
+
+    public void jobuser(View view) {
+        intent = new Intent(this, JobsDetails.class);
         startActivity(intent);
-
     }
 
-    private  ArrayList initJobs(){
-        ArrayList jobs =new ArrayList<>();
-        jobs.add(new Jobs("12:00","1","sakhr"));
-        jobs.add(new Jobs("11:00","2","Doel"));
-        jobs.add(new Jobs("11:30","3","JJ"));
-        jobs.add(new Jobs("11:14","4","user1"));
-        jobs.add(new Jobs("11:58","5","user2"));
-        jobs.add(new Jobs("11:22","6","user3"));
+
+    private ArrayList initJobs() {
+        ArrayList jobs = new ArrayList<>();
+        jobs.add(new Jobs("1", "info1"));
+        jobs.add(new Jobs("2", "info2"));
+        jobs.add(new Jobs("3", "info3"));
+        jobs.add(new Jobs("4", "info4"));
+        jobs.add(new Jobs("5", "info5"));
+        jobs.add(new Jobs("6", "info6"));
         return jobs;
     }
 

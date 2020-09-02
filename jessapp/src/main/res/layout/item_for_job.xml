@@ -40,17 +40,7 @@
                 android:text="Sakhr"
                 android:textSize="20sp">
             </TextView>
-            <TextView
-                android:id="@+id/job_time"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="11-01.2020"
-                android:textColor="#ffffff"
-                android:textSize="20sp">
-            </TextView>
+
             <Button
                 android:onClick="jobuser"
                 android:layout_margin="7dp"

@@ -164,7 +164,7 @@ public class JobsDetails extends AppCompatActivity {
        
         uri = Uri.parse("content://com.felhr.serialportexample.jobs/jobs/" + idOfJob);
         System.out.println(uri);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.jobdeatailslist, R.id.jobdeateils, dataholen(idOfJob));
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.jobdeatailslist, R.id.jobdeateils, dataholen("1"));
         listView.setAdapter(arrayAdapter);
     }
 

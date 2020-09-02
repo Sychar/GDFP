@@ -57,8 +57,7 @@ public class Setting extends AppCompatActivity {
     }
 
     void onClickAccount(){
-        intent =new Intent(this, Account_deteils.class);
-        startActivity(intent);
+        this.finish();
     }
     void onClick_Datenlogger() {
         Intent  intent = new Intent(this, DatalistView.class);

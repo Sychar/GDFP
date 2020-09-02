@@ -4,7 +4,7 @@ public class Jobs  {
     String time ;
     String Num;
     String name;
-    public Jobs(String time , String Num ,String name){
+    public Jobs( String Num ,String name){
         this.name=name;
         this.Num=Num;
         this.time=time;
@@ -18,7 +18,5 @@ public class Jobs  {
         return Num;
     }
 
-    public String getTime() {
-        return time;
-    }
+
 }

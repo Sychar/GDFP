@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#111"
+    android:background="#ffff"
     android:scaleType="fitCenter"
     tools:context=".View.Setting">
 
@@ -24,7 +24,7 @@
      android:layout_width="150dp"
      android:layout_height="150dp"
      android:layout_marginLeft="30dp"
-     android:textColor="#ffff"
+     android:textColor="#111"
 
      android:text="Jobs"></Button>
 
@@ -37,7 +37,7 @@
         android:layout_marginLeft="30dp"
         android:textSize="15sp"
         android:text="Datenlogger"
-        android:textColor="#fff"
+        android:textColor="#111"
         android:background="@drawable/border2"></Button>
 
 
@@ -45,7 +45,7 @@
 
         android:background="@drawable/border2"
         android:id="@+id/kennlinie"
-        android:textColor="#fff"
+        android:textColor="#111"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginLeft="30dp"
@@ -57,7 +57,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginLeft="30dp"
-        android:textColor="#ffff"
+        android:textColor="#111"
         android:text="Setting"></Button>
 
 
@@ -66,9 +66,9 @@
         android:background="@drawable/border2"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:textColor="#ffff"
+        android:textColor="#111"
         android:layout_marginLeft="30dp"
-        android:text="ACCOUNT"></Button>
+        android:text="EXIT"></Button>
 
     </LinearLayout>
 

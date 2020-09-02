@@ -34,13 +34,13 @@ public class jobAdapter extends ArrayAdapter<Jobs> {
         }
         id=listitem.findViewById(R.id.job_nr);
         jobname=listitem.findViewById(R.id.job_name);
-        time=listitem.findViewById(R.id.job_time);
+
 
         jobs = getItem(position);
 
         id.setText(jobs.getNum());
         jobname.setText(jobs.getName());
-        time.setText(jobs.getTime());
+
         return listitem;
     }
 }
