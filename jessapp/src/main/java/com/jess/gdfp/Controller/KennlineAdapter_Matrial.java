@@ -109,7 +109,7 @@ public   class KennlineAdapter_Matrial extends RecyclerView.Adapter {
             if(i==x){
                 ((KennlineHolder) viewHolder).button.setTextColor(Color.GREEN);
                 String MATERIAL = (String)((KennlineHolder) viewHolder).button.getText();
-                //MainActivity.setMaterial(MATERIAL);
+                MainActivity.setMaterial(MATERIAL);
                 //System.out.println(MATERIAL);
             }else {
                 ((KennlineHolder) viewHolder).button.setTextColor(Color.GRAY);

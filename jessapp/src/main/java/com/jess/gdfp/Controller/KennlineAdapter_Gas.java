@@ -82,7 +82,7 @@ public class KennlineAdapter_Gas extends RecyclerView.Adapter {
             if(i==x){
                 ((KennlineHolder) viewHolder).button.setTextColor(Color.GREEN);
                 String GAS = (String)((KennlineHolder) viewHolder).button.getText();
-                //MainActivity.setGas(GAS);
+                MainActivity.setGas(GAS);
                 //System.out.println(GAS);
             }else {
                 ((KennlineHolder) viewHolder).button.setTextColor(Color.GRAY);

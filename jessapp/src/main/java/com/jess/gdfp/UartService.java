@@ -65,6 +65,7 @@ public class UartService extends Service {
     public static boolean SERVICE_CONNECTED = false;
     public static String data2 = null;
 
+
     private IBinder binder = new UsbBinder();
     UsbSerialInterface ser;
 
@@ -107,7 +108,7 @@ public class UartService extends Service {
     protected static SerialPort mSerialPort;
     protected static OutputStream mOutputStream;
     public static InputStream mInputStream;
-    public static ReadThread mReadThread;
+    public static ReadThread mReadThread = new ReadThread();
     MainActivity_Controller mainActivity_controller = new MainActivity_Controller();
     public UartService(Context cont) {
         this.gg = cont ;
@@ -346,7 +347,7 @@ public class UartService extends Service {
         frameArray[10]=(byte)(CHECKSUM & 0xFF);
         int temp=frameArray[10];
         if (frameArray[10]<0) temp=256+frameArray[10];
-        Log.i("Checksum ",String.valueOf(temp));
+        //Log.i("Checksum ",String.valueOf(temp));
         frameArray[11]=35;     	//Footer 0x23
 
         for (int i = 0; i < 12; i++) {//parameterId and valueId ascii string
@@ -403,7 +404,7 @@ public class UartService extends Service {
             int ByteCompare = Byte.compare(dataRX, (byte)36);
             if (ByteCompare == 0) {
                 HeaderFound = 1;
-                ByteArray[CounterData] = Input;
+                ByteArray[CounterData] = Input; //CounterData starts from 0
                 CounterData++;
             }
         } else if (LengthFound == 0) {
@@ -414,11 +415,11 @@ public class UartService extends Service {
             ByteArray[CounterData] = Input;
             CounterData++;
         //} else if (CounterData < LengthProtocol-1 && CounterData< 19) {
-        } else if (CounterData < LengthProtocol-1 && CounterData< 16) {
+        } else if (CounterData < LengthProtocol-1 && CounterData< 10) {
                 ByteArray[CounterData] = Input;
                 CounterData++;
         //} else if (CounterData == LengthProtocol-1 && CounterData< 19) { //at this point, CounterData = 18
-        } else if (CounterData == LengthProtocol-1 && CounterData < 16) { //at this point, CounterData = 15
+        } else if (CounterData == LengthProtocol-1 && CounterData < 10) { //at this point, CounterData = 15
             ByteArray[CounterData] = Input;
 
             /**
@@ -462,7 +463,8 @@ public class UartService extends Service {
                     int CHECKSUM = 0;
 
                     for (int i = 0; i < LengthProtocol-2; i++) {
-                        int tempcheck = 0;
+                        //Log.i("ByteArray ",String.valueOf(ByteArray[i]));
+                        int tempcheck ;
                         if((ByteArray[i])<0){
                             tempcheck = 256+(ByteArray[i]);
                         }else{
@@ -492,8 +494,14 @@ public class UartService extends Service {
                             //Log.i("dataCombiner",HEX_DATA);
                             //SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
                             //if(LengthProtocol==15 && ByteArray[3]==0 && ByteArray[4]==0){
-                            if(LengthProtocol==12 && ByteArray[3]==0 && ByteArray[4]==0){ //CanID 0000
+                            if(LengthProtocol==10 && ByteArray[3]==0 && ByteArray[4]==0){ //CanID 0000
+                                try{
+                                    mReadThread.wait(100);
+                                }catch(InterruptedException e){
+                                    Log.e("Thread interrupted",e.toString());
+                                }
                                 SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
+                                //Log.i("CanId is","0000");
                             }
 
                             if (UpdateJobFlag != 1) {
@@ -507,8 +515,8 @@ public class UartService extends Service {
 
                         Intent iiii = new Intent("Main.Activity1").putExtra("msg_service1", ASCII_DATA); //send ascii content to Main Activity
                         context.sendBroadcast(iiii);
-                    }//else Log.i("Checksum ","is wrong");
-                }
+                    } else Log.i("Checksum ","is wrong");
+                } else Log.i("Checksum ","length");
             }
             resetValue();
         }else if (CounterData > 15) resetValue();

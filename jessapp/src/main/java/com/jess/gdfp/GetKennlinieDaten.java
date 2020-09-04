@@ -8,7 +8,6 @@ public class GetKennlinieDaten {
     private static byte[] WHOLE_JOB_FRAME = new byte[230];
 
     public static byte[] readKennDaten() {
-
         //--------------------------First frame------------------------
         KENN_FRAME[0] = 36; //0x24
         KENN_FRAME[1] = 16; //0x10
@@ -232,23 +231,33 @@ public class GetKennlinieDaten {
          * Only one frame which is 222 bytes
          */
         WHOLE_JOB_FRAME[0] = 36; //0x24
-        WHOLE_JOB_FRAME[1] = (byte)224; //0xE0 frame length
+        WHOLE_JOB_FRAME[1] = (byte)222; //0xE0 frame length
         WHOLE_JOB_FRAME[2] = 2;
         WHOLE_JOB_FRAME[3] = 6; //msb can id
         WHOLE_JOB_FRAME[4] = (byte) 224; //0xE0 lsb can id
-        WHOLE_JOB_FRAME[5] = 8; //data length
+        WHOLE_JOB_FRAME[5] = (byte)214; //data length 0xD6
         System.arraycopy(DatenObjekte.JOB_FRAME,0,WHOLE_JOB_FRAME,6,214);
+        WHOLE_JOB_FRAME[17] = (byte)MainActivity.VERFAHREN;
+        WHOLE_JOB_FRAME[18] = (byte)MainActivity.DRAHTDURCHMESSER;
+        WHOLE_JOB_FRAME[19] = (byte)MainActivity.GAS;
+        WHOLE_JOB_FRAME[20] = (byte)MainActivity.WERKSTOFF;
         WHOLE_JOB_FRAME[220] = 35; //0x23
         /**
          * Calculate the checksum of dataframe
          */
         int MYCHECKSUM = 0;
 
-        for (int i = 0; i < 221 ; i++) {
-            MYCHECKSUM = MYCHECKSUM + WHOLE_JOB_FRAME[i];
+        for (int i = 0; i < 221; i++) {
+            int tempcheck;
+            if((WHOLE_JOB_FRAME[i])<0){
+                tempcheck = 256+(WHOLE_JOB_FRAME[i]);
+            }else{
+                tempcheck = WHOLE_JOB_FRAME[i];
+            }
+            MYCHECKSUM = MYCHECKSUM + tempcheck;
         }
 
-        WHOLE_JOB_FRAME[220] = (byte)(MYCHECKSUM & 0xFF);
+        WHOLE_JOB_FRAME[220] = (byte)(MYCHECKSUM & 0x000000FF);
         WHOLE_JOB_FRAME[221] = 35; //Footer 0x23
         //for(int i=6;i<222;i++) WHOLE_JOB_FRAME[i] = DatenObjekte.JOB_FRAME[i-6];
 

@@ -87,8 +87,8 @@ public   class KennlineAdapter_Verfah extends RecyclerView.Adapter {
         if(i==x){
             ((KennlineHolder) viewHolder).button.setTextColor(Color.GREEN);
            String s = (String) ((KennlineHolder) viewHolder).button.getText();
+           MainActivity.setVerfahren(s);
            //System.out.println(s);
-           //MainActivity.setVerfahren(s);
         }else {
             ((KennlineHolder) viewHolder).button.setTextColor(Color.GRAY);
         }

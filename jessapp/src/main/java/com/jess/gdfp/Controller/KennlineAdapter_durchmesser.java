@@ -81,7 +81,7 @@ public class KennlineAdapter_durchmesser extends RecyclerView.Adapter {
         if(i==x){
             ((KennlineHolder) viewHolder).button.setTextColor(Color.GREEN);
             String DRAHTDM = (String)((KennlineHolder) viewHolder).button.getText();
-            //MainActivity.setDrahtDM(DRAHTDM);
+            MainActivity.setDrahtDM(DRAHTDM);
             //System.out.println(DRAHTDM);
         }else {
             ((KennlineHolder) viewHolder).button.setTextColor(Color.WHITE);

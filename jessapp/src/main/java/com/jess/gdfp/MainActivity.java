@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private View kenn_fragment;
     private View betriebsart_fragement;
     private Button kennlinie;
+    private Button JOB_NUM;
+    private TextView JOB_DISPLAY;
 
     private BluetoothService BSF = null;
     private Boolean btCom_status = false;
@@ -724,7 +726,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
      private void serial_init(){
          try {
              //UartService.mSerialPort = mApplication.getSerialPort();
-             UartService.mSerialPort = new SerialPort(new File("/dev/ttyS4"), 2000000, 0); //Open the serial port //2000000
+             UartService.mSerialPort = new SerialPort(new File("/dev/ttyS4"),115200 , 0); //Open the serial port //2000000
              mOutputStream = UartService.mSerialPort.getOutputStream();
              UartService.mInputStream = UartService.mSerialPort.getInputStream();
 
@@ -1144,6 +1146,15 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             layout1.setVisibility(View.VISIBLE);
         });
 
+        JOB_NUM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Display job number in textview
+                JOB_DISPLAY.setText("Job number : 3");
+                JOB_DISPLAY.setTextColor(Color.MAGENTA);
+            }
+        });
+
         newHandler.post(TimerHandler);
 
     }
@@ -1168,9 +1179,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     };
 
     public static void setVerfahren(String s){
-        Log.i("Verfahren",String.valueOf(DatenObjekte.Verfahren));
+        //Log.i("Verfahren",String.valueOf(DatenObjekte.Verfahren));
         switch (s){
-
             case "WIG SPEED":
                 System.out.println("WIG SPEED");
                 VERFAHREN = 7;
@@ -1189,91 +1199,101 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             case"ElECTRODE":
                 System.out.println("ELECTRODE");
                 VERFAHREN = 4;
-                VERFAHREN_MODE = 5;
+                /*VERFAHREN_MODE = 5;
                 if(DatenObjekte.SV1pos1 == 3){ // Puls
-                    callChangeParameter(1,30,30,0);
+                    //callChangeParameter(1,30,30,0);
                 }else if(DatenObjekte.SV1pos1 == 2){ // Synergie
-                    callChangeParameter(2,30,30,0);
+                    //callChangeParameter(2,30,30,0);
                 }else if(DatenObjekte.SV1pos1 == 1){ // Normal
-                    callChangeParameter(3,30,30,0);
-                }else Log.i("Verfahren mode ","ElektrodeMMA");
+                    //callChangeParameter(3,30,30,0);
+                }else Log.i("Verfahren mode ","ElektrodeMMA");*/
                 break;
 
             case"PLUS":
                 System.out.println("PULS");
                 VERFAHREN = 3;
-                VERFAHREN_MODE = 4;
+                /*VERFAHREN_MODE = 4;
                 if(DatenObjekte.SV1pos1 == 4){ // Elektrode
-                    callChangeParameter(3,29,5,0);
+                    //callChangeParameter(3,29,5,0);
                 }else if(DatenObjekte.SV1pos1 == 2){ // Synergie
-                    callChangeParameter(1,29,5,0);
+                    //callChangeParameter(1,29,5,0);
                 }else if(DatenObjekte.SV1pos1 == 1){ // Normal
-                    callChangeParameter(2,29,5,0);
-                }else Log.i("Verfahren mode ","MMPuls");
+                    //callChangeParameter(2,29,5,0);
+                }else Log.i("Verfahren mode ","MMPuls");*/
                 break;
 
             case"MIG/MAG synregy":
                 System.out.println("MIG/MAG SYNERGY");
                 VERFAHREN = 2;
-                if(DatenObjekte.SV1pos1 == 4) { // Elektrode
-                    callChangeParameter(2,25,10,0);
+                /*if(DatenObjekte.SV1pos1 == 4) { // Elektrode
+                    //callChangeParameter(2,25,10,0);
                 }else if(DatenObjekte.SV1pos1 == 3){ //Puls
-                    callChangeParameter(3,25,10,0);
+                    ///callChangeParameter(3,25,10,0);
                 }else if(DatenObjekte.SV1pos1 == 1){ //Normal
-                    callChangeParameter(1,25,10,0);
-                }else Log.i("Verfahren mode ","MMSynergy");
+                    //callChangeParameter(1,25,10,0);
+                }else Log.i("Verfahren mode ","MMSynergy");*/
                 break;
 
             case"MIG/MAG Normal":
                 System.out.println("MIG/MAG NORMAL");
                 VERFAHREN = 1;
-                VERFAHREN_MODE = 2;
+                /*VERFAHREN_MODE = 2;
                 if(DatenObjekte.SV1pos1 == 4) { // Elektrode
-                    callChangeParameter(1,28,5,0);
+                    //callChangeParameter(1,28,5,0);
                 }else if(DatenObjekte.SV1pos1 == 3){ //Puls
-                    callChangeParameter(2,29,5,0);
+                    //callChangeParameter(2,29,5,0);
                 }else if(DatenObjekte.SV1pos1 == 2){ //Synergie
-                    callChangeParameter(3,29,5,0);
-                }else Log.i("Verfahren mode ","MMNormal");
+                    //callChangeParameter(3,29,5,0);
+                }else Log.i("Verfahren mode ","MMNormal");*/
                 break;
         }
     }
 
     public static void setMaterial(String s){
-        Log.i("Werkstoff",String.valueOf(DatenObjekte.Werkstoff));
+        //Log.i("Werkstoff",String.valueOf(DatenObjekte.Werkstoff));
         switch (s){
             case "Al/mg4/5Mn": //case 8
+                WERKSTOFF = 0;
                 System.out.println("Al/mg4/5Mn");
                 break;
             case"Al/mg5": //case 7
+                WERKSTOFF = 1;
                 System.out.println("Al/mg5");
                 break;
             case "Al/mg3": //case 6
+                WERKSTOFF = 2;
                 System.out.println("Al/mg3");
                 break;
             case"Cu/Si": //case 5
+                WERKSTOFF = 3;
                 System.out.println("Cu/Si");
                 break;
             case"AL/Si":
+                WERKSTOFF = 4;
                 System.out.println("AL/Si");
                 callChangeParameter(1,12,0,1);
                 break;
             case"AL/Mg":
+                WERKSTOFF = 5;
                 System.out.println("AL/Mg");
                 callChangeParameter(1,11,0,1);
                 break;
             case"Cr/Ni":
+                WERKSTOFF = 6;
                 System.out.println("Cr/Ni");
                 callChangeParameter(1,10,0,1);
                 break;
             case"Fe":
+                WERKSTOFF = 7;
                 System.out.println("Fe");
                 callChangeParameter(1,14,0,1);
                 break;
             case"Al/Bz": // case 9
+                WERKSTOFF = 8;
                 System.out.println("Al/Bz");
                 break;
             case"Spezial":
+                WERKSTOFF = 9;
                 System.out.println("Spezial");
                 callChangeParameter(1,13,0,1);
                 break;
@@ -1285,81 +1305,284 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Log.i("DrahtDM",String.valueOf(DatenObjekte.SV1pos3)); //DrahtDurchmesser
         switch (s){
             case "0.8":
-                System.out.println("Al/mg4/5Mn");
+                DRAHTDURCHMESSER = 0;
                 break;
             case"0.9":
-                System.out.println("Al/mg5");
+                DRAHTDURCHMESSER = 1;
                 break;
             case "1.0":
-                System.out.println("Al/mg3");
+                DRAHTDURCHMESSER = 2;
                 break;
             case"1.1":
-                System.out.println("Cu/Si");
+                DRAHTDURCHMESSER = 3;
                 break;
             case"1.2":
-                System.out.println("AL/Si");
-                callChangeParameter(1,12,0,1);
+                DRAHTDURCHMESSER = 4;
+                //callChangeParameter(1,12,0,1);
                 break;
             case"1.3":
-                System.out.println("AL/Mg");
-                callChangeParameter(1,11,0,1);
+                DRAHTDURCHMESSER = 5;
+                //callChangeParameter(1,11,0,1);
                 break;
             case"1.4":
-                System.out.println("Cr/Ni");
-                callChangeParameter(1,10,0,1);
+                DRAHTDURCHMESSER = 6;
+                //callChangeParameter(1,10,0,1);
                 break;
             case"1.5":
-                System.out.println("Fe");
-                callChangeParameter(1,14,0,1);
+                DRAHTDURCHMESSER = 7;
+                //callChangeParameter(1,14,0,1);
                 break;
             case"1.6":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 8;
                 break;
             case"1.7":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 9;
                 break;
             case"1.8":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 10;
                 break;
             case"1.9":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 11;
                 break;
             case"2.0":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 12;
                 break;
             case"2.1":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 13;
                 break;
             case"2.2":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 14;
                 break;
             case"2.3":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 15;
                 break;
             case"2.4":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 16;
                 break;
             case"2.5":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 17;
                 break;
             case"2.6":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 18;
                 break;
             case"2.7":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 19;
                 break;
             case"2.8":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 20;
                 break;
             case"2.9":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 21;
                 break;
             case"3.0":
-                System.out.println("Al/Bz");
+                DRAHTDURCHMESSER = 22;
+                break;
+            case"3.1":
+                DRAHTDURCHMESSER = 23;
+                break;
+            case"3.2":
+                DRAHTDURCHMESSER = 24;
+                break;
+            case"3.3":
+                DRAHTDURCHMESSER = 25;
+                break;
+            case"3.4":
+                DRAHTDURCHMESSER = 26;
+                break;
+            case"3.5":
+                break;
+            case"3.6":
+                break;
+            case"3.7":
+                break;
+            case"3.8":
+                break;
+            case"3.9":
+                break;
+            case"4.0":
+                break;
+            case"4.1":
+                break;
+            case"4.2":
+                break;
+            case"4.3":
+                break;
+            case"4.4":
+                break;
+            case"4.5":
+                break;
+            case"4.6":
+                break;
+            case"4.7":
+                break;
+            case"4.8":
+                break;
+            case"4.9":
+                break;
+            case"5.0":
+                break;
+            case"5.1":
+                break;
+            case"5.2":
+                break;
+            case"5.3":
+                break;
+            case"5.4":
+                break;
+            case"5.5":
+                break;
+            case"5.6":
+                break;
+            case"5.7":
+                break;
+            case"5.8":
+                break;
+            case"5.9":
+                break;
+            case"6.0":
+                break;
+            case"6.1":
+                break;
+            case"6.2":
+                break;
+            case"6.3":
+                break;
+            case"6.4":
+                break;
+            case"6.5":
+                break;
+            case"6.6":
+                break;
+            case"6.7":
+                break;
+            case"6.8":
+                break;
+            case"6.9":
+                break;
+            case"7.0":
+                break;
+            case"7.1":
+                break;
+            case"7.2":
+                break;
+            case"7.3":
+                break;
+            case"7.4":
+                break;
+            case"7.5":
+                break;
+            case"7.6":
+                break;
+            case"7.7":
+                break;
+            case"7.8":
+                break;
+            case"7.9":
+                break;
+            case"8.0":
+                break;
+            case"8.1":
+                break;
+            case"8.2":
+                break;
+            case"8.3":
+                break;
+            case"8.4":
+                break;
+            case"8.5":
+                break;
+            case"8.6":
+                break;
+            case"8.7":
+                break;
+            case"8.8":
+                break;
+            case"8.9":
+                break;
+            case"9.0":
+                break;
+            case"9.1":
+                break;
+            case"9.2":
+                break;
+            case"9.3":
+                break;
+            case"9.4":
+                break;
+            case"9.5":
+                break;
+            case"9.6":
+                break;
+            case"9.7":
+                break;
+            case"9.8":
+                break;
+            case"9.9":
+                break;
+            case"10.0":
+                break;
+            case"10.1":
+                break;
+            case"10.2":
+                break;
+            case"10.3":
+                break;
+            case"10.4":
+                break;
+            case"10.5":
+                break;
+            case"10.6":
+                break;
+            case"10.7":
+                break;
+            case"10.8":
+                break;
+            case"10.9":
+                break;
+            case"11.0":
+                break;
+            case"11.1":
+                break;
+            case"11.2":
+                break;
+            case"11.3":
+                break;
+            case"11.4":
+                break;
+            case"11.5":
+                break;
+            case"11.6":
+                break;
+            case"11.7":
+                break;
+            case"11.8":
+                break;
+            case"11.9":
+                break;
+            case"12.0":
+                break;
+            case"12.1":
+                break;
+            case"12.2":
+                break;
+            case"12.3":
+                break;
+            case"12.4":
+                break;
+            case"12.5":
+                break;
+            case"12.6":
+                break;
+            case"12.7":
+                break;
+            case"12.8":
+                break;
+            case"12.9":
+                break;
+            case"13.0":
                 break;
             case"Spezial":
                 System.out.println("Spezial");
-                callChangeParameter(1,13,0,1);
                 break;
         }
     }
@@ -1367,61 +1590,80 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static void setGas(String s){
         switch (s){
             case "50Ar / 50%H2": //case 16
+                GAS = 0;
                 System.out.println("50Ar / 50%H2");
                 break;
             case"30Ar / 70%H2": //case 17
+                GAS = 1;
                 System.out.println("30Ar / 70%H2");
                 break;
             case "82%AR / 18%CO":
+                GAS = 2;
                 System.out.println("82%AR / 18%CO");
                 break;
             case"98%AR / 2%CO":
+                GAS = 3;
                 System.out.println("98%AR / 2%CO");
                 break;
             case"100%AR": // case 2
+                GAS = 4;
                 System.out.println("100%AR");
                 break;
             case"100%CO":
+                GAS = 5;
                 System.out.println("100%CO");
                 break;
             case"92%AR / 8%CO":
+                GAS = 6;
                 System.out.println("92%AR / 8%CO");
                 break;
             case"99%AR / 1%O2": //case
+                GAS = 7;
                 System.out.println("99%AR / 1%O2");
                 break;
             case"98%AR / 2%O2": //case 6
+                GAS = 8;
                 System.out.println("98%AR / 2%O2");
                 break;
             case"97%AR / 3%O2": //case 7
+                GAS = 9;
                 System.out.println("97%AR / 3%O2");
                 //callChangeParameter(1,11,0,1);
                 break;
             case"92%AR / 8%O2": //case 8
+                GAS = 10;
                 System.out.println("92%AR / 8%O2");
                 break;
             case"90%AR / 5%O2/ 5%CO":
+                GAS = 11;
                 System.out.println("90%AR / 5%O2/ 5%CO");
                 break;
             case"100%HE": //case 10
+                GAS = 12;
                 System.out.println("100%HE");
                 break;
             case"80%AR / 20%HE": //case 11
+                GAS = 13;
                 System.out.println("80%AR / 20%HE");
                 break;
             case"69%AR/ 30%HE/1%O2": //case 12
+                GAS = 14;
                 System.out.println("69%AR/ 30%HE/1%O2");
                 break;
             case"50Ar / 50%HE": //case 13
+                GAS = 15;
                 System.out.println("50Ar / 50%HE");
                 break;
             case"98Ar / 2%H2": //case 14
+                GAS = 16;
                 System.out.println("98Ar / 2%H2");
                 break;
             case"94Ar / 6%H2": //case 15
+                GAS = 17;
                 System.out.println("94Ar / 6%H2");
                 break;
             case"Spezial": //case 18
+                GAS = 18;
                 System.out.println("Spezial");
                 break;
         }
@@ -1979,7 +2221,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Runnable KENN_TIMER = new Runnable() {
         @Override
         public void run() {
-            //Log.i("Timer ","is counting");
+            Log.i("Timer ","is counting");
             testbtn_onclick1();
             //delayInMilli(1000);
             //sendKennToMachine();
@@ -2022,14 +2264,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
         CONTROL_PANEL_MODE  = 1;
 
-           if ((DatenObjekte.SV1pos1==1) && (DatenObjekte.mpm_display>8) ) //Normal
-           {
+           if((DatenObjekte.SV1pos1==1) && (DatenObjekte.mpm_display>8)){ //Normal
                DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-           } else if ((DatenObjekte.SV1pos1==2) && (DatenObjekte.mpm_display>40) ) //Synergie
-           {
+           }else if ((DatenObjekte.SV1pos1==2) && (DatenObjekte.mpm_display>40) ){ //Synergie
                DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-           } else if ((DatenObjekte.SV1pos1==3) && (DatenObjekte.mpm_display>20) ) //Pulse
-           {
+           }else if ((DatenObjekte.SV1pos1==3) && (DatenObjekte.mpm_display>20) ){ //Pulse
                DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
            }
 
@@ -2067,40 +2306,59 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         }
     }*/
 
-    public void buttonEncoder1(){
+    public void buttonEncoder0(){
+        txtprogress.setText("buttonEncoder0");
 
     };
 
+    public void buttonEncoder1(){
+        txtprogress.setText("buttonEncoder1");
+
+    };
+
+    public void buttonEncoder2(){
+        txtprogress.setText("buttonEncoder2");
+
+    };
+
+    public void pressButton0(){
+        MENU_TOKEN = true;
+        txtprogress.setText("Button0");
+    }
+
     public void pressButton1(){
         TEST_TOKEN = true;
+        txtprogress.setText("Button1");
     }
 
     public void pressButton2(){
         HOME_TOKEN = true;
+        txtprogress.setText("Button2");
     }
 
     public void pressButton3(){
         DROSSEL_TOKEN = true;
+        txtprogress.setText("Button3");
     }
 
     public void pressButton4(){
         DATEN_TOKEN = true;
+        txtprogress.setText("Button4");
     }
 
     public void pressButton5(){
         VERFAHREN_TOKEN = true;
+        txtprogress.setText("Button5");
     }
 
     public void pressButton6(){
         KENNLINIE_TOKEN = true;
+        txtprogress.setText("Button6");
     }
 
     public void pressButton7(){
         BETRIEBSART_TOKEN = true;
-    }
-
-    public void pressButton8(){
-        MENU_TOKEN = true;
+        txtprogress.setText("Button7");
     }
 
     private  void  progrssinit(){
@@ -2144,6 +2402,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         ANZEIGE2 = findViewById(R.id.anzeige2);
         ANZEIGE3 = findViewById(R.id.anzeige3);
         txtprogress = findViewById(R.id.txtpro);
+        JOB_NUM  = findViewById(R.id.job_btn);
+        JOB_DISPLAY = findViewById(R.id.job_Nummer);
     }
 
     private void setVisibility(){
@@ -2556,10 +2816,16 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
          * This method is to send Kennlinie Grunddaten to the machine
          **/
         TMP_KENNFRAME = GetKennlinieDaten.UpdateKennlinie();
+        String[] x = new String[230];
+        StringBuilder sby = new StringBuilder(); //data in hex
+        String y = "";
 
         for(int i=0;i<222;i++){
             KENN_STRING = KENN_STRING + (char) (TMP_KENNFRAME[i] & 0xFF);
+            x[i] = String.format("%02x", (int) ((TMP_KENNFRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
+            y = sby.append(x[i]).toString(); //hex string
         }
+        //System.out.println(y);
 
         WriteToSerial(KENN_STRING);
         KENN_STRING = "";
