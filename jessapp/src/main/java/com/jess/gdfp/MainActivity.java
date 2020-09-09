@@ -35,7 +35,6 @@ import com.jess.gdfp.DatenBank.JobContract;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.JobsDetails;
-import com.jess.gdfp.View.Setting;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -73,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Intent intent;
     private UartService uartService;
     private Button droessel;
+    private Button MENU_JOBS;
+    private Button MENU_DATENLOGGER;
+    private Button MENU_KENNLINIE;
+    private Button MENU_SETTING;
+    private Button MENU_EXIT;
 
     private Button circle_button;
     private Button minus_button;
@@ -104,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Button kennlinie;
     private Button JOB_NUM;
     private TextView JOB_DISPLAY;
+    public static boolean SETTING_TOKEN = false;
+    public static boolean CHANGE_TOKEN = false;
+    public static int SETTING_COUNTER = 0;
 
     private BluetoothService BSF = null;
     private Boolean btCom_status = false;
@@ -922,8 +929,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         }
     }
 
-
-
     MainActivity_Controller mainActivityController = new MainActivity_Controller(MainActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -936,24 +941,29 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         variablen_init();
         progrssinit();
         setVisibility();
-
+        serial_init();
+        /*MENU_JOBS.setBackgroundColor(Color.BLACK);
+        MENU_JOBS.setTextColor(Color.WHITE);
+*/
         mHandler = new UartService.MyHandler();
         Setting= findViewById(R.id.setting);
         Setting.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view ) {
+
+                SETTING_TOKEN = true;
                 mainActivityController.onClick_newActivity(com.jess.gdfp.View.Setting.class);
+
             }
         });
-        serial_init();
 
         testbtn = findViewById(R.id.testbutton);
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //testbtn_onclick();
+                testbtn_onclick();
                 //delayInMilli(1000);
-                sendKennToMachine();
+                //sendKennToMachine();
                 //KENN_HANDLER.removeCallbacks(KENN_TIMER);
             }
         });
@@ -1182,22 +1192,22 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         //Log.i("Verfahren",String.valueOf(DatenObjekte.Verfahren));
         switch (s){
             case "WIG SPEED":
-                System.out.println("WIG SPEED");
+                //System.out.println("WIG SPEED");
                 VERFAHREN = 7;
                 break;
 
             case"WIG PULSEN":
-                System.out.println("WIG PULSEN");
+                //System.out.println("WIG PULSEN");
                 VERFAHREN = 6;
                 break;
 
             case "WIG":
-                System.out.println("WIG");
+                //System.out.println("WIG");
                 VERFAHREN = 5;
                 break;
 
             case"ElECTRODE":
-                System.out.println("ELECTRODE");
+                //System.out.println("ELECTRODE");
                 VERFAHREN = 4;
                 /*VERFAHREN_MODE = 5;
                 if(DatenObjekte.SV1pos1 == 3){ // Puls
@@ -1210,7 +1220,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 break;
 
             case"PLUS":
-                System.out.println("PULS");
+                //System.out.println("PULS");
                 VERFAHREN = 3;
                 /*VERFAHREN_MODE = 4;
                 if(DatenObjekte.SV1pos1 == 4){ // Elektrode
@@ -1223,7 +1233,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 break;
 
             case"MIG/MAG synregy":
-                System.out.println("MIG/MAG SYNERGY");
+                //System.out.println("MIG/MAG SYNERGY");
                 VERFAHREN = 2;
                 /*if(DatenObjekte.SV1pos1 == 4) { // Elektrode
                     //callChangeParameter(2,25,10,0);
@@ -1235,7 +1245,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 break;
 
             case"MIG/MAG Normal":
-                System.out.println("MIG/MAG NORMAL");
+                //System.out.println("MIG/MAG NORMAL");
                 VERFAHREN = 1;
                 /*VERFAHREN_MODE = 2;
                 if(DatenObjekte.SV1pos1 == 4) { // Elektrode
@@ -1254,55 +1264,55 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         switch (s){
             case "Al/mg4/5Mn": //case 8
                 WERKSTOFF = 0;
-                System.out.println("Al/mg4/5Mn");
+                //System.out.println("Al/mg4/5Mn");
                 break;
             case"Al/mg5": //case 7
                 WERKSTOFF = 1;
-                System.out.println("Al/mg5");
+                //System.out.println("Al/mg5");
                 break;
             case "Al/mg3": //case 6
                 WERKSTOFF = 2;
-                System.out.println("Al/mg3");
+                //System.out.println("Al/mg3");
                 break;
             case"Cu/Si": //case 5
                 WERKSTOFF = 3;
-                System.out.println("Cu/Si");
+                //System.out.println("Cu/Si");
                 break;
             case"AL/Si":
                 WERKSTOFF = 4;
-                System.out.println("AL/Si");
-                callChangeParameter(1,12,0,1);
+                //System.out.println("AL/Si");
+                //callChangeParameter(1,12,0,1);
                 break;
             case"AL/Mg":
                 WERKSTOFF = 5;
-                System.out.println("AL/Mg");
-                callChangeParameter(1,11,0,1);
+                //System.out.println("AL/Mg");
+                //callChangeParameter(1,11,0,1);
                 break;
             case"Cr/Ni":
                 WERKSTOFF = 6;
-                System.out.println("Cr/Ni");
-                callChangeParameter(1,10,0,1);
+                //System.out.println("Cr/Ni");
+                //callChangeParameter(1,10,0,1);
                 break;
             case"Fe":
                 WERKSTOFF = 7;
-                System.out.println("Fe");
-                callChangeParameter(1,14,0,1);
+                //System.out.println("Fe");
+                //callChangeParameter(1,14,0,1);
                 break;
             case"Al/Bz": // case 9
                 WERKSTOFF = 8;
-                System.out.println("Al/Bz");
+                //System.out.println("Al/Bz");
                 break;
             case"Spezial":
                 WERKSTOFF = 9;
-                System.out.println("Spezial");
-                callChangeParameter(1,13,0,1);
+                //System.out.println("Spezial");
+                //callChangeParameter(1,13,0,1);
                 break;
 
         }
     }
 
     public static void setDrahtDM(String s){ //mm
-        Log.i("DrahtDM",String.valueOf(DatenObjekte.SV1pos3)); //DrahtDurchmesser
+        //Log.i("DrahtDM",String.valueOf(DatenObjekte.SV1pos3)); //DrahtDurchmesser
         switch (s){
             case "0.8":
                 DRAHTDURCHMESSER = 0;
@@ -1581,6 +1591,66 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 break;
             case"13.0":
                 break;
+            case"13.1":
+                break;
+            case"13.2":
+                break;
+            case"13.3":
+                break;
+            case"13.4":
+                break;
+            case"13.5":
+                break;
+            case"13.6":
+                break;
+            case"13.7":
+                break;
+            case"13.8":
+                break;
+            case"13.9":
+                break;
+            case"14.0":
+                break;
+            case"14.1":
+                break;
+            case"14.2":
+                break;
+            case"14.3":
+                break;
+            case"14.4":
+                break;
+            case"14.5":
+                break;
+            case"14.6":
+                break;
+            case"14.7":
+                break;
+            case"14.8":
+                break;
+            case"14.9":
+                break;
+            case"15.0":
+                break;
+            case"15.1":
+                break;
+            case"15.2":
+                break;
+            case"15.3":
+                break;
+            case"15.4":
+                break;
+            case"15.5":
+                break;
+            case"15.6":
+                break;
+            case"15.7":
+                break;
+            case"15.8":
+                break;
+            case"15.9":
+                break;
+            case"16.0":
+                break;
             case"Spezial":
                 System.out.println("Spezial");
                 break;
@@ -1591,80 +1661,80 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         switch (s){
             case "50Ar / 50%H2": //case 16
                 GAS = 0;
-                System.out.println("50Ar / 50%H2");
+                //System.out.println("50Ar / 50%H2");
                 break;
             case"30Ar / 70%H2": //case 17
                 GAS = 1;
-                System.out.println("30Ar / 70%H2");
+                //System.out.println("30Ar / 70%H2");
                 break;
             case "82%AR / 18%CO":
                 GAS = 2;
-                System.out.println("82%AR / 18%CO");
+                //System.out.println("82%AR / 18%CO");
                 break;
             case"98%AR / 2%CO":
                 GAS = 3;
-                System.out.println("98%AR / 2%CO");
+                //System.out.println("98%AR / 2%CO");
                 break;
             case"100%AR": // case 2
                 GAS = 4;
-                System.out.println("100%AR");
+                //System.out.println("100%AR");
                 break;
             case"100%CO":
                 GAS = 5;
-                System.out.println("100%CO");
+                //System.out.println("100%CO");
                 break;
             case"92%AR / 8%CO":
                 GAS = 6;
-                System.out.println("92%AR / 8%CO");
+                //System.out.println("92%AR / 8%CO");
                 break;
             case"99%AR / 1%O2": //case
                 GAS = 7;
-                System.out.println("99%AR / 1%O2");
+                //System.out.println("99%AR / 1%O2");
                 break;
             case"98%AR / 2%O2": //case 6
                 GAS = 8;
-                System.out.println("98%AR / 2%O2");
+                //System.out.println("98%AR / 2%O2");
                 break;
             case"97%AR / 3%O2": //case 7
                 GAS = 9;
-                System.out.println("97%AR / 3%O2");
+                //System.out.println("97%AR / 3%O2");
                 //callChangeParameter(1,11,0,1);
                 break;
             case"92%AR / 8%O2": //case 8
                 GAS = 10;
-                System.out.println("92%AR / 8%O2");
+                //System.out.println("92%AR / 8%O2");
                 break;
             case"90%AR / 5%O2/ 5%CO":
                 GAS = 11;
-                System.out.println("90%AR / 5%O2/ 5%CO");
+                //System.out.println("90%AR / 5%O2/ 5%CO");
                 break;
             case"100%HE": //case 10
                 GAS = 12;
-                System.out.println("100%HE");
+                //System.out.println("100%HE");
                 break;
             case"80%AR / 20%HE": //case 11
                 GAS = 13;
-                System.out.println("80%AR / 20%HE");
+                //System.out.println("80%AR / 20%HE");
                 break;
             case"69%AR/ 30%HE/1%O2": //case 12
                 GAS = 14;
-                System.out.println("69%AR/ 30%HE/1%O2");
+                //System.out.println("69%AR/ 30%HE/1%O2");
                 break;
             case"50Ar / 50%HE": //case 13
                 GAS = 15;
-                System.out.println("50Ar / 50%HE");
+                //System.out.println("50Ar / 50%HE");
                 break;
             case"98Ar / 2%H2": //case 14
                 GAS = 16;
-                System.out.println("98Ar / 2%H2");
+                //System.out.println("98Ar / 2%H2");
                 break;
             case"94Ar / 6%H2": //case 15
                 GAS = 17;
-                System.out.println("94Ar / 6%H2");
+                //System.out.println("94Ar / 6%H2");
                 break;
             case"Spezial": //case 18
                 GAS = 18;
-                System.out.println("Spezial");
+                //System.out.println("Spezial");
                 break;
         }
     }
@@ -2221,10 +2291,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Runnable KENN_TIMER = new Runnable() {
         @Override
         public void run() {
-            Log.i("Timer ","is counting");
+            //Log.i("Timer ","is counting");
             testbtn_onclick1();
-            //delayInMilli(1000);
-            //sendKennToMachine();
+            delayInMilli(500);
+            sendKennToMachine();
             KENN_HANDLER.postDelayed(KENN_TIMER,3000);
         }
     };
@@ -2258,6 +2328,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         }
         if(DatenObjekte.SV1pos1 != 4) txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
         else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
+
+        if(SETTING_TOKEN) {
+            CHANGE_TOKEN = true;
+            SETTING_COUNTER++;
+        }
+
     }
 
      public void decrementEncoder1(int val_encoder){
@@ -2404,6 +2480,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         txtprogress = findViewById(R.id.txtpro);
         JOB_NUM  = findViewById(R.id.job_btn);
         JOB_DISPLAY = findViewById(R.id.job_Nummer);
+        /*MENU_JOBS = findViewById(R.id.jobsUser);
+        MENU_DATENLOGGER = findViewById(R.id.dlogger);
+        MENU_KENNLINIE = findViewById(R.id.setting_kennlinie);
+        MENU_SETTING = findViewById(R.id.menusetting);
+        MENU_EXIT = findViewById(R.id.accoutnt);*/
     }
 
     private void setVisibility(){
@@ -2787,7 +2868,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             delayInMilli(200);
             SendMMPuls.ChangeParameter(29,5,0);
         }else Log.i("Verfahren mode ","MMPuls");
-
     }
 
     private void ElektrodeMMA_btn_onclick(){
@@ -2807,11 +2887,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             delayInMilli(200);
             SendElectrodeMMA.ChangeParameter(30,30,0);
         }else Log.i("Verfahren mode ","ElektrodeMMA");
-
     }
 
     private void sendKennToMachine(){
-
         /**
          * This method is to send Kennlinie Grunddaten to the machine
          **/
@@ -2874,5 +2952,3 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         droessel.setEnabled(false);
     }
 }
-
-

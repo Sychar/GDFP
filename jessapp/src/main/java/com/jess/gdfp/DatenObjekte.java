@@ -347,7 +347,7 @@ public class DatenObjekte {
              */
 
             if (gethex.equals("06F0")) {
-                //Log.i("gethex",gethex);
+                Log.i("gethex",gethex);
                 counterTest++;
                 JOB_COUNTER++;
                 //-----------------First frame-------------------------------------
@@ -382,9 +382,16 @@ public class DatenObjekte {
                     y = 0;
                 }
 
-                /*for(int i=0;i<213;i++){ //214 data
-                    System.out.println(String.format("%02x", (int) ((JOB_FRAME[i]) & 0xFF)).toUpperCase());
-                }*/
+                String[] x = new String[230];
+                StringBuilder sby = new StringBuilder(); //data in hex
+                String y = "";
+
+                for(int i=0;i<213;i++){ //214 data
+                    x[i] = String.format("%02x", (int) ((JOB_FRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
+                    y = sby.append(x[i]).toString(); //hex string
+                    //System.out.println(String.format("%02x", (int) ((JOB_FRAME[i]) & 0xFF)).toUpperCase());
+                }
+                System.out.println(y);
 
             } else if (gethex.equals("0720")) { //send to Heartbeat class
                 HeartBeat.sendHeartBeat(); //you don’t have to create an object from a class before you can use static methods defined by the class.

@@ -29,22 +29,21 @@
      android:text="Jobs"></Button>
 
 
-    <Button
-        android:id="@+id/dlogger"
-        android:scaleType="fitCenter"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginLeft="30dp"
-        android:textSize="15sp"
-        android:text="Datenlogger"
-        android:textColor="#111"
-        android:background="@drawable/border2"></Button>
+        <Button
+            android:id="@+id/dlogger"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/border2"
+            android:scaleType="fitCenter"
+            android:text="Datenlogger"
+            android:textColor="#111"
+            android:textSize="15sp"></Button>
 
-
-    <Button
+        <Button
 
         android:background="@drawable/border2"
-        android:id="@+id/kennlinie"
+        android:id="@+id/setting_kennlinie"
         android:textColor="#111"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -54,12 +53,12 @@
 
     <Button
         android:background="@drawable/border2"
+        android:id="@+id/menusetting"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginLeft="30dp"
         android:textColor="#111"
         android:text="Setting"></Button>
-
 
     <Button
         android:id="@+id/accoutnt"
