@@ -27,6 +27,7 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.felhr.usbserial.UsbSerialDevice;
 import com.jess.gdfp.Controller.MainActivity_Controller;
@@ -35,6 +36,7 @@ import com.jess.gdfp.DatenBank.JobContract;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.JobsDetails;
+import com.jess.gdfp.View.Setting;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -52,6 +54,7 @@ import java.util.zip.Checksum;
 
 import android_serialport_api.SerialPort;
 import static com.jess.gdfp.UartService.mOutputStream;
+import static com.jess.gdfp.View.Setting.JOBUSER_TOKEN;
 
 public class MainActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener , BetriebsArt.OnFragmentInteractionListener{
 
@@ -72,11 +75,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Intent intent;
     private UartService uartService;
     private Button droessel;
-    private Button MENU_JOBS;
-    private Button MENU_DATENLOGGER;
-    private Button MENU_KENNLINIE;
-    private Button MENU_SETTING;
-    private Button MENU_EXIT;
 
     private Button circle_button;
     private Button minus_button;
@@ -111,6 +109,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static boolean SETTING_TOKEN = false;
     public static boolean CHANGE_TOKEN = false;
     public static int SETTING_COUNTER = 0;
+    public static int JOBBTN_COUNTER = 0;
+    public static boolean ENCODERBUTTON_TOKEN = false;
+    public static boolean JOB_TOKEN = false;
 
     private BluetoothService BSF = null;
     private Boolean btCom_status = false;
@@ -2269,7 +2270,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                  if(DatenObjekte.SV1pos1 != 4) { //Not elektrode mode
                      if (DatenObjekte.mpm_display!=DatenObjekte.Energie1)  sendEnergie.ChangeParameter(2, DatenObjekte.mpm_display, 1);
                      else CONTROL_PANEL_MODE = 0;
-                     Log.i("VERFAHREN_MODE",String.valueOf(VERFAHREN_MODE));
+                     //Log.i("VERFAHREN_MODE",String.valueOf(VERFAHREN_MODE));
                      //Energie = DatenObjekte.Energie1 + val_encoder; // m/min
 
                      //DatenObjekteSend sendEnergie = new DatenObjekteSend();
@@ -2308,7 +2309,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     }
 
     public void incrementEncoder1(int val_encoder){
-
         //Log.i("val_encoder",String.valueOf(val_encoder));
         CONTROL_PANEL_MODE = 1;
 
@@ -2329,24 +2329,30 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         if(DatenObjekte.SV1pos1 != 4) txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
         else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
 
-        if(SETTING_TOKEN) {
-            CHANGE_TOKEN = true;
+        if(SETTING_TOKEN) { //Setting button is pressed
+            //Log.i(TAG,"Turn encoder");
+            //if(SETTING_COUNTER>=0 && SETTING_COUNTER)
             SETTING_COUNTER++;
+            if (SETTING_COUNTER > 5) SETTING_COUNTER = 1;
+            CHANGE_TOKEN = true;
+            //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
         }
-
+        if(JOBUSER_TOKEN){ //Job button is pressed
+            JOBBTN_COUNTER++;
+            if (JOBBTN_COUNTER > 6) JOBBTN_COUNTER = 1;
+        }
     }
 
      public void decrementEncoder1(int val_encoder){
 
         CONTROL_PANEL_MODE  = 1;
-
-           if((DatenObjekte.SV1pos1==1) && (DatenObjekte.mpm_display>8)){ //Normal
-               DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-           }else if ((DatenObjekte.SV1pos1==2) && (DatenObjekte.mpm_display>40) ){ //Synergie
-               DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-           }else if ((DatenObjekte.SV1pos1==3) && (DatenObjekte.mpm_display>20) ){ //Pulse
-               DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-           }
+        if((DatenObjekte.SV1pos1==1) && (DatenObjekte.mpm_display>8)){ //Normal
+            DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
+        }else if ((DatenObjekte.SV1pos1==2) && (DatenObjekte.mpm_display>40) ){ //Synergie
+            DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
+        }else if ((DatenObjekte.SV1pos1==3) && (DatenObjekte.mpm_display>20) ){ //Pulse
+            DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
+        }
 
         if(DatenObjekte.SV1pos1 != 4) txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
         else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
@@ -2362,7 +2368,14 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                DatenObjekteSend changeStrom = new DatenObjekteSend();
                changeStrom.ChangeParameter(38,STROM,0);
            }*/
-        }
+         if(SETTING_TOKEN) {
+             //Log.i(TAG,"Turn encoder");
+             SETTING_COUNTER--;
+             if (SETTING_COUNTER < 1) SETTING_COUNTER = 5;
+             CHANGE_TOKEN = true;
+             //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
+         }
+      }
 
     /*public void sendCANValue(){
         if (msg_for_can1 != null && !msg_for_can1.equals("")) { //send value frame to the machine
@@ -2382,20 +2395,20 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         }
     }*/
 
-    public void buttonEncoder0(){
-        txtprogress.setText("buttonEncoder0");
+    public void pressbuttonEncoder0(){
+        ENCODERBUTTON_TOKEN = true;
+        //txtprogress.setText("pressbuttonEncoder0");
+    }
 
-    };
+    public void pressbuttonEncoder1(){
+        ENCODERBUTTON_TOKEN = true;
+        //txtprogress.setText("pressbuttonEncoder1");
+    }
 
-    public void buttonEncoder1(){
-        txtprogress.setText("buttonEncoder1");
-
-    };
-
-    public void buttonEncoder2(){
-        txtprogress.setText("buttonEncoder2");
-
-    };
+    public void pressbuttonEncoder2(){
+        ENCODERBUTTON_TOKEN = true;
+        //txtprogress.setText("pressbuttonEncoder2");
+    }
 
     public void pressButton0(){
         MENU_TOKEN = true;
@@ -2450,7 +2463,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         mainActivityController.minus_plus_interagieren(progressBarMinus,progressBarPlus,view);
     }
 
-    private  void variablen_init(){
+    private void variablen_init(){
 
        // TxtPr = findViewById(R.id.txtpro);
         kenn_fragment = findViewById(R.id.fragment_test);
@@ -2632,7 +2645,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             }
         }
 
-
         //Increment Job number
 
                 /*for (int i=0; i<JOB_COUNT; i++){
@@ -2641,9 +2653,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     writeJOB();
                     delayInMilli(200);
                 }*/
-
-
-
                 /*if(changekennlinie != null) {
                     byte[] FIRST_ARRAY = changekennlinie.sendKennlinieBaseData();
 

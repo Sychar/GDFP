@@ -495,11 +495,11 @@ public class UartService extends Service {
                             //SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
                             //if(LengthProtocol==15 && ByteArray[3]==0 && ByteArray[4]==0){
                             if(LengthProtocol==10 && ByteArray[3]==0 && ByteArray[4]==0){ //CanID 0000
-                                try{
+                                /*try{
                                     mReadThread.wait(100);
                                 }catch(InterruptedException e){
                                     Log.e("Thread interrupted",e.toString());
-                                }
+                                }*/
                                 SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
                                 //Log.i("CanId is","0000");
                             }

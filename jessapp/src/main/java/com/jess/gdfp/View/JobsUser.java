@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.jess.gdfp.Controller.jobAdapter;
@@ -26,12 +28,20 @@ public class JobsUser extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jobs_user);
+
+        if(Setting.JOBUSER_TOKEN){
+            Setting.JOBUSER_TOKEN = false;
+        }
         myCardView = (CardView) findViewById(R.id.card_view);
         // myCardView.setCardBackgroundColor(Color.TRANSPARENT);
+        LinearLayoutManager mLayoutManager0 = new LinearLayoutManager (this );
+        mLayoutManager0.setOrientation(LinearLayoutManager.VERTICAL);
         ListView rv = findViewById(R.id.list_for_jobs);
         jobs = initJobs();
         final jobAdapter myjobAdapte = new jobAdapter(this, jobs);
         rv.setAdapter(myjobAdapte);
+
+
 
     }
 
@@ -39,7 +49,6 @@ public class JobsUser extends AppCompatActivity {
         intent = new Intent(this, JobsDetails.class);
         startActivity(intent);
     }
-
 
     private ArrayList initJobs() {
         ArrayList jobs = new ArrayList<>();
@@ -51,6 +60,4 @@ public class JobsUser extends AppCompatActivity {
         jobs.add(new Jobs("6", "info6"));
         return jobs;
     }
-
-
 }
