@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.jess.gdfp.DatenBank.Jobs;
 import com.jess.gdfp.MainActivity;
 import com.jess.gdfp.R;
+import com.jess.gdfp.View.JobsUser;
 
 import java.util.ArrayList;
 
@@ -27,31 +28,50 @@ public class jobAdapter extends ArrayAdapter<Jobs> {
     private TextView jobname;
     private CardView cardView;
 
-    public  jobAdapter (Activity context , ArrayList<Jobs> jobs){
-        super(context,0,jobs);
+    public jobAdapter(Activity context, ArrayList<Jobs> jobs) {
+        super(context, 0, jobs);
     }
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        listitem =convertView;
+        listitem = convertView;
         if (listitem == null) {
             listitem = LayoutInflater.from(getContext()).inflate(R.layout.item_for_job, parent, false);
         }
-        id=listitem.findViewById(R.id.job_nr);
-        jobname=listitem.findViewById(R.id.job_name);
-        cardView=listitem.findViewById(R.id.card_view);
+        id = listitem.findViewById(R.id.job_nr);
+        jobname = listitem.findViewById(R.id.job_name);
+        cardView = listitem.findViewById(R.id.card_view);
 
         jobs = getItem(position);
         id.setText(jobs.getNum());
         jobname.setText(jobs.getName());
-        Log.i("position",String.valueOf(position));
+        Log.i("position", String.valueOf(position));
 
-        if (position == 0){
-            id.setTextColor(Color.BLACK);
-            jobname.setTextColor(Color.BLACK);
-            cardView.setCardBackgroundColor(Color.GRAY);
-        }
+
+
+               changebackround(position,JobsUser.pointer);
+
+              //  changebackround(position,JobsUser.pointer);
+
+
+
+
+
 
         return listitem;
+    }
+    void changebackround(int pos,int pointer){
+
+            if(pos!=pointer){
+                id.setTextColor(Color.BLACK);
+                jobname.setTextColor(Color.BLACK);
+                cardView.setCardBackgroundColor(Color.BLACK);
+            }
+            else if(pos == pointer) {
+                id.setTextColor(Color.BLACK);
+                jobname.setTextColor(Color.BLACK);
+                cardView.setCardBackgroundColor(Color.GRAY);
+        }
     }
 }

@@ -8,8 +8,12 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jess.gdfp.Controller.jobAdapter;
 import com.jess.gdfp.DatenBank.Jobs;
@@ -21,7 +25,11 @@ import java.util.List;
 public class JobsUser extends AppCompatActivity {
     private Intent intent;
     CardView myCardView;
+    CheckBox checkBox;
+    ListView rv;
     private ArrayList<Jobs> jobs;
+    static  public int pointer =0;
+    private jobAdapter myjobAdapte;
 
     @Override
 
@@ -33,21 +41,29 @@ public class JobsUser extends AppCompatActivity {
             Setting.JOBUSER_TOKEN = false;
         }
         myCardView = (CardView) findViewById(R.id.card_view);
+        checkBox=findViewById(R.id.cheak_box);
         // myCardView.setCardBackgroundColor(Color.TRANSPARENT);
         LinearLayoutManager mLayoutManager0 = new LinearLayoutManager (this );
         mLayoutManager0.setOrientation(LinearLayoutManager.VERTICAL);
-        ListView rv = findViewById(R.id.list_for_jobs);
+         rv = findViewById(R.id.list_for_jobs);
         jobs = initJobs();
-        final jobAdapter myjobAdapte = new jobAdapter(this, jobs);
+          myjobAdapte = new jobAdapter(this, jobs);
+
         rv.setAdapter(myjobAdapte);
+
+
 
 
 
     }
 
     public void jobuser(View view) {
-        intent = new Intent(this, JobsDetails.class);
-        startActivity(intent);
+       // intent = new Intent(this, JobsDetails.class);
+        //startActivity(intent);
+          pointer++;
+          myjobAdapte.notifyDataSetChanged();
+
+
     }
 
     private ArrayList initJobs() {
