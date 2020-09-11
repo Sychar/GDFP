@@ -2294,8 +2294,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         public void run() {
             //Log.i("Timer ","is counting");
             testbtn_onclick1();
-            delayInMilli(500);
-            sendKennToMachine();
+            //delayInMilli(500);
+            //sendKennToMachine();
             KENN_HANDLER.postDelayed(KENN_TIMER,3000);
         }
     };
@@ -2339,6 +2339,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         }
         if(JOBUSER_TOKEN){ //Job button is pressed
             JOBBTN_COUNTER++;
+            Log.i("SETTING_COUNTER",String.valueOf(JOBBTN_COUNTER));
             if (JOBBTN_COUNTER > 6) JOBBTN_COUNTER = 1;
         }
     }
@@ -2825,19 +2826,19 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         TEMP_BA = GetKennlinieDaten.readKennDaten();
         StringBuilder tempsb = new StringBuilder();
         for(int i=0;i<16;i++){
-            //TEMP_STRING = tempsb.append(String.format("%02x", (int) ((tempstring[i]) & 0xFF)).toUpperCase()).toString();
+            //TEMP_STRING = tempsb.append(String.format("%02x", (int) ((TEMP_BA[i]) & 0xFF)).toUpperCase()).toString();
             TEMP_STRING = tempsb.append((char)(TEMP_BA[i]&0xFF)).toString();
         }
-        //Log.i("firstframe ",tempstr);
+        //Log.i("firstframe ",TEMP_STRING);
         WriteToSerial(TEMP_STRING);
         TEMP_STRING = "";
         StringBuilder tempsb1 = new StringBuilder();
         delayInMilli(500);
         for(int i=16;i<31;i++){
-            //tempstr = tempsb1.append(String.format("%02x", (int) ((tempstring[i]) & 0xFF)).toUpperCase()).toString();
+            //TEMP_STRING = tempsb1.append(String.format("%02x", (int) ((TEMP_BA[i]) & 0xFF)).toUpperCase()).toString();
             TEMP_STRING = tempsb1.append((char)(TEMP_BA[i]&0xFF)).toString();
         }
-        //Log.i("secondframe ",tempstr);
+        //Log.i("secondframe ",TEMP_STRING);
         WriteToSerial(TEMP_STRING);
     }
 

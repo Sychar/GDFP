@@ -14,6 +14,7 @@ public class GetKennlinieDaten {
         KENN_FRAME[2] = 2;
         KENN_FRAME[3] = 6; //0x06 msb can id
         KENN_FRAME[4] = (byte)224; //0xE0 lsb can id
+        //KENN_FRAME[4] = (byte)1;
         KENN_FRAME[5] = 8; //data length
         KENN_FRAME[6] = 22; //0x16
         KENN_FRAME[7] = 1;
@@ -52,6 +53,7 @@ public class GetKennlinieDaten {
         KENN_FRAME[18] = 2;
         KENN_FRAME[19] = 6; //0x06 msb can id
         KENN_FRAME[20] = (byte)224; //0xE0 lsb can id
+        //KENN_FRAME[20] = (byte)1;
         KENN_FRAME[21] = 7;
         KENN_FRAME[22] = 1;
         KENN_FRAME[23] = 0;

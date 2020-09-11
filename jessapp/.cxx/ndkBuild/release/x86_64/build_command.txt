@@ -1,14 +1,14 @@
-Executable : C:\Users\saljendi\AppData\Local\Android\Sdk\ndk\21.3.6528147\ndk-build.cmd
+Executable : C:\Users\jtan\AppData\Local\Android\Sdk\ndk\21.1.6352462\ndk-build.cmd
 arguments : 
 NDK_PROJECT_PATH=null
-APP_BUILD_SCRIPT=C:\Users\saljendi\Desktop\jessapp\jessapp\src\main\jni\Android.mk
-NDK_APPLICATION_MK=C:\Users\saljendi\Desktop\jessapp\jessapp\src\main\jni\Application.mk
+APP_BUILD_SCRIPT=O:\PraktikantenRD\Jiajing\17.08_Version\GDFP\jessapp\src\main\jni\Android.mk
+NDK_APPLICATION_MK=O:\PraktikantenRD\Jiajing\17.08_Version\GDFP\jessapp\src\main\jni\Application.mk
 APP_ABI=x86_64
 NDK_ALL_ABIS=x86_64
 NDK_DEBUG=0
 APP_PLATFORM=android-22
-NDK_OUT=C:/Users/saljendi/Desktop/jessapp/jessapp/build/intermediates/ndkBuild/release/obj
-NDK_LIBS_OUT=C:\Users\saljendi\Desktop\jessapp\jessapp\build\intermediates\ndkBuild\release\lib
+NDK_OUT=O:/PraktikantenRD/Jiajing/17.08_Version/GDFP/jessapp/build/intermediates/ndkBuild/release/obj
+NDK_LIBS_OUT=O:\PraktikantenRD\Jiajing\17.08_Version\GDFP\jessapp\build\intermediates\ndkBuild\release\lib
 APP_SHORT_COMMANDS=false
 LOCAL_SHORT_COMMANDS=false
 -B
