@@ -36,6 +36,7 @@ import com.jess.gdfp.DatenBank.JobContract;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.JobsDetails;
+import com.jess.gdfp.View.JobsUser;
 import com.jess.gdfp.View.Setting;
 
 import java.io.DataOutputStream;
@@ -54,6 +55,7 @@ import java.util.zip.Checksum;
 
 import android_serialport_api.SerialPort;
 import static com.jess.gdfp.UartService.mOutputStream;
+import static com.jess.gdfp.View.JobsUser.myjobAdapte;
 import static com.jess.gdfp.View.Setting.JOBUSER_TOKEN;
 
 public class MainActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener , BetriebsArt.OnFragmentInteractionListener{
@@ -2309,7 +2311,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     }
 
     public void incrementEncoder1(int val_encoder){
-        //Log.i("val_encoder",String.valueOf(val_encoder));
+        //Log.i(TAG,"incrementEncoder1");
         CONTROL_PANEL_MODE = 1;
 
         if ((DatenObjekte.SV1pos1==1)  && (DatenObjekte.mpm_display<240)) //Normal
@@ -2340,6 +2342,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         if(JOBUSER_TOKEN){ //Job button is pressed
             JOBBTN_COUNTER++;
             Log.i("SETTING_COUNTER",String.valueOf(JOBBTN_COUNTER));
+          JobsUser.changeBackround(JOBBTN_COUNTER);
+
             if (JOBBTN_COUNTER > 6) JOBBTN_COUNTER = 1;
         }
     }
