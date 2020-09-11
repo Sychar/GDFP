@@ -747,7 +747,7 @@ public class DatenObjekte {
                 result2 = result2 >>> 1;//shift seventh time
 
                 if ((result2 & 1) == 1) {
-                    KennlinienTypbit7 = "Kennlinie sichtbar";
+                    KennlinienTypbit7 = "kennlinie_setting sichtbar";
                 }
 
                 JobKommando = (char) DO_FRAME[11];//pos 6
@@ -1197,7 +1197,7 @@ public class DatenObjekte {
             pos = 2;
             //usbObject.changeParam(canid, value, pos);
 
-        }else if(var.equals("Kennlinie")){
+        }else if(var.equals("kennlinie_setting")){
 
             canid = "0182";
             pos = 5;

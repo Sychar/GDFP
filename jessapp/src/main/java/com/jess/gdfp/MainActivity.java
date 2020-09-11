@@ -2287,7 +2287,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     };
 
     /**
-     * Start the timer when Kennlinie button is pressed
+     * Start the timer when kennlinie_setting button is pressed
      */
     private Runnable KENN_TIMER = new Runnable() {
         @Override
@@ -2517,7 +2517,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     }
 
     private void testbtn_onclick(){
-        //Disable the Kennlinie mode
+        //Disable the kennlinie_setting mode
 
         DISABLE_KENN[0] = 36;
 
@@ -2698,7 +2698,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     }
                 }*/
         /**
-         * This method is to send Kennlinie Satz to the machine
+         * This method is to send kennlinie_setting Satz to the machine
          **/
 
                 /*if(changekennlinie != null) {
@@ -2900,7 +2900,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
     private void sendKennToMachine(){
         /**
-         * This method is to send Kennlinie Grunddaten to the machine
+         * This method is to send kennlinie_setting Grunddaten to the machine
          **/
         TMP_KENNFRAME = GetKennlinieDaten.UpdateKennlinie();
         String[] x = new String[230];
@@ -2936,7 +2936,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 WriteToSerial(KENN_STRING);
                 KENN_STRING = "";*/
                 //delayInMilli(100); //delay 10ms
-                //Log.i(TAG, "Update Kennlinie");
+                //Log.i(TAG, "Update kennlinie_setting");
     }
 
     private void WriteToSerial(String s){

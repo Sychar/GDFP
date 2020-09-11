@@ -10,7 +10,7 @@ public class Jobs  {
     public Jobs( String Num ,String name){
         this.name=name;
         this.Num=Num;
-        this.time=time;
+
 
 
     }

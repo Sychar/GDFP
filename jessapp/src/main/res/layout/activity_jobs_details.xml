@@ -4,40 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#111"
     android:orientation="vertical"
     tools:context=".View.JobsDetails">
-    <RelativeLayout
-        android:background="#4fa5d5"
+    <LinearLayout
+        android:background="@drawable/border2"
+
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
         >
         <TextView
+
             android:layout_alignParentLeft="true"
-            android:textColor="#960018"
+            android:textColor="#ffff"
             android:layout_marginTop="15dp"
             android:layout_width="120dp"
             android:textSize="15sp"
             android:layout_marginLeft="20dp"
             android:layout_height="50dp"
-            android:text="JOBS_DATEILS"
+            android:text="PARAM"
             ></TextView>
-        <Button
-            android:onClick="jobDetailsExit"
-            android:layout_marginTop="10dp"
+        <TextView
 
-            android:textColor="#960018"
-            android:backgroundTint="#fff"
-            android:layout_alignParentRight="true"
+            android:textColor="#ffff"
+            android:layout_marginTop="15dp"
             android:layout_width="120dp"
+            android:textSize="15sp"
+            android:layout_marginLeft="320dp"
             android:layout_height="50dp"
-            android:text="Exit"></Button>
-    </RelativeLayout>
+            android:text="WERT"
+            ></TextView>
+
+
+
+
+    </LinearLayout>
 <ListView
-    android:background="#009456"
+
+     android:background="@drawable/border2"
     android:id="@+id/jobdeateils"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
     ></ListView>
 

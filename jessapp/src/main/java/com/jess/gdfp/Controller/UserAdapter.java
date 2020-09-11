@@ -28,7 +28,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             CardView cv = (CardView) itemView.findViewById(R.id.cv);
             name =(TextView) itemView.findViewById(R.id.name_user);
             preveling =(TextView) itemView.findViewById(R.id.preveling);
-            checkBox =(CheckBox) itemView.findViewById(R.id.chBox);
+
             checkBox.setOnClickListener(this);
 
         }
