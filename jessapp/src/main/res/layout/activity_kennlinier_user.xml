@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-android:background="#111111"
+    android:background="#111111"
     android:orientation="vertical"
     tools:context=".View.JobsUser">
 
@@ -30,7 +30,7 @@ android:background="#111111"
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="JOB NR"
+                android:text="Kenn NR"
                 android:textColor="#ffffff"
                 android:textSize="20sp">
             </TextView>

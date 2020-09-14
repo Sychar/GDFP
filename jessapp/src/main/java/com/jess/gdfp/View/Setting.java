@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.jess.gdfp.DatenBank.InfoDataBase;
-import com.jess.gdfp.Kennlinie;
+import com.jess.gdfp.Kennlinier_user;
 import com.jess.gdfp.MainActivity;
 import com.jess.gdfp.R;
 
@@ -57,7 +57,7 @@ public class Setting extends AppCompatActivity {
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
                             }
                         } else if (MainActivity.SETTING_COUNTER == 2) {
-                            //Log.i("Setting ", "Kennlinie");
+                            //Log.i("Setting ", "kennlinie_setting");
                             Kennlinie.setTextColor(Color.WHITE);
                             Kennlinie.setBackgroundColor(Color.BLACK);
                             jobuser.setTextColor(Color.BLACK);
@@ -126,8 +126,8 @@ public class Setting extends AppCompatActivity {
                         //Log.i(TAG, "CHANGE_TOKEN false");
                         datalogger.setTextColor(Color.BLACK);
                         datalogger.setBackgroundColor(Color.GRAY);
-                        Kennlinie.setTextColor(Color.BLACK);
-                        Kennlinie.setBackgroundColor(Color.GRAY);
+                        kennlinie_setting.setTextColor(Color.BLACK);
+                        kennlinie_setting.setBackgroundColor(Color.GRAY);
                         menu_setting.setTextColor(Color.BLACK);
                         menu_setting.setBackgroundColor(Color.GRAY);
                     }*/
@@ -151,16 +151,16 @@ public class Setting extends AppCompatActivity {
                         datalogger.setBackgroundColor(Color.BLACK);
                         jobuser.setTextColor(Color.BLACK);
                         jobuser.setBackgroundColor(Color.GRAY);
-                        Kennlinie.setTextColor(Color.BLACK);
-                        Kennlinie.setBackgroundColor(Color.GRAY);
+                        kennlinie_setting.setTextColor(Color.BLACK);
+                        kennlinie_setting.setBackgroundColor(Color.GRAY);
                         menu_setting.setTextColor(Color.BLACK);
                         menu_setting.setBackgroundColor(Color.GRAY);
                         account.setTextColor(Color.BLACK);
                         account.setBackgroundColor(Color.GRAY);
                     } else if (MainActivity.SETTING_COUNTER == 2) {
-                        Log.i("Setting ", "Kennlinie");
-                        Kennlinie.setTextColor(Color.WHITE);
-                        Kennlinie.setBackgroundColor(Color.BLACK);
+                        Log.i("Setting ", "kennlinie_setting");
+                        kennlinie_setting.setTextColor(Color.WHITE);
+                        kennlinie_setting.setBackgroundColor(Color.BLACK);
                         jobuser.setTextColor(Color.BLACK);
                         jobuser.setBackgroundColor(Color.GRAY);
                         datalogger.setTextColor(Color.BLACK);
@@ -177,8 +177,8 @@ public class Setting extends AppCompatActivity {
                         jobuser.setBackgroundColor(Color.GRAY);
                         datalogger.setTextColor(Color.BLACK);
                         datalogger.setBackgroundColor(Color.GRAY);
-                        Kennlinie.setTextColor(Color.BLACK);
-                        Kennlinie.setBackgroundColor(Color.GRAY);
+                        kennlinie_setting.setTextColor(Color.BLACK);
+                        kennlinie_setting.setBackgroundColor(Color.GRAY);
                         account.setTextColor(Color.BLACK);
                         account.setBackgroundColor(Color.GRAY);
                     } else if (MainActivity.SETTING_COUNTER == 4) {
@@ -189,8 +189,8 @@ public class Setting extends AppCompatActivity {
                         jobuser.setBackgroundColor(Color.GRAY);
                         datalogger.setTextColor(Color.BLACK);
                         datalogger.setBackgroundColor(Color.GRAY);
-                        Kennlinie.setTextColor(Color.BLACK);
-                        Kennlinie.setBackgroundColor(Color.GRAY);
+                        kennlinie_setting.setTextColor(Color.BLACK);
+                        kennlinie_setting.setBackgroundColor(Color.GRAY);
                         menu_setting.setTextColor(Color.BLACK);
                         menu_setting.setBackgroundColor(Color.GRAY);
                         MainActivity.SETTING_COUNTER = 0;
@@ -199,8 +199,8 @@ public class Setting extends AppCompatActivity {
                     Log.i(TAG, "CHANGE_TOKEN false");
                     datalogger.setTextColor(Color.BLACK);
                     datalogger.setBackgroundColor(Color.GRAY);
-                    Kennlinie.setTextColor(Color.BLACK);
-                    Kennlinie.setBackgroundColor(Color.GRAY);
+                    kennlinie_setting.setTextColor(Color.BLACK);
+                    kennlinie_setting.setBackgroundColor(Color.GRAY);
                     menu_setting.setTextColor(Color.BLACK);
                     menu_setting.setBackgroundColor(Color.GRAY);
                 }*/
@@ -302,7 +302,7 @@ public class Setting extends AppCompatActivity {
         startActivity(intent);
     }
     void onClick_Kennlinie() {
-        Intent  intent = new Intent(this, Kennlinie.class);
+        Intent  intent = new Intent(this, Kennlinier_user.class);
         startActivity(intent);
     }
     void onClick_MenuSetting() {

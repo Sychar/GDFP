@@ -156,17 +156,30 @@ public class JobsDetails extends AppCompatActivity {
         setContentView(R.layout.activity_jobs_details);
         Intent getinet = getIntent();
         Bundle getdata = getinet.getExtras();
-        String idOfJob = (String) getdata.get("jobs");
+     //   String idOfJob = (String) getdata.get("jobs");
         ListView listView = (ListView) findViewById(R.id.jobdeateils);
         //System.out.println("was vrom view kommt" + idOfJob);
         //System.out.println(jobdetails.length);
         iint_datejob();
        
-        uri = Uri.parse("content://com.felhr.serialportexample.jobs/jobs/" + idOfJob);
+     //   uri = Uri.parse("content://com.felhr.serialportexample.jobs/jobs/" + idOfJob);
         System.out.println(uri);
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.jobdeatailslist, R.id.jobdeateils, dataholen("1"));
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.jobdeatailslist, R.id.jobdeateils, jobPARAM);
         listView.setAdapter(arrayAdapter);
     }
+
+    public static String[] jobPARAM={
+            " Job NR", " Job Type", " User NR" ," Kennlinie Setting NR" ," Kennlinie Setting Type",
+            " Verfahren" ," Betrieb Art" ," Darhdurchmesser" ," Gas Type" ," Werkstoff"," Regeler Type"," Vor Gas" ," Nach Gas",
+            " Einschlabs"," Einsschlporz "," Lope"  ," Zundung Prozess" ," End Krater " ," Frei Brand Korrektour " ," Synergy Basis " ," Korrektur Puls " ," Korrektur Drossel",
+            " Pause Zeit"," Punkt Zeit",  " Einfaedeln" ," Zuenstrom"," Endkradauer"," PP ON OF"," Energie"," Time1"," Time2"," LBRE"," Zuendstrom"," Zundung Spannung"," Zundung Energie"," Zundung Drossel",
+            " Stufel 1 Strom"," Stufel 1 Spannung" ," Stufel 1 Energie" ," Stufel 1 Drossel" ," Stufel 1 Korrektur" ,  " Stufel 2 Strom"," Stufel 2 Spannung" ," Stufel 2 Energie" ," Stufel 2 Drossel" ," Stufel 2 Korrektur" ,
+
+            " Stufel 3 Strom"," Stufel 3 Spannung" ," Stufel 3 Energie" ," Stufel 3 Drossel" ," Stufel 3 Korrektur" , " End Kar Strom"," End Kar Spannung" ," End Kar Energie" ," End Kar korrektur",
+            " Vor Schub Set" ," Strom Set" ," Elektro Strom"," Hot Start dauer"," Hot Start" ," Arc Force" ," Eelektro Trodrei" ," Mit Energie" ," Limit mit Korrektur" ," Start Amplitude" ," Start Zeit"," DrosselRi",
+            " Uber blend Zeit","Drossel abFall"," Motor Flank "," Dorssel Dynamic"," Mode "," Betrieb Mang" ," Pos Zeit" ," Nege Zeit"," Be Kennung " ," Aufhebung "," Verwzeiten"," kaelte Wert" ," Strom Schwelle",
+            " Protokoll Type" ," Job bezzl" ," Job CRC" };
+
 
     public void iint_datejob() {
         modiJobsdeateils[30] = "id";
@@ -230,7 +243,8 @@ public class JobsDetails extends AppCompatActivity {
                 Mesdeateils[i] = jobdetails[i - 1] + "  :  " + modiJobsdeateils[i];
             }
         }
-        return Mesdeateils;
+        return  jobdetails;
+        //return Mesdeateils;
     }
 
     public void close(View view) {

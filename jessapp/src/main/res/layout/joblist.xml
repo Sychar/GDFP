@@ -8,7 +8,9 @@
 
         android:id="@+id/joblistid"
         android:text="hallo"
+        android:textColor="#ffff"
         android:textSize="30sp"
+        android:background="@drawable/border2"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         ></TextView>

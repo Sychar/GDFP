@@ -74,7 +74,7 @@ public class SendEncoder {
             Log.i(TAG,"button5 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 6){ //button 6
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton6(); //Kennlinie button
+            MA_OBJECT.pressButton6(); //kennlinie_setting button
             Log.i(TAG,"button6 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 7){ //button 7
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00

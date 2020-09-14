@@ -5,33 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#111"
     tools:context=".View.DatalistView">
 
     <RelativeLayout
-        android:background="#555"
+        android:background="#111"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
         >
+<!--
         <TextView
-            android:layout_alignParentLeft="true"
-            android:textColor="#960018"
-            android:layout_marginTop="15dp"
             android:layout_width="160dp"
-            android:textSize="25sp"
-            android:layout_marginLeft="20dp"
             android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="0dp"
             android:text="DatenLogger"
-            ></TextView>
-        <Button
+            android:textColor="#ffff"
+            android:textSize="25sp"></TextView>-->
+        <!--<Button
             android:onClick="close"
             android:layout_marginTop="8dp"
-            android:textColor="#960018"
-            android:backgroundTint="#fff"
+            android:textColor="#ffff"
+            android:background="@drawable/border2"
             android:layout_alignParentRight="true"
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:text="close"></Button>
+            android:text="close"></Button>-->
     </RelativeLayout>
     <GridLayout
         android:layout_width="match_parent"
@@ -42,7 +45,8 @@
 
     <TextView
 
-        android:background="#009456"
+        android:background="#111"
+        android:textColor="#ffff"
         android:layout_width="wrap_content"
         android:layout_columnWeight="1"
         android:layout_height="wrap_content"
@@ -55,7 +59,8 @@
 
     <TextView
         android:id="@+id/lenth"
-        android:background="#009456"
+        android:background="#111"
+        android:textColor="#ffff"
         android:layout_width="wrap_content"
         android:layout_columnWeight="1"
         android:layout_height="wrap_content"
@@ -65,7 +70,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
     <TextView
         android:id="@+id/canid"
-        android:background="#009456"
+        android:background="#111"
+        android:textColor="#ffff"
         android:layout_width="wrap_content"
         android:layout_columnWeight="1"
         android:layout_columnSpan="1"
@@ -76,7 +82,8 @@
         android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     <TextView
-        android:background="#009456"
+        android:background="#111"
+        android:textColor="#ffff"
 
         android:layout_columnSpan="1"
         android:layout_rowSpan="1"
@@ -89,6 +96,7 @@
     </GridLayout>
 
     <ListView
+        android:background="@drawable/border2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/datalistview"

@@ -1,72 +1,55 @@
-package com.jess.gdfp.View;
+package com.jess.gdfp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.jess.gdfp.Controller.Kennlinie_user_adapter;
 import com.jess.gdfp.Controller.jobAdapter;
 import com.jess.gdfp.DatenBank.Jobs;
-import com.jess.gdfp.R;
+import com.jess.gdfp.View.JobsDetails;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class JobsUser extends AppCompatActivity {
+public class Kennlinier_user extends AppCompatActivity {
     private Intent intent;
     CardView myCardView;
     CheckBox checkBox;
     ListView rv;
+    private Kennlinie_user_adapter kennlinie_user_adapter;
     private ArrayList<Jobs> jobs;
-    static  public int pointer =0;
-    private jobAdapter myjobAdapte;
-
-    @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_jobs_user);
+        setContentView(R.layout.activity_kennlinier_user);
 
-        if(Setting.JOBUSER_TOKEN){
-            Setting.JOBUSER_TOKEN = false;
-        }
         myCardView = (CardView) findViewById(R.id.card_view);
         checkBox=findViewById(R.id.cheak_box);
         // myCardView.setCardBackgroundColor(Color.TRANSPARENT);
         LinearLayoutManager mLayoutManager0 = new LinearLayoutManager (this );
         mLayoutManager0.setOrientation(LinearLayoutManager.VERTICAL);
-         rv = findViewById(R.id.list_for_jobs);
-        jobs = initJobs();
-          myjobAdapte = new jobAdapter(this, jobs);
+        rv = findViewById(R.id.list_for_jobs);
+        jobs = initKENN();
+       kennlinie_user_adapter = new Kennlinie_user_adapter(this, jobs);
 
-        rv.setAdapter(myjobAdapte);
-
-
-
-
+        rv.setAdapter(kennlinie_user_adapter);
 
     }
-
     public void jobuser(View view) {
-       // intent = new Intent(this, JobsDetails.class);
-        //startActivity(intent);
-          pointer++;
-          myjobAdapte.notifyDataSetChanged();
+        intent = new Intent(this, kennlinie_setting.class);
+        startActivity(intent);
+        //pointer++;
+        // myjobAdapte.notifyDataSetChanged();
 
 
     }
 
-    private ArrayList initJobs() {
+
+    private ArrayList initKENN() {
         ArrayList jobs = new ArrayList<>();
         jobs.add(new Jobs("1", "info1"));
         jobs.add(new Jobs("2", "info2"));
