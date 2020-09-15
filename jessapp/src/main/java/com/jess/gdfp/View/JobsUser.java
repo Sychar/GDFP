@@ -46,7 +46,9 @@ public class JobsUser extends AppCompatActivity {
         //else if ( JOB_POINTER > 5) rv.smoothScrollToPosition(JOB_POINTER);
     }
 
+    //------------------------- goes into activity_jobs_details.xml --------------------------------
     public void jobuser(View view) {
+//    public void jobuser() {
         intent = new Intent(this, JobsDetails.class);
         startActivity(intent);
     }

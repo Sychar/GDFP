@@ -56,7 +56,7 @@ import android_serialport_api.SerialPort;
 import static com.jess.gdfp.UartService.mOutputStream;
 
 import static com.jess.gdfp.View.Setting.JOBUSER_TOKEN;
-import static com.jess.gdfp.View.Setting.KENNLINIE_TOKEN;
+import static com.jess.gdfp.View.Setting.KENN_TOKEN;
 
 public class MainActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener , BetriebsArt.OnFragmentInteractionListener{
 
@@ -2344,7 +2344,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
         if(SETTING_TOKEN) { //Setting button is pressed
             //Log.i(TAG,"Turn encoder");
-            //if(SETTING_COUNTER>=0 && SETTING_COUNTER)
             SETTING_COUNTER++;
             if (SETTING_COUNTER > 5) SETTING_COUNTER = 1;
             CHANGE_TOKEN = true;
@@ -2356,7 +2355,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             if (JOBBTN_COUNTER > 17) JOBBTN_COUNTER = 17;
             JobsUser.changeBackground(JOBBTN_COUNTER);
         }
-        if(KENNLINIE_TOKEN) { //Kennlinie button in setting is pressed
+        if(KENN_TOKEN) { //Kennlinie button in setting is pressed
             KENNBTN_COUNTER++;
             //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
             if (KENNBTN_COUNTER > 17) KENNBTN_COUNTER = 17;
@@ -2376,18 +2375,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
         if(DatenObjekte.SV1pos1 != 4) txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
         else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
-        /*  // TxtProgress.setText("+");
 
-           if(DatenObjekte.SV1pos1 != 4) { //Not elektrode mode
-               //Log.i("VERFAHREN_MODE",String.valueOf(VERFAHREN_MODE));
-               DatenObjekteSend sendEnergie = new DatenObjekteSend();
-               //sendEnergie.ChangeParameter(2, DatenObjekte.mpm_display, 1);
-           }else{
-               //Log.i("VERFAHREN_MODE",String.valueOf(VERFAHREN_MODE));
-               int STROM = DatenObjekte.ElektrodeStromSetwert - val_encoder;
-               DatenObjekteSend changeStrom = new DatenObjekteSend();
-               changeStrom.ChangeParameter(38,STROM,0);
-           }*/
          if(SETTING_TOKEN) { //Setting button is pressed
              //Log.i(TAG,"Turn encoder");
              SETTING_COUNTER--;
@@ -2401,31 +2389,13 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
              if (JOBBTN_COUNTER < 1) JOBBTN_COUNTER = 0;
              JobsUser.changeBackground(JOBBTN_COUNTER);
          }
-         if(KENNLINIE_TOKEN) { //Kennlinie button in setting is pressed
+         if(KENN_TOKEN) { //Kennlinie button in setting is pressed
              KENNBTN_COUNTER--;
              //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
              if (KENNBTN_COUNTER < 1) KENNBTN_COUNTER = 0;
              Kennlinier_user.changeKennBackground(KENNBTN_COUNTER);
          }
       }
-
-    /*public void sendCANValue(){
-        if (msg_for_can1 != null && !msg_for_can1.equals("")) { //send value frame to the machine
-            //Log.i("Send", "Test1");
-            try {
-                if (mOutputStream != null) {
-                    //Log.i("mOutputStream", "not null");
-                    mOutputStream.write(msg_for_can1.getBytes(iso88591charset));
-                    //Log.i(TAG, "Write " + msg_for_can1 + " change value");
-                    msg_for_can1 = "";
-                    mOutputStream.write('\n');
-                }
-
-            } catch (IOException e) {
-                Log.e(TAG, "Cant write to the console");
-            }
-        }
-    }*/
 
     public void pressbuttonEncoder0(){
         ENCODERBUTTON_TOKEN = true;
@@ -2525,11 +2495,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         txtprogress = findViewById(R.id.txtpro);
         JOB_NUM  = findViewById(R.id.job_btn);
         JOB_DISPLAY = findViewById(R.id.job_Nummer);
-        /*MENU_JOBS = findViewById(R.id.jobsUser);
-        MENU_DATENLOGGER = findViewById(R.id.dlogger);
-        MENU_KENNLINIE = findViewById(R.id.setting_kennlinie);
-        MENU_SETTING = findViewById(R.id.menusetting);
-        MENU_EXIT = findViewById(R.id.accoutnt);*/
     }
 
     private void setVisibility(){
@@ -2652,10 +2617,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             }
         }
         //delayInMilli(200);
-
-
         //Deactivate Job
-
         //sendobj.ChangeParameter(34, 12); //Job Deactivated
         //writeJOB();
         //delayInMilli(100);
@@ -2676,9 +2638,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 msg_for_can1 = "";
             }
         }
-
         //Increment Job number
-
                 /*for (int i=0; i<JOB_COUNT; i++){
                     DatenObjekteSend JOB_INCREMENT = new DatenObjekteSend();
                     JOB_INCREMENT.ChangeParameter(34,7);
@@ -2709,9 +2669,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         Log.i(TAG, "First frame is sent");
                     }
                 }*/
-
-
-
                 /*if(changekennlinie != null) {
                     byte[] SECOND_ARRAY = changekennlinie.sendKennlinieStützpunkt();
 
@@ -2757,8 +2714,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         Log.i(TAG, "Third frame is sent");
                     }
                 }*/
-
-
         //UartService.token = false;
         //sendobj.ChangeParameter(12, random); //DatenObjekteSend class
         //delayInMilli(50); //delay 0.05s
@@ -2850,7 +2805,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         }
         //random++;
         //UartService.token = true;
-
     }
 
     private void testbtn_onclick1(){

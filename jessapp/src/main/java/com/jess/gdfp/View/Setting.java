@@ -19,7 +19,7 @@ public class Setting extends AppCompatActivity {
     private Intent intent;
     private InfoDataBase datenReader;
     public static boolean JOBUSER_TOKEN = false;
-    public static boolean KENNLINIE_TOKEN = false;
+    public static boolean KENN_TOKEN = false;
 
     private Button Kennlinie;
     private Button jobuser;
@@ -123,16 +123,7 @@ public class Setting extends AppCompatActivity {
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
                             }
                         }
-                    } /*else {
-                        //Log.i(TAG, "CHANGE_TOKEN false");
-                        datalogger.setTextColor(Color.BLACK);
-                        datalogger.setBackgroundColor(Color.GRAY);
-                        Kennlinie.setTextColor(Color.BLACK);
-                        Kennlinie.setBackgroundColor(Color.GRAY);
-                        menu_setting.setTextColor(Color.BLACK);
-                        menu_setting.setBackgroundColor(Color.GRAY);
-                    }*/
-
+                    }
                 });
 
                 /*if (MainActivity.SETTING_TOKEN) { //this part works
@@ -284,10 +275,7 @@ public class Setting extends AppCompatActivity {
             jobuser_btn.setBackgroundColor(Color.GRAY);
             MainActivity.SETTING_COUNTER = 5;
             //Log.i("Setting button", "is pressed");
-        } /*else {
-            jobuser_btn.setTextColor(Color.BLACK);
-            jobuser_btn.setBackgroundColor(Color.GRAY);
-        }*/
+        }
     }
 
     void onClickJobUser(){
@@ -299,15 +287,15 @@ public class Setting extends AppCompatActivity {
         this.finish();
     }
     void onClick_Datenlogger() {
-        Intent  intent = new Intent(this, DatalistView.class);
+        Intent intent = new Intent(this, DatalistView.class);
         startActivity(intent);
     }
     void onClick_Kennlinie() {
-        Intent  intent = new Intent(this, Kennlinier_user.class);
+        KENN_TOKEN = true;
+        Intent intent = new Intent(this, Kennlinier_user.class);
         startActivity(intent);
     }
     void onClick_MenuSetting() {
         Log.i(TAG,"say hi");
     }
 }
-
