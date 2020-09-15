@@ -27,7 +27,6 @@ import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.felhr.usbserial.UsbSerialDevice;
 import com.jess.gdfp.Controller.MainActivity_Controller;
@@ -37,7 +36,7 @@ import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.JobsDetails;
 import com.jess.gdfp.View.JobsUser;
-import com.jess.gdfp.View.Setting;
+import com.jess.gdfp.View.Verfahren;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -55,8 +54,9 @@ import java.util.zip.Checksum;
 
 import android_serialport_api.SerialPort;
 import static com.jess.gdfp.UartService.mOutputStream;
-import static com.jess.gdfp.View.JobsUser.myjobAdapte;
+
 import static com.jess.gdfp.View.Setting.JOBUSER_TOKEN;
+import static com.jess.gdfp.View.Setting.KENNLINIE_TOKEN;
 
 public class MainActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener , BetriebsArt.OnFragmentInteractionListener{
 
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     static TextView txtProgress ;
     private ProgressBar progressBarPlus;
     private ProgressBar progressBarMinus;
-    private ProgressBar progressBar;
+    private static ProgressBar progressBar;
     private Handler handler = new Handler();
     private Handler KENN_HANDLER = new Handler();
     private Handler newHandler = new Handler();
@@ -112,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static boolean CHANGE_TOKEN = false;
     public static int SETTING_COUNTER = 0;
     public static int JOBBTN_COUNTER = 0;
+    public static int KENNBTN_COUNTER = 0;
     public static boolean ENCODERBUTTON_TOKEN = false;
     public static boolean JOB_TOKEN = false;
 
@@ -736,7 +737,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
      private void serial_init(){
          try {
              //UartService.mSerialPort = mApplication.getSerialPort();
-             UartService.mSerialPort = new SerialPort(new File("/dev/ttyS4"),115200 , 0); //Open the serial port //2000000
+             UartService.mSerialPort = new SerialPort(new File("/dev/ttyS4"),2000000 , 0); //Open the serial port //2000000
              mOutputStream = UartService.mSerialPort.getOutputStream();
              UartService.mInputStream = UartService.mSerialPort.getInputStream();
 
@@ -770,7 +771,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                      else if (DatenObjekte.SV1pos1 == 4) VERFAHREN_MODE = 5; //Elektrode
 
                      int PROGRESSBARSTATUS;
-
 
                      //Verfahren Normal mode
 
@@ -1115,14 +1115,16 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 view=findViewById(R.id.fragment_test);
                 allgemeinOnclick(view);
                 ausblinden(frame,betriebsart_fragement);
-                if(!kennlinie_gedrückt) {
-                    kennlinie.setTextColor(Color.GREEN);
-                    kennlinie_gedrückt=true;
-                    KENN_HANDLER.post(KENN_TIMER);
-                }else if(kennlinie_gedrückt){
-                    kennlinie.setTextColor(Color.WHITE);
-                    kennlinie_gedrückt=false;
-                    KENN_HANDLER.removeCallbacks(KENN_TIMER);
+                if (!kennlinie_gedrückt) {
+                    //kennlinie.setTextColor(Color.GREEN);
+                    kennlinie.setBackgroundColor(Color.GRAY);
+                    kennlinie_gedrückt = true;
+                    KENN_HANDLER.post(KENN_TIMER); //start the timer handler
+                } else if(kennlinie_gedrückt){
+                    //kennlinie.setTextColor(Color.WHITE);
+                    kennlinie.setBackgroundColor(Color.BLACK);
+                    kennlinie_gedrückt = false;
+                    KENN_HANDLER.removeCallbacks(KENN_TIMER); //stop the timer handler
                 }
             }
         });
@@ -2190,9 +2192,21 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                    // if(DatenObjekte.SV1pos1 != 4) txtProgress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
                     //else txtProgress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
 
-                    ANZEIGE1.setText(String.valueOf(DatenObjekte.Betriebsart));
+                    /*ANZEIGE1.setText(String.valueOf(DatenObjekte.Betriebsart));
                     ANZEIGE2.setText(String.valueOf(DatenObjekte.Verfahren));
-                    ANZEIGE3.setText(String.valueOf(DatenObjekte.Gas));
+                    ANZEIGE3.setText(String.valueOf(DatenObjekte.Gas));*/
+                    int tempDO=DatenObjekte.JOB_FRAME[11];
+                    if( tempDO< 0) tempDO = tempDO + 256;
+                    DatenObjekte.VerfahrenParam(tempDO);
+                    ANZEIGE1.setText(DatenObjekte.Verfahren);
+                    if( tempDO< 0) tempDO = tempDO + 256;
+                    DatenObjekte.GasParam(tempDO);
+                    DatenObjekte.WerkstoffParam(tempDO);
+                    ANZEIGE2.setText(DatenObjekte.Werkstoff);;
+                    tempDO=DatenObjekte.JOB_FRAME[13];
+                    if( tempDO< 0) tempDO = tempDO + 256;
+                    ANZEIGE3.setText(DatenObjekte.Gas);
+                    tempDO=DatenObjekte.JOB_FRAME[12];
 
                     //m_min.setText(String.valueOf(DatenObjekte.Stromtest));
                     //current.setText(String.valueOf(DatenObjekte.Spannung1));
@@ -2289,7 +2303,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     };
 
     /**
-     * Start the timer when kennlinie_setting button is pressed
+     * Start the timer when Kennlinie Button is pressed
      */
     private Runnable KENN_TIMER = new Runnable() {
         @Override
@@ -2314,20 +2328,17 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         //Log.i(TAG,"incrementEncoder1");
         CONTROL_PANEL_MODE = 1;
 
-        if ((DatenObjekte.SV1pos1==1)  && (DatenObjekte.mpm_display<240)) //Normal
-        {
+        if ((DatenObjekte.SV1pos1==1)  && (DatenObjekte.mpm_display<240)) { //Normal
             DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-            //progressBar.setProgress((int) (DatenObjekte.mpm_display ) * (100 / 232) - (800 / 232));
-
-        } else if ((DatenObjekte.SV1pos1==2)  && (DatenObjekte.mpm_display<120)) //Synergie
-        {
+            progressBar.setProgress((int) (DatenObjekte.mpm_display ) * (100 / 232) - (800 / 232));
+        } else if ((DatenObjekte.SV1pos1==2)  && (DatenObjekte.mpm_display<120)){ //Synergie
             DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-            //PROGRESSBAR_DISPLAY.progressBar.setProgress((int)((DatenObjekte.mpm_display)*100/80 - 50));
-        } else if ((DatenObjekte.SV1pos1==3)  && (DatenObjekte.mpm_display<120)) //Pulse
-        {
+            progressBar.setProgress((int)((DatenObjekte.mpm_display)*100/80 - 50));
+        } else if ((DatenObjekte.SV1pos1==3)  && (DatenObjekte.mpm_display<120)){//Pulse
             DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-            //progressBar.setProgress(DatenObjekte.mpm_display - 20);
+            progressBar.setProgress(DatenObjekte.mpm_display - 20);
         }
+        //---------------------------------------Energie--------------------------------------------
         if(DatenObjekte.SV1pos1 != 4) txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
         else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
 
@@ -2339,17 +2350,21 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             CHANGE_TOKEN = true;
             //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
         }
-        if(JOBUSER_TOKEN){ //Job button is pressed
+        if(JOBUSER_TOKEN) { //Job button in setting is pressed
             JOBBTN_COUNTER++;
-            Log.i("SETTING_COUNTER",String.valueOf(JOBBTN_COUNTER));
-          JobsUser.changeBackround(JOBBTN_COUNTER);
-
-            if (JOBBTN_COUNTER > 6) JOBBTN_COUNTER = 1;
+            //Log.i("JOBBTN_COUNTER",String.valueOf(JOBBTN_COUNTER));
+            if (JOBBTN_COUNTER > 17) JOBBTN_COUNTER = 17;
+            JobsUser.changeBackground(JOBBTN_COUNTER);
+        }
+        if(KENNLINIE_TOKEN) { //Kennlinie button in setting is pressed
+            KENNBTN_COUNTER++;
+            //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
+            if (KENNBTN_COUNTER > 17) KENNBTN_COUNTER = 17;
+            Kennlinier_user.changeKennBackground(KENNBTN_COUNTER);
         }
     }
 
      public void decrementEncoder1(int val_encoder){
-
         CONTROL_PANEL_MODE  = 1;
         if((DatenObjekte.SV1pos1==1) && (DatenObjekte.mpm_display>8)){ //Normal
             DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
@@ -2373,12 +2388,24 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                DatenObjekteSend changeStrom = new DatenObjekteSend();
                changeStrom.ChangeParameter(38,STROM,0);
            }*/
-         if(SETTING_TOKEN) {
+         if(SETTING_TOKEN) { //Setting button is pressed
              //Log.i(TAG,"Turn encoder");
              SETTING_COUNTER--;
              if (SETTING_COUNTER < 1) SETTING_COUNTER = 5;
              CHANGE_TOKEN = true;
              //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
+         }
+         if(JOBUSER_TOKEN){ //Job button is pressed
+             JOBBTN_COUNTER--;
+             //Log.i("JOBBTN_COUNTER",String.valueOf(JOBBTN_COUNTER));
+             if (JOBBTN_COUNTER < 1) JOBBTN_COUNTER = 0;
+             JobsUser.changeBackground(JOBBTN_COUNTER);
+         }
+         if(KENNLINIE_TOKEN) { //Kennlinie button in setting is pressed
+             KENNBTN_COUNTER--;
+             //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
+             if (KENNBTN_COUNTER < 1) KENNBTN_COUNTER = 0;
+             Kennlinier_user.changeKennBackground(KENNBTN_COUNTER);
          }
       }
 
@@ -2829,21 +2856,21 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private void testbtn_onclick1(){
         TEMP_BA = GetKennlinieDaten.readKennDaten();
         StringBuilder tempsb = new StringBuilder();
-        for(int i=0;i<16;i++){
+        for(int i=0;i<23;i++){
             //TEMP_STRING = tempsb.append(String.format("%02x", (int) ((TEMP_BA[i]) & 0xFF)).toUpperCase()).toString();
             TEMP_STRING = tempsb.append((char)(TEMP_BA[i]&0xFF)).toString();
         }
         //Log.i("firstframe ",TEMP_STRING);
         WriteToSerial(TEMP_STRING);
         TEMP_STRING = "";
-        StringBuilder tempsb1 = new StringBuilder();
+        /*StringBuilder tempsb1 = new StringBuilder();
         delayInMilli(500);
         for(int i=16;i<31;i++){
             //TEMP_STRING = tempsb1.append(String.format("%02x", (int) ((TEMP_BA[i]) & 0xFF)).toUpperCase()).toString();
             TEMP_STRING = tempsb1.append((char)(TEMP_BA[i]&0xFF)).toString();
         }
         //Log.i("secondframe ",TEMP_STRING);
-        WriteToSerial(TEMP_STRING);
+        WriteToSerial(TEMP_STRING);*/
     }
 
     private void MMSynergy_btn_onclick(){

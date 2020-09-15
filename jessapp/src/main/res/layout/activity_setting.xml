@@ -17,24 +17,24 @@
         android:orientation="horizontal">
 
 
- <Button
-     android:background="@drawable/border2"
-     android:id="@+id/jobsUser"
-     android:scaleType="fitCenter"
-     android:layout_width="150dp"
-     android:layout_height="150dp"
-     android:layout_marginLeft="30dp"
-     android:textColor="#111"
+        <Button
+            android:id="@+id/jobsUser"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="30dp"
+            android:background="@drawable/job_button"
+            android:scaleType="fitCenter"
+            android:text="Jobs"
+            android:textColor="#111">
 
-     android:text="Jobs"></Button>
-
+        </Button>
 
         <Button
             android:id="@+id/dlogger"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginLeft="30dp"
-            android:background="@drawable/border2"
+            android:background="@drawable/job_button"
             android:scaleType="fitCenter"
             android:text="Datenlogger"
             android:textColor="#111"
@@ -42,7 +42,7 @@
 
         <Button
 
-        android:background="@drawable/border2"
+        android:background="@drawable/job_button"
         android:id="@+id/setting_kennlinie"
         android:textColor="#111"
         android:layout_width="150dp"
@@ -52,7 +52,7 @@
 
 
     <Button
-        android:background="@drawable/border2"
+        android:background="@drawable/job_button"
         android:id="@+id/menusetting"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -62,7 +62,7 @@
 
     <Button
         android:id="@+id/accoutnt"
-        android:background="@drawable/border2"
+        android:background="@drawable/job_button"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:textColor="#111"

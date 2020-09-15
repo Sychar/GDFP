@@ -20,18 +20,18 @@ public class SendEncoder {
 
         StringBuilder JOINCHAR = new StringBuilder();
         GETHEX = JOINCHAR.append(POSITION_13).append(POSITION_14).append(POSITION_15).append(POSITION_16).toString();
-        //Log.i("GETHEX ",GETHEX);
+        Log.i("changeEncoder",GETHEX);
 
         MainActivity MA_OBJECT = new MainActivity();
 
         if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 0
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
             MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
-            //Log.i(TAG,"incrementEncoder0 is called");
+            Log.i(TAG,"incrementEncoder0 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 0
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
             MA_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
-            //Log.i(TAG,"decrementEncoder0 is called");
+            Log.i(TAG,"decrementEncoder0 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 1
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
             //MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
@@ -42,12 +42,12 @@ public class SendEncoder {
             //Log.i(TAG,"decrementEncoder1 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 2
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            //MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
-            //Log.i(TAG,"incrementEncoder2 is called");
+            MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
+            Log.i(TAG,"incrementEncoder2 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 2
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
-            //MA_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
-            //Log.i(TAG,"decrementEncoder2 is called");
+            MA_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
+            Log.i(TAG,"decrementEncoder2 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 0){ //button 0
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
             MA_OBJECT.pressButton0(); //Menu button

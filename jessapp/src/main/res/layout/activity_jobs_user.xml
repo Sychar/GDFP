@@ -12,7 +12,7 @@ android:background="#111111"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="180dp"
         android:layout_width="650dp"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         app:cardBackgroundColor="@color/head">
 
         >

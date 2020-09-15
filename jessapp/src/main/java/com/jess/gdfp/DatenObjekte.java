@@ -12,7 +12,7 @@ public class DatenObjekte {
     private final static String TAG = DatenObjekte.class.getSimpleName(); //name of this class
 
     private HeartBeat mHeartBeat;
-    public static byte[] DO_FRAME = new byte[19];
+    public static byte[] DO_FRAME = new byte[250];
     //private static String strCanId = "";
     //private static byte[] check1;
     private static byte[] str1;
@@ -306,6 +306,151 @@ public class DatenObjekte {
 
     private static Charset iso88591charset = Charset.forName("ISO-8859-1");
 
+
+    public static void VerfahrenParam(int number){
+        switch (number) {
+            case 0:
+                Verfahren = "NONE";
+                break;
+            case 1:
+                Verfahren = "MAG_Normal";
+                break;
+            case 2:
+                Verfahren = "MAG-Synergie";
+                break;
+            case 3:
+                Verfahren = "MAG Puls";
+                break;
+            case 4:
+                Verfahren = "Elektrode";
+                break;
+            case 5:
+                Verfahren = "WIG";
+                break;
+            case 6:
+                Verfahren = "WIG-Puls";
+                break;
+            case 7:
+                Verfahren = "WIG-Speed-Puls";
+                break;
+            case 8:
+                Verfahren = "WIG-Speed_Puls + Puls";
+                break;
+            case 9:
+                Verfahren = "HC_MAG";
+                break;
+            default:
+                Verfahren = "Error";
+                break;
+        }
+    }
+
+    public static void GasParam(int number) {
+        switch (number) {
+            case 0:
+                Gas = "82% Argon 18% CO2";
+                break;
+            case 1:
+                Gas = "98% Argon 2% CO2";
+                break;
+            case 2:
+                Gas = "100% Argon";
+                break;
+            case 3:
+                Gas = "100% CO2";
+                break;
+            case 4:
+                Gas = "92% Argon 8% CO2";
+                break;
+            case 5:
+                Gas = "99% Argon 1% O2";
+                break;
+            case 6:
+                Gas = "98% Argon 2% O2";
+                break;
+            case 7:
+                Gas = "97% Argon 3% O2";
+                break;
+            case 8:
+                Gas = "92% Argon 8% O2";
+                break;
+            case 9:
+                Gas = "90% Argon 5% O2 5% CO2";
+                break;
+            case 10:
+                Gas = "100% Helium";
+                break;
+            case 11:
+                Gas = "80% Argon 20% He";
+                break;
+            case 12:
+                Gas = "69% Argon 30% He 1% O2";
+                break;
+            case 13:
+                Gas = "50% Argon 50% Helium";
+                break;
+            case 14:
+                Gas = "98% Argon 2% H2";
+                break;
+            case 15:
+                Gas = "94% Argon 6% H2";
+                break;
+            case 16:
+                Gas = "50% Argon 50% H2";
+                break;
+            case 17:
+                Gas = "30% Argon 70% H2";
+                break;
+            case 18:
+                Gas = "Spezial";
+                break;
+            default:
+                Gas = "Error";
+                break;
+        }
+    }
+
+    public static void WerkstoffParam(int number){
+        switch (SV1pos5) {
+            case 0:
+                Werkstoff = "NONE";
+                break;
+            case 1:
+                Werkstoff = "Fe";
+                break;
+            case 2:
+                Werkstoff = "CrNi";
+                break;
+            case 3:
+                Werkstoff = "AlMg";
+                break;
+            case 4:
+                Werkstoff = "AlSi";
+                break;
+            case 5:
+                Werkstoff = "CuSi";
+                break;
+            case 6:
+                Werkstoff = "AlMg3";
+                break;
+            case 7:
+                Werkstoff = "AlMg5";
+                break;
+            case 8:
+                Werkstoff = "AlMg4,5Mn";
+                break;
+            case 9:
+                Werkstoff = "AlBz";
+                break;
+            case 10:
+                Werkstoff = "Spezial";
+                break;
+            default:
+                Werkstoff = "Error";
+                break;
+        }
+    }
+
     public static void callme(String msgReceiver) {//msgReceiver is in hex String
 
         char pos_7 = msgReceiver.charAt(6);
@@ -341,13 +486,11 @@ public class DatenObjekte {
                 }
             }
         } else {
-
             /**
              * Get Job frame
              */
-
             if (gethex.equals("06F0")) {
-                Log.i("gethex",gethex);
+                //Log.i("gethex",gethex);
                 counterTest++;
                 JOB_COUNTER++;
                 //-----------------First frame-------------------------------------
@@ -386,12 +529,12 @@ public class DatenObjekte {
                 StringBuilder sby = new StringBuilder(); //data in hex
                 String y = "";
 
-                for(int i=0;i<213;i++){ //214 data
+                /*for(int i=0;i<213;i++){ //214 data
                     x[i] = String.format("%02x", (int) ((JOB_FRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
                     y = sby.append(x[i]).toString(); //hex string
                     //System.out.println(String.format("%02x", (int) ((JOB_FRAME[i]) & 0xFF)).toUpperCase());
-                }
-                System.out.println(y);
+                }*/
+                //System.out.println(y);
 
             } else if (gethex.equals("0720")) { //send to Heartbeat class
                 HeartBeat.sendHeartBeat(); //you don’t have to create an object from a class before you can use static methods defined by the class.
@@ -401,41 +544,7 @@ public class DatenObjekte {
                 //Log.i("gethex ","0181");
                 SV1pos1 = (int) DO_FRAME[6];//pos 1
                 //Log.i("Verfahren mode",String.valueOf(SV1pos1));
-                switch (SV1pos1) {
-                    case 0:
-                        Verfahren = "NONE";
-                        break;
-                    case 1:
-                        Verfahren = "MAG_Normal";
-                        break;
-                    case 2:
-                        Verfahren = "MAG-Synergie";
-                        break;
-                    case 3:
-                        Verfahren = "MAG Puls";
-                        break;
-                    case 4:
-                        Verfahren = "Elektrode";
-                        break;
-                    case 5:
-                        Verfahren = "WIG";
-                        break;
-                    case 6:
-                        Verfahren = "WIG-Puls";
-                        break;
-                    case 7:
-                        Verfahren = "WIG-Speed-Puls";
-                        break;
-                    case 8:
-                        Verfahren = "WIG-Speed_Puls + Puls";
-                        break;
-                    case 9:
-                        Verfahren = "HC_MAG";
-                        break;
-                    default:
-                        Verfahren = "Error";
-                        break;
-                }
+                VerfahrenParam(SV1pos1);
 
                 SV1pos2 = (int) DO_FRAME[7];//pos 2
                 switch (SV1pos2) {
@@ -475,108 +584,10 @@ public class DatenObjekte {
                 }
 
                 SV1pos4 = (int) DO_FRAME[9];//pos 4
-                switch (SV1pos4) {
-                    case 0:
-                        Gas = "82% Argon 18% CO2";
-                        break;
-                    case 1:
-                        Gas = "98% Argon 2% CO2";
-                        break;
-                    case 2:
-                        Gas = "100% Argon";
-                        break;
-                    case 3:
-                        Gas = "100% CO2";
-                        break;
-                    case 4:
-                        Gas = "92% Argon 8% CO2";
-                        break;
-                    case 5:
-                        Gas = "99% Argon 1% O2";
-                        break;
-                    case 6:
-                        Gas = "98% Argon 2% O2";
-                        break;
-                    case 7:
-                        Gas = "97% Argon 3% O2";
-                        break;
-                    case 8:
-                        Gas = "92% Argon 8% O2";
-                        break;
-                    case 9:
-                        Gas = "90% Argon 5% O2 5% CO2";
-                        break;
-                    case 10:
-                        Gas = "100% Helium";
-                        break;
-                    case 11:
-                        Gas = "80% Argon 20% He";
-                        break;
-                    case 12:
-                        Gas = "69% Argon 30% He 1% O2";
-                        break;
-                    case 13:
-                        Gas = "50% Argon 50% Helium";
-                        break;
-                    case 14:
-                        Gas = "98% Argon 2% H2";
-                        break;
-                    case 15:
-                        Gas = "94% Argon 6% H2";
-                        break;
-                    case 16:
-                        Gas = "50% Argon 50% H2";
-                        break;
-                    case 17:
-                        Gas = "30% Argon 70% H2";
-                        break;
-                    case 18:
-                        Gas = "Spezial";
-                        break;
-                    default:
-                        Gas = "Error";
-                        break;
-                }
+                GasParam(SV1pos4);
 
                 SV1pos5 = (int) DO_FRAME[10];//pos 5
-                switch (SV1pos5) {
-                    case 0:
-                        Werkstoff = "NONE";
-                        break;
-                    case 1:
-                        Werkstoff = "Fe";
-                        break;
-                    case 2:
-                        Werkstoff = "CrNi";
-                        break;
-                    case 3:
-                        Werkstoff = "AlMg";
-                        break;
-                    case 4:
-                        Werkstoff = "AlSi";
-                        break;
-                    case 5:
-                        Werkstoff = "CuSi";
-                        break;
-                    case 6:
-                        Werkstoff = "AlMg3";
-                        break;
-                    case 7:
-                        Werkstoff = "AlMg5";
-                        break;
-                    case 8:
-                        Werkstoff = "AlMg4,5Mn";
-                        break;
-                    case 9:
-                        Werkstoff = "AlBz";
-                        break;
-                    case 10:
-                        Werkstoff = "Spezial";
-                        break;
-                    default:
-                        Werkstoff = "Error";
-                        break;
-                }
+                WerkstoffParam(SV1pos5);
 
                 SV1pos6 = (int) DO_FRAME[11];//pos 6
                 switch (SV1pos6) {
@@ -1231,6 +1242,7 @@ public class DatenObjekte {
             LengthFound1=1;
             byte abcd = Inn;
             LengthProtocol1=(int)abcd;
+            if(LengthProtocol1<0)LengthProtocol1 = LengthProtocol1 + 256;
             DO_FRAME[CounterData1]=Inn;
             CounterData1++;
 

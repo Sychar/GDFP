@@ -82,7 +82,7 @@ public class UartService extends Service {
     public static int HeaderFound=0;
     public static int CounterData=0;
     public static int LengthFound=0;
-    public static byte[] ByteArray = new byte[25];
+    public static byte[] ByteArray = new byte[250];
     private static String sdata = "";
     private static String CAN_DATA = "";
     private static byte Input;
@@ -392,14 +392,15 @@ public class UartService extends Service {
         byte[] str = RXBuff.getBytes(iso88591charset);
         for (int i = 0; i < RXBuff.length(); i++) {
             byte character =str[i];//get char from string
+            //System.out.println(character);
             dataCombiner(character);
             //Log.i("buffParsing","called");
         }
     }
 
     public static void dataCombiner(byte dataRX) {
-
         Input = dataRX;
+        //------------------------------Receive header----------------------------------------------
         if (HeaderFound == 0) {
             int ByteCompare = Byte.compare(dataRX, (byte)36);
             if (ByteCompare == 0) {
@@ -407,19 +408,19 @@ public class UartService extends Service {
                 ByteArray[CounterData] = Input; //CounterData starts from 0
                 CounterData++;
             }
+        //-------------------------------Receive frame length---------------------------------------
         } else if (LengthFound == 0) {
             LengthFound = 1;
             ch = Input;
             LengthProtocol = (int) ch;
+            if(LengthProtocol<0) LengthProtocol = LengthProtocol + 256;
             //Log.i("Length is ",String.valueOf(LengthProtocol));
             ByteArray[CounterData] = Input;
             CounterData++;
-        //} else if (CounterData < LengthProtocol-1 && CounterData< 19) {
-        } else if (CounterData < LengthProtocol-1 && CounterData< 10) {
+        } else if (CounterData < LengthProtocol-1 && CounterData< 223) {
                 ByteArray[CounterData] = Input;
                 CounterData++;
-        //} else if (CounterData == LengthProtocol-1 && CounterData< 19) { //at this point, CounterData = 18
-        } else if (CounterData == LengthProtocol-1 && CounterData < 10) { //at this point, CounterData = 15
+        } else if (CounterData == LengthProtocol-1 && CounterData < 223) { //at this point, CounterData = 222
             ByteArray[CounterData] = Input;
 
             /**
@@ -434,32 +435,14 @@ public class UartService extends Service {
             //System.out.println( "the last data = " + ByteArray[CounterData]);
 
             int ByteCompare1 = Byte.compare(ByteArray[CounterData], (byte) 35); //check footer
-            if (ByteCompare1 == 0) { //receive footer
-
-                if(LengthProtocol>8 && LengthProtocol<17) { //length between 9 and 16
-                    /*String scheckCRC4 = "";
-                    String[] value = new String[19];
-
-                    for (int i = 0; i < LengthProtocol-5; i++) {
-                        //checkCRC4.append((char) ((ByteArray[i]) & 0xFF));
-                        scheckCRC4 = scheckCRC4 + (char)((ByteArray[i]) & 0xFF);
-                    }
-                    scheckCRC4 = scheckCRC4 + (char) ((ByteArray[LengthProtocol-1])&0xFF);
-
-                    check4 = scheckCRC4.getBytes(iso88591charset);
-                    Checksum checksum4 = new CRC32();
-                    checksum4.update(check4, 0, check4.length);// update the current checksum with the specified array of bytes
-                    long checksumValue4 = checksum4.getValue();// get the current checksum value
-
-                    long res4 = ((ByteArray[LengthProtocol - 5] & 0xFFL) << 24) |//get the long value of crc from frame data
-                            ((ByteArray[LengthProtocol - 4] & 0xFFL) << 16) |
-                            ((ByteArray[LengthProtocol - 3] & 0xFFL) << 8) |
-                            ((ByteArray[LengthProtocol - 2] & 0xFFL) << 0);*/
-
+            //-----------------------Receive footer--------------------------------------------------
+            if (ByteCompare1 == 0) {
+                //Log.i(TAG,"footer");
+                if(LengthProtocol < 223) { //length between 9 and 16
                     /**
                      * Calculate the checksum of dataframe
                      */
-                    String[] value = new String[19];
+                    String[] value = new String[250];
                     int CHECKSUM = 0;
 
                     for (int i = 0; i < LengthProtocol-2; i++) {
@@ -478,7 +461,10 @@ public class UartService extends Service {
                     //CHECKSUM = CHECKSUM & 0xFF;
                     //Log.i("Masked Checksum ",String.valueOf(CHECKSUM & 0x000000FF));
 
-                    if (RECEIVED_CHECKSUM == (CHECKSUM & 0x000000FF)) {
+                    /**
+                     * Compare received checksum with calculated checksum
+                     */
+                    //if (RECEIVED_CHECKSUM == (CHECKSUM & 0x000000FF)) {
                         //Log.i("Checksum ","is correct");
                         StringBuilder sbhex_data = new StringBuilder(); //data in hex
                         StringBuilder sbascii_data = new StringBuilder(); //data in ascii char
@@ -515,7 +501,7 @@ public class UartService extends Service {
 
                         Intent iiii = new Intent("Main.Activity1").putExtra("msg_service1", ASCII_DATA); //send ascii content to Main Activity
                         context.sendBroadcast(iiii);
-                    } else Log.i("Checksum ","is wrong");
+                    //} else Log.i("Checksum ","is wrong");
                 } else Log.i("Checksum ","length");
             }
             resetValue();

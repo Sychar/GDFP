@@ -4,18 +4,18 @@ import android.util.Log;
 
 public class GetKennlinieDaten {
 
-    private static byte[] KENN_FRAME = new byte[40];
+    private static byte[] KENN_FRAME = new byte[30];
     private static byte[] WHOLE_JOB_FRAME = new byte[230];
 
     public static byte[] readKennDaten() {
         //--------------------------First frame------------------------
         KENN_FRAME[0] = 36; //0x24
-        KENN_FRAME[1] = 16; //0x10
+        KENN_FRAME[1] = 23; //0x17
         KENN_FRAME[2] = 2;
         KENN_FRAME[3] = 6; //0x06 msb can id
         KENN_FRAME[4] = (byte)224; //0xE0 lsb can id
         //KENN_FRAME[4] = (byte)1;
-        KENN_FRAME[5] = 8; //data length
+        KENN_FRAME[5] = 15; //data length
         KENN_FRAME[6] = 22; //0x16
         KENN_FRAME[7] = 1;
         KENN_FRAME[8] = 1;
@@ -24,7 +24,14 @@ public class GetKennlinieDaten {
         KENN_FRAME[11] = 3;
         KENN_FRAME[12] = (byte)215; //0xD7
         KENN_FRAME[13] = 2;
-        KENN_FRAME[14] = 35; //0x23
+        KENN_FRAME[14] = 1;
+        KENN_FRAME[15] = 0;
+        KENN_FRAME[16] = 2;
+        KENN_FRAME[17] = (byte)193; //0xC1
+        KENN_FRAME[18] = (byte)161; //0xA1
+        KENN_FRAME[19] = 3;
+        KENN_FRAME[20] = 4;
+        KENN_FRAME[21] = 35; //0x23
 
         /**
          * Calculate the checksum of dataframe
@@ -32,10 +39,10 @@ public class GetKennlinieDaten {
 
         int CHECKSUM = 0;
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 22; i++) {
             int tempcheck;
-            if((KENN_FRAME[i])<0){
-                tempcheck = 256+(KENN_FRAME[i]);
+            if((KENN_FRAME[i]) < 0){ //negative value
+                tempcheck = 256 + (KENN_FRAME[i]);
             }else{
                 tempcheck = KENN_FRAME[i];
             }
@@ -44,11 +51,11 @@ public class GetKennlinieDaten {
         //CHECKSUM = (CHECKSUM + (KENN_FRAME[22]));
         //Log.i("CHECKSUM1 ",String.valueOf(CHECKSUM));
         //Log.i("Masked Checksum ",String.valueOf(CHECKSUM & 0x000000FF));
-        KENN_FRAME[14] = (byte)(CHECKSUM & 0x000000FF);
-        KENN_FRAME[15] = 35; //0x23
+        KENN_FRAME[21] = (byte)(CHECKSUM & 0x000000FF);
+        KENN_FRAME[22] = 35; //0x23
 
         //-----------------------Second frame-----------------------------
-        KENN_FRAME[16] = 36; //0x24
+        /*KENN_FRAME[16] = 36; //0x24
         KENN_FRAME[17] = 15; //0x0F
         KENN_FRAME[18] = 2;
         KENN_FRAME[19] = 6; //0x06 msb can id
@@ -64,9 +71,9 @@ public class GetKennlinieDaten {
         KENN_FRAME[28] = 4;
         KENN_FRAME[29] = 35; //0x23
 
-        /**
+        *//**
          * Calculate the checksum of dataframe
-         */
+         *//*
 
         int CHECKSUM1 = 0;
         for (int i = 16; i < 30; i++) {
@@ -82,7 +89,7 @@ public class GetKennlinieDaten {
         //Log.i("CHECKSUM2 ",String.valueOf(CHECKSUM1));
         //Log.i("Masked Checksum ",String.valueOf(CHECKSUM1 & 0x000000FF));
         KENN_FRAME[29] = (byte)(CHECKSUM1& 0x000000FF);
-        KENN_FRAME[30] = 35; //0x23
+        KENN_FRAME[30] = 35; //0x23*/
 
      return KENN_FRAME;
     }

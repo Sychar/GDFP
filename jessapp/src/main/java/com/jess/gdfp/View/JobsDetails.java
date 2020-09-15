@@ -217,8 +217,6 @@ public class JobsDetails extends AppCompatActivity {
         for (int i = 31; i < 112; i++) {
             modiJobsdeateils[i] = "test";
         }
-
-
     }
 
     /**
