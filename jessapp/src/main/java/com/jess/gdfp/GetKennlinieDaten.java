@@ -1,7 +1,5 @@
 package com.jess.gdfp;
 
-import android.util.Log;
-
 public class GetKennlinieDaten {
 
     private static byte[] KENN_FRAME = new byte[30];
@@ -19,7 +17,7 @@ public class GetKennlinieDaten {
         KENN_FRAME[6] = 22; //0x16
         KENN_FRAME[7] = 1;
         KENN_FRAME[8] = 1;
-        KENN_FRAME[9] = 4;
+        KENN_FRAME[9] = 4; //4 or 5
         KENN_FRAME[10] = 0;
         KENN_FRAME[11] = 3;
         KENN_FRAME[12] = (byte)215; //0xD7
@@ -135,18 +133,18 @@ public class GetKennlinieDaten {
             WHOLE_JOB_FRAME[nr+3] = 6; //msb can id
             WHOLE_JOB_FRAME[nr+4] = (byte) 224; //0xE0 lsb can id
             WHOLE_JOB_FRAME[nr+5] = 8; //data length
-            WHOLE_JOB_FRAME[nr+6] = DatenObjekte.JOB_FRAME[num];
-            WHOLE_JOB_FRAME[nr+7] = DatenObjekte.JOB_FRAME[num + 1];
-            WHOLE_JOB_FRAME[nr+8] = DatenObjekte.JOB_FRAME[num + 2];
-            WHOLE_JOB_FRAME[nr+9] = DatenObjekte.JOB_FRAME[num + 3];
+            WHOLE_JOB_FRAME[nr+6] = DatenObjekte.KENN_FRAME[num];
+            WHOLE_JOB_FRAME[nr+7] = DatenObjekte.KENN_FRAME[num + 1];
+            WHOLE_JOB_FRAME[nr+8] = DatenObjekte.KENN_FRAME[num + 2];
+            WHOLE_JOB_FRAME[nr+9] = DatenObjekte.KENN_FRAME[num + 3];
             if(k==0) WHOLE_JOB_FRAME[nr+9] = (byte)MainActivity.VERFAHREN;
-            WHOLE_JOB_FRAME[nr+10] = DatenObjekte.JOB_FRAME[num + 4];
+            WHOLE_JOB_FRAME[nr+10] = DatenObjekte.KENN_FRAME[num + 4];
             if(k==0) WHOLE_JOB_FRAME[nr+10] = (byte)MainActivity.DRAHTDURCHMESSER;
-            WHOLE_JOB_FRAME[nr+11] = DatenObjekte.JOB_FRAME[num + 5];
+            WHOLE_JOB_FRAME[nr+11] = DatenObjekte.KENN_FRAME[num + 5];
             if(k==0) WHOLE_JOB_FRAME[nr+11] = (byte) MainActivity.GAS;
-            WHOLE_JOB_FRAME[nr+12] = DatenObjekte.JOB_FRAME[num + 6];
+            WHOLE_JOB_FRAME[nr+12] = DatenObjekte.KENN_FRAME[num + 6];
             if(k==0) WHOLE_JOB_FRAME[nr+12] = (byte) MainActivity.WERKSTOFF;
-            WHOLE_JOB_FRAME[nr+13] = DatenObjekte.JOB_FRAME[num + 7];
+            WHOLE_JOB_FRAME[nr+13] = DatenObjekte.KENN_FRAME[num + 7];
             WHOLE_JOB_FRAME[nr+14] = 35; //0x23
 
             *//**
@@ -200,10 +198,10 @@ public class GetKennlinieDaten {
             count = count +16;
         }*/
 
-        /*DatenObjekte.JOB_FRAME[11] = (byte) MainActivity.VERFAHREN;
-        DatenObjekte.JOB_FRAME[12] = (byte) MainActivity.DRAHTDURCHMESSER;
-        DatenObjekte.JOB_FRAME[13] = (byte) MainActivity.GAS;
-        DatenObjekte.JOB_FRAME[14] = (byte) MainActivity.WERKSTOFF;*/
+        /*DatenObjekte.KENN_FRAME[11] = (byte) MainActivity.VERFAHREN;
+        DatenObjekte.KENN_FRAME[12] = (byte) MainActivity.DRAHTDURCHMESSER;
+        DatenObjekte.KENN_FRAME[13] = (byte) MainActivity.GAS;
+        DatenObjekte.KENN_FRAME[14] = (byte) MainActivity.WERKSTOFF;*/
 
         //------------------------------Last frame-------------------------------------
         /**
@@ -245,7 +243,10 @@ public class GetKennlinieDaten {
         WHOLE_JOB_FRAME[3] = 6; //msb can id
         WHOLE_JOB_FRAME[4] = (byte) 224; //0xE0 lsb can id
         WHOLE_JOB_FRAME[5] = (byte)214; //data length 0xD6
-        System.arraycopy(DatenObjekte.JOB_FRAME,0,WHOLE_JOB_FRAME,6,214);
+        System.arraycopy(DatenObjekte.KENNLINIE_FRAME,0,WHOLE_JOB_FRAME,6,214);
+        WHOLE_JOB_FRAME[9] = 5; // 0x05 Write to machine
+        WHOLE_JOB_FRAME[12] = 42; //ox2A
+        WHOLE_JOB_FRAME[13] = 2;
         WHOLE_JOB_FRAME[17] = (byte)MainActivity.VERFAHREN;
         WHOLE_JOB_FRAME[18] = (byte)MainActivity.DRAHTDURCHMESSER;
         WHOLE_JOB_FRAME[19] = (byte)MainActivity.GAS;
@@ -268,7 +269,7 @@ public class GetKennlinieDaten {
 
         WHOLE_JOB_FRAME[220] = (byte)(MYCHECKSUM & 0x000000FF);
         WHOLE_JOB_FRAME[221] = 35; //Footer 0x23
-        //for(int i=6;i<222;i++) WHOLE_JOB_FRAME[i] = DatenObjekte.JOB_FRAME[i-6];
+        //for(int i=6;i<222;i++) WHOLE_JOB_FRAME[i] = DatenObjekte.KENN_FRAME[i-6];
 
         return WHOLE_JOB_FRAME;
     }

@@ -47,14 +47,14 @@ public class NewJob {
             FIRST_FRAME[nr+3] = 6; //msb can id
             FIRST_FRAME[nr+4] = (byte) 224; //0xE0 lsb can id
             FIRST_FRAME[nr+5] = 8; //data length
-            *//*firstframe[nr+6] = DatenObjekte.JOB_FRAME[num];
-            firstframe[nr+7] = DatenObjekte.JOB_FRAME[num + 1];
-            firstframe[nr+8] = DatenObjekte.JOB_FRAME[num + 2];
-            firstframe[nr+9] = DatenObjekte.JOB_FRAME[num + 3];
-            firstframe[nr+10] = DatenObjekte.JOB_FRAME[num + 4];
-            firstframe[nr+11] = DatenObjekte.JOB_FRAME[num + 5];
-            firstframe[nr+12] = DatenObjekte.JOB_FRAME[num + 6];
-            firstframe[nr+13] = DatenObjekte.JOB_FRAME[num + 7];*//*
+            *//*firstframe[nr+6] = DatenObjekte.KENN_FRAME[num];
+            firstframe[nr+7] = DatenObjekte.KENN_FRAME[num + 1];
+            firstframe[nr+8] = DatenObjekte.KENN_FRAME[num + 2];
+            firstframe[nr+9] = DatenObjekte.KENN_FRAME[num + 3];
+            firstframe[nr+10] = DatenObjekte.KENN_FRAME[num + 4];
+            firstframe[nr+11] = DatenObjekte.KENN_FRAME[num + 5];
+            firstframe[nr+12] = DatenObjekte.KENN_FRAME[num + 6];
+            firstframe[nr+13] = DatenObjekte.KENN_FRAME[num + 7];*//*
             FIRST_FRAME[nr+6] = JobUpdate.SAVE_JOB[num];
             FIRST_FRAME[nr+7] = JobUpdate.SAVE_JOB[num + 1];
             FIRST_FRAME[nr+8] = JobUpdate.SAVE_JOB[num + 2];
@@ -79,7 +79,7 @@ public class NewJob {
         }
 
         for(int i=0; i<294; i++){ //store data bytes
-            //jobupdate[i] = DatenObjekte.JOB_FRAME[i + 8];
+            //jobupdate[i] = DatenObjekte.KENN_FRAME[i + 8];
             JOB_UPDATE[i] = JobUpdate.SAVE_JOB[i + 1];
         }
 
@@ -91,12 +91,12 @@ public class NewJob {
         FIRST_FRAME[706] = 6; //msb can id
         FIRST_FRAME[707] = (byte) 224; //0xE0 lsb can id
         FIRST_FRAME[708] = 8; //data length
-        *//*firstframe[709] = DatenObjekte.JOB_FRAME[296];
-        firstframe[710] = DatenObjekte.JOB_FRAME[297];
-        firstframe[711] = DatenObjekte.JOB_FRAME[298];
-        firstframe[712] = DatenObjekte.JOB_FRAME[299];
-        firstframe[713] = DatenObjekte.JOB_FRAME[300];
-        firstframe[714] = DatenObjekte.JOB_FRAME[301];*//*
+        *//*firstframe[709] = DatenObjekte.KENN_FRAME[296];
+        firstframe[710] = DatenObjekte.KENN_FRAME[297];
+        firstframe[711] = DatenObjekte.KENN_FRAME[298];
+        firstframe[712] = DatenObjekte.KENN_FRAME[299];
+        firstframe[713] = DatenObjekte.KENN_FRAME[300];
+        firstframe[714] = DatenObjekte.KENN_FRAME[301];*//*
         FIRST_FRAME[709] = SAVE_JOB[289];
         FIRST_FRAME[710] = SAVE_JOB[290];
         FIRST_FRAME[711] = SAVE_JOB[291];

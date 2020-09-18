@@ -11,6 +11,7 @@ public class DatenObjekte {
 
     private final static String TAG = DatenObjekte.class.getSimpleName(); //name of this class
 
+    private static String HexData = "";
     private HeartBeat mHeartBeat;
     public static byte[] DO_FRAME = new byte[250];
     //private static String strCanId = "";
@@ -21,7 +22,7 @@ public class DatenObjekte {
     public static int jobtoken = 0;
     public static int checktoken = 0;
     private static int JOB_COUNTER = 0;
-    public static byte[] JOB_FRAME = new byte[350];
+    public static byte[] KENNLINIE_FRAME = new byte[350];
     public static int y = 0;
     public static int HFound = 0;
     private static int HeaderFound1 = 0;
@@ -306,7 +307,6 @@ public class DatenObjekte {
 
     private static Charset iso88591charset = Charset.forName("ISO-8859-1");
 
-
     public static void VerfahrenParam(int number){
         switch (number) {
             case 0:
@@ -489,53 +489,53 @@ public class DatenObjekte {
             /**
              * Get Job frame
              */
-            if (gethex.equals("06F0")) {
-                //Log.i("gethex",gethex);
-                counterTest++;
-                JOB_COUNTER++;
-                //-----------------First frame-------------------------------------
-                if ((DO_FRAME[6] == 22) && (DO_FRAME[7] == 1) && (JOB_COUNTER == 1) && (HFound == 0)) {
+            if (MainActivity.STOP_DATENOBJEKTE) {
+                if (gethex.equals("06F0")) {
+
+                    //Log.i("Last Data  ",String.valueOf(DO_FRAME[219]));
+                    //-----------------First frame-------------------------------------
+                    //if ((DO_FRAME[6] == 22) && (DO_FRAME[7] == 1) && (HFound == 0)) {
                     countertoken = 1;
                     HFound = 1; //Header is found
-                    for (int i = 6; i < 14; i++) {
-                        JOB_FRAME[y] = DO_FRAME[i];// in bytes
+                    for (int i = 6; i < 220; i++) {
+                        KENNLINIE_FRAME[y] = DO_FRAME[i];// in bytes
                         y++;
                     }
-                    //Log.i(TAG,"Start frame");
-                 // -------------Second frame to 26th frame-------------------------
-                } else if (countertoken == 1 && JOB_COUNTER <= 26) {
-                    for (int i = 6; i < 14; i++) {
-                        JOB_FRAME[y] = DO_FRAME[i];// in bytes
+
+                    //Log.i(TAG,"Complete frame");
+                    y = 0;
+                    // -------------Second frame to 26th frame-------------------------
+                    //} /*else if (countertoken == 1 && JOB_COUNTER <= 26) {
+                    /*for (int i = 6; i < 14; i++) {
+                        KENN_FRAME[y] = DO_FRAME[i];// in bytes
                         y++;
-                    }
+                    }*/
                     //Log.i(TAG,"Middle frame");
-                }
-                 //----------------Last frame----------------------------------------
-                if (DO_FRAME[10] == 3 && DO_FRAME[11] == 4 && JOB_COUNTER == 27) {
+                    //----------------Last frame----------------------------------------
+                /*if (DO_FRAME[10] == 3 && DO_FRAME[11] == 4 && JOB_COUNTER == 27) {
                     JOB_COUNTER = 0;
                     countertoken = 0;
                     HFound = 0; // reset header
                     for (int i = 6; i < 10; i++) {
-                        JOB_FRAME[y] = DO_FRAME[i];// in bytes
+                        KENN_FRAME[y] = DO_FRAME[i];// in bytes
                         y++; //last y = 307
                     }
                     checktoken = 1;
                     jobtoken = 1; //Data is complete
-                    //Log.i(TAG,"End frame");
+                    Log.i(TAG,"End frame");
                     y = 0;
-                }
-
-                String[] x = new String[230];
-                StringBuilder sby = new StringBuilder(); //data in hex
-                String y = "";
-
-                /*for(int i=0;i<213;i++){ //214 data
-                    x[i] = String.format("%02x", (int) ((JOB_FRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
-                    y = sby.append(x[i]).toString(); //hex string
-                    //System.out.println(String.format("%02x", (int) ((JOB_FRAME[i]) & 0xFF)).toUpperCase());
                 }*/
-                //System.out.println(y);
 
+                    /*String[] x = new String[230];
+                    StringBuilder sby = new StringBuilder(); //data in hex
+                    String y = "";
+
+                    for (int i = 0; i < 214; i++) { //214 bytes data
+                        x[i] = String.format("%02x", (int) ((KENNLINIE_FRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
+                        y = sby.append(x[i]).toString(); //hex string
+                    }
+                    System.out.println("Kenn response : " + y);*/
+                }
             } else if (gethex.equals("0720")) { //send to Heartbeat class
                 HeartBeat.sendHeartBeat(); //you don’t have to create an object from a class before you can use static methods defined by the class.
                // Log.i("gethex",gethex);
@@ -1243,6 +1243,7 @@ public class DatenObjekte {
             byte abcd = Inn;
             LengthProtocol1=(int)abcd;
             if(LengthProtocol1<0)LengthProtocol1 = LengthProtocol1 + 256;
+            //Log.i("Length Protocol",String.valueOf(LengthProtocol1));
             DO_FRAME[CounterData1]=Inn;
             CounterData1++;
 
@@ -1250,12 +1251,24 @@ public class DatenObjekte {
             DO_FRAME[CounterData1]=Inn;
             CounterData1++;
         }
-        if(CounterData1==LengthProtocol1 - 1){
+        if(CounterData1 == LengthProtocol1 - 1){
             //LengthProtocol2=LengthProtocol1;
             DO_FRAME[CounterData1]=Inn; //DO_FRAME[18]=Inn;
 
             int ByteCompare2=Byte.compare(DO_FRAME[CounterData1],(byte)35); //int ByteCompare2=Byte.compare(DO_FRAME[18],(byte)35);
             if(ByteCompare2==0){ //received footer
+                //Log.i(TAG,"Receive footer");
+
+                /*String[] VAL = new String[250];
+                StringBuilder sbhex_data = new StringBuilder(); //data in hex
+
+                for (int i = 0; i < LengthProtocol1; i++) {
+                    VAL[i] = String.format("%02x", (int) ((DO_FRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
+                    HexData = sbhex_data.append(VAL[i]).toString(); //hex string
+                }*/
+                //Log.i("dataCombiner","called");
+
+                //if(HexData !=null && !HexData.equals("")) Log.i("dataCombiner",HexData);
 
                 HeaderFound1=0;
                 CounterData1=0;

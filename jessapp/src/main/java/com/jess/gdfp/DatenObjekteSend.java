@@ -67,10 +67,10 @@ public class DatenObjekteSend {
                     VALTOKEN = 1;
                 }
                 break;
-            case 4: //job(no value)
-                //Log.i("Change","Job");
+            case 4: //job(no value) increment
+                Log.i("Change","Job");
                 FRAMEVAL = 1;
-                FRAMEEXTRA = 11;
+                FRAMEEXTRA = 11; //0x0B
                 FIRVAL = 0;
                 SECVAL = 0;
                 THDVAL = 0;
@@ -78,17 +78,18 @@ public class DatenObjekteSend {
                 VALTOKEN= 0; // no value id
                 break;
             case 5: //job activate
+                //Log.i(TAG,"activate job");
                 FRAMEVAL = 5;
-                FRAMEEXTRA = 11;
+                FRAMEEXTRA = 11; //0x0B
                 FIRVAL = 0;
                 SECVAL = 0;
                 THDVAL = 0;
                 PARAMTOKEN = 1;
                 VALTOKEN= 0; // no value id
                 break;
-            case 6: //job deactivate
+            case 6: //job deactivate/decrement
                 FRAMEVAL = 3;
-                FRAMEEXTRA = 11;
+                FRAMEEXTRA = 11; //0x0B
                 FIRVAL = 0;
                 SECVAL = 0;
                 THDVAL = 0;
@@ -450,8 +451,6 @@ public class DatenObjekteSend {
                     VALTOKEN = 1;
                 }
                 break;
-
-
         }
         UartService.canSend(VALTOKEN,PARAMTOKEN,FRAMEVAL,FRAMEEXTRA,(byte)FIRVAL,(byte)SECVAL,(byte)THDVAL);
         //Log.i(TAG,"canSend called");

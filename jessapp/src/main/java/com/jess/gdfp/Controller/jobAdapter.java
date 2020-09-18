@@ -50,7 +50,6 @@ public class jobAdapter extends ArrayAdapter<Jobs> {
                 JOB_OBJECT.jobuser();
             }
         });*/
-
         jobs = getItem(position);
         jobnum.setText(jobs.getNum());
         jobname.setText(jobs.getName());

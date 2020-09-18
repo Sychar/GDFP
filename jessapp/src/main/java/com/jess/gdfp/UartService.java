@@ -314,7 +314,6 @@ public class UartService extends Service {
 
     public static String sdataBuilder(byte frameIDmode,byte frameMODE, byte frameAdd){
 
-        String schecksum = "";
         StringBuilder sbcanSend = new StringBuilder();
         StringBuilder sbcanSend1 = new StringBuilder();
         byte[] frameArray = new byte[13];
@@ -335,20 +334,24 @@ public class UartService extends Service {
          * Calculate the checksum of dataframe
          */
         int CHECKSUM = 0;
-
         for (int i = 0; i < 11 ; i++) {
-            CHECKSUM = CHECKSUM + frameArray[i];
+            int temp;
+            if((frameArray[i]) < 0){ //negative value
+                temp = 256 + (frameArray[i]);
+            }else{
+                temp = frameArray[i];
+            }
+            CHECKSUM = CHECKSUM + temp;
         }
 
-        for (int i = 0; i < 11; i++) {//checksum ascii string for parameterId and valueId
-            sdata = sbcanSend.append((char)(frameArray[i]&0xFF)).toString();
-        }
+        frameArray[10] = (byte)(CHECKSUM & 0x000000FF);
+        //Log.i("Checksum ",String.valueOf(frameArray[10]));
+        frameArray[11]=35; //Footer 0x23
 
-        frameArray[10]=(byte)(CHECKSUM & 0xFF);
-        int temp=frameArray[10];
-        if (frameArray[10]<0) temp=256+frameArray[10];
-        //Log.i("Checksum ",String.valueOf(temp));
-        frameArray[11]=35;     	//Footer 0x23
+        /*for (int i = 0; i < 12; i++) {//checksum ascii string for parameterId and valueId
+            sdata = sbcanSend.append(String.format("%02x", (int) ((frameArray[i]) & 0xFF)).toUpperCase()).toString();
+        }
+        Log.i("sdata",sdata);*/
 
         for (int i = 0; i < 12; i++) {//parameterId and valueId ascii string
             CAN_DATA = sbcanSend1.append((char)(frameArray[i]&0xFF)).toString();
@@ -438,7 +441,7 @@ public class UartService extends Service {
             //-----------------------Receive footer--------------------------------------------------
             if (ByteCompare1 == 0) {
                 //Log.i(TAG,"footer");
-                if(LengthProtocol < 223) { //length between 9 and 16
+                if(LengthProtocol < 250) { //length between 9 and 16
                     /**
                      * Calculate the checksum of dataframe
                      */

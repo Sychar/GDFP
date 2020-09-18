@@ -36,7 +36,6 @@ import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.JobsDetails;
 import com.jess.gdfp.View.JobsUser;
-import com.jess.gdfp.View.Verfahren;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -113,11 +112,15 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static int SETTING_COUNTER = 0;
     public static int JOBBTN_COUNTER = 0;
     public static int KENNBTN_COUNTER = 0;
+    //public static int JOB_INCREMENT = 0;
     public static boolean ENCODERBUTTON_TOKEN = false;
     public static boolean JOB_TOKEN = false;
+    public static boolean STOP_DATENOBJEKTE = false;
+    public static boolean PARSE_TOKEN = false;
 
     private BluetoothService BSF = null;
     private Boolean btCom_status = false;
+    private Button button_menu;
     private Button btConn;
     private Button bleConn;
     private Button ConnectBLE;
@@ -737,7 +740,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
      private void serial_init(){
          try {
              //UartService.mSerialPort = mApplication.getSerialPort();
-             UartService.mSerialPort = new SerialPort(new File("/dev/ttyS4"),2000000 , 0); //Open the serial port //2000000
+             UartService.mSerialPort = new SerialPort(new File("/dev/ttyS4"),500000, 0); //Open the serial port //2000000
              mOutputStream = UartService.mSerialPort.getOutputStream();
              UartService.mInputStream = UartService.mSerialPort.getInputStream();
 
@@ -805,7 +808,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
          }).start();
      }
 
-     private void switch_thread(){
+     private void button_thread(){
          new Thread(new Runnable() {
              @Override
              public void run() {
@@ -815,56 +818,56 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                          public void run() {
 
                              if (TEST_TOKEN) {
-                                 //Log.i(TAG, "TEST_TOKEN is true.");
+                                 Log.i(TAG, "TEST_TOKEN is true.");
                                  testbtn.performClick();
                                  TEST_TOKEN = false;
                              }
 
                              if (HOME_TOKEN) {
-                                 //Log.i(TAG, "HOME_TOKEN is true.");
+                                 Log.i(TAG, "HOME_TOKEN is true.");
                                  backHome.performClick();
                                  HOME_TOKEN = false;
                              }
 
                              if (DROSSEL_TOKEN) {
-                                 //Log.i(TAG, "DROSSEL_TOKEN is true.");
+                                 Log.i(TAG, "DROSSEL_TOKEN is true.");
                                  droessel.performClick();
                                  DROSSEL_TOKEN = false;
                              }
 
                              if (DATEN_TOKEN) {
-                                 //Log.i(TAG, "DATEN_TOKEN is true.");
+                                 Log.i(TAG, "DATEN_TOKEN is true.");
                                  //data.performClick();
                                  DATEN_TOKEN = false;
                              }
 
                              if (VERFAHREN_TOKEN) {
                                  //Log.i(TAG, "VERFAHREN_TOKEN is true.");
-                                 //button_menu.performClick();
+                                 button_menu.performClick();
                                  VERFAHREN_TOKEN = false;
                              }//else Log.i(TAG, "VERFAHREN_TOKEN is false.");
 
                              if (KENNLINIE_TOKEN) {
-                                 //Log.i(TAG, "KENNLINIE_TOKEN is true.");
-                                 //kennlinie.performClick();
+                                 Log.i(TAG, "KENNLINIE_TOKEN is true.");
+                                 kennlinie.performClick();
                                  KENNLINIE_TOKEN = false;
                              }
 
                              if (BETRIEBSART_TOKEN) {
-                                 //Log.i(TAG, "BETRIEBSART_TOKEN is true.");
-                                 //betribsart.performClick();
+                                 Log.i(TAG, "BETRIEBSART_TOKEN is true.");
+                                 betribsart.performClick();
                                  BETRIEBSART_TOKEN = false;
                              }
 
                              if (MENU_TOKEN) {
-                                 //Log.i(TAG, "MENU_TOKEN is true.");
-                                 //Setting.performClick();
+                                 Log.i(TAG, "MENU_TOKEN is true.");
+                                 Setting.performClick();
                                  MENU_TOKEN = false;
                              }
                          }
                      });
                      try {
-                         Thread.sleep(1);
+                         Thread.sleep(10);
                      } catch (InterruptedException e) {
                          e.printStackTrace();
                      }
@@ -964,10 +967,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         testbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                testbtn_onclick();
-                //delayInMilli(1000);
-                //sendKennToMachine();
-                //KENN_HANDLER.removeCallbacks(KENN_TIMER);
+                //testbtn_onclick();
             }
         });
 
@@ -982,7 +982,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         View view = findViewById(R.id.fragment_test);
         view.setVisibility(View.INVISIBLE);
 
-        final Button button_menu = findViewById(R.id.button_menu); // Verfahren
+        button_menu = findViewById(R.id.button_menu); // Verfahren
         button_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -996,7 +996,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         progress.setVisibility(View.GONE);
 
         //progressbar_thread();
-        switch_thread();
+        button_thread();
         date_thread();
 
         betribsart.setOnClickListener(new View.OnClickListener() {
@@ -1116,15 +1116,18 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 allgemeinOnclick(view);
                 ausblinden(frame,betriebsart_fragement);
                 if (!kennlinie_gedrückt) {
+                    KENN_HANDLER.post(KENN_TIMER); //start the timer handler
                     //kennlinie.setTextColor(Color.GREEN);
                     kennlinie.setBackgroundColor(Color.GRAY);
                     kennlinie_gedrückt = true;
-                    KENN_HANDLER.post(KENN_TIMER); //start the timer handler
+                    STOP_DATENOBJEKTE = true;
                 } else if(kennlinie_gedrückt){
                     //kennlinie.setTextColor(Color.WHITE);
                     kennlinie.setBackgroundColor(Color.BLACK);
                     kennlinie_gedrückt = false;
+                    STOP_DATENOBJEKTE = false;
                     KENN_HANDLER.removeCallbacks(KENN_TIMER); //stop the timer handler
+                    backHome.performClick();
                 }
             }
         });
@@ -1161,32 +1164,32 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             layout1.setVisibility(View.VISIBLE);
         });
 
-        JOB_NUM.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Display job number in textview
-                JOB_DISPLAY.setText("Job number : 3");
-                JOB_DISPLAY.setTextColor(Color.MAGENTA);
-            }
+        JOB_NUM.setOnClickListener(view12 -> {
+            //---------------------------Display job number in textview-----------------------------
+            JOB_DISPLAY.setText("Job number"+"\n" + String.valueOf(DatenObjekte.Jobnummer));
+            JOB_DISPLAY.setTextColor(Color.WHITE);
+            //---------------------------- Activate Job --------------------------------------------
+            DatenObjekteSend activateJob = new DatenObjekteSend();
+            activateJob.ChangeParameter(5, 0, 1);
+            //---------------------------Increment Job number---------------------------------------
+            DatenObjekteSend incrementJob = new DatenObjekteSend();
+            incrementJob.ChangeParameter(4,0, 1);
+            //---------------------------Decrement Job number---------------------------------------
+            /*DatenObjekteSend decrementJob = new DatenObjekteSend();
+            decrementJob.ChangeParameter(6,0, 1);*/
         });
-
         newHandler.post(TimerHandler);
-
     }
-
 /*------------------------------------------------------------------------------------------
     END of onCreate() method
 ------------------------------------------------------------------------------------------*/
-
     private final ServiceConnection usbConnection = new ServiceConnection() {
-
         @Override
         public void onServiceConnected(ComponentName arg0, IBinder arg1) {
             uartService = ((UartService.UsbBinder) arg1).getService();
             uartService.setHandler(mHandler);
             uartService.setHandler1(newHandler);
         }
-
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             uartService = null;
@@ -1265,7 +1268,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     }
 
     public static void setMaterial(String s){
-        //Log.i("Werkstoff",String.valueOf(DatenObjekte.Werkstoff));
         switch (s){
             case "Al/mg4/5Mn": //case 8
                 WERKSTOFF = 0;
@@ -1312,12 +1314,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 //System.out.println("Spezial");
                 //callChangeParameter(1,13,0,1);
                 break;
-
         }
     }
 
     public static void setDrahtDM(String s){ //mm
-        //Log.i("DrahtDM",String.valueOf(DatenObjekte.SV1pos3)); //DrahtDurchmesser
         switch (s){
             case "0.8":
                 DRAHTDURCHMESSER = 0;
@@ -1850,8 +1850,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         UsbObj.startService(UartService.class, usbConnection, null); // Start UartService(if it was not started before) and Bind it//mine
         //startService(UartService.class, usbConnection, null);
 
-
-
         //final Intent  intent = new Intent(this, DatalistView.class);
         //startActivity(intent);
     }
@@ -2192,24 +2190,22 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                    // if(DatenObjekte.SV1pos1 != 4) txtProgress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
                     //else txtProgress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
 
-                    /*ANZEIGE1.setText(String.valueOf(DatenObjekte.Betriebsart));
-                    ANZEIGE2.setText(String.valueOf(DatenObjekte.Verfahren));
-                    ANZEIGE3.setText(String.valueOf(DatenObjekte.Gas));*/
-                    int tempDO=DatenObjekte.JOB_FRAME[11];
-                    if( tempDO< 0) tempDO = tempDO + 256;
-                    DatenObjekte.VerfahrenParam(tempDO);
-                    ANZEIGE1.setText(DatenObjekte.Verfahren);
-                    if( tempDO< 0) tempDO = tempDO + 256;
-                    DatenObjekte.GasParam(tempDO);
-                    DatenObjekte.WerkstoffParam(tempDO);
-                    ANZEIGE2.setText(DatenObjekte.Werkstoff);;
-                    tempDO=DatenObjekte.JOB_FRAME[13];
-                    if( tempDO< 0) tempDO = tempDO + 256;
-                    ANZEIGE3.setText(DatenObjekte.Gas);
-                    tempDO=DatenObjekte.JOB_FRAME[12];
+                    if (!PARSE_TOKEN) { //if token is false
+                        int tempDO = DatenObjekte.KENNLINIE_FRAME[11]; //Verfahren
+                        if (tempDO < 0) tempDO = tempDO + 256;
+                        DatenObjekte.VerfahrenParam(tempDO);
+                        ANZEIGE1.setText(DatenObjekte.Verfahren);
 
-                    //m_min.setText(String.valueOf(DatenObjekte.Stromtest));
-                    //current.setText(String.valueOf(DatenObjekte.Spannung1));
+                        tempDO = DatenObjekte.KENNLINIE_FRAME[14]; //Werkstoff
+                        if (tempDO < 0) tempDO = tempDO + 256;
+                        DatenObjekte.WerkstoffParam(tempDO);
+                        ANZEIGE2.setText(DatenObjekte.Werkstoff);
+
+                        tempDO = DatenObjekte.KENNLINIE_FRAME[13]; //Gas
+                        if (tempDO < 0) tempDO = tempDO + 256;
+                        DatenObjekte.GasParam(tempDO);
+                        ANZEIGE3.setText(DatenObjekte.Gas);
+                    }
 
                     Button Korrektur = findViewById(R.id.btn_korrektur); //korrektur textview
                     Button m_min = findViewById(R.id.btn_mm); //Drahtdurchmesser mm
@@ -2301,7 +2297,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 UartService.token = true;
         }
     };
-
     /**
      * Start the timer when Kennlinie Button is pressed
      */
@@ -2309,9 +2304,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         @Override
         public void run() {
             //Log.i("Timer ","is counting");
-            testbtn_onclick1();
-            //delayInMilli(500);
-            //sendKennToMachine();
+            testbtn_onclick1(); //request kennlinie response
+            delayInMilli(500);
+            sendKennToMachine();
             KENN_HANDLER.postDelayed(KENN_TIMER,3000);
         }
     };
@@ -2327,6 +2322,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public void incrementEncoder1(int val_encoder){
         //Log.i(TAG,"incrementEncoder1");
         CONTROL_PANEL_MODE = 1;
+        //JOB_INCREMENT++;
 
         if ((DatenObjekte.SV1pos1==1)  && (DatenObjekte.mpm_display<240)) { //Normal
             DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
@@ -2414,42 +2410,42 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
     public void pressButton0(){
         MENU_TOKEN = true;
-        txtprogress.setText("Button0");
+        //txtprogress.setText("Button0");
     }
 
     public void pressButton1(){
         TEST_TOKEN = true;
-        txtprogress.setText("Button1");
+        //txtprogress.setText("Button1");
     }
 
     public void pressButton2(){
         HOME_TOKEN = true;
-        txtprogress.setText("Button2");
+        //txtprogress.setText("Button2");
     }
 
     public void pressButton3(){
         DROSSEL_TOKEN = true;
-        txtprogress.setText("Button3");
+        //txtprogress.setText("Button3");
     }
 
     public void pressButton4(){
         DATEN_TOKEN = true;
-        txtprogress.setText("Button4");
+        //txtprogress.setText("Button4");
     }
 
     public void pressButton5(){
         VERFAHREN_TOKEN = true;
-        txtprogress.setText("Button5");
+        //txtprogress.setText("Button5");
     }
 
     public void pressButton6(){
         KENNLINIE_TOKEN = true;
-        txtprogress.setText("Button6");
+        //txtprogress.setText("Button6");
     }
 
     public void pressButton7(){
         BETRIEBSART_TOKEN = true;
-        txtprogress.setText("Button7");
+        //txtprogress.setText("Button7");
     }
 
     private  void  progrssinit(){
@@ -2604,7 +2600,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         }
 
 
-        //Activate Job
+        //---------------------------- Activate Job ------------------------------------------------
 
         //sendobj.ChangeParameter(10, rannum); //DatenObjekteSend class
         //rannum++;
@@ -2717,7 +2713,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         //UartService.token = false;
         //sendobj.ChangeParameter(12, random); //DatenObjekteSend class
         //delayInMilli(50); //delay 0.05s
-
         cj = UartService.changeJob();
         js = UartService.changeJob1(13); //get job params
 
@@ -2779,7 +2774,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         // UartService.UpdateJobFlag = 0;
         StringBuilder sbfulljobstring = new StringBuilder();
         for(int i=8;i<302;i++){ //from second frame till last second frame
-            fulljobstring = sbfulljobstring.append((char)(DatenObjekte.JOB_FRAME[i]&0xFF)).toString();
+            fulljobstring = sbfulljobstring.append((char)(DatenObjekte.KENNLINIE_FRAME[i]&0xFF)).toString();
         }
         DatenObjekteJob.DataBase();
         //fulljobba = fulljobstring.getBytes(iso88591charset);
@@ -2787,8 +2782,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         //getCRCval = UartService.calcCRC16(fulljobba,fulljobba.length);
 
         //compare with checksum
-        int getCRC16 = ((DatenObjekte.JOB_FRAME[303] & 0xFF) << 8) | //flip F9 49 to 49 F9
-                ((DatenObjekte.JOB_FRAME[302] & 0xFF));
+        int getCRC16 = ((DatenObjekte.KENNLINIE_FRAME[303] & 0xFF) << 8) | //flip F9 49 to 49 F9
+                ((DatenObjekte.KENNLINIE_FRAME[302] & 0xFF));
         //Log.i("getCRCval",String.valueOf(getCRCval));
         //if (getCRCval == getCRC16) Log.i("Good news","Correct checksum");
         //DatenObjekte.checktoken = 0;
@@ -2808,6 +2803,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     }
 
     private void testbtn_onclick1(){
+        //----------------------------Deactivate data parsing-----------
+        PARSE_TOKEN = true;
         TEMP_BA = GetKennlinieDaten.readKennDaten();
         StringBuilder tempsb = new StringBuilder();
         for(int i=0;i<23;i++){
@@ -2888,18 +2885,18 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         /**
          * This method is to send kennlinie_setting Grunddaten to the machine
          **/
+        PARSE_TOKEN = false;
         TMP_KENNFRAME = GetKennlinieDaten.UpdateKennlinie();
-        String[] x = new String[230];
-        StringBuilder sby = new StringBuilder(); //data in hex
-        String y = "";
+        //String[] x = new String[230];
+        //StringBuilder sby = new StringBuilder(); //data in hex
+        //String y = "";
 
         for(int i=0;i<222;i++){
             KENN_STRING = KENN_STRING + (char) (TMP_KENNFRAME[i] & 0xFF);
-            x[i] = String.format("%02x", (int) ((TMP_KENNFRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
-            y = sby.append(x[i]).toString(); //hex string
+            //x[i] = String.format("%02x", (int) ((TMP_KENNFRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
+            //y = sby.append(x[i]).toString(); //hex string
         }
         //System.out.println(y);
-
         WriteToSerial(KENN_STRING);
         KENN_STRING = "";
 

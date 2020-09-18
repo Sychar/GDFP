@@ -28,7 +28,6 @@ public class JobsDetails extends AppCompatActivity {
     static {
         sUriMathcer.addURI(JobContract.CONTEN_AUTHRITY, JobContract.PATH_JOBS, ALL_Jobs);
         sUriMathcer.addURI(JobContract.CONTEN_AUTHRITY, JobContract.PATH_JOBS + "/#", ID_JOBS);
-
     }
 
     public static String[] modiJobsdeateils = new String[112];
