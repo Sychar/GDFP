@@ -501,7 +501,7 @@ android:layout_gravity="center_horizontal"
                 android:text="JOB"
                 android:id="@+id/job_btn"
                 android:textColor="@android:color/white"
-                android:textSize="17dp">
+                android:textSize="36dp">
             </Button>
 
 

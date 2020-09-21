@@ -22,7 +22,7 @@ import com.jess.gdfp.IO.Exit;
 import com.jess.gdfp.R;
 
 public class DatalistView extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> , Exit {
-    public static int timer=0;
+    public static int timer=1;
     private static final int COUNT_LOADR=0;
     DataCursorAdapter dataCursorAdapter;
 

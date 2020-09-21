@@ -2,6 +2,7 @@ package com.jess.gdfp.View;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,6 +21,7 @@ public class Setting extends AppCompatActivity {
     private InfoDataBase datenReader;
     public static boolean JOBUSER_TOKEN = false;
     public static boolean KENN_TOKEN = false;
+    private boolean INIT_ENCODER = false;
 
     private Button Kennlinie;
     private Button jobuser;
@@ -35,168 +37,109 @@ public class Setting extends AppCompatActivity {
                 account = findViewById(R.id.accoutnt); //EXIT
                 datalogger = findViewById(R.id.dlogger);
                 menu_setting = findViewById(R.id.menusetting);
-                //Log.i("TAG", "settingThread is running");
 
                 runOnUiThread(() -> {
-
                     if (MainActivity.CHANGE_TOKEN) {
                         //Log.i(TAG, "CHANGE_TOKEN true");
                         if (MainActivity.SETTING_COUNTER == 1) {
+                            //Log.i("Setting ", "jobs");
+                            jobuser.setTextColor(Color.BLACK);
+                            jobuser.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));
+                            datalogger.setTextColor(Color.WHITE);
+                            datalogger.setBackground(getResources().getDrawable( R.drawable.job_button ));
+                            Kennlinie.setTextColor(Color.WHITE);
+                            Kennlinie.setBackground(getResources().getDrawable( R.drawable.job_button ));
+                            menu_setting.setTextColor(Color.WHITE);
+                            menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
+                            account.setTextColor(Color.WHITE);
+                            account.setBackground(getResources().getDrawable( R.drawable.job_button ));
+                            if (MainActivity.ENCODERBUTTON_TOKEN) {
+                                System.out.println("jobuser.performClick();");
+                                jobuser.performClick();
+                                MainActivity.ENCODERBUTTON_TOKEN =  false;
+                            }
+                        }else if (MainActivity.SETTING_COUNTER == 2) {
                             //Log.i("Setting ", "Datenlogger");
                             datalogger.setTextColor(Color.BLACK);
-                            datalogger.setBackgroundColor(Color.GRAY);
+                            datalogger.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));
                             jobuser.setTextColor(Color.WHITE);
-                            jobuser.setBackgroundColor(Color.BLACK);
+                            jobuser.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             Kennlinie.setTextColor(Color.WHITE);
-                            Kennlinie.setBackgroundColor(Color.BLACK);
+                            Kennlinie.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             menu_setting.setTextColor(Color.WHITE);
-                            menu_setting.setBackgroundColor(Color.BLACK);
+                            menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             account.setTextColor(Color.WHITE);
-                            account.setBackgroundColor(Color.BLACK);
+                            account.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
+                                System.out.println("datalogger.performClick();");
                                 datalogger.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
                             }
-                        } else if (MainActivity.SETTING_COUNTER == 2) {
+                        } else if (MainActivity.SETTING_COUNTER == 3) {
                             //Log.i("Setting ", "Kennlinie");
                             Kennlinie.setTextColor(Color.BLACK);
-                            Kennlinie.setBackgroundColor(R.drawable.job_button_chosen);
+                            Kennlinie.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));
                             jobuser.setTextColor(Color.WHITE);
-                            jobuser.setBackgroundColor(R.drawable.job_button);
+                            jobuser.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             datalogger.setTextColor(Color.WHITE);
-                            datalogger.setBackgroundColor(R.drawable.job_button);
+                            datalogger.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             menu_setting.setTextColor(Color.WHITE);
-                            menu_setting.setBackgroundColor(R.drawable.job_button);
+                            menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             account.setTextColor(Color.WHITE);
-                            account.setBackgroundColor(R.drawable.job_button);
+                            account.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
                                 Kennlinie.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
                             }
-                        } else if (MainActivity.SETTING_COUNTER == 3) {
+                        } else if (MainActivity.SETTING_COUNTER == 4) {
                             //Log.i("Setting ", "Setting");
                             menu_setting.setTextColor(Color.BLACK);
-                            menu_setting.setBackgroundColor(R.drawable.job_button_chosen);
+                            menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));
                             jobuser.setTextColor(Color.WHITE);
-                            jobuser.setBackgroundColor(R.drawable.job_button);
+                            jobuser.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             datalogger.setTextColor(Color.WHITE);
-                            datalogger.setBackgroundColor(R.drawable.job_button);
+                            datalogger.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             Kennlinie.setTextColor(Color.WHITE);
-                            Kennlinie.setBackgroundColor(R.drawable.job_button);
+                            Kennlinie.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             account.setTextColor(Color.WHITE);
-                            account.setBackgroundColor(R.drawable.job_button);
+                            account.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
                                 menu_setting.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
                             }
-                        } else if (MainActivity.SETTING_COUNTER == 4) {
+                        } else if (MainActivity.SETTING_COUNTER == 5) {
                             //Log.i("Setting ", "exit");
                             account.setTextColor(Color.BLACK);
-                            account.setBackgroundColor(R.drawable.job_button_chosen);
+                            account.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));
                             jobuser.setTextColor(Color.WHITE);
-                            jobuser.setBackgroundColor(R.drawable.job_button);
+                            jobuser.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             datalogger.setTextColor(Color.WHITE);
-                            datalogger.setBackgroundColor(R.drawable.job_button);
+                            datalogger.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             Kennlinie.setTextColor(Color.WHITE);
-                            Kennlinie.setBackgroundColor(R.drawable.job_button);
+                            Kennlinie.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             menu_setting.setTextColor(Color.WHITE);
-                            menu_setting.setBackgroundColor(R.drawable.job_button);
+                            menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
                                 account.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN = false;
                             }
-
-                        }else if (MainActivity.SETTING_COUNTER == 5) {
+                        }
+                    }else if(!INIT_ENCODER){
+                        if (MainActivity.ENCODERBUTTON_TOKEN) {
                             //Log.i("Setting ", "jobs");
-                            jobuser.setTextColor(Color.BLACK);
-                            jobuser.setBackgroundColor(R.drawable.job_button_chosen);
-                            datalogger.setTextColor(Color.WHITE);
-                            datalogger.setBackgroundColor(R.drawable.job_button);
-                            Kennlinie.setTextColor(Color.WHITE);
-                            Kennlinie.setBackgroundColor(R.drawable.job_button);
-                            menu_setting.setTextColor(Color.WHITE);
-                            menu_setting.setBackgroundColor(R.drawable.job_button);
-                            account.setTextColor(Color.WHITE);
-                            account.setBackgroundColor(R.drawable.job_button);
-                            if (MainActivity.ENCODERBUTTON_TOKEN) {
-                                jobuser.performClick();
-                                MainActivity.ENCODERBUTTON_TOKEN =  false;
-                            }
+                            jobuser.performClick();
+                            MainActivity.ENCODERBUTTON_TOKEN =  false;
+                            INIT_ENCODER = true;
                         }
                     }
-                });
-
-                /*if (MainActivity.SETTING_TOKEN) { //this part works
-                    jobuser.setTextColor(Color.WHITE);
-                    jobuser.setBackgroundColor(Color.BLACK);
-                    Log.i("Setting button", "is pressed");
-                } else {
-                    jobuser.setTextColor(Color.BLACK);
-                    jobuser.setBackgroundColor(Color.GRAY);
-                }*/
-
-                /*if (MainActivity.CHANGE_TOKEN) {
-                    Log.i(TAG, "CHANGE_TOKEN true");
-                    if (MainActivity.SETTING_COUNTER == 1) {
-                        Log.i("Setting ", "Datenlogger");
-                        datalogger.setTextColor(Color.WHITE);
-                        datalogger.setBackgroundColor(Color.BLACK);
-                        jobuser.setTextColor(Color.BLACK);
-                        jobuser.setBackgroundColor(Color.GRAY);
-                        Kennlinie.setTextColor(Color.BLACK);
-                        Kennlinie.setBackgroundColor(Color.GRAY);
-                        menu_setting.setTextColor(Color.BLACK);
-                        menu_setting.setBackgroundColor(Color.GRAY);
-                        account.setTextColor(Color.BLACK);
-                        account.setBackgroundColor(Color.GRAY);
-                    } else if (MainActivity.SETTING_COUNTER == 2) {
-                        Log.i("Setting ", "Kennlinie");
-                        Kennlinie.setTextColor(Color.WHITE);
-                        Kennlinie.setBackgroundColor(Color.BLACK);
-                        jobuser.setTextColor(Color.BLACK);
-                        jobuser.setBackgroundColor(Color.GRAY);
-                        datalogger.setTextColor(Color.BLACK);
-                        datalogger.setBackgroundColor(Color.GRAY);
-                        menu_setting.setTextColor(Color.BLACK);
-                        menu_setting.setBackgroundColor(Color.GRAY);
-                        account.setTextColor(Color.BLACK);
-                        account.setBackgroundColor(Color.GRAY);
-                    } else if (MainActivity.SETTING_COUNTER == 3) {
-                        Log.i("Setting ", "Setting");
-                        menu_setting.setTextColor(Color.WHITE);
-                        menu_setting.setBackgroundColor(Color.BLACK);
-                        jobuser.setTextColor(Color.BLACK);
-                        jobuser.setBackgroundColor(Color.GRAY);
-                        datalogger.setTextColor(Color.BLACK);
-                        datalogger.setBackgroundColor(Color.GRAY);
-                        Kennlinie.setTextColor(Color.BLACK);
-                        Kennlinie.setBackgroundColor(Color.GRAY);
-                        account.setTextColor(Color.BLACK);
-                        account.setBackgroundColor(Color.GRAY);
-                    } else if (MainActivity.SETTING_COUNTER == 4) {
-                        Log.i("Setting ", "exit");
-                        account.setTextColor(Color.WHITE);
-                        account.setBackgroundColor(Color.BLACK);
-                        jobuser.setTextColor(Color.BLACK);
-                        jobuser.setBackgroundColor(Color.GRAY);
-                        datalogger.setTextColor(Color.BLACK);
-                        datalogger.setBackgroundColor(Color.GRAY);
-                        Kennlinie.setTextColor(Color.BLACK);
-                        Kennlinie.setBackgroundColor(Color.GRAY);
-                        menu_setting.setTextColor(Color.BLACK);
-                        menu_setting.setBackgroundColor(Color.GRAY);
-                        MainActivity.SETTING_COUNTER = 0;
+                    if ((MainActivity.HOME_TOKEN) && (!MainActivity.MA_TOKEN)){
+                        intent = new Intent(this, MainActivity.class);
+                        startActivity(intent);
+                        MainActivity.HOME_TOKEN = false;
+                        MainActivity.MA_TOKEN = true;
+                        Log.i("Home button", "is pressed");
                     }
-                } else {
-                    Log.i(TAG, "CHANGE_TOKEN false");
-                    datalogger.setTextColor(Color.BLACK);
-                    datalogger.setBackgroundColor(Color.GRAY);
-                    Kennlinie.setTextColor(Color.BLACK);
-                    Kennlinie.setBackgroundColor(Color.GRAY);
-                    menu_setting.setTextColor(Color.BLACK);
-                    menu_setting.setBackgroundColor(Color.GRAY);
-                }*/
-
+                });
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
@@ -219,16 +162,16 @@ public class Setting extends AppCompatActivity {
         Button datalogger = findViewById(R.id.dlogger);
         Button menu_setting = findViewById(R.id.menusetting);
         account.setTextColor(Color.WHITE);
-        account.setBackgroundColor(Color.BLACK);
+        account.setBackground(getResources().getDrawable( R.drawable.job_button ));
         datalogger.setTextColor(Color.WHITE);
-        datalogger.setBackgroundColor(Color.BLACK);
+        datalogger.setBackground(getResources().getDrawable( R.drawable.job_button ));
         menu_setting.setTextColor(Color.WHITE);
-        menu_setting.setBackgroundColor(Color.BLACK);
+        menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
         Kennlinie.setTextColor(Color.WHITE);
-        Kennlinie.setBackgroundColor(Color.BLACK);
+        Kennlinie.setBackground(getResources().getDrawable( R.drawable.job_button ));
         if (MainActivity.SETTING_TOKEN) { //only runs one time
             jobuser.setTextColor(Color.BLACK);
-            jobuser.setBackgroundColor(Color.GRAY);
+            jobuser.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));
             //Log.i("Setting button", "is pressed");
         }
         settingThread();
@@ -272,9 +215,9 @@ public class Setting extends AppCompatActivity {
         if (MainActivity.SETTING_TOKEN) {
             Button jobuser_btn = findViewById(R.id.jobsUser);
             jobuser_btn.setTextColor(Color.BLACK);
-            jobuser_btn.setBackgroundColor(Color.GRAY);
-            MainActivity.SETTING_COUNTER = 5;
-            //Log.i("Setting button", "is pressed");
+            jobuser_btn.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));
+            MainActivity.SETTING_COUNTER = 1;
+            //Log.i(TAG, "onResume");
         }
     }
 

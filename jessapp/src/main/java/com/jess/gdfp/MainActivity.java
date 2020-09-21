@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private ChangeKennlinie changekennlinie;
     static boolean  verfahren_gedrückt = false;
     static boolean kennlinie_gedrückt = false;
+    static boolean job_gedrückt = false;
     private static byte[] TEST_FRAME = new byte[20];
     private static byte[] DISABLE_KENN = new byte[20];
     private static byte[] TMP_KENNFRAME = new byte[430];
@@ -198,10 +199,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private static boolean BETRIEBSART_TOKEN = false;
     private static boolean MENU_TOKEN = false;
     private static boolean TEST_TOKEN = false;
-    private static boolean HOME_TOKEN = false;
+    public static boolean HOME_TOKEN = false;
+    public static boolean MA_TOKEN = true;
     private static boolean DROSSEL_TOKEN = false;
     private static boolean DATEN_TOKEN = false;
     public static byte READVAL_STATUS[] = new byte[10];
+    private static boolean JOB_NUM_TOKEN = false;
 
     public static int VERFAHREN = 0;
     public static int DRAHTDURCHMESSER = 0;
@@ -819,11 +822,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
                              if (TEST_TOKEN) {
                                  Log.i(TAG, "TEST_TOKEN is true.");
-                                 testbtn.performClick();
+                                 JOB_NUM.performClick();
                                  TEST_TOKEN = false;
                              }
 
-                             if (HOME_TOKEN) {
+                             if ((HOME_TOKEN) && (MA_TOKEN)){
                                  Log.i(TAG, "HOME_TOKEN is true.");
                                  backHome.performClick();
                                  HOME_TOKEN = false;
@@ -842,10 +845,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                              }
 
                              if (VERFAHREN_TOKEN) {
-                                 //Log.i(TAG, "VERFAHREN_TOKEN is true.");
+                                 Log.i(TAG, "VERFAHREN_TOKEN is true.");
                                  button_menu.performClick();
                                  VERFAHREN_TOKEN = false;
-                             }//else Log.i(TAG, "VERFAHREN_TOKEN is false.");
+                             }
 
                              if (KENNLINIE_TOKEN) {
                                  Log.i(TAG, "KENNLINIE_TOKEN is true.");
@@ -959,6 +962,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
                 SETTING_TOKEN = true;
                 mainActivityController.onClick_newActivity(com.jess.gdfp.View.Setting.class);
+                MA_TOKEN = false;
 
             }
         });
@@ -1165,15 +1169,26 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         });
 
         JOB_NUM.setOnClickListener(view12 -> {
-            //---------------------------Display job number in textview-----------------------------
-            JOB_DISPLAY.setText("Job number"+"\n" + String.valueOf(DatenObjekte.Jobnummer));
-            JOB_DISPLAY.setTextColor(Color.WHITE);
-            //---------------------------- Activate Job --------------------------------------------
-            DatenObjekteSend activateJob = new DatenObjekteSend();
-            activateJob.ChangeParameter(5, 0, 1);
+            if (!job_gedrückt) {
+                JOB_NUM_TOKEN = true;
+                JOB_NUM.setTextColor(Color.BLACK);
+                JOB_NUM.setBackgroundColor(Color.GRAY);
+                //JOB_DISPLAY.setTextColor(Color.BLACK);
+                //JOB_DISPLAY.setBackgroundColor(Color.GRAY);
+                //---------------------------- Activate Job --------------------------------------------
+                DatenObjekteSend activateJob = new DatenObjekteSend();
+                activateJob.ChangeParameter(5, 0, 1);
+                job_gedrückt = true;
+            } else {
+                JOB_NUM_TOKEN = false;
+                JOB_NUM.setTextColor(Color.WHITE);
+                JOB_NUM.setBackgroundColor(Color.BLACK);
+                job_gedrückt = false;
+            }
+
             //---------------------------Increment Job number---------------------------------------
-            DatenObjekteSend incrementJob = new DatenObjekteSend();
-            incrementJob.ChangeParameter(4,0, 1);
+            /*DatenObjekteSend incrementJob = new DatenObjekteSend();
+            incrementJob.ChangeParameter(4,0, 1);*/
             //---------------------------Decrement Job number---------------------------------------
             /*DatenObjekteSend decrementJob = new DatenObjekteSend();
             decrementJob.ChangeParameter(6,0, 1);*/
@@ -2206,6 +2221,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         DatenObjekte.GasParam(tempDO);
                         ANZEIGE3.setText(DatenObjekte.Gas);
                     }
+                    //---------------------------Display job number in textview-----------------------------
+                    //JOB_DISPLAY.setText(String.valueOf(DatenObjekte.Jobnummer));
+                    //JOB_DISPLAY.setTextColor(Color.WHITE);
+                    JOB_NUM.setText(String.valueOf(DatenObjekte.Jobnummer));
+                    JOB_NUM.setTextColor(Color.WHITE);
 
                     Button Korrektur = findViewById(R.id.btn_korrektur); //korrektur textview
                     Button m_min = findViewById(R.id.btn_mm); //Drahtdurchmesser mm
@@ -2320,130 +2340,139 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     }
 
     public void incrementEncoder1(int val_encoder){
-        //Log.i(TAG,"incrementEncoder1");
-        CONTROL_PANEL_MODE = 1;
-        //JOB_INCREMENT++;
 
-        if ((DatenObjekte.SV1pos1==1)  && (DatenObjekte.mpm_display<240)) { //Normal
-            DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-            progressBar.setProgress((int) (DatenObjekte.mpm_display ) * (100 / 232) - (800 / 232));
-        } else if ((DatenObjekte.SV1pos1==2)  && (DatenObjekte.mpm_display<120)){ //Synergie
-            DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-            progressBar.setProgress((int)((DatenObjekte.mpm_display)*100/80 - 50));
-        } else if ((DatenObjekte.SV1pos1==3)  && (DatenObjekte.mpm_display<120)){//Pulse
-            DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-            progressBar.setProgress(DatenObjekte.mpm_display - 20);
-        }
-        //---------------------------------------Energie--------------------------------------------
-        if(DatenObjekte.SV1pos1 != 4) txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
-        else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
+        if(!JOB_NUM_TOKEN) {//Job button in home page is not pressed
+            //Log.i(TAG,"job not pressed");
+            CONTROL_PANEL_MODE = 1;
 
-        if(SETTING_TOKEN) { //Setting button is pressed
-            //Log.i(TAG,"Turn encoder");
-            SETTING_COUNTER++;
-            if (SETTING_COUNTER > 5) SETTING_COUNTER = 1;
-            CHANGE_TOKEN = true;
-            //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
-        }
-        if(JOBUSER_TOKEN) { //Job button in setting is pressed
-            JOBBTN_COUNTER++;
-            //Log.i("JOBBTN_COUNTER",String.valueOf(JOBBTN_COUNTER));
-            if (JOBBTN_COUNTER > 17) JOBBTN_COUNTER = 17;
-            JobsUser.changeBackground(JOBBTN_COUNTER);
-        }
-        if(KENN_TOKEN) { //Kennlinie button in setting is pressed
-            KENNBTN_COUNTER++;
-            //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
-            if (KENNBTN_COUNTER > 17) KENNBTN_COUNTER = 17;
-            Kennlinier_user.changeKennBackground(KENNBTN_COUNTER);
+            if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display < 240)) { //Normal
+                DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
+                progressBar.setProgress((int) (DatenObjekte.mpm_display) * (100 / 232) - (800 / 232));
+            } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display < 120)) { //Synergie
+                DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
+                progressBar.setProgress((int) ((DatenObjekte.mpm_display) * 100 / 80 - 50));
+            } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display < 120)) {//Pulse
+                DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
+                progressBar.setProgress(DatenObjekte.mpm_display - 20);
+            }
+            //---------------------------------------Energie--------------------------------------------
+            if (DatenObjekte.SV1pos1 != 4)
+                txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
+            else
+                txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert + " A")); // Elektrode mode
+
+            if (SETTING_TOKEN) { //Setting button is pressed
+                //Log.i(TAG,"Turn encoder");
+                SETTING_COUNTER++;
+                if (SETTING_COUNTER > 5) SETTING_COUNTER = 1;
+                CHANGE_TOKEN = true;
+                //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
+            }
+            if (JOBUSER_TOKEN) { //Job button in setting is pressed
+                JOBBTN_COUNTER++;
+                //Log.i("JOBBTN_COUNTER",String.valueOf(JOBBTN_COUNTER));
+                if (JOBBTN_COUNTER > 17) JOBBTN_COUNTER = 17;
+                JobsUser.changeBackground(JOBBTN_COUNTER);
+            }
+            if (KENN_TOKEN) { //Kennlinie button in setting is pressed
+                KENNBTN_COUNTER++;
+                //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
+                if (KENNBTN_COUNTER > 17) KENNBTN_COUNTER = 17;
+                Kennlinier_user.changeKennBackground(KENNBTN_COUNTER);
+            }
+        } else { //Job button in home page is pressed
+            //---------------------------Increment Job number---------------------------------------
+            DatenObjekteSend incrementJob = new DatenObjekteSend();
+            incrementJob.ChangeParameter(4,0, 1);
+            //Log.i("incrementJob","is called");
         }
     }
 
      public void decrementEncoder1(int val_encoder){
-        CONTROL_PANEL_MODE  = 1;
-        if((DatenObjekte.SV1pos1==1) && (DatenObjekte.mpm_display>8)){ //Normal
-            DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-        }else if ((DatenObjekte.SV1pos1==2) && (DatenObjekte.mpm_display>40) ){ //Synergie
-            DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-        }else if ((DatenObjekte.SV1pos1==3) && (DatenObjekte.mpm_display>20) ){ //Pulse
-            DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-        }
 
-        if(DatenObjekte.SV1pos1 != 4) txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
-        else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
+         if(!JOB_NUM_TOKEN) {//Job button in home page is not pressed
+             CONTROL_PANEL_MODE = 1;
+             if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display > 8)) { //Normal
+                 DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
+             } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display > 40)) { //Synergie
+                 DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
+             } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display > 20)) { //Pulse
+                 DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
+             }
 
-         if(SETTING_TOKEN) { //Setting button is pressed
-             //Log.i(TAG,"Turn encoder");
-             SETTING_COUNTER--;
-             if (SETTING_COUNTER < 1) SETTING_COUNTER = 5;
-             CHANGE_TOKEN = true;
-             //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
-         }
-         if(JOBUSER_TOKEN){ //Job button is pressed
-             JOBBTN_COUNTER--;
-             //Log.i("JOBBTN_COUNTER",String.valueOf(JOBBTN_COUNTER));
-             if (JOBBTN_COUNTER < 1) JOBBTN_COUNTER = 0;
-             JobsUser.changeBackground(JOBBTN_COUNTER);
-         }
-         if(KENN_TOKEN) { //Kennlinie button in setting is pressed
-             KENNBTN_COUNTER--;
-             //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
-             if (KENNBTN_COUNTER < 1) KENNBTN_COUNTER = 0;
-             Kennlinier_user.changeKennBackground(KENNBTN_COUNTER);
+             if (DatenObjekte.SV1pos1 != 4)
+                 txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
+             else
+                 txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert + " A")); // Elektrode mode
+
+             if (SETTING_TOKEN) { //Setting button is pressed
+                 //Log.i(TAG,"Turn encoder");
+                 SETTING_COUNTER--;
+                 if (SETTING_COUNTER < 1) SETTING_COUNTER = 5;
+                 CHANGE_TOKEN = true;
+                 //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
+             }
+             if (JOBUSER_TOKEN) { //Job button is pressed
+                 JOBBTN_COUNTER--;
+                 //Log.i("JOBBTN_COUNTER",String.valueOf(JOBBTN_COUNTER));
+                 if (JOBBTN_COUNTER < 1) JOBBTN_COUNTER = 0;
+                 JobsUser.changeBackground(JOBBTN_COUNTER);
+             }
+             if (KENN_TOKEN) { //Kennlinie button in setting is pressed
+                 KENNBTN_COUNTER--;
+                 //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
+                 if (KENNBTN_COUNTER < 1) KENNBTN_COUNTER = 0;
+                 Kennlinier_user.changeKennBackground(KENNBTN_COUNTER);
+             }
+         } else { //Job button in home page is pressed
+             //---------------------------Decrement Job number---------------------------------------
+            DatenObjekteSend decrementJob = new DatenObjekteSend();
+            decrementJob.ChangeParameter(6,0, 1);
+             //Log.i("decrementJob","is called");
          }
       }
-
-    public void pressbuttonEncoder0(){
-        ENCODERBUTTON_TOKEN = true;
-        //txtprogress.setText("pressbuttonEncoder0");
-    }
 
     public void pressbuttonEncoder1(){
         ENCODERBUTTON_TOKEN = true;
         //txtprogress.setText("pressbuttonEncoder1");
     }
 
-    public void pressbuttonEncoder2(){
-        ENCODERBUTTON_TOKEN = true;
-        //txtprogress.setText("pressbuttonEncoder2");
-    }
-
-    public void pressButton0(){
+    public void pressMenu(){
         MENU_TOKEN = true;
         //txtprogress.setText("Button0");
     }
 
-    public void pressButton1(){
+    public void pressJob(){
         TEST_TOKEN = true;
         //txtprogress.setText("Button1");
     }
 
-    public void pressButton2(){
+    public void pressHome(){
         HOME_TOKEN = true;
         //txtprogress.setText("Button2");
     }
 
-    public void pressButton3(){
+    public void pressDroessel(){
         DROSSEL_TOKEN = true;
         //txtprogress.setText("Button3");
     }
 
-    public void pressButton4(){
+    public void pressDaten(){
         DATEN_TOKEN = true;
         //txtprogress.setText("Button4");
     }
 
-    public void pressButton5(){
+    public void pressVerfahren(){
         VERFAHREN_TOKEN = true;
         //txtprogress.setText("Button5");
     }
 
-    public void pressButton6(){
+    public void pressKennlinie(){
         KENNLINIE_TOKEN = true;
         //txtprogress.setText("Button6");
     }
 
-    public void pressButton7(){
+    public void pressBetriebsart(){
         BETRIEBSART_TOKEN = true;
         //txtprogress.setText("Button7");
     }

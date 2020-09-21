@@ -26,63 +26,63 @@ public class SendEncoder {
 
         if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 0
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
+            //MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"incrementEncoder0 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 0
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
-            MA_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
+            //MA_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"decrementEncoder0 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 1
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            //MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
-            Log.i(TAG,"incrementEncoder1 is called");
+            MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
+            //Log.i(TAG,"incrementEncoder1 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 1
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
-            //MA_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
-            Log.i(TAG,"decrementEncoder1 is called");
+            MA_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
+            //Log.i(TAG,"decrementEncoder1 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 2
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
             //MA_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
-            Log.i(TAG,"incrementEncoder2 is called");
+            //Log.i(TAG,"incrementEncoder2 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 2
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
             //MA_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
-            Log.i(TAG,"decrementEncoder2 is called");
+            //Log.i(TAG,"decrementEncoder2 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 0){ //button 0
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton0(); //Menu button
-            Log.i(TAG,"button0 is called");
+            MA_OBJECT.pressVerfahren(); //Verfahren button
+            //Log.i(TAG,"button5 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 1){ //button 1
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton1(); //Test button
-            //Log.i(TAG,"button1 is called");
+            MA_OBJECT.pressKennlinie(); //Kennlinie button
+            //Log.i(TAG,"button6 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 2){ //button 2
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton2(); // Home button
-            Log.i(TAG,"button2 is called");
+            MA_OBJECT.pressBetriebsart(); //Betriebsart button
+            //Log.i(TAG,"button7 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 3){ //button 3
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton3(); //Drossel button
-            Log.i(TAG,"button3 is called");
+            MA_OBJECT.pressMenu(); //Menu button
+            //Log.i(TAG,"button0 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 4){ //button 4
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton4(); //Daten button
-            Log.i(TAG,"button4 is called");
+            MA_OBJECT.pressDaten(); //Daten button
+            //Log.i(TAG,"button4 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 5){ //button 5
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton5(); //Verfahren button
-            Log.i(TAG,"button5 is called");
+            MA_OBJECT.pressHome(); //Home button
+            //Log.i(TAG,"button2 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 6){ //button 6
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton6(); //kennlinie_setting button
-            Log.i(TAG,"button6 is called");
+            MA_OBJECT.pressDroessel(); //Droessel button
+            //Log.i(TAG,"button3 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 7){ //button 7
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressButton7(); //Betriebsart button
-            Log.i(TAG,"button7 is called");
+            MA_OBJECT.pressJob(); //Job button
+            //Log.i(TAG,"button1 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 8){ //encoder0 button
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressbuttonEncoder0();
+            //MA_OBJECT.pressbuttonEncoder0();
             //Log.i(TAG,"encoder0 button is press");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 9){ //encoder1 button
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
@@ -90,7 +90,7 @@ public class SendEncoder {
             //Log.i(TAG,"encoder1 button is press");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 10){ //encoder2 button
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            MA_OBJECT.pressbuttonEncoder2();
+            //MA_OBJECT.pressbuttonEncoder2();
             //Log.i(TAG,"encoder2 is called");
         }
 

@@ -68,7 +68,7 @@ public class DatenObjekteSend {
                 }
                 break;
             case 4: //job(no value) increment
-                Log.i("Change","Job");
+                //Log.i("Change","Job");
                 FRAMEVAL = 1;
                 FRAMEEXTRA = 11; //0x0B
                 FIRVAL = 0;
