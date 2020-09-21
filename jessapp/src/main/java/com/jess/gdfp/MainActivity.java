@@ -2490,7 +2490,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         ANZEIGE3 = findViewById(R.id.anzeige3);
         txtprogress = findViewById(R.id.txtpro);
         JOB_NUM  = findViewById(R.id.job_btn);
-        JOB_DISPLAY = findViewById(R.id.job_Nummer);
+     //   JOB_DISPLAY = findViewById(R.id.job_Nummer);
     }
 
     private void setVisibility(){

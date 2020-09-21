@@ -13,6 +13,7 @@ import com.jess.gdfp.Controller.Kennlinie_user_adapter;
 import com.jess.gdfp.Controller.jobAdapter;
 import com.jess.gdfp.DatenBank.Jobs;
 import com.jess.gdfp.View.JobsDetails;
+import com.jess.gdfp.View.Setting;
 
 import java.util.ArrayList;
 
@@ -51,6 +52,11 @@ public class Kennlinier_user extends AppCompatActivity {
         startActivity(intent);
         //JOB_POINTER++;
         // myjobAdapte.notifyDataSetChanged();
+    }
+    public  void exit(View view){
+        intent=new Intent(this, Setting.class);
+        startActivity(intent);
+        this.fileList();
     }
 
     private ArrayList initKENN() {

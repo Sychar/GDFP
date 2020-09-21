@@ -494,9 +494,8 @@ android:layout_gravity="center_horizontal"
             <Button
                 android:background="#80000000"
                 style="@style/genralstyle"
-                android:paddingTop="12dp"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="125dp"
                 android:gravity="center"
                 android:textAlignment="center"
                 android:text="JOB"
@@ -504,19 +503,7 @@ android:layout_gravity="center_horizontal"
                 android:textColor="@android:color/white"
                 android:textSize="17dp">
             </Button>
-            <TextView
-                style="@style/genralstyle"
-                android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:paddingBottom="12dp"
-                android:gravity="center"
-                android:id="@+id/job_Nummer"
-                android:textAlignment="center"
-                android:text="NR"
-                android:textColor="@android:color/white"
-                android:textSize="17dp">
 
-            </TextView>
 
         </LinearLayout>
 

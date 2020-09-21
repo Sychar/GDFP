@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.jess.gdfp.Controller.jobAdapter;
@@ -21,6 +22,7 @@ public class JobsUser extends AppCompatActivity {
     public static int JOB_POINTER;
     private static jobAdapter myjobAdapte;
     private static ListView rv;
+    private Button back;
 
     @Override
 
@@ -51,6 +53,11 @@ public class JobsUser extends AppCompatActivity {
 //    public void jobuser() {
         intent = new Intent(this, JobsDetails.class);
         startActivity(intent);
+    }
+    public  void exit(View view){
+        intent=new Intent(this,Setting.class);
+        startActivity(intent);
+        this.fileList();
     }
 
     private ArrayList initJobs() {

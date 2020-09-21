@@ -9,7 +9,7 @@
         android:text="hallo"
         android:textColor="#ffff"
         android:textSize="20sp"
-        android:layout_width="570dp"
+        android:layout_width="470dp"
         android:layout_height="50dp"
         ></TextView>
     <TextView
