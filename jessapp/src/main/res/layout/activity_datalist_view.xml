@@ -8,97 +8,87 @@
     android:background="#111"
     tools:context=".View.DatalistView">
 
-    <RelativeLayout
-        android:background="#111"
+    <TextView
+        android:text="Time"
+        android:textColor="#ffff"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="28sp"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:orientation="horizontal"
-        >
-<!--
+        android:layout_height="80dp">
+
+    </TextView>
+    <LinearLayout
+        android:layout_marginLeft="150dp"
+        android:layout_width="650dp"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
         <TextView
-            android:layout_width="160dp"
-            android:layout_height="50dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="0dp"
-            android:text="DatenLogger"
-            android:textColor="#ffff"
-            android:textSize="25sp"></TextView>-->
-        <!--<Button
-            android:onClick="close"
-            android:layout_marginTop="8dp"
-            android:textColor="#ffff"
+            android:layout_width="125dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@drawable/border2"
-            android:layout_alignParentRight="true"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:text="close"></Button>-->
-    </RelativeLayout>
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="30sp"
-        android:columnCount="4"
-android:layout_marginBottom="10dp"
-        android:rowCount="1">
+            android:gravity="center"
+            android:text="PARAM"
+            android:textColor="#fff"
+            android:textSize="28sp">
 
-    <TextView
+        </TextView>
 
-        android:background="#111"
-        android:textColor="#ffff"
-        android:layout_width="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:text="Time "
+        <TextView
+            android:layout_width="128dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border2"
+            android:gravity="center"
+            android:text="Value"
+            android:textColor="#fff"
+            android:textSize="28sp">
 
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        </TextView>
 
-
-    <TextView
-        android:id="@+id/lenth"
-        android:background="#111"
-        android:textColor="#ffff"
-        android:layout_width="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_height="wrap_content"
-        android:text="  Lenght"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    <TextView
-        android:id="@+id/canid"
-        android:background="#111"
-        android:textColor="#ffff"
-        android:layout_width="wrap_content"
-        android:layout_columnWeight="1"
-        android:layout_columnSpan="1"
-        android:layout_rowSpan="1"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:text="CanId"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    <TextView
-        android:background="#111"
-        android:textColor="#ffff"
-
-        android:layout_columnSpan="1"
-        android:layout_rowSpan="1"
-        android:layout_columnWeight="1"
-        android:gravity="center"
-        android:layout_height="wrap_content"
-        android:text="Data"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-    </GridLayout>
-
-    <ListView
-        android:background="@drawable/border2"
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="150dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/datalistview"
-        ></ListView>
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/datalistview"
+            android:layout_width="650dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/border2"></ListView>
+<LinearLayout
+    android:layout_marginLeft="40dp"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+
+        android:id="@+id/button5"
+        android:layout_width="144dp"
+        android:layout_height="25dp"
+        android:layout_weight="1"
+        android:text="Delet" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Export" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Import" />
+
+</LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

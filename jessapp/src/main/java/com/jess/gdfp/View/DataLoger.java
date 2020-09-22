@@ -48,8 +48,8 @@ public class DataLoger extends AppCompatActivity implements LoaderManager.Loader
         String[] projectio= {
                 InfoContract.infoEntry._ID,
                 InfoContract.infoEntry.COLUMN_TIME_,
-                InfoContract.infoEntry.COLUMN_LEN_,
-                InfoContract.infoEntry.COLUMN_CANID,
+                //InfoContract.infoEntry.COLUMN_LEN_,
+                //InfoContract.infoEntry.COLUMN_CANID,
 
 
                 };

@@ -55,13 +55,13 @@ public DataCursorAdapter(Context context , Cursor c){
             e.printStackTrace();
         }*/
 
-        String len =cursor.getString(cursor.getColumnIndexOrThrow(InfoContract.infoEntry.COLUMN_LEN_));
-        String  Canid =cursor.getString(cursor.getColumnIndexOrThrow(InfoContract.infoEntry.COLUMN_CANID));
+        //String len =cursor.getString(cursor.getColumnIndexOrThrow(InfoContract.infoEntry.COLUMN_LEN_));
+        //String  Canid =cursor.getString(cursor.getColumnIndexOrThrow(InfoContract.infoEntry.COLUMN_CANID));
 
 
 
-        length.setText(len);
-        canid.setText(Canid);
+       // length.setText(len);
+        //canid.setText(Canid);
 
     }
 }

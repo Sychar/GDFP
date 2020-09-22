@@ -2265,10 +2265,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 len = DatenObjekte.LengthProtocol2;
                 String len1=len+" ";
                 ContentValues values = new ContentValues();
-                values.put(InfoContract.infoEntry.COLUMN_LEN_,len1);
-                values.put(InfoContract.infoEntry.COLUMN_CANID, DatenObjekte.gethex);
-                values.put(InfoContract.infoEntry.COLUMN_TIME_,s );
-                values.put(InfoContract.infoEntry.COLUMN_CANDATA_," ");
+               // values.put(InfoContract.infoEntry.COLUMN_LEN_,len1);
+               // values.put(InfoContract.infoEntry.COLUMN_CANID, DatenObjekte.gethex);
+                //values.put(InfoContract.infoEntry.COLUMN_TIME_,s );
+                //values.put(InfoContract.infoEntry.COLUMN_CANDATA_," ");
 
                 //getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI,values); // this line crash suddenly
 
