@@ -32,269 +32,201 @@ public class DatenObjekte {
     private static int CounterData1 = 0;
 
     public static int Stromtest;
+    private static String HEXADECIMAL_DATA = "";
 
     //SV 1
     public static String Verfahren = "";
     public static String Betriebsart = "";
-    public static int Drahtdurchmesser;
     public static String Gas = "";
     public static String Werkstoff;
     public static String Reglertyp;
     public static String StatusMSR;
-    public static String StatusMSRbit0;
-    public static String StatusMSRbit1;
-    public static String StatusMSRbit2;
-    public static String StatusMSRbit3;
-    public static String StatusMSRbit4;
-    public static String StatusMSRbit5;
-    public static String StatusMSRbit6;
-    public static String StatusMSRbit7;
     public static String StatusFLG;
-    public static String StatusFLGbit0;
-    public static String StatusFLGbit1;
-    public static String StatusFLGbit2;
-    public static String StatusFLGbit3;
-    public static String StatusFLGbit4;
-    public static String StatusFLGbit5;
-    public static String StatusFLGbit6;
-    public static String StatusFLGbit7;
-
     public static int SV1pos1;
     public static int SV1pos2;
     public static int SV1pos3;
     public static int SV1pos4;
     public static int SV1pos5;
     public static int SV1pos6;
-    public static int SV1pos7;
-    public static int SV1pos8;
-    public static String s1pos7 = "";
-    public static String s1pos8 = "";
 
     //SV 2
     public static int Kennliniennummer;
     public static int Jobnummer;
-    public static char KennlinienTyp;
-    public static char SV2pos1;
-    public static char SV2pos2;
-    public static char SV2pos3;
-    public static char SV2pos4;
-    public static char SV2pos5;
-    public static char SV2pos6;
-    public static char SV2pos7;
-    public static char SV2pos8;
-    public static String strKennlinienTyp = "";
-    public static String KennlinienTypbit0;
-    public static String KennlinienTypbit1;
-    public static String KennlinienTypbit2;
-    public static String KennlinienTypbit3;
-    public static String KennlinienTypbit4;
-    public static String KennlinienTypbit5;
-    public static String KennlinienTypbit6;
-    public static String KennlinienTypbit7;
+    public static byte KennlinienTyp;
+    public static String KennlinienTyp_String = "";
 
-    public static char JobKommando;
-    public static char JobStatus;
-    public static String JobStatusbit0;
-    public static String JobStatusbit1;
-    public static String JobStatusbit2;
-    public static String JobStatusbit3;
-    public static String JobStatusbit4;
-    public static String JobStatusbit5;
-    public static String JobStatusbit6;
-    public static String JobStatusbit7;
-    public static String strJobStatus = "";
-    public static char Verriegelungsstufe;
+    public static int JobKommando;
+    public static String JobStatus_String;
+    public static byte Verriegelungsstufe;
 
     //SV 3
-    public static char Gasvorströmen;
-    public static char Gasnachströmen;
-    public static char EinschleichenAbsolut;
-    public static char EinschleichenKorrektur;
-    public static char UpSlope;
-    public static char DownSlope;
-    public static char Zündenergie;
-    public static char Endkraterenergie;
+    public static byte Gasvorströmen;
+    public static byte Gasnachströmen;
+    public static byte EinschleichenAbsolut;
+    public static byte EinschleichenKorrektur;
+    public static byte UpSlope;
+    public static byte DownSlope;
+    public static int Zündenergie;
+    public static int Endkraterenergie;
 
     //SV 4
-    public static char GebirgeStatus;
-    public static char SchweißState;
-    public static char Freibrand;
-    public static char FreibandKorrektur;
-    public static char KorrekturPulsamplitude;
-    public static char KorrekturDrossel  ;
-    public static char Einfädeln;
-    public static char GastestZeit;
+    public static int GebirgeStatus;
+    public static byte SchweißState;
+    public static byte Freibrand;
+    public static byte FreibandKorrektur;
+    public static byte KorrekturPulsamplitude;
+    public static byte KorrekturDrossel  ;
+    public static byte Einfädeln;
+    public static byte GastestZeit;
 
     //Sv 5
     public static int PausenZeit;
     public static int Punktzeit;
-    public static char ZündDauer;
-    public static char EndkraterDauer;
-    public static char SynergieVorgabe;
-    public static char AnzahlLeistungsmodule;
+    public static byte ZündDauer;
+    public static byte EndkraterDauer;
+    public static byte SynergieVorgabe;
+    public static byte AnzahlLeistungsmodule;
 
     //SV 6
-    public static char PowerpulsEinAus;
-    public static char PowerpulsE2;
-    public static char PowerpulsT1E1;
-    public static char PowerpulsT2E1;
-    public static char PowerpulsLBKorrE2;
-    public static char PowerpulsUpSlope;
-    public static char PowerpulsDownSlope;
-    public static char JobSlope;
-    public static String strPowerpulsEinAus = "";
+    public static byte PowerpulsEinAus;
+    public static byte PowerpulsE2;
+    public static byte PowerpulsT1E1;
+    public static byte PowerpulsT2E1;
+    public static byte PowerpulsLBKorrE2;
+    public static byte PowerpulsUpSlope;
+    public static byte PowerpulsDownSlope;
+    public static byte JobSlope;
+    public static String PowerpulsEinAus_String = "";
 
     //SV 7
     public static int ZündStrom;
     public static int ZündSpannung;
     public static int ZündEnergie;
-    public static char ZündDrossel;
-    public static char ZündLichtbogenkorrektur;
+    public static byte ZündDrossel;
+    public static byte ZündLichtbogenkorrektur;
 
     //SV 8
     public static int Strom1;
     public static int Spannung1;
     public static int Energie1;
-    public static char Drossel1;
-    public static int Lichtbogenkorrektur1;
+    public static byte Drossel1;
+    public static byte Lichtbogenkorrektur1;
 
     //SV 9
     public static int Strom2;
     public static int Spannung2;
     public static int Energie2;
-    public static char Drossel2;
-    public static char Lichtbogenkorrektur2;
+    public static byte Drossel2;
+    public static byte Lichtbogenkorrektur2;
 
     //SV 10
     public static int Strom3;
-    public static int Spannung3;
-    public static int Energie3;
-    public static char Drossel3;
-    public static char Lichtbogenkorrektur3;
+    public static byte Spannung3;
+    public static byte Energie3;
+    public static byte Drossel3;
+    public static byte Lichtbogenkorrektur3;
 
     //SV 11
     public static int EndkraterStrom;
-    public static int EndkraterSpannung;
-    public static int EndkraterEnergie;
-    public static char EndkraterDrossel;
-    public static char EndKraterLichtbogenkorrektur;
+    public static byte EndkraterSpannung;
+    public static byte EndkraterEnergie;
+    public static byte EndkraterDrossel;
+    public static byte EndKraterLichtbogenkorrektur;
 
     //SV 12
-    public static int VorschubSetwert;
-    public static int VorschubIstwert;
-    public static int VorschubHoldwert;
-    public static char VorschubStatus;
-    public static char VorschubAusKennlinie;
+    public static byte VorschubSetwert;
+    public static byte VorschubIstwert;
+    public static byte VorschubHoldwert;
+    public static byte VorschubStatus;
+    public static byte VorschubAusKennlinie;
 
     //SV 13
     public static int StromSetwert ;
     public static int StromIstwert;
     public static int StromHoldwert=100;
-    public static char StromStatus;
-    public static char StromInkremental;
+    public static byte StromStatus;
+    public static byte StromInkremental;
 
     //SV 14
-    public static int SpannungSetwert;
-    public static int SpannungIstwert;
-    public static int SpannungHoldwert;
-    public static char SpannungStatus;
-    public static char SpannungInkremental;
+    public static byte SpannungSetwert;
+    public static byte SpannungIstwert;
+    public static byte SpannungHoldwert;
+    public static byte SpannungStatus;
+    public static byte SpannungInkremental;
 
     //SV 15
-    public static int BlechdickeSetwert;
-    public static int BlechdickeIstwert;
-    public static int BlechdickeHoldwert;
-    public static char BlechdickeStatus;
-    public static char Reset;
-    public static String Resetbit0 = "";
+    public static byte BlechdickeSetwert;
+    public static byte BlechdickeIstwert;
+    public static byte BlechdickeHoldwert;
+    public static byte BlechdickeStatus;
+    public static byte Reset;
+    public static String Reset_String = "";
 
     //SV 16
     public static int ElektrodeStromSetwert;
     public static int ElektrodeStromIstwert;
-    public static char HotstartDauer;
-    public static char Hotstart;
-    public static char ArcForce;
-    public static char InnenwiderstandfürElektrode;
+    public static byte HotstartDauer;
+    public static int Hotstart;
+    public static byte ArcForce;
+    public static byte InnenwiderstandfürElektrode;
 
     //SV 17
     public static int RMTPosAmplitude;
     public static int RMTNegAmplitude;
     public static int StartAmplitude;
-    public static char StartZeit;
-    public static char StartÜberhöhung;
+    public static byte StartZeit;
+    public static int StartÜberhöhung;
 
     //SV 18
-    public static char InnenwiderstandfürDossel;
-    public static char Überblendzeit;
-    public static char DrosselAbfall;
-    public static char MotorFlanke;
-    public static char DrosselDynamic;
-    public static char MAGACPositiveZeit;
-    public static char MAGACStromschwellwert;
-    public static char LBRMode;
+    public static byte InnenwiderstandfürDossel;
+    public static byte Überblendzeit;
+    public static byte DrosselAbfall;
+    public static int MotorFlanke;
+    public static byte DrosselDynamic;
+    public static byte MAGACPositiveZeit;
+    public static int MAGACStromschwellwert;
+    public static byte LBRMode;
 
     //SV 19
-    public static char MAGACBetriebsart;
-    public static String strMAGACBetriebsart = "";
-    public static char MAGACKältewert;
-    public static char MAGACNegativZeit;
-    public static char MAGACKurzschlusserkennung;
-    public static char MAGACKurzschlussaufhebung;
-    public static char MACAGVerweilzeitPosNeg;
-    public static char MACAGVerweilzeitNegPos;
+    public static byte MAGACBetriebsart;
+    public static String MAGACBetriebsart_String = "";
+    public static byte MAGACKältewert;
+    public static byte MAGACNegativZeit;
+    public static byte MAGACKurzschlusserkennung;
+    public static byte MAGACKurzschlussaufhebung;
+    public static int MACAGVerweilzeitPosNeg;
+    public static int MACAGVerweilzeitNegPos;
 
     //SV 20
     public static int WIGSpeedPulsFrequenz;
-    public static char WIGSpeedPulsI1Anteil;
-    public static char WIGSpeedPulsI3;
-    public static char GasSollwert;
-    public static char UserNummer;
-    public static char WIGACStromoffset;
-    public static char WIGStatus;
-    public static String WIGStatusbit0 = "";
-    public static String WIGStatusbit1 = "";
-    public static String WIGStatusbit2 = "";
-    public static String WIGStatusbit3 = "";
-    public static String WIGStatusbit4 = "";
-    public static String WIGStatusbit5 = "";
-    public static String WIGStatusbit6 = "";
-    public static String WIGStatusbit7 = "";
+    public static byte WIGSpeedPulsI1Anteil;
+    public static byte WIGSpeedPulsI3;
+    public static byte GasSollwert;
+    public static int UserNummer;
+    public static byte WIGACStromoffset;
+    public static byte WIGStatus;
+    public static String WIGStatus_String = "";
 
     //SV 21
     public static int WIGACFrequenz;
-    public static char WIGACBalance;
-    public static char WIGDurchmesserWolframElektrode;
-    public static char WIGBetriebsartWechselrichter;
-    public static char KaltdrahtpulsenT1SV21_5;
+    public static byte WIGACBalance;
+    public static byte WIGDurchmesserWolframElektrode;
+    public static byte WIGBetriebsartWechselrichter;
+    public static int KaltdrahtpulsenT1SV21_5;
     public static int WIGStromLimit;
-    public static String strWIGBetriebsartWechselrichter = "";
+    public static String WIGBetriebsartWechselrichter_String = "";
 
     //SV 22
-    public static char KHMode;
-    public static char VerzögerungsZeitKaltdrahtEin;
-    public static char VerzögerungsZeitKaltdrahtAus;
-    public static char VerzögerungsZeitHeißdrahtÜberwachung;
-    public static char Vorpositionierungsstrecke;
-    public static char Rückzugsstrecke;
-    public static char KaltdrahtpulsenT1SV22_7;
-    public static char KHStatus;
-    public static String strKHMode = "";
-    public static String strKHStatus = "";
-    public static String strKHModebit0 = "";
-    public static String strKHModebit1 = "";
-    public static String strKHModebit2 = "";
-    public static String strKHModebit3 = "";
-    public static String strKHModebit4 = "";
-    public static String strKHModebit5 = "";
-    public static String strKHModebit6 = "";
-    public static String strKHModebit7 = "";
-    public static String strKHStatusbit0 = "";
-    public static String strKHStatusbit1 = "";
-    public static String strKHStatusbit2 = "";
-    public static String strKHStatusbit4 = "";
-    public static String strKHStatusbit5 = "";
-    public static String strKHStatusbit6 = "";
-    public static String strKHStatusbit7 = "";
+    public static byte KHMode;
+    public static byte VerzögerungsZeitKaltdrahtEin;
+    public static byte VerzögerungsZeitKaltdrahtAus;
+    public static byte VerzögerungsZeitHeißdrahtÜberwachung;
+    public static byte Vorpositionierungsstrecke;
+    public static byte Rückzugsstrecke;
+    public static int KaltdrahtpulsenT1SV22_7;
+    public static byte KHStatus;
+    public static String KHMode_String = "";
+    public static String KHStatus_String = "";
 
     //-------------------------------------------
 
@@ -411,7 +343,7 @@ public class DatenObjekte {
     }
 
     public static void WerkstoffParam(int number){
-        switch (SV1pos5) {
+        switch (number) {
             case 0:
                 Werkstoff = "NONE";
                 break;
@@ -423,6 +355,7 @@ public class DatenObjekte {
                 break;
             case 3:
                 Werkstoff = "AlMg";
+                System.out.println("AlMg");
                 break;
             case 4:
                 Werkstoff = "AlSi";
@@ -445,6 +378,7 @@ public class DatenObjekte {
             case 10:
                 Werkstoff = "Spezial";
                 break;
+
             default:
                 Werkstoff = "Error";
                 break;
@@ -498,8 +432,8 @@ public class DatenObjekte {
                     countertoken = 1;
                     HFound = 1; //Header is found
                     for (int i = 6; i < 220; i++) {
-                        KENNLINIE_FRAME[y] = DO_FRAME[i];// in bytes
-                        y++;
+                             KENNLINIE_FRAME[y] = DO_FRAME[i];// in bytes
+                             y++;
                     }
 
                     //Log.i(TAG,"Complete frame");
@@ -536,664 +470,661 @@ public class DatenObjekte {
                     }
                     System.out.println("Kenn response : " + y);*/
                 }
-            } else if (gethex.equals("0720")) { //send to Heartbeat class
-                HeartBeat.sendHeartBeat(); //you don’t have to create an object from a class before you can use static methods defined by the class.
-               // Log.i("gethex",gethex);
+            } else if (MainActivity.PARSE_TOKEN) {
+                //Log.i("PARSE_TOKEN","Datenobjekte");
+                if (gethex.equals("0720")) { //send to Heartbeat class
+                    HeartBeat.sendHeartBeat(); //you don’t have to create an object from a class before you can use static methods defined by the class.
+                    // Log.i("gethex",gethex);
 
-            } else if (gethex.equals("0181")) {
-                //Log.i("gethex ","0181");
-                SV1pos1 = (int) DO_FRAME[6];//pos 1
-                //Log.i("Verfahren mode",String.valueOf(SV1pos1));
-                VerfahrenParam(SV1pos1);
+                } else if (gethex.equals("0181")) {
+                    //Log.i("gethex ","0181");
+                    SV1pos1 = (int) DO_FRAME[6];//pos 1
+                    //Log.i("Verfahren mode",String.valueOf(SV1pos1));
+                    VerfahrenParam(SV1pos1);
 
-                SV1pos2 = (int) DO_FRAME[7];//pos 2
-                switch (SV1pos2) {
-                    case 0:
-                        Betriebsart = "NONE";
-                        break;
-                    case 1:
-                        Betriebsart = "2-Takt";
-                        break;
-                    case 2:
-                        Betriebsart = "4-Takt";
-                        break;
-                    case 3:
-                        Betriebsart = "4-Takt Sonder";
-                        break;
-                    case 4:
-                        Betriebsart = "Programm";
-                        break;
-                    case 5:
-                        Betriebsart = "Punkten";
-                        break;
-                    case 6:
-                        Betriebsart = "Intervall";
-                        break;
-                    case 7:
-                        Betriebsart = "Extern";
-                        break;
-                    case 8:
-                        Betriebsart = "2-Takt + HF";
-                        break;
-                    case 9:
-                        Betriebsart = "4-Takt + HF";
-                        break;
-                    default:
-                        Betriebsart = "Error";
-                        break;
+                    SV1pos2 = (int) DO_FRAME[7];//pos 2
+                    switch (SV1pos2) {
+                        case 0:
+                            Betriebsart = "NONE";
+                            break;
+                        case 1:
+                            Betriebsart = "2-Takt";
+                            break;
+                        case 2:
+                            Betriebsart = "4-Takt";
+                            break;
+                        case 3:
+                            Betriebsart = "4-Takt Sonder";
+                            break;
+                        case 4:
+                            Betriebsart = "Programm";
+                            break;
+                        case 5:
+                            Betriebsart = "Punkten";
+                            break;
+                        case 6:
+                            Betriebsart = "Intervall";
+                            break;
+                        case 7:
+                            Betriebsart = "Extern";
+                            break;
+                        case 8:
+                            Betriebsart = "2-Takt + HF";
+                            break;
+                        case 9:
+                            Betriebsart = "4-Takt + HF";
+                            break;
+                        default:
+                            Betriebsart = "Error";
+                            break;
+                    }
+
+                    SV1pos4 = (int) DO_FRAME[9];//pos 4
+                    GasParam(SV1pos4);
+
+                    SV1pos5 = (int) DO_FRAME[10];//pos 5
+                    WerkstoffParam(SV1pos5);
+
+                    SV1pos6 = (int) DO_FRAME[11];//pos 6
+                    switch (SV1pos6) {
+                        case 0:
+                            Reglertyp = "U/I - Regler ohne Lichtbogen-Regler";
+                            break;
+                        case 1:
+                            Reglertyp = "I/I - Regler ohne Lichtbogen-Regler";
+                            break;
+                        case 2:
+                            Reglertyp = "U/I - Regler mit Lichtbogen-Regler";
+                            break;
+                        case 3:
+                            Reglertyp = "I/I - Regler mit Lichtbogen-Regler";
+                            break;
+                        default:
+                            Reglertyp = "Error";
+                            break;
+                    }
+                    int result = (int) DO_FRAME[12];//pos 7
+                    //System.out.println("StatusMSR  "+result);
+
+                    if ((result & 0x01) == 1) {
+                        StatusMSR = "Schweißen Ein";
+                    }
+
+                    result = result >>> 1;//shift first time
+
+                    if ((result & 1) == 0) {
+                        StatusMSR = "akt. Koffer 1";
+                    } else {
+                        StatusMSR = "akt. Koffer 2";
+                    }
+
+                    result = result >>> 1;//shift second time
+
+                    if ((result & 1) == 0) {
+                        StatusMSR = "Synergie Ein";
+                    } else {
+                        StatusMSR = "Synergie Aus";
+                    }
+
+                    result = result >>> 1;//shift third time
+
+                    if ((result & 1) == 1) {
+                        StatusMSR = "Einfädeln Vor";
+                    }
+
+                    result = result >>> 1;//shift fourth time
+
+                    if ((result & 1) == 1) {
+                        StatusMSR = "Kühlen";
+                    }
+
+                    result = result >>> 1;//shift fifth time
+
+                    if ((result & 1) == 1) {
+                        StatusMSR = "Einfädeln Zurück";
+                    }
+
+                    result = result >>> 1;//shift sixth time
+
+                    if ((result & 1) == 1) {
+                        StatusMSR = "Gas-Test";
+                    }
+
+                    result = result >>> 1;//shift seventh time
+
+                    if ((result & 1) == 1) {
+                        StatusMSR = "Tastenklick Ein";
+                    }
+
+                    int iSFLG = (int) DO_FRAME[13];//pos 8
+
+                    if ((iSFLG & 1) == 1) {
+                        StatusFLG = "FLG im Gebirge-Mode";
+                    }
+
+                    iSFLG = iSFLG >>> 1;//shift first time
+
+                    if ((iSFLG & 1) == 1) {
+                        StatusFLG = "FLG mit Gebirge";
+                    }
+
+                    iSFLG = iSFLG >>> 1;//shift second time
+
+                    if ((iSFLG & 1) == 1) {
+                        StatusFLG = "Zünden Aus";
+                    }
+
+                    iSFLG = iSFLG >>> 1;//shift third time
+
+                    if ((iSFLG & 1) == 1) {
+                        StatusFLG = "Rückzugs-Zündung Aus";
+                    }
+
+                    iSFLG = iSFLG >>> 1;//shift fourth time
+
+                    if ((iSFLG & 1) == 1) {
+                        StatusFLG = "Endpuls Aus";
+                    }
+
+                    iSFLG = iSFLG >>> 1;//shift fifth time
+
+                    if ((iSFLG & 1) == 1) {
+                        StatusFLG = "Locking-Edit_Mode";
+                    }
+
+                    iSFLG = iSFLG >>> 1;//shift sixth time
+
+                    if ((iSFLG & 1) == 1) {
+                        StatusFLG = "Wasser fließt";
+                    }
+
+                    iSFLG = iSFLG >>> 1;//shift seventh time
+
+                    if ((iSFLG & 1) == 1) {
+                        StatusFLG = "Freiband-Warnung";
+                    }
+
+                } else if (gethex.equals("0182")) {
+
+                    Kennliniennummer = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
+                    //Log.i("(int) DO_FRAME[6]",String.valueOf((int) DO_FRAME[6]));
+                    //System.out.println("DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8 "+(DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8));
+                    Jobnummer = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+
+                    int iKT = (int) DO_FRAME[10];//pos 5 (Kennlinien-Typ)
+
+                    if ((iKT & 1) == 1) {
+                        KennlinienTyp_String = "Typ-Bit 1 = 2^0";
+                    }
+
+                    iKT = iKT >>> 1;//shift first time
+
+                    if ((iKT & 1) == 1) {
+                        KennlinienTyp_String = "Typ-Bit 2 = 2^1";
+                    }
+
+                    iKT = iKT >>> 1;//shift second time
+
+                    if ((iKT & 1) == 1) {
+                        KennlinienTyp_String = "Typ-Bit 3 = 2^2";
+                    }
+
+                    iKT = iKT >>> 1;//shift third time
+
+                    if ((iKT & 1) == 1) {
+                        KennlinienTyp_String = "Typ-Bit 4 = 2^4";
+                    }
+
+                    iKT = iKT >>> 1;//shift fourth time
+
+                    if ((iKT & 1) == 1) {
+                        KennlinienTyp_String = "Res.";
+                    }
+
+                    iKT = iKT >>> 1;//shift fifth time
+
+                    if ((iKT & 1) == 1) {
+                        KennlinienTyp_String = "RMT-Verfahren ist ein";
+                    }
+
+                    iKT = iKT >>> 1;//shift sixth time
+
+                    if ((iKT & 1) == 1) {
+                        KennlinienTyp_String = "HC-MAG ist ein";
+                    }
+
+                    iKT = iKT >>> 1;//shift seventh time
+
+                    if ((iKT & 1) == 1) {
+                        KennlinienTyp_String = "Kennlinie sichtbar";
+                    }
+
+                    JobKommando = (int) DO_FRAME[11];//pos 6
+
+                    int iJS = (int) DO_FRAME[12];//pos 5
+                    if ((iJS & 1) == 1) {
+                        JobStatus_String = "Jobschweißen aktiv";
+                    }
+
+                    iJS = iJS >>> 1;//shift first time
+
+                    if ((iJS & 1) == 1) {
+                        JobStatus_String = "Job-Edit";
+                    }
+
+                    iJS = iJS >>> 1;//shift second time
+
+                    if ((iJS & 1) == 0) {
+                        JobStatus_String = "Job-Nr. Frei";
+                    } else {
+                        JobStatus_String = "Job-Nr. belegt";
+                    }
+
+                    iJS = iJS >>> 1;//shift third time
+
+                    if ((iJS & 1) == 1) {
+                        JobStatus_String = "Keine Jobs im Speicher";
+                    }
+
+                    iJS = iJS >>> 1;//shift fourth time
+
+                    if ((iJS & 1) == 1) {
+                        JobStatus_String = "Job gespeichert";
+                    }
+
+                    iJS = iJS >>> 1;//shift fifth time
+
+                    if ((iJS & 1) == 1) {
+                        JobStatus_String = "Display";
+                    }
+
+                    iJS = iJS >>> 1;//shift sixth time
+
+                    if ((iJS & 1) == 1) {
+                        JobStatus_String = "Job Extern";
+                    }
+
+                    iJS = iJS >>> 1;//shift seventh time
+
+                    if ((iJS & 1) == 1) {
+                        JobStatus_String = " ";
+                    }
+                    Verriegelungsstufe = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0183")) {
+
+                    Gasvorströmen = DO_FRAME[6];//pos 1
+                    Gasnachströmen = DO_FRAME[7];//pos 2
+                    EinschleichenAbsolut = DO_FRAME[8];//pos 3
+                    EinschleichenKorrektur = DO_FRAME[9];//pos 4
+                    UpSlope = DO_FRAME[10];//pos 5
+                    DownSlope = DO_FRAME[11];//pos 6
+                    Zündenergie = DO_FRAME[12];//pos 7
+                    Endkraterenergie = (int) DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0184")) {
+
+                    GebirgeStatus = DO_FRAME[6];//pos 1
+                    SchweißState = DO_FRAME[7];//pos 2
+                    Freibrand = DO_FRAME[8];//pos 3
+                    FreibandKorrektur = DO_FRAME[9];//pos 4
+                    KorrekturPulsamplitude = DO_FRAME[10];//pos 5
+                    KorrekturDrossel = DO_FRAME[11];//pos 6
+                    Einfädeln = DO_FRAME[12];//pos 7
+                    GastestZeit = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0185")) {
+
+                    PausenZeit = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
+                    Punktzeit = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    ZündDauer = DO_FRAME[10];//pos 5
+                    EndkraterDauer = DO_FRAME[11];//pos 6
+                    SynergieVorgabe = DO_FRAME[12];//pos 7
+                    AnzahlLeistungsmodule = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0281")) {
+
+                    PowerpulsEinAus = DO_FRAME[6];//pos 1
+                    if (PowerpulsEinAus == 0) {
+                        PowerpulsEinAus_String = "Aus";
+                    } else if (PowerpulsEinAus == 1) {
+                        PowerpulsEinAus_String = "Aktiv";
+                    }
+                    PowerpulsE2 = DO_FRAME[7];//pos 2
+                    PowerpulsT1E1 = DO_FRAME[8];//pos 3
+                    PowerpulsT2E1 = DO_FRAME[9];//pos 4
+                    PowerpulsLBKorrE2 = DO_FRAME[10];//pos 5
+                    PowerpulsUpSlope = DO_FRAME[11];//pos 6
+                    PowerpulsDownSlope = DO_FRAME[12];//pos 7
+                    JobSlope = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0282")) {
+
+                    ZündStrom = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
+                    ZündSpannung = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    ZündEnergie = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
+                    ZündDrossel = DO_FRAME[12];//pos 7
+                    ZündLichtbogenkorrektur = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0283")) {
+
+                    Strom1 = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
+                    Spannung1 = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    //Energie1 = DO_FRAME[10] & 0xFF;//pos 5 or 6
+                    Energie1 = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
+                    Drossel1 = DO_FRAME[12];//pos 7
+                    Lichtbogenkorrektur1 = DO_FRAME[13];//pos 8
+                    if (MainActivity.READVAL_STATUS[1] != 1) {
+                        MainActivity.READVAL_STATUS[1] = 1;
+                        mpm_display = Energie1;
+                    }
                 }
 
-                SV1pos4 = (int) DO_FRAME[9];//pos 4
-                GasParam(SV1pos4);
+                if (gethex.equals("0201")) {
+                    Stromtest = ((int) (DO_FRAME[6])) & 0xFF;
+                } else if (gethex.equals("0284")) {
 
-                SV1pos5 = (int) DO_FRAME[10];//pos 5
-                WerkstoffParam(SV1pos5);
+                    Strom2 = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
+                    Spannung2 = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    Energie2 = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
+                    Drossel2 = DO_FRAME[12];//pos 7
+                    Lichtbogenkorrektur2 = DO_FRAME[13];//pos 8
 
-                SV1pos6 = (int) DO_FRAME[11];//pos 6
-                switch (SV1pos6) {
-                    case 0:
-                        Reglertyp = "U/I - Regler ohne Lichtbogen-Regler";
-                        break;
-                    case 1:
-                        Reglertyp = "I/I - Regler ohne Lichtbogen-Regler";
-                        break;
-                    case 2:
-                        Reglertyp = "U/I - Regler mit Lichtbogen-Regler";
-                        break;
-                    case 3:
-                        Reglertyp = "I/I - Regler mit Lichtbogen-Regler";
-                        break;
-                    default:
-                        Reglertyp = "Error";
-                        break;
+                } else if (gethex.equals("0285")) {
+
+                    Strom3 = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
+                    Spannung3 = DO_FRAME[8];//pos 3 or 4
+                    Energie3 = DO_FRAME[10];//pos 5 or 6
+                    Drossel3 = DO_FRAME[12];//pos 7
+                    Lichtbogenkorrektur3 = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0286")) {
+
+                    EndkraterStrom = (int) DO_FRAME[6];//pos 1 or 2
+                    EndkraterSpannung = DO_FRAME[8];//pos 3 or 4
+                    EndkraterEnergie = DO_FRAME[10];//pos 5 or 6
+                    EndkraterDrossel = DO_FRAME[12];//pos 7
+                    EndKraterLichtbogenkorrektur = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0481")) {
+
+                    VorschubSetwert = DO_FRAME[6];//pos 1 or 2
+                    VorschubIstwert = DO_FRAME[8];//pos 3 or 4
+                    VorschubHoldwert = DO_FRAME[10];//pos 5 or 6
+                    VorschubStatus = DO_FRAME[12];//pos 7
+                    VorschubAusKennlinie = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0482")) {
+
+                    StromSetwert = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);
+                    //System.out.println("strom wert = " +(int)DO_FRAME[6]+(int)DO_FRAME[7]);
+                    StromIstwert = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    StromHoldwert = (int) DO_FRAME[10];//pos 5 or 6
+                    StromStatus = DO_FRAME[12];//pos 7
+                    StromInkremental = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0483")) {
+
+                    SpannungSetwert = DO_FRAME[6];//pos 1 or 2
+                    SpannungIstwert = DO_FRAME[8];//pos 3 or 4
+                    SpannungHoldwert = DO_FRAME[10];//pos 5 or 6
+                    SpannungStatus = DO_FRAME[12];//pos 7
+                    SpannungInkremental = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0484")) {
+
+                    BlechdickeSetwert = DO_FRAME[6];//pos 1 or 2
+                    BlechdickeIstwert = DO_FRAME[8];//pos 3 or 4
+                    BlechdickeHoldwert = DO_FRAME[10];//pos 5 or 6
+                    BlechdickeStatus = DO_FRAME[12];//pos 7
+
+                    Reset = DO_FRAME[13];//pos 8
+                    if ((Reset & 1) == 1) {
+                        Reset_String = "Error-Reset";
+                    }else Reset_String = "No Error";
+
+                } else if (gethex.equals("0186")) {
+
+                    ElektrodeStromSetwert = DO_FRAME[6] & 0xFF;//pos 1 or 2
+                    ElektrodeStromIstwert = (int) DO_FRAME[8];//pos 3 or 4
+                    HotstartDauer = DO_FRAME[10];//pos 5
+                    Hotstart = DO_FRAME[11];//pos 6
+                    ArcForce = DO_FRAME[12];//pos 7
+                    InnenwiderstandfürElektrode = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0385")) {
+
+                    RMTPosAmplitude = (int) DO_FRAME[6];//pos 1 or 2
+                    RMTNegAmplitude = (int) DO_FRAME[8];//pos 3 or 4
+                    StartAmplitude = (int) DO_FRAME[10];//pos 5 or 6
+                    StartZeit = DO_FRAME[12];//pos 7
+                    StartÜberhöhung = (int) DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0386")) {
+
+                    InnenwiderstandfürDossel = DO_FRAME[6];//pos 1
+                    Überblendzeit = DO_FRAME[7];//pos 2
+                    DrosselAbfall = DO_FRAME[8];//pos 3
+                    MotorFlanke = (int) DO_FRAME[9];//pos 4
+                    DrosselDynamic = DO_FRAME[10];//pos 5
+                    MAGACPositiveZeit = DO_FRAME[11];//pos 6
+                    MAGACStromschwellwert = (int) DO_FRAME[12];//pos 7
+                    LBRMode = DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0485")) {
+
+                    MAGACBetriebsart = DO_FRAME[6];//pos 1
+                    if (MAGACBetriebsart == 0) {
+                        MAGACBetriebsart_String = "DC+ (entspricht AUS)";
+                    } else if (MAGACBetriebsart == 1) {
+                        MAGACBetriebsart_String = "DC-";
+                    } else if (MAGACBetriebsart == 2) {
+                        MAGACBetriebsart_String = "AC";
+                    }
+
+                    MAGACKältewert = DO_FRAME[7];//pos 2
+                    MAGACNegativZeit = DO_FRAME[8];//pos 3 or 4
+                    MAGACKurzschlusserkennung = DO_FRAME[10];//pos 5
+                    MAGACKurzschlussaufhebung = DO_FRAME[11];//pos 6
+                    MACAGVerweilzeitPosNeg = (int) DO_FRAME[12];//pos 7
+                    MACAGVerweilzeitNegPos = (int) DO_FRAME[13];//pos 8
+
+                } else if (gethex.equals("0301")) {
+
+                    WIGSpeedPulsFrequenz = (int) DO_FRAME[6];//pos 1 or 2
+                    WIGSpeedPulsI1Anteil = DO_FRAME[8];//pos 3
+                    WIGSpeedPulsI3 = DO_FRAME[9];//pos 4
+                    GasSollwert = DO_FRAME[10];//pos 5
+                    UserNummer = (int) DO_FRAME[11];//pos 6
+                    WIGACStromoffset = DO_FRAME[12];//pos 7
+
+                    WIGStatus = DO_FRAME[13]; //pos 8
+                    int iWIGStatus = (int) WIGStatus;
+
+                    if ((iWIGStatus & 1) == 1) {
+                        WIGStatus_String = "WIG-Brennertaste 2 ein";
+                    }
+
+                    iWIGStatus = iWIGStatus >>> 1;//shift first time
+
+                    if ((iWIGStatus & 1) == 1) {
+                        WIGStatus_String = "Puls I2";
+                    }
+
+                    iWIGStatus = iWIGStatus >>> 1;//shift second time
+
+                    if ((iWIGStatus & 1) == 1) {
+                        WIGStatus_String = "Fußpedal vorhanden";
+                    }
+
+                    iWIGStatus = iWIGStatus >>> 1;//shift third time
+
+                    if ((iWIGStatus & 1) == 1) {
+                        WIGStatus_String = "Automatisierung";
+                    }
+
+                    iWIGStatus = iWIGStatus >>> 1;//shift fourth time
+
+                    if ((iWIGStatus & 1) == 1) {
+                        WIGStatus_String = "Wechselrichter vorhanden";
+                    }
+
+                    iWIGStatus = iWIGStatus >>> 1;//shift fifth time
+
+                    if ((iWIGStatus & 1) == 1) {
+                        WIGStatus_String = "I2 ist in % von I1";
+                    }
+
+                    iWIGStatus = iWIGStatus >>> 1;//shift sixth time
+
+                    if ((iWIGStatus & 1) == 1) {
+                        WIGStatus_String = "Reserve";
+                    }
+
+                    iWIGStatus = iWIGStatus >>> 1;//shift seventh time
+
+                    if ((iWIGStatus & 1) == 1) {
+                        WIGStatus_String = "Reserve";
+                    }
+
+                } else if (gethex.equals("0302")) {
+
+                    WIGACFrequenz = (int) DO_FRAME[6];//pos 1 or 2
+                    WIGACBalance = DO_FRAME[8];//pos 3
+                    WIGDurchmesserWolframElektrode = DO_FRAME[9];//pos 4
+
+                    WIGBetriebsartWechselrichter = DO_FRAME[10];//pos 5
+                    if (WIGBetriebsartWechselrichter == 0) {
+                        WIGBetriebsartWechselrichter_String = "NONE";
+                    } else if (WIGBetriebsartWechselrichter == 1) {
+                        WIGBetriebsartWechselrichter_String = "DC - Minus";
+                    } else if (WIGBetriebsartWechselrichter == 2) {
+                        WIGBetriebsartWechselrichter_String = "DC - Plus";
+                    } else if (WIGBetriebsartWechselrichter == 3) {
+                        WIGBetriebsartWechselrichter_String = "AC - Sinus";
+                    } else if (WIGBetriebsartWechselrichter == 4) {
+                        WIGBetriebsartWechselrichter_String = "AC - Rechteck";
+                    } else if (WIGBetriebsartWechselrichter == 5) {
+                        WIGBetriebsartWechselrichter_String = "AC - MIX";
+                    }
+
+                    KaltdrahtpulsenT1SV21_5 = (int) DO_FRAME[11];//pos 6
+                    WIGStromLimit = (int) DO_FRAME[12];//pos 7 or 8
+
+                } else if (gethex.equals("0303")) {
+
+                    KHMode = DO_FRAME[6]; //pos 1
+                    int iKHMode = (int) KHMode;
+
+                    if ((iKHMode & 1) == 1) {
+                        KHMode_String = "Kaltdraht Freigabe";
+                    }
+
+                    iKHMode = iKHMode >>> 1;//shift first time
+
+                    if ((iKHMode & 1) == 1) {
+                        KHMode_String = "Kaltdraht Start Roboter";
+                    }
+
+                    iKHMode = iKHMode >>> 1;//shift second time
+
+                    if ((iKHMode & 1) == 0) {
+                        KHMode_String = "Kaltdraht Stop wenn Min. Unterschr";
+                    }
+
+                    iKHMode = iKHMode >>> 1;//shift third time
+
+                    if ((iKHMode & 1) == 1) {
+                        KHMode_String = "Kaltdraht Pulsen an Strom gekoppelt";
+                    }
+
+                    iKHMode = iKHMode >>> 1;//shift fourth time
+
+                    if ((iKHMode & 1) == 1) {
+                        KHMode_String = "Heißdraht Freigabe";
+                    }
+
+                    iKHMode = iKHMode >>> 1;//shift fifth time
+
+                    if ((iKHMode & 1) == 1) {
+                        KHMode_String = "Heißdraht Start Roboter";
+                    }
+
+                    iKHMode = iKHMode >>> 1;//shift sixth time
+
+                    if ((iKHMode & 1) == 1) {
+                        KHMode_String = "Kaltdraht Pulsen Freigabe";
+                    }
+
+                    iKHMode = iKHMode >>> 1;//shift seventh time
+
+                    if ((iKHMode & 1) == 1) {
+                        KHMode_String = "Kaltdraht V2 Absolut in m/min";
+                    }
+
+                    VerzögerungsZeitKaltdrahtEin = DO_FRAME[7];//pos 2
+                    VerzögerungsZeitKaltdrahtAus = DO_FRAME[8];//pos 3
+                    VerzögerungsZeitHeißdrahtÜberwachung = DO_FRAME[9];//pos 4
+                    Vorpositionierungsstrecke = DO_FRAME[10];//pos 5
+                    Rückzugsstrecke = DO_FRAME[11];//pos 6
+                    KaltdrahtpulsenT1SV22_7 = (int) DO_FRAME[12];//pos 7
+
+                    KHStatus = DO_FRAME[13];//pos 8
+                    int iKHStatus = (int) KHStatus;
+                    if ((iKHStatus & 1) == 1) {
+                        KHStatus_String = "Kaltdraht ok(DVC im System";
+                    }
+
+                    iKHStatus = iKHStatus >>> 1;//shift first time
+
+                    if ((iKHStatus & 1) == 1) {
+                        KHStatus_String = "Kalt-Draht Ein";
+                    }
+
+                    iKHStatus = iKHStatus >>> 1;//shift second time
+
+                    if ((iKHStatus & 1) == 0) {
+                        KHStatus_String = "Kalt-Draht fördert";
+                    }
+
+                    iKHStatus = iKHStatus >>> 1;//shift third time
+
+                    if ((iKHStatus & 1) == 1) {
+                        KHStatus_String = " ";
+                    }
+
+                    iKHStatus = iKHStatus >>> 1;//shift fourth time
+
+                    if ((iKHStatus & 1) == 1) {
+                        KHStatus_String = "Heißdraht ok(MSRC-HW DVC im System)";
+                    }
+
+                    iKHStatus = iKHStatus >>> 1;//shift fifth time
+
+                    if ((iKHStatus & 1) == 1) {
+                        KHStatus_String = "Heiß-Draht Ein";
+                    }
+
+                    iKHStatus = iKHStatus >>> 1;//shift sixth time
+
+                    if ((iKHStatus & 1) == 1) {
+                        KHStatus_String = "Heiß-Draht Strom fließt";
+                    }
+
+                    iKHStatus = iKHStatus >>> 1;//shift seventh time
+
+                    if ((iKHStatus & 1) == 1) {
+                        KHStatus_String = "Heiß-Draht-Strom ok";
+                    }
                 }
-                int result = (int) DO_FRAME[12];//pos 7
 
-                if ((result & 1) == 1) {
-                    StatusMSRbit0 = "Schweißen Ein";
-                }
-
-                result = result >>> 1;//shift first time
-
-                if ((result & 1) == 0) {
-                    StatusMSRbit1 = "akt. Koffer 1";
-                } else {
-                    StatusMSRbit1 = "akt. Koffer 2";
-                }
-
-                result = result >>> 1;//shift second time
-
-                if ((result & 1) == 0) {
-                    StatusMSRbit2 = "Synergie Ein";
-                } else {
-                    StatusMSRbit2 = "Synergie Aus";
-                }
-
-                result = result >>> 1;//shift third time
-
-                if ((result & 1) == 1) {
-                    StatusMSRbit3 = "Einfädeln Vor";
-                }
-
-                result = result >>> 1;//shift fourth time
-
-                if ((result & 1) == 1) {
-                    StatusMSRbit4 = "Kühlen";
-                }
-
-                result = result >>> 1;//shift fifth time
-
-                if ((result & 1) == 1) {
-                    StatusMSRbit5 = "Einfädeln Zurück";
-                }
-
-                result = result >>> 1;//shift sixth time
-
-                if ((result & 1) == 1) {
-                    StatusMSRbit6 = "Gas-Test";
-                }
-
-                result = result >>> 1;//shift seventh time
-
-                if ((result & 1) == 1) {
-                    StatusMSRbit7 = "Tastenklick Ein";
-                }
-
-                int iSFLG = (int) DO_FRAME[13];//pos 8
-                int result1 = iSFLG;
-
-                if ((result1 & 1) == 1) {
-                    StatusFLGbit0 = "FLG im Gebirge-Mode";
-                }
-
-                result1 = result1 >>> 1;//shift first time
-
-                if ((result1 & 1) == 1) {
-                    StatusFLGbit1 = "FLG mit Gebirge";
-                }
-
-                result1 = result1 >>> 1;//shift second time
-
-                if ((result1 & 1) == 1) {
-                    StatusFLGbit2 = "Zünden Aus";
-                }
-
-                result1 = result1 >>> 1;//shift third time
-
-                if ((result1 & 1) == 1) {
-                    StatusFLGbit3 = "Rückzugs-Zündung Aus";
-                }
-
-                result1 = result1 >>> 1;//shift fourth time
-
-                if ((result1 & 1) == 1) {
-                    StatusFLGbit4 = "Endpuls Aus";
-                }
-
-                result1 = result1 >>> 1;//shift fifth time
-
-                if ((result1 & 1) == 1) {
-                    StatusFLGbit5 = "Locking-Edit_Mode";
-                }
-
-                result1 = result1 >>> 1;//shift sixth time
-
-                if ((result1 & 1) == 1) {
-                    StatusFLGbit6 = "Wasser fließt";
-                }
-
-                result1 = result1 >>> 1;//shift seventh time
-
-                if ((result1 & 1) == 1) {
-                    StatusFLGbit7 = "Freiband-Warnung";
-                }
-            } else if (gethex.equals("0182")) {
-
-                Kennliniennummer = (int) DO_FRAME[6];//pos 1 or 2
-                Jobnummer = (int) DO_FRAME[8];//pos 3 or 4
-
-                int iKT = (int) DO_FRAME[10];//pos 5
-                int result2 = iKT;
-
-                if ((result2 & 1) == 1) {
-                    KennlinienTypbit0 = "Typ-Bit 1 = 2^0";
-                }
-
-                result2 = result2 >>> 1;//shift first time
-
-                if ((result2 & 1) == 1) {
-                    KennlinienTypbit1 = "Typ-Bit 2 = 2^1";
-                }
-
-                result2 = result2 >>> 1;//shift second time
-
-                if ((result2 & 1) == 1) {
-                    KennlinienTypbit2 = "Typ-Bit 3 = 2^2";
-                }
-
-                result2 = result2 >>> 1;//shift third time
-
-                if ((result2 & 1) == 1) {
-                    KennlinienTypbit3 = "Typ-Bit 4 = 2^4";
-                }
-
-                result2 = result2 >>> 1;//shift fourth time
-
-                if ((result2 & 1) == 1) {
-                    KennlinienTypbit4 = "Res.";
-                }
-
-                result2 = result2 >>> 1;//shift fifth time
-
-                if ((result2 & 1) == 1) {
-                    KennlinienTypbit5 = "RMT-Verfahren ist ein";
-                }
-
-                result2 = result2 >>> 1;//shift sixth time
-
-                if ((result2 & 1) == 1) {
-                    KennlinienTypbit6 = "HC-MAG ist ein";
-                }
-
-                result2 = result2 >>> 1;//shift seventh time
-
-                if ((result2 & 1) == 1) {
-                    KennlinienTypbit7 = "kennlinie_setting sichtbar";
-                }
-
-                JobKommando = (char) DO_FRAME[11];//pos 6
-
-                int iJS = (char) DO_FRAME[12];//pos 5
-                int result3 = iJS;
-
-                if ((result3 & 1) == 1) {
-                    JobStatusbit0 = "Jobschweißen aktiv";
-                }
-
-                result3 = result3 >>> 1;//shift first time
-
-                if ((result3 & 1) == 1) {
-                    JobStatusbit1 = "Job-Edit";
-                }
-
-                result3 = result3 >>> 1;//shift second time
-
-                if ((result3 & 1) == 0) {
-                    JobStatusbit2 = "Job-Nr. Frei";
-                } else {
-                    JobStatusbit2 = "Job-Nr. belegt";
-                }
-
-                result3 = result3 >>> 1;//shift third time
-
-                if ((result3 & 1) == 1) {
-                    JobStatusbit3 = "Keine Jobs im Speicher";
-                }
-
-                result3 = result3 >>> 1;//shift fourth time
-
-                if ((result3 & 1) == 1) {
-                    JobStatusbit4 = "Job gespeichert";
-                }
-
-                result3 = result3 >>> 1;//shift fifth time
-
-                if ((result3 & 1) == 1) {
-                    JobStatusbit5 = "Display";
-                }
-
-                result3 = result3 >>> 1;//shift sixth time
-
-                if ((result3 & 1) == 1) {
-                    JobStatusbit6 = "Job Extern";
-                }
-
-                Verriegelungsstufe = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0183")) {
-
-                Gasvorströmen = (char) DO_FRAME[6];//pos 1
-                Gasnachströmen = (char) DO_FRAME[7];//pos 2
-                EinschleichenAbsolut = (char) DO_FRAME[8];//pos 3
-                EinschleichenKorrektur = (char) DO_FRAME[9];//pos 4
-                UpSlope = (char) DO_FRAME[10];//pos 5
-                DownSlope = (char) DO_FRAME[11];//pos 6
-                Zündenergie = (char) DO_FRAME[12];//pos 7
-                Endkraterenergie = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0184")) {
-
-                GebirgeStatus = (char) DO_FRAME[6];//pos 1
-                SchweißState = (char) DO_FRAME[7];//pos 2
-                Freibrand = (char) DO_FRAME[8];//pos 3
-                FreibandKorrektur = (char) DO_FRAME[9];//pos 4
-                KorrekturPulsamplitude = (char) DO_FRAME[10];//pos 5
-                KorrekturDrossel = (char) DO_FRAME[11];//pos 6
-                Einfädeln = (char) DO_FRAME[12];//pos 7
-                GastestZeit = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0185")) {
-
-                PausenZeit = (int) DO_FRAME[6];//pos 1 or 2
-                Punktzeit = (int) DO_FRAME[8];//pos 3 or 4
-                ZündDauer = (char) DO_FRAME[10];//pos 5
-                EndkraterDauer = (char) DO_FRAME[11];//pos 6
-                SynergieVorgabe = (char) DO_FRAME[12];//pos 7
-                AnzahlLeistungsmodule = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0281")) {
-
-                PowerpulsEinAus = (char) DO_FRAME[6];//pos 1
-                if (PowerpulsEinAus == '0') {
-                    strPowerpulsEinAus = "Aus";
-                } else if (PowerpulsEinAus == '1') {
-                    strPowerpulsEinAus = "Aktiv";
-                }
-                PowerpulsE2 = (char) DO_FRAME[7];//pos 2
-                PowerpulsT1E1 = (char) DO_FRAME[8];//pos 3
-                PowerpulsT2E1 = (char) DO_FRAME[9];//pos 4
-                PowerpulsLBKorrE2 = (char) DO_FRAME[10];//pos 5
-                PowerpulsUpSlope = (char) DO_FRAME[11];//pos 6
-                PowerpulsDownSlope = (char) DO_FRAME[12];//pos 7
-                JobSlope = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0282")) {
-
-                ZündStrom = (int) DO_FRAME[6];//pos 1 or 2
-                ZündSpannung = (int) DO_FRAME[8];//pos 3 or 4
-                ZündEnergie = (int) DO_FRAME[10];//pos 5 or 6
-                ZündDrossel = (char) DO_FRAME[12];//pos 7
-                ZündLichtbogenkorrektur = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0283")) {
-                //Log.i("gethex",gethex);
-                Strom1 = (int) DO_FRAME[6];//pos 1 or 2
-                Spannung1 = (int) DO_FRAME[8];//pos 3 or 4
-                Energie1 = DO_FRAME[10]&0xFF;//pos 5 or 6
-                Drossel1 = (char) DO_FRAME[12];//pos 7
-                Lichtbogenkorrektur1 = (int) DO_FRAME[13];//pos 8
-                if (MainActivity.READVAL_STATUS[1]!=1) {
-                    MainActivity.READVAL_STATUS[1]=1;
-                    mpm_display=Energie1;
-                    //Log.i("mpm display",String.valueOf(mpm_display));
+                if (gethex.equals("0484")) {
+                    //Log.i("gethex ","0484");
+                    SV1pos3 = (int) DO_FRAME[6];//pos 3 DrahtDurchmesser
                 }
             }
-
-            if (gethex.equals("0201")) {
-
-                Stromtest = ((int) (DO_FRAME[6])) & 0xFF;
-                //Stromtest = 59;
-                //Log.i("Stromtest", "Here");
-
-
-            } else if (gethex.equals("0284")) {
-
-                Strom2 = (int) DO_FRAME[6];//pos 1 or 2
-                Spannung2 = (int) DO_FRAME[8];//pos 3 or 4
-                Energie2 = (int) DO_FRAME[10];//pos 5 or 6
-                Drossel2 = (char) DO_FRAME[12];//pos 7
-                Lichtbogenkorrektur2 = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0285")) {
-
-                Strom3 = (int) DO_FRAME[6];//pos 1 or 2
-                Spannung3 = (int) DO_FRAME[8];//pos 3 or 4
-                Energie3 = (int) DO_FRAME[10];//pos 5 or 6
-                Drossel3 = (char) DO_FRAME[12];//pos 7
-                Lichtbogenkorrektur3 = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0286")) {
-
-                EndkraterStrom = (int) DO_FRAME[6];//pos 1 or 2
-                EndkraterSpannung = (int) DO_FRAME[8];//pos 3 or 4
-                EndkraterEnergie = (int) DO_FRAME[10];//pos 5 or 6
-                EndkraterDrossel = (char) DO_FRAME[12];//pos 7
-                EndKraterLichtbogenkorrektur = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0481")) {
-
-                VorschubSetwert = (int) DO_FRAME[6];//pos 1 or 2
-                VorschubIstwert = (int) DO_FRAME[8];//pos 3 or 4
-                VorschubHoldwert = (int) DO_FRAME[10];//pos 5 or 6
-                VorschubStatus = (char) DO_FRAME[12];//pos 7
-                VorschubAusKennlinie = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0482")) {
-
-                StromSetwert = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);
-
-                ;//pos 1 or 2
-                //System.out.println("strom wert = " +(int)DO_FRAME[6]+(int)DO_FRAME[7]);
-                StromIstwert = (int) DO_FRAME[8];//pos 3 or 4
-                StromHoldwert = (int) DO_FRAME[10];//pos 5 or 6
-                StromStatus = (char) DO_FRAME[12];//pos 7
-                StromInkremental = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0483")) {
-
-                SpannungSetwert = (int) DO_FRAME[6];//pos 1 or 2
-                SpannungIstwert = (int) DO_FRAME[8];//pos 3 or 4
-                SpannungHoldwert = (int) DO_FRAME[10];//pos 5 or 6
-                SpannungStatus = (char) DO_FRAME[12];//pos 7
-                SpannungInkremental = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0484")) {
-
-                BlechdickeSetwert = (int) DO_FRAME[6];//pos 1 or 2
-                BlechdickeIstwert = (int) DO_FRAME[8];//pos 3 or 4
-                BlechdickeHoldwert = (int) DO_FRAME[10];//pos 5 or 6
-                BlechdickeStatus = (char) DO_FRAME[12];//pos 7
-
-                Reset = (char) DO_FRAME[13];//pos 8
-                int result4 = (int) Reset;
-                if ((result4 & 1) == 1) {
-                    Resetbit0 = "Error-Reset";
-                }
-
-            } else if (gethex.equals("0186")) {
-
-                ElektrodeStromSetwert = DO_FRAME[6]&0xFF;//pos 1 or 2
-                ElektrodeStromIstwert = (int) DO_FRAME[8];//pos 3 or 4
-                HotstartDauer = (char) DO_FRAME[10];//pos 5
-                Hotstart = (char) DO_FRAME[11];//pos 6
-                ArcForce = (char) DO_FRAME[12];//pos 7
-                InnenwiderstandfürElektrode = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0385")) {
-
-                RMTPosAmplitude = (int) DO_FRAME[6];//pos 1 or 2
-                RMTNegAmplitude = (int) DO_FRAME[8];//pos 3 or 4
-                StartAmplitude = (int) DO_FRAME[10];//pos 5 or 6
-                StartZeit = (char) DO_FRAME[12];//pos 7
-                StartÜberhöhung = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0386")) {
-
-                InnenwiderstandfürDossel = (char) DO_FRAME[6];//pos 1
-                Überblendzeit = (char) DO_FRAME[7];//pos 2
-                DrosselAbfall = (char) DO_FRAME[8];//pos 3
-                MotorFlanke = (char) DO_FRAME[9];//pos 4
-                DrosselDynamic = (char) DO_FRAME[10];//pos 5
-                MAGACPositiveZeit = (char) DO_FRAME[11];//pos 6
-                MAGACStromschwellwert = (char) DO_FRAME[12];//pos 7
-                LBRMode = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0485")) {
-
-                MAGACBetriebsart = (char) DO_FRAME[6];//pos 1
-                if (MAGACBetriebsart == '0') {
-                    strMAGACBetriebsart = "DC+(entspricht AUS)";
-                } else if (MAGACBetriebsart == '1') {
-                    strMAGACBetriebsart = "DC-";
-                } else if (MAGACBetriebsart == '2') {
-                    strMAGACBetriebsart = "AC";
-                }
-
-                MAGACKältewert = (char) DO_FRAME[7];//pos 2
-                MAGACNegativZeit = (char) DO_FRAME[8];//pos 3 or 4
-                MAGACKurzschlusserkennung = (char) DO_FRAME[10];//pos 5
-                MAGACKurzschlussaufhebung = (char) DO_FRAME[11];//pos 6
-                MACAGVerweilzeitPosNeg = (char) DO_FRAME[12];//pos 7
-                MACAGVerweilzeitNegPos = (char) DO_FRAME[13];//pos 8
-
-            } else if (gethex.equals("0301")) {
-
-                WIGSpeedPulsFrequenz = (int) DO_FRAME[6];//pos 1 or 2
-                WIGSpeedPulsI1Anteil = (char) DO_FRAME[8];//pos 3
-                WIGSpeedPulsI3 = (char) DO_FRAME[9];//pos 4
-                GasSollwert = (char) DO_FRAME[10];//pos 5
-                UserNummer = (char) DO_FRAME[11];//pos 6
-                WIGACStromoffset = (char) DO_FRAME[12];//pos 7
-
-                WIGStatus = (char) DO_FRAME[13];//pos 8
-                int iWIGStatus = (int) WIGStatus;
-                int result5 = iWIGStatus;
-
-                if ((result5 & 1) == 1) {
-                    WIGStatusbit0 = "WIG-Brennertaste 2 ein";
-                }
-
-                result5 = result5 >>> 1;//shift first time
-
-                if ((result5 & 1) == 1) {
-                    WIGStatusbit1 = "Puls I2";
-                }
-
-                result5 = result5 >>> 1;//shift second time
-
-                if ((result5 & 1) == 1) {
-                    WIGStatusbit2 = "Fußpedal vorhanden";
-                }
-
-                result5 = result5 >>> 1;//shift third time
-
-                if ((result5 & 1) == 1) {
-                    WIGStatusbit3 = "Automatisierung";
-                }
-
-                result5 = result5 >>> 1;//shift fourth time
-
-                if ((result5 & 1) == 1) {
-                    WIGStatusbit4 = "Wechselrichter vorhanden";
-                }
-
-                result5 = result5 >>> 1;//shift fifth time
-
-                if ((result5 & 1) == 1) {
-                    WIGStatusbit5 = "I2 ist in % von I1";
-                }
-
-                result5 = result5 >>> 1;//shift sixth time
-
-                if ((result5 & 1) == 1) {
-                    WIGStatusbit6 = "Reserve";
-                }
-
-                result5 = result5 >>> 1;//shift seventh time
-
-                if ((result5 & 1) == 1) {
-                    WIGStatusbit7 = "Reserve";
-                }
-
-            } else if (gethex.equals("0302")) {
-
-                WIGACFrequenz = (int) DO_FRAME[6];//pos 1 or 2
-                WIGACBalance = (char) DO_FRAME[8];//pos 3
-                WIGDurchmesserWolframElektrode = (char) DO_FRAME[9];//pos 4
-
-                WIGBetriebsartWechselrichter = (char) DO_FRAME[10];//pos 5
-                if (WIGBetriebsartWechselrichter == '0') {
-                    strWIGBetriebsartWechselrichter = "NONE";
-                } else if (WIGBetriebsartWechselrichter == '1') {
-                    strWIGBetriebsartWechselrichter = "DC-Minus";
-                } else if (WIGBetriebsartWechselrichter == '2') {
-                    strWIGBetriebsartWechselrichter = "DC-Plus";
-                } else if (WIGBetriebsartWechselrichter == '3') {
-                    strWIGBetriebsartWechselrichter = "AC-Sinus";
-                } else if (WIGBetriebsartWechselrichter == '4') {
-                    strWIGBetriebsartWechselrichter = "AC-Rechteck";
-                } else if (WIGBetriebsartWechselrichter == '5') {
-                    strWIGBetriebsartWechselrichter = "AC-MIX";
-                }
-
-                KaltdrahtpulsenT1SV21_5 = (char) DO_FRAME[11];//pos 6
-                WIGStromLimit = (int) DO_FRAME[12];//pos 7 or 8
-
-            } else if (gethex.equals("0303")) {
-
-                KHMode = (char) DO_FRAME[6];//pos 1
-                int iKHMode = (int) KHMode;
-                int result6 = iKHMode;
-
-                if ((result6 & 1) == 1) {
-                    strKHModebit0 = "Kaltdraht Freigabe";
-                }
-
-                result6 = result6 >>> 1;//shift first time
-
-                if ((result6 & 1) == 1) {
-                    strKHModebit1 = "Kaltdraht Start Roboter";
-                }
-
-                result6 = result6 >>> 1;//shift second time
-
-                if ((result6 & 1) == 0) {
-                    strKHModebit2 = "Kaltdraht Stop wenn Min. Unterschr";
-                }
-
-                result6 = result6 >>> 1;//shift third time
-
-                if ((result6 & 1) == 1) {
-                    strKHModebit3 = "Kaltdraht Pulsen an Strom gekoppelt";
-                }
-
-                result6 = result6 >>> 1;//shift fourth time
-
-                if ((result6 & 1) == 1) {
-                    strKHModebit4 = "Heißdraht Freigabe";
-                }
-
-                result6 = result6 >>> 1;//shift fifth time
-
-                if ((result6 & 1) == 1) {
-                    strKHModebit5 = "Heißdraht Start Roboter";
-                }
-
-                result6 = result6 >>> 1;//shift sixth time
-
-                if ((result6 & 1) == 1) {
-                    strKHModebit6 = "Kaltdraht Pulsen Freigabe";
-                }
-
-                result6 = result6 >>> 1;//shift seventh time
-
-                if ((result6 & 1) == 1) {
-                    strKHModebit7 = "Kaltdraht V2 Absolut in m/min";
-                }
-
-                VerzögerungsZeitKaltdrahtEin = (char) DO_FRAME[7];//pos 2
-                VerzögerungsZeitKaltdrahtAus = (char) DO_FRAME[8];//pos 3
-                VerzögerungsZeitHeißdrahtÜberwachung = (char) DO_FRAME[9];//pos 4
-                Vorpositionierungsstrecke = (char) DO_FRAME[10];//pos 5
-                Rückzugsstrecke = (char) DO_FRAME[11];//pos 6
-                KaltdrahtpulsenT1SV22_7 = (char) DO_FRAME[12];//pos 7
-
-                KHStatus = (char) DO_FRAME[13];//pos 8
-                int iKHStatus = (int) KHStatus;
-                int result7 = iKHStatus;
-                if ((result7 & 1) == 1) {
-                    strKHStatusbit0 = "Kaltdraht ok(DVC im System";
-                }
-
-                result7 = result7 >>> 1;//shift first time
-
-                if ((result7 & 1) == 1) {
-                    strKHStatusbit1 = "Kalt-Draht Ein";
-                }
-
-                result7 = result7 >>> 1;//shift second time
-
-                if ((result7 & 1) == 0) {
-                    strKHStatusbit2 = "Kalt-Draht fördert";
-                }
-
-                result7 = result7 >>> 1;//shift third time
-
-                result7 = result7 >>> 1;//shift fourth time
-
-                if ((result7 & 1) == 1) {
-                    strKHStatusbit4 = "Heißdraht ok(MSRC-HW DVC im System)";
-                }
-
-                result7 = result7 >>> 1;//shift fifth time
-
-                if ((result7 & 1) == 1) {
-                    strKHStatusbit5 = "Heiß-Draht Ein";
-                }
-
-                result7 = result7 >>> 1;//shift sixth time
-
-                if ((result7 & 1) == 1) {
-                    strKHStatusbit6 = "Heiß-Draht Strom fließt";
-                }
-
-                result7 = result7 >>> 1;//shift seventh time
-
-                if ((result7 & 1) == 1) {
-                    strKHStatusbit7 = "Heiß-Draht-Strom ok";
-                }
-
-            }
-
-            if (gethex.equals("0484")) {
-                //Log.i("gethex ","0484");
-                SV1pos3 = (int) DO_FRAME[6];//pos 3 DrahtDurchmesser
-
-            }
-
         }
     }
-
 /*    public  void FromSaha(String var, int value){ // call in Main Activity
 
         if(var.equals("Verfahren")){
@@ -1258,6 +1189,21 @@ public class DatenObjekte {
             int ByteCompare2=Byte.compare(DO_FRAME[CounterData1],(byte)35); //int ByteCompare2=Byte.compare(DO_FRAME[18],(byte)35);
             if(ByteCompare2==0){ //received footer
                 //Log.i(TAG,"Receive footer");
+                String[] value = new String[250];
+                StringBuilder sb_data = new StringBuilder(); //data in hex
+
+                int tempCANID=DO_FRAME[4];
+                if (DO_FRAME[4]<0) tempCANID=DO_FRAME[4]+256;
+                if((DO_FRAME[3]==6) && (tempCANID== 240) && (DO_FRAME[9]==5)  ) { //CanID 06F0
+                    //Log.i(TAG,"Reach here");
+                    //Log.i("Length Protocol1",String.valueOf(LengthProtocol1));
+                    //Log.i("DO_FRAME[17]",String.valueOf(DO_FRAME[17]));
+                    /*for (int i = 0; i < LengthProtocol1; i++) {
+                        value[i] = String.format("%02x", (int) ((DO_FRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
+                        HEXADECIMAL_DATA = sb_data.append(value[i]).toString(); //hex string
+                    }
+                    Log.i("HEXADECIMAL_DATA",HEXADECIMAL_DATA);*/
+                }
 
                 /*String[] VAL = new String[250];
                 StringBuilder sbhex_data = new StringBuilder(); //data in hex

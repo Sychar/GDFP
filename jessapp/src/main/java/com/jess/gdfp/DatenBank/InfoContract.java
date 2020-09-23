@@ -164,6 +164,8 @@ public final class InfoContract {
 
         public static final String Vorschubistwert = "Vorschub istwert";
 
+        public static final String VorschubHoldwert = "Vorschub Holdwert";
+
         public static final String VorschubStatus = "Vorschub Status";
 
         public static final String VorschubausKennlinie = "Vorschub aus Kennlinie";

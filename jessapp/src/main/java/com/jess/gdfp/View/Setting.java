@@ -54,9 +54,9 @@ public class Setting extends AppCompatActivity {
                             account.setTextColor(Color.WHITE);
                             account.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
-                                System.out.println("jobuser.performClick();");
                                 jobuser.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
+                                Log.i("Jobs button", "is pressed");
                             }
                         }else if (MainActivity.SETTING_COUNTER == 2) {
                             //Log.i("Setting ", "Datenlogger");
@@ -71,9 +71,9 @@ public class Setting extends AppCompatActivity {
                             account.setTextColor(Color.WHITE);
                             account.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
-                                System.out.println("datalogger.performClick();");
                                 datalogger.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
+                                Log.i("Datalogger button", "is pressed");
                             }
                         } else if (MainActivity.SETTING_COUNTER == 3) {
                             //Log.i("Setting ", "Kennlinie");
@@ -90,6 +90,7 @@ public class Setting extends AppCompatActivity {
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
                                 Kennlinie.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
+                                Log.i("Kennlinie button", "is pressed");
                             }
                         } else if (MainActivity.SETTING_COUNTER == 4) {
                             //Log.i("Setting ", "Setting");
@@ -106,6 +107,7 @@ public class Setting extends AppCompatActivity {
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
                                 menu_setting.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
+                                Log.i("Setting button", "is pressed");
                             }
                         } else if (MainActivity.SETTING_COUNTER == 5) {
                             //Log.i("Setting ", "exit");
@@ -122,6 +124,7 @@ public class Setting extends AppCompatActivity {
                             if (MainActivity.ENCODERBUTTON_TOKEN) {
                                 account.performClick();
                                 MainActivity.ENCODERBUTTON_TOKEN = false;
+                                Log.i("Exit button", "is pressed");
                             }
                         }
                     }else if(!INIT_ENCODER){
@@ -172,7 +175,6 @@ public class Setting extends AppCompatActivity {
         if (MainActivity.SETTING_TOKEN) { //only runs one time
             jobuser.setTextColor(Color.BLACK);
             jobuser.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));
-            //Log.i("Setting button", "is pressed");
         }
         settingThread();
 

@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static boolean ENCODERBUTTON_TOKEN = false;
     public static boolean JOB_TOKEN = false;
     public static boolean STOP_DATENOBJEKTE = false;
-    public static boolean PARSE_TOKEN = false;
+    public static boolean PARSE_TOKEN = true;
 
     private BluetoothService BSF = null;
     private Boolean btCom_status = false;
@@ -1120,12 +1120,43 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 allgemeinOnclick(view);
                 ausblinden(frame,betriebsart_fragement);
                 if (!kennlinie_gedrückt) {
+                    /*WriteToSerial("5");
+                    try {
+                        UartService.mSerialPort = new SerialPort(new File("/dev/ttyS4"), 500000, 0); //Open the serial port //500000
+                        mOutputStream = UartService.mSerialPort.getOutputStream();
+                        UartService.mInputStream = UartService.mSerialPort.getInputStream();
+                    } catch (SecurityException e) {
+                        Log.e(TAG,"SecurityException");
+                        //DisplayError(R.string.error_security);
+                    } catch (IOException e) {
+                        //DisplayError(R.string.error_unknown);
+                        Log.e(TAG,"IOException");
+                    } catch (InvalidParameterException e) {
+                        //DisplayError(R.string.error_configuration);
+                        Log.e(TAG,"InvalidParameterException");
+                    }*/
                     KENN_HANDLER.post(KENN_TIMER); //start the timer handler
                     //kennlinie.setTextColor(Color.GREEN);
                     kennlinie.setBackgroundColor(Color.GRAY);
                     kennlinie_gedrückt = true;
                     STOP_DATENOBJEKTE = true;
-                } else if(kennlinie_gedrückt){
+                } else {
+                    PARSE_TOKEN = true;
+                    /*WriteToSerial("5");
+                    try {
+                        UartService.mSerialPort = new SerialPort(new File("/dev/ttyS4"), 2000000, 0); //Open the serial port //500000
+                        mOutputStream = UartService.mSerialPort.getOutputStream();
+                        UartService.mInputStream = UartService.mSerialPort.getInputStream();
+                    } catch (SecurityException e) {
+                        Log.e(TAG,"SecurityException");
+                        //DisplayError(R.string.error_security);
+                    } catch (IOException e) {
+                        //DisplayError(R.string.error_unknown);
+                        Log.e(TAG,"IOException");
+                    } catch (InvalidParameterException e) {
+                        //DisplayError(R.string.error_configuration);
+                        Log.e(TAG,"InvalidParameterException");
+                    }*/
                     //kennlinie.setTextColor(Color.WHITE);
                     kennlinie.setBackgroundColor(Color.BLACK);
                     kennlinie_gedrückt = false;
@@ -1285,47 +1316,47 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static void setMaterial(String s){
         switch (s){
             case "Al/mg4/5Mn": //case 8
-                WERKSTOFF = 0;
+                WERKSTOFF = 8;
                 //System.out.println("Al/mg4/5Mn");
                 break;
             case"Al/mg5": //case 7
-                WERKSTOFF = 1;
+                WERKSTOFF = 7;
                 //System.out.println("Al/mg5");
                 break;
             case "Al/mg3": //case 6
-                WERKSTOFF = 2;
+                WERKSTOFF = 6;
                 //System.out.println("Al/mg3");
                 break;
             case"Cu/Si": //case 5
-                WERKSTOFF = 3;
+                WERKSTOFF = 5;
                 //System.out.println("Cu/Si");
                 break;
-            case"AL/Si":
+            case"AL/Si": //case 4
                 WERKSTOFF = 4;
                 //System.out.println("AL/Si");
                 //callChangeParameter(1,12,0,1);
                 break;
             case"AL/Mg":
-                WERKSTOFF = 5;
+                WERKSTOFF = 3;
                 //System.out.println("AL/Mg");
                 //callChangeParameter(1,11,0,1);
                 break;
             case"Cr/Ni":
-                WERKSTOFF = 6;
+                WERKSTOFF = 2;
                 //System.out.println("Cr/Ni");
                 //callChangeParameter(1,10,0,1);
                 break;
             case"Fe":
-                WERKSTOFF = 7;
+                WERKSTOFF = 1;
                 //System.out.println("Fe");
                 //callChangeParameter(1,14,0,1);
                 break;
             case"Al/Bz": // case 9
-                WERKSTOFF = 8;
+                WERKSTOFF = 9;
                 //System.out.println("Al/Bz");
                 break;
             case"Spezial":
-                WERKSTOFF = 9;
+                WERKSTOFF = 10;
                 //System.out.println("Spezial");
                 //callChangeParameter(1,13,0,1);
                 break;
@@ -1680,76 +1711,76 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static void setGas(String s){
         switch (s){
             case "50Ar / 50%H2": //case 16
-                GAS = 0;
+                GAS = 16;
                 //System.out.println("50Ar / 50%H2");
                 break;
             case"30Ar / 70%H2": //case 17
-                GAS = 1;
+                GAS = 17;
                 //System.out.println("30Ar / 70%H2");
                 break;
             case "82%AR / 18%CO":
-                GAS = 2;
+                GAS = 0;
                 //System.out.println("82%AR / 18%CO");
                 break;
             case"98%AR / 2%CO":
-                GAS = 3;
+                GAS = 1;
                 //System.out.println("98%AR / 2%CO");
                 break;
             case"100%AR": // case 2
-                GAS = 4;
+                GAS = 2;
                 //System.out.println("100%AR");
                 break;
             case"100%CO":
-                GAS = 5;
+                GAS = 3;
                 //System.out.println("100%CO");
                 break;
             case"92%AR / 8%CO":
-                GAS = 6;
+                GAS = 4;
                 //System.out.println("92%AR / 8%CO");
                 break;
-            case"99%AR / 1%O2": //case
-                GAS = 7;
+            case"99%AR / 1%O2": //case 5
+                GAS = 5;
                 //System.out.println("99%AR / 1%O2");
                 break;
             case"98%AR / 2%O2": //case 6
-                GAS = 8;
+                GAS = 6;
                 //System.out.println("98%AR / 2%O2");
                 break;
             case"97%AR / 3%O2": //case 7
-                GAS = 9;
+                GAS = 7;
                 //System.out.println("97%AR / 3%O2");
                 //callChangeParameter(1,11,0,1);
                 break;
             case"92%AR / 8%O2": //case 8
-                GAS = 10;
+                GAS = 8;
                 //System.out.println("92%AR / 8%O2");
                 break;
-            case"90%AR / 5%O2/ 5%CO":
-                GAS = 11;
+            case"90%AR / 5%O2/ 5%CO": //case 9
+                GAS = 9;
                 //System.out.println("90%AR / 5%O2/ 5%CO");
                 break;
             case"100%HE": //case 10
-                GAS = 12;
+                GAS = 10;
                 //System.out.println("100%HE");
                 break;
             case"80%AR / 20%HE": //case 11
-                GAS = 13;
+                GAS = 11;
                 //System.out.println("80%AR / 20%HE");
                 break;
             case"69%AR/ 30%HE/1%O2": //case 12
-                GAS = 14;
+                GAS = 12;
                 //System.out.println("69%AR/ 30%HE/1%O2");
                 break;
             case"50Ar / 50%HE": //case 13
-                GAS = 15;
+                GAS = 13;
                 //System.out.println("50Ar / 50%HE");
                 break;
             case"98Ar / 2%H2": //case 14
-                GAS = 16;
+                GAS = 14;
                 //System.out.println("98Ar / 2%H2");
                 break;
             case"94Ar / 6%H2": //case 15
-                GAS = 17;
+                GAS = 15;
                 //System.out.println("94Ar / 6%H2");
                 break;
             case"Spezial": //case 18
@@ -2205,26 +2236,25 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                    // if(DatenObjekte.SV1pos1 != 4) txtProgress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
                     //else txtProgress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
 
-                    if (!PARSE_TOKEN) { //if token is false
-                        int tempDO = DatenObjekte.KENNLINIE_FRAME[11]; //Verfahren
-                        if (tempDO < 0) tempDO = tempDO + 256;
-                        DatenObjekte.VerfahrenParam(tempDO);
-                        ANZEIGE1.setText(DatenObjekte.Verfahren);
+                    //if (!PARSE_TOKEN) { //if token is false
+                        //Validate CAN ID 0x6F0
+                        //int tempCANID=UartService.ByteArray[4];
+                        //if (UartService.ByteArray[4]<0) tempCANID=UartService.ByteArray[4]+256;
 
-                        tempDO = DatenObjekte.KENNLINIE_FRAME[14]; //Werkstoff
-                        if (tempDO < 0) tempDO = tempDO + 256;
-                        DatenObjekte.WerkstoffParam(tempDO);
-                        ANZEIGE2.setText(DatenObjekte.Werkstoff);
+                        //if((UartService.ByteArray[3]==6) && (tempCANID== 240) && (UartService.ByteArray[9]==5)) { //CanID 06F0
 
-                        tempDO = DatenObjekte.KENNLINIE_FRAME[13]; //Gas
-                        if (tempDO < 0) tempDO = tempDO + 256;
-                        DatenObjekte.GasParam(tempDO);
-                        ANZEIGE3.setText(DatenObjekte.Gas);
-                    }
+                            ANZEIGE1.setText(DatenObjekte.Verfahren);
+                            //Log.i("Verfahren", String.valueOf(tempDO));
+                            ANZEIGE2.setText(DatenObjekte.Werkstoff);
+                            ANZEIGE3.setText(DatenObjekte.Gas);
+                            //Log.i("PARSE_TOKEN", "Kennlinie");
+                        //}
+                    //}
+
                     //---------------------------Display job number in textview-----------------------------
                     //JOB_DISPLAY.setText(String.valueOf(DatenObjekte.Jobnummer));
                     //JOB_DISPLAY.setTextColor(Color.WHITE);
-                    JOB_NUM.setText(String.valueOf(DatenObjekte.Jobnummer));
+                    JOB_NUM.setText("JOB"+"\n"+String.valueOf(DatenObjekte.Jobnummer));
                     JOB_NUM.setTextColor(Color.WHITE);
 
                     Button Korrektur = findViewById(R.id.btn_korrektur); //korrektur textview
@@ -2833,7 +2863,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
     private void testbtn_onclick1(){
         //----------------------------Deactivate data parsing-----------
-        PARSE_TOKEN = true;
         TEMP_BA = GetKennlinieDaten.readKennDaten();
         StringBuilder tempsb = new StringBuilder();
         for(int i=0;i<23;i++){
@@ -2914,7 +2943,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         /**
          * This method is to send kennlinie_setting Grunddaten to the machine
          **/
-        PARSE_TOKEN = false;
         TMP_KENNFRAME = GetKennlinieDaten.UpdateKennlinie();
         //String[] x = new String[230];
         //StringBuilder sby = new StringBuilder(); //data in hex
