@@ -7,17 +7,30 @@
     android:orientation="vertical"
     android:background="#111"
     tools:context=".View.DatalistView">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:background="@drawable/border2">
     <TextView
-        android:text="Time"
+        android:text=" 00:00:00"
         android:textColor="#ffff"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:textSize="28sp"
-        android:layout_width="match_parent"
+        android:layout_marginLeft="300dp"
+        android:layout_width="220dp"
         android:layout_height="80dp">
 
     </TextView>
+    <TextView
+        android:text="01/01/2021"
+        android:textColor="#ffff"
+        android:textSize="28sp"
+        android:layout_width="220dp"
+        android:layout_height="80dp">
+
+    </TextView>
+</LinearLayout>
     <LinearLayout
         android:layout_marginLeft="150dp"
         android:layout_width="650dp"
@@ -30,7 +43,7 @@
             android:layout_weight="1"
             android:background="@drawable/border2"
             android:gravity="center"
-            android:text="PARAM"
+            android:text="PARAMATER"
             android:textColor="#fff"
             android:textSize="28sp">
 
@@ -42,7 +55,7 @@
             android:layout_weight="1"
             android:background="@drawable/border2"
             android:gravity="center"
-            android:text="Value"
+            android:text="VALUE"
             android:textColor="#fff"
             android:textSize="28sp">
 
@@ -62,31 +75,36 @@
             android:background="@drawable/border2"></ListView>
 <LinearLayout
     android:layout_marginLeft="40dp"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <Button
 
+        android:background="@drawable/border2"
         android:id="@+id/button5"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="CHECK" />
+        android:layout_width="144dp"
+        android:layout_height="70dp"
+        android:textColor="#ffff"
+        android:text="Delete" />
 
     <Button
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border2"
         android:id="@+id/button6"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="EXPORT" />
+        android:layout_height="70dp"
+        android:textColor="#ffff"
+        android:text="Export" />
 
     <Button
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border2"
         android:id="@+id/button7"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="BACK" />
+        android:layout_height="70dp"
+        android:textColor="#ffff"
+        android:text="back" />
 
 </LinearLayout>
 
