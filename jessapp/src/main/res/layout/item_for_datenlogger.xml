@@ -28,7 +28,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:paddingRight="10dp"
-                android:layout_width="400dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:textColor="#ffffff"
                 android:text="Sakhr"

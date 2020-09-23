@@ -50,7 +50,7 @@ public class DatalistView extends AppCompatActivity  {
 
 
     private  String[] infosArray={
-                    InfoContract.infoEntry.COLUMN_TIME_ ,
+                   // InfoContract.infoEntry.COLUMN_TIME_ ,
                     InfoContract.infoEntry.AnzahlLeistungsmodule ,
                     InfoContract.infoEntry.ArcForce ,
                     InfoContract.infoEntry.Betriebsart,

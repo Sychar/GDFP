@@ -492,6 +492,8 @@ android:layout_gravity="center_horizontal"
             android:orientation="vertical">
 
             <Button
+                android:paddingTop="12dp"
+                android:drawableTop="@drawable/disk"
                 android:background="#80000000"
                 style="@style/genralstyle"
                 android:layout_width="match_parent"
@@ -501,7 +503,7 @@ android:layout_gravity="center_horizontal"
                 android:text="JOB"
                 android:id="@+id/job_btn"
                 android:textColor="@android:color/white"
-                android:textSize="36dp">
+                android:textSize="20sp">
             </Button>
 
 

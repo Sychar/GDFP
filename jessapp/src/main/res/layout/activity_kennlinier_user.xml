@@ -66,13 +66,16 @@
             android:orientation="vertical">
 
             <Button
-
+                android:textColor="#ffff"
+                android:background="@drawable/border2"
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:text="Delelt" />
 
             <Button
+                android:textColor="#ffff"
+                android:background="@drawable/border2"
                 android:layout_marginTop="20dp"
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
@@ -80,6 +83,8 @@
                 android:text="Export" />
 
             <Button
+                android:textColor="#ffff"
+                android:background="@drawable/border2"
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
@@ -87,6 +92,8 @@
                 android:text="Import" />
 
             <Button
+                android:textColor="#ffff"
+                android:background="@drawable/border2"
                 android:onClick="exit"
                 android:layout_marginTop="20dp"
                 android:id="@+id/button4"
