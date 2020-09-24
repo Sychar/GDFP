@@ -137,6 +137,5 @@ public class JobContract {
         public static final  String lO_UI_JOBCRC="LO_ui_jobcrc";
         public static final  String HI_UI_JOBCRC="HI_ui_crc";
 
-
     }
 }

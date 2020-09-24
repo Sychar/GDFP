@@ -204,45 +204,46 @@ public class UartService extends Service {
         context.sendBroadcast(var);
     }*/
 
-    public static String changeJob(){
+    public static String getJob(){
         StringBuilder sbjob = new StringBuilder();
-        StringBuilder sbjob1 = new StringBuilder();
-        byte[] frameArr = new byte[19];
+        byte[] frameArr = new byte[16];
 
         frameArr[0]=36;//Header 0x24
-        frameArr[1]=19;//19 bytes
+        frameArr[1]=16;//16 bytes
         frameArr[2]=2;//frameid
         frameArr[3]=6;//msb canid
-        frameArr[4]=(byte)224;//lsb canid
+        frameArr[4]=(byte)224;//lsb canid 0xE0
         frameArr[5]=8;//can data length
-        frameArr[6]=22;
+        frameArr[6]=22; //0x16
         frameArr[7]=1;
         frameArr[8]=1;
-        frameArr[9]=18;
+        frameArr[9]=18; //0x12
         frameArr[10]=0;
         frameArr[11]=4;
-        frameArr[12]=(byte)207;
+        frameArr[12]=(byte)207; //0xCF
         frameArr[13]=2;
-        frameArr[14]=35;
+        frameArr[14]=35; //0x23
 
-        for (int i = 0; i < 15; i++) {//checksum ascii string for parameterId and valueId
+        /**
+         * Calculate the checksum of dataframe
+         */
+        int MYCHECKSUM = 0;
+        for (int i = 0; i < 15; i++) {
+            int tempcheck;
+            if((frameArr[i])<0){
+                tempcheck = 256+(frameArr[i]);
+            }else{
+                tempcheck = frameArr[i];
+            }
+            MYCHECKSUM = MYCHECKSUM + tempcheck;
+        }
+        frameArr[14]=(byte)(MYCHECKSUM & 0x000000FF);
+        frameArr[15]=35;//footer 0x23
+
+        for (int i = 0; i < 16; i++) {//parameterId and valueId ascii string
             stringforjob = sbjob.append((char)(frameArr[i]&0xFF)).toString();
         }
-        jobcheck = stringforjob.getBytes(iso88591charset);
-        Checksum jobchecksum = new CRC32();
-        jobchecksum.update(jobcheck, 0, jobcheck.length);// update the current checksum with the specified array of bytes
-        long jobchecksumValue = jobchecksum.getValue();// get the current checksum value
-
-        frameArr[14]=(byte)((jobchecksumValue >>> 24)&0xFF);
-        frameArr[15]=(byte)((jobchecksumValue >>> 16)&0xFF);
-        frameArr[16]=(byte)((jobchecksumValue >>> 8)&0xFF);
-        frameArr[17]=(byte)(jobchecksumValue&0xFF);
-        frameArr[18]=35;//footer 0x23
-
-        for (int i = 0; i < 19; i++) {//parameterId and valueId ascii string
-            stringforjob1 = sbjob1.append((char)(frameArr[i]&0xFF)).toString();
-        }
-        return stringforjob1;
+        return stringforjob;
     }
 
     public static int calcCRC16(byte[] buf, int len){
@@ -264,17 +265,16 @@ public class UartService extends Service {
         return crc;
     }
 
-    public static String changeJob1(int jobnum){
+    public static String getJob1(int jobnum){
         StringBuilder sbjob = new StringBuilder();
         StringBuilder sbjob1 = new StringBuilder();
-        StringBuilder sbjob2 = new StringBuilder();
         byte[] frameArr = new byte[19];
 
         frameArr[0]=36;//Header 0x24
-        frameArr[1]=19;//19 bytes
+        frameArr[1]=16;//16 bytes
         frameArr[2]=2;//frameid
         frameArr[3]=6;//msb canid
-        frameArr[4]=(byte)224;//lsb canid
+        frameArr[4]=(byte)224;//lsb canid 0xE0
         frameArr[5]=8;//can data length
         frameArr[6]=(byte)(jobnum & 0xFF);//lsb jobnum
         frameArr[7]=(byte)(jobnum>>>8 & 0xFF);//msb jobnum
@@ -282,9 +282,9 @@ public class UartService extends Service {
         frameArr[9]=0;
 
         for(int i=6;i<10;i++) {
-            stringforjob2 = sbjob.append((char)(frameArr[i]&0xFF)).toString();
+            stringforjob1 = sbjob.append((char)(frameArr[i]&0xFF)).toString();
         }
-        jobcheck1 = stringforjob2.getBytes(iso88591charset);
+        jobcheck1 = stringforjob1.getBytes(iso88591charset);
         int res = calcCRC16(jobcheck1,jobcheck1.length);//call the method
 
         frameArr[10]=(byte)((res>>>8)&0xFF);
@@ -293,24 +293,27 @@ public class UartService extends Service {
         frameArr[13]=4;
         frameArr[14]=35;//footer 0x23
 
-        for (int i = 0; i < 15; i++){
-            stringforjob3 = sbjob1.append((char)(frameArr[i]&0xFF)).toString();
+        /**
+         * Calculate the checksum of dataframe
+         */
+        int MYCHECKSUM = 0;
+        for (int i = 0; i < 15; i++) {
+            int tempcheck;
+            if((frameArr[i])<0){
+                tempcheck = 256+(frameArr[i]);
+            }else{
+                tempcheck = frameArr[i];
+            }
+            MYCHECKSUM = MYCHECKSUM + tempcheck;
         }
 
-        jobcheck2 = stringforjob3.getBytes(iso88591charset);
-        Checksum jobchecksum = new CRC32();
-        jobchecksum.update(jobcheck2, 0, jobcheck2.length);// update the current checksum with the specified array of bytes
-        long jobchecksumValue = jobchecksum.getValue();// get the current checksum value
-        frameArr[14]=(byte)((jobchecksumValue >>> 24)&0xFF);
-        frameArr[15]=(byte)((jobchecksumValue >>> 16)&0xFF);
-        frameArr[16]=(byte)((jobchecksumValue >>> 8)&0xFF);
-        frameArr[17]=(byte)(jobchecksumValue&0xFF);
-        frameArr[18]=35;     				//Footer 0x23
+        frameArr[14]=(byte)(MYCHECKSUM & 0x000000FF);
+        frameArr[15]=35; //Footer 0x23
 
-        for (int i = 0; i < 19; i++){
-            stringforjob4 = sbjob2.append((char)(frameArr[i]&0xFF)).toString();
+        for (int i = 0; i < 16; i++){
+            stringforjob2= sbjob1.append((char)(frameArr[i]&0xFF)).toString();
         }
-        return stringforjob4;
+        return stringforjob2;
     }
 
     public static String sdataBuilder(byte frameIDmode,byte frameMODE, byte frameAdd){

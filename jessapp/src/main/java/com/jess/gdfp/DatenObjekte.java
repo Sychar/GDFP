@@ -121,22 +121,22 @@ public class DatenObjekte {
 
     //SV 10
     public static int Strom3;
-    public static byte Spannung3;
-    public static byte Energie3;
+    public static int Spannung3;
+    public static int Energie3;
     public static byte Drossel3;
     public static byte Lichtbogenkorrektur3;
 
     //SV 11
     public static int EndkraterStrom;
-    public static byte EndkraterSpannung;
-    public static byte EndkraterEnergie;
+    public static int EndkraterSpannung;
+    public static int EndkraterEnergie;
     public static byte EndkraterDrossel;
     public static byte EndKraterLichtbogenkorrektur;
 
     //SV 12
-    public static byte VorschubSetwert;
-    public static byte VorschubIstwert;
-    public static byte VorschubHoldwert;
+    public static int VorschubSetwert;
+    public static int VorschubIstwert;
+    public static int VorschubHoldwert;
     public static byte VorschubStatus;
     public static byte VorschubAusKennlinie;
 
@@ -148,16 +148,16 @@ public class DatenObjekte {
     public static byte StromInkremental;
 
     //SV 14
-    public static byte SpannungSetwert;
-    public static byte SpannungIstwert;
-    public static byte SpannungHoldwert;
+    public static int SpannungSetwert;
+    public static int SpannungIstwert;
+    public static int SpannungHoldwert;
     public static byte SpannungStatus;
     public static byte SpannungInkremental;
 
     //SV 15
-    public static byte BlechdickeSetwert;
-    public static byte BlechdickeIstwert;
-    public static byte BlechdickeHoldwert;
+    public static int BlechdickeSetwert;
+    public static int BlechdickeIstwert;
+    public static int BlechdickeHoldwert;
     public static byte BlechdickeStatus;
     public static byte Reset;
     public static String Reset_String = "";
@@ -191,7 +191,7 @@ public class DatenObjekte {
     public static byte MAGACBetriebsart;
     public static String MAGACBetriebsart_String = "";
     public static byte MAGACKältewert;
-    public static byte MAGACNegativZeit;
+    public static int MAGACNegativZeit;
     public static byte MAGACKurzschlusserkennung;
     public static byte MAGACKurzschlussaufhebung;
     public static int MACAGVerweilzeitPosNeg;
@@ -833,49 +833,48 @@ public class DatenObjekte {
                 } else if (gethex.equals("0285")) {
 
                     Strom3 = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
-                    Spannung3 = DO_FRAME[8];//pos 3 or 4
-                    Energie3 = DO_FRAME[10];//pos 5 or 6
+                    Spannung3 = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    Energie3 = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
                     Drossel3 = DO_FRAME[12];//pos 7
                     Lichtbogenkorrektur3 = DO_FRAME[13];//pos 8
 
                 } else if (gethex.equals("0286")) {
 
-                    EndkraterStrom = (int) DO_FRAME[6];//pos 1 or 2
-                    EndkraterSpannung = DO_FRAME[8];//pos 3 or 4
-                    EndkraterEnergie = DO_FRAME[10];//pos 5 or 6
+                    EndkraterStrom = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
+                    EndkraterSpannung = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    EndkraterEnergie = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
                     EndkraterDrossel = DO_FRAME[12];//pos 7
                     EndKraterLichtbogenkorrektur = DO_FRAME[13];//pos 8
 
                 } else if (gethex.equals("0481")) {
 
-                    VorschubSetwert = DO_FRAME[6];//pos 1 or 2
-                    VorschubIstwert = DO_FRAME[8];//pos 3 or 4
-                    VorschubHoldwert = DO_FRAME[10];//pos 5 or 6
+                    VorschubSetwert = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
+                    VorschubIstwert = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    VorschubHoldwert = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
                     VorschubStatus = DO_FRAME[12];//pos 7
                     VorschubAusKennlinie = DO_FRAME[13];//pos 8
 
                 } else if (gethex.equals("0482")) {
 
-                    StromSetwert = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);
-                    //System.out.println("strom wert = " +(int)DO_FRAME[6]+(int)DO_FRAME[7]);
-                    StromIstwert = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
-                    StromHoldwert = (int) DO_FRAME[10];//pos 5 or 6
+                    StromSetwert = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 and 2
+                    StromIstwert = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 and 4
+                    StromHoldwert = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 and 6
                     StromStatus = DO_FRAME[12];//pos 7
                     StromInkremental = DO_FRAME[13];//pos 8
 
                 } else if (gethex.equals("0483")) {
 
-                    SpannungSetwert = DO_FRAME[6];//pos 1 or 2
-                    SpannungIstwert = DO_FRAME[8];//pos 3 or 4
-                    SpannungHoldwert = DO_FRAME[10];//pos 5 or 6
+                    SpannungSetwert = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 and 2
+                    SpannungIstwert = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
+                    SpannungHoldwert = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
                     SpannungStatus = DO_FRAME[12];//pos 7
                     SpannungInkremental = DO_FRAME[13];//pos 8
 
                 } else if (gethex.equals("0484")) {
 
-                    BlechdickeSetwert = DO_FRAME[6];//pos 1 or 2
-                    BlechdickeIstwert = DO_FRAME[8];//pos 3 or 4
-                    BlechdickeHoldwert = DO_FRAME[10];//pos 5 or 6
+                    BlechdickeSetwert = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 and 2
+                    BlechdickeIstwert = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 and 4
+                    BlechdickeHoldwert = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 and 6
                     BlechdickeStatus = DO_FRAME[12];//pos 7
 
                     Reset = DO_FRAME[13];//pos 8
@@ -885,8 +884,8 @@ public class DatenObjekte {
 
                 } else if (gethex.equals("0186")) {
 
-                    ElektrodeStromSetwert = DO_FRAME[6] & 0xFF;//pos 1 or 2
-                    ElektrodeStromIstwert = (int) DO_FRAME[8];//pos 3 or 4
+                    ElektrodeStromSetwert = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 and 2
+                    ElektrodeStromIstwert = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
                     HotstartDauer = DO_FRAME[10];//pos 5
                     Hotstart = DO_FRAME[11];//pos 6
                     ArcForce = DO_FRAME[12];//pos 7
@@ -894,9 +893,9 @@ public class DatenObjekte {
 
                 } else if (gethex.equals("0385")) {
 
-                    RMTPosAmplitude = (int) DO_FRAME[6];//pos 1 or 2
-                    RMTNegAmplitude = (int) DO_FRAME[8];//pos 3 or 4
-                    StartAmplitude = (int) DO_FRAME[10];//pos 5 or 6
+                    RMTPosAmplitude = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 and 2
+                    RMTNegAmplitude = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 and 4
+                    StartAmplitude = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
                     StartZeit = DO_FRAME[12];//pos 7
                     StartÜberhöhung = (int) DO_FRAME[13];//pos 8
 
@@ -923,7 +922,7 @@ public class DatenObjekte {
                     }
 
                     MAGACKältewert = DO_FRAME[7];//pos 2
-                    MAGACNegativZeit = DO_FRAME[8];//pos 3 or 4
+                    MAGACNegativZeit = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 and 4
                     MAGACKurzschlusserkennung = DO_FRAME[10];//pos 5
                     MAGACKurzschlussaufhebung = DO_FRAME[11];//pos 6
                     MACAGVerweilzeitPosNeg = (int) DO_FRAME[12];//pos 7
@@ -931,7 +930,7 @@ public class DatenObjekte {
 
                 } else if (gethex.equals("0301")) {
 
-                    WIGSpeedPulsFrequenz = (int) DO_FRAME[6];//pos 1 or 2
+                    WIGSpeedPulsFrequenz = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 and 2
                     WIGSpeedPulsI1Anteil = DO_FRAME[8];//pos 3
                     WIGSpeedPulsI3 = DO_FRAME[9];//pos 4
                     GasSollwert = DO_FRAME[10];//pos 5
@@ -989,7 +988,7 @@ public class DatenObjekte {
 
                 } else if (gethex.equals("0302")) {
 
-                    WIGACFrequenz = (int) DO_FRAME[6];//pos 1 or 2
+                    WIGACFrequenz = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 and 2
                     WIGACBalance = DO_FRAME[8];//pos 3
                     WIGDurchmesserWolframElektrode = DO_FRAME[9];//pos 4
 
@@ -1009,7 +1008,7 @@ public class DatenObjekte {
                     }
 
                     KaltdrahtpulsenT1SV21_5 = (int) DO_FRAME[11];//pos 6
-                    WIGStromLimit = (int) DO_FRAME[12];//pos 7 or 8
+                    WIGStromLimit = (DO_FRAME[12] & 0xFF) + ((DO_FRAME[13] & 0xFF) << 8);//pos 7 and 8
 
                 } else if (gethex.equals("0303")) {
 

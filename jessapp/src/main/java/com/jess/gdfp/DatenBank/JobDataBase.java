@@ -138,7 +138,6 @@ public class JobDataBase extends SQLiteOpenHelper {
             JobContract.jobEntry.UCKS_ERKENNUNG + TYPE +  ");";
 
 
-
     public JobDataBase(Context context){
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }

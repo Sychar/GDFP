@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import com.felhr.usbserial.UsbSerialDevice;
 import com.jess.gdfp.Controller.MainActivity_Controller;
-import com.jess.gdfp.DatenBank.InfoContract;
 import com.jess.gdfp.DatenBank.JobContract;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
@@ -1206,10 +1205,19 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 JOB_NUM.setBackgroundColor(Color.GRAY);
                 //JOB_DISPLAY.setTextColor(Color.BLACK);
                 //JOB_DISPLAY.setBackgroundColor(Color.GRAY);
-                //---------------------------- Activate Job --------------------------------------------
+
+                //---------------------------- Activate Job ----------------------------------------
                 DatenObjekteSend activateJob = new DatenObjekteSend();
                 activateJob.ChangeParameter(5, 0, 1);
                 job_gedrückt = true;
+                //---------------------------- Store Job -------------------------------------------
+                //DatenObjekteSend storeJob = new DatenObjekteSend();
+                //storeJob.ChangeParameter(37, 0, 1);
+
+                //---------------------------- Request Job -----------------------------------------
+                //String FIRSTSTR = UartService.getJob(); //ascii string
+                //String SECSTR = UartService.getJob1(1); //ascii string
+
             } else {
                 JOB_NUM_TOKEN = false;
                 JOB_NUM.setTextColor(Color.WHITE);
@@ -2772,8 +2780,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         //UartService.token = false;
         //sendobj.ChangeParameter(12, random); //DatenObjekteSend class
         //delayInMilli(50); //delay 0.05s
-        cj = UartService.changeJob();
-        js = UartService.changeJob1(13); //get job params
+        cj = UartService.getJob();
+        js = UartService.getJob1(13); //get job params
 
         if (DatenObjekte.checktoken == 0){
             if  (cj != null && !cj.equals("")) { //first job frame
