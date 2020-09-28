@@ -7,6 +7,7 @@
 
 package com.jess.gdfp.View;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,9 +17,11 @@ import android.widget.TextView;
 import com.jess.gdfp.Controller.DatenLoggerAdapter;
 import com.jess.gdfp.DatenBank.Datenlogger;
 import com.jess.gdfp.DatenBank.InfoContract;
+import com.jess.gdfp.DatenBank.MyDataProvider;
 import com.jess.gdfp.DatenObjekte;
 import com.jess.gdfp.R;
 
+import java.text.SimpleDateFormat;
 import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 
@@ -29,6 +32,7 @@ public class DatalistView extends AppCompatActivity  {
     private TextView Time_view;
     private TextView Date_view;
     private ListView listView;
+    static public String dateString ="1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,20 @@ public class DatalistView extends AppCompatActivity  {
         //datenLoggerAdapter=new DatenLoggerAdapter(this,initDatenlogger());
         //listView.setAdapter(datenLoggerAdapter);
         datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
+      finden(infosArray);
+
         datetime_thread();
+
+    }
+
+   void  finden (String[] str){
+        for( int i=0;i<str.length;i++){
+            for(int j=0;j<str[i].length();j++){
+                if(str[i].charAt(j)== ' ' || str[i].charAt(j)== '-'){
+                  System.out.println(str[i]);
+                }
+            }
+        }
 
     }
 
@@ -329,6 +346,7 @@ public class DatalistView extends AppCompatActivity  {
 
     private void datetime_thread(){
         Thread t = new Thread() {
+            int j =1;
             @Override
             public void run() {
                 try {
@@ -337,12 +355,27 @@ public class DatalistView extends AppCompatActivity  {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                              dateString = String.valueOf(j);
+                                j++;
+                                System.out.println(j);
                                 initDatenlogger();
                                 listView.setAdapter(datenLoggerAdapter);
                                 Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
                                 Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
-                                datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
+                              //  datenLoggerAdapter.clear();
+                                ArrayList Datenlogger = new ArrayList<>();
+                                for(int i=0;i<infosArray.length;i++){
+                                    Datenlogger.add(new Datenlogger(infosArray[i],VALUE_STRING[i]));
+                                }
+                                datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,Datenlogger);
                                 datenLoggerAdapter.notifyDataSetChanged();
+                                ContentValues values = new ContentValues();
+                                for (int i = 0; i < DatalistView.infosArray.length; i++) {
+                                    values.put(DatalistView.infosArray[i], VALUE_STRING[i]);
+
+                                }
+
+                         getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI, values);
 
                             }
                         });
@@ -357,7 +390,7 @@ public class DatalistView extends AppCompatActivity  {
     private ArrayList initDatenlogger(){
         ArrayList Datenlogger =new ArrayList<>();
         for (int i=0;i<infosArray.length;i++){
-            Datenlogger.add(new Datenlogger(infosArray[i],VALUE_STRING[i]));
+            Datenlogger.add(new Datenlogger(infosArray[i],dateString));
         }
 
         return Datenlogger;

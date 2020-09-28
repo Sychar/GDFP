@@ -13,7 +13,7 @@ import android.support.v4.app.INotificationSideChannel;
 
 
 public class InfoDataBase extends SQLiteOpenHelper {
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "infos.db";
     private static final String TYPE = " TEXT ";
     private static final String COMMA_SEP = ",";

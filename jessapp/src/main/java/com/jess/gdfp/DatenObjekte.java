@@ -1161,14 +1161,7 @@ public class DatenObjekte {
             }
         }
 
-        ContentValues values = new ContentValues();
-        for (int i = 0; i < DatalistView.infosArray.length; i++) {
-            values.put(DatalistView.infosArray[i], VALUE_STRING_IN_SECOND[i]);
 
-        }
-        MyDataProvider myDataProvider = new MyDataProvider();
-
-        //myDataProvider.insert(InfoContract.infoEntry.CONTENT_URI, values);
     }
 
 

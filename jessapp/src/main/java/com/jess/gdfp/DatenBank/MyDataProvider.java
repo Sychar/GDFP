@@ -83,6 +83,7 @@ public class MyDataProvider extends ContentProvider {
     }
 
     private Uri insertDaten(Uri uri, ContentValues vaues) {
+        datenReader =new InfoDataBase(getContext());
         SQLiteDatabase db =datenReader.getWritableDatabase();
 
         long id = db.insert(InfoContract.infoEntry.TABEL_NAME,null,vaues);

@@ -86,7 +86,7 @@
 
         <provider
             android:name=".DatenBank.MyDataProvider"
-            android:authorities="com.example.android.infos"
+            android:authorities="com.jess.gdfp.infos"
             android:exported="false" />
         <provider
             android:name=".DatenBank.JopDataProvider"
