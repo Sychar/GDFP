@@ -1,11 +1,25 @@
 package com.jess.gdfp;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.jess.gdfp.DatenBank.InfoContract;
+import com.jess.gdfp.DatenBank.InfoDataBase;
+import com.jess.gdfp.DatenBank.JobContract;
+import com.jess.gdfp.DatenBank.MyDataProvider;
+import com.jess.gdfp.View.DatalistView;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import static com.jess.gdfp.UartService.data1;
+import static com.jess.gdfp.UartService.getJob1;
 import static com.jess.gdfp.UartService.mOutputStream;
+import static java.security.AccessController.getContext;
 
 public class DatenObjekte {
 
@@ -28,7 +42,7 @@ public class DatenObjekte {
     private static int HeaderFound1 = 0;
     private static int LengthFound1 = 0;
     private static int LengthProtocol1 = 0;
-    public static int LengthProtocol2 =0;
+    public static int LengthProtocol2 = 0;
     private static int CounterData1 = 0;
 
     public static int Stromtest;
@@ -75,7 +89,7 @@ public class DatenObjekte {
     public static byte Freibrand;
     public static byte FreibandKorrektur;
     public static byte KorrekturPulsamplitude;
-    public static byte KorrekturDrossel  ;
+    public static byte KorrekturDrossel;
     public static byte Einfädeln;
     public static byte GastestZeit;
 
@@ -141,9 +155,9 @@ public class DatenObjekte {
     public static byte VorschubAusKennlinie;
 
     //SV 13
-    public static int StromSetwert ;
+    public static int StromSetwert;
     public static int StromIstwert;
-    public static int StromHoldwert=100;
+    public static int StromHoldwert = 100;
     public static byte StromStatus;
     public static byte StromInkremental;
 
@@ -230,7 +244,7 @@ public class DatenObjekte {
 
     //-------------------------------------------
 
-    public static int mpm_display=0;
+    public static int mpm_display = 0;
 
     //-------------------------------------------
 
@@ -239,7 +253,7 @@ public class DatenObjekte {
 
     private static Charset iso88591charset = Charset.forName("ISO-8859-1");
 
-    public static void VerfahrenParam(int number){
+    public static void VerfahrenParam(int number) {
         switch (number) {
             case 0:
                 Verfahren = "NONE";
@@ -342,7 +356,7 @@ public class DatenObjekte {
         }
     }
 
-    public static void WerkstoffParam(int number){
+    public static void WerkstoffParam(int number) {
         switch (number) {
             case 0:
                 Werkstoff = "NONE";
@@ -383,6 +397,7 @@ public class DatenObjekte {
                 Werkstoff = "Error";
                 break;
         }
+
     }
 
     public static void callme(String msgReceiver) {//msgReceiver is in hex String
@@ -432,8 +447,8 @@ public class DatenObjekte {
                     countertoken = 1;
                     HFound = 1; //Header is found
                     for (int i = 6; i < 220; i++) {
-                             KENNLINIE_FRAME[y] = DO_FRAME[i];// in bytes
-                             y++;
+                        KENNLINIE_FRAME[y] = DO_FRAME[i];// in bytes
+                        y++;
                     }
 
                     //Log.i(TAG,"Complete frame");
@@ -880,7 +895,7 @@ public class DatenObjekte {
                     Reset = DO_FRAME[13];//pos 8
                     if ((Reset & 1) == 1) {
                         Reset_String = "Error-Reset";
-                    }else Reset_String = "No Error";
+                    } else Reset_String = "No Error";
 
                 } else if (gethex.equals("0186")) {
 
@@ -1123,7 +1138,18 @@ public class DatenObjekte {
                 }
             }
         }
+
+        ContentValues values = new ContentValues();
+        for (int i = 0; i < DatalistView.infosArray.length; i++) {
+            values.put(DatalistView.infosArray[i], VALUE_STRING_IN_SECOND[i]);
+
+        }
+        MyDataProvider myDataProvider = new MyDataProvider();
+        myDataProvider.insert(InfoContract.infoEntry.CONTENT_URI, values);
     }
+
+
+
 /*    public  void FromSaha(String var, int value){ // call in Main Activity
 
         if(var.equals("Verfahren")){
@@ -1147,6 +1173,8 @@ public class DatenObjekte {
         }
     }*/
 
+
+
     public static void buffParsing(String Receiverdata) {
 
         str1 = Receiverdata.getBytes(iso88591charset);//convert String to byte array
@@ -1155,6 +1183,7 @@ public class DatenObjekte {
             byte ccb = str1[c];//get char from string
             dataCombiner1(ccb);
         }
+
     }
 
     public static void dataCombiner1(byte DataRec){
@@ -1219,7 +1248,153 @@ public class DatenObjekte {
                 CounterData1=0;
                 LengthFound1=0;
                 LengthProtocol1=0;
+
             }
+
         }
+
     }
+
+
+
+
+
+    private static String[] VALUE_STRING_IN_SECOND = {
+            DatenObjekte.Verfahren,
+            DatenObjekte.Betriebsart,
+            String.valueOf(DatenObjekte.SV1pos3), //pos 3 DrahtDurchmesser
+            DatenObjekte.Gas,
+            DatenObjekte.Werkstoff,
+            DatenObjekte.Reglertyp,
+            DatenObjekte.StatusMSR,
+            DatenObjekte.StatusFLG,
+            String.valueOf(DatenObjekte.Kennliniennummer),
+            String.valueOf(DatenObjekte.Jobnummer),
+            DatenObjekte.KennlinienTyp_String,
+            String.valueOf(DatenObjekte.JobKommando),
+            String.valueOf(DatenObjekte.JobStatus_String),
+            String.valueOf(DatenObjekte.Verriegelungsstufe),
+            String.valueOf(DatenObjekte.Gasvorströmen),
+            String.valueOf(DatenObjekte.Gasnachströmen),
+            String.valueOf(DatenObjekte.EinschleichenAbsolut),
+            String.valueOf(DatenObjekte.EinschleichenKorrektur),
+            String.valueOf(DatenObjekte.UpSlope),
+            String.valueOf(DatenObjekte.DownSlope),
+            String.valueOf(DatenObjekte.Zündenergie),
+            String.valueOf(DatenObjekte.Endkraterenergie),
+            String.valueOf(DatenObjekte.GebirgeStatus),
+            String.valueOf(DatenObjekte.SchweißState),
+            String.valueOf(DatenObjekte.Freibrand),
+            String.valueOf(DatenObjekte.FreibandKorrektur),
+            String.valueOf(DatenObjekte.KorrekturPulsamplitude),
+            String.valueOf(DatenObjekte.KorrekturDrossel),
+            String.valueOf(DatenObjekte.Einfädeln),
+            String.valueOf(DatenObjekte.GastestZeit),
+            String.valueOf(DatenObjekte.PausenZeit),
+            String.valueOf(DatenObjekte.Punktzeit),
+            String.valueOf(DatenObjekte.ZündDauer),
+            String.valueOf(DatenObjekte.EndkraterDauer),
+            String.valueOf(DatenObjekte.SynergieVorgabe),
+            String.valueOf(DatenObjekte.AnzahlLeistungsmodule),
+            DatenObjekte.PowerpulsEinAus_String,
+            String.valueOf(DatenObjekte.PowerpulsE2),
+            String.valueOf(DatenObjekte.PowerpulsT1E1),
+            String.valueOf(DatenObjekte.PowerpulsT2E1),
+            String.valueOf(DatenObjekte.PowerpulsLBKorrE2),
+            String.valueOf(DatenObjekte.PowerpulsUpSlope),
+            String.valueOf(DatenObjekte.PowerpulsDownSlope),
+            String.valueOf(DatenObjekte.JobSlope),
+            String.valueOf(DatenObjekte.ZündStrom),
+            String.valueOf(DatenObjekte.ZündSpannung),
+            String.valueOf(DatenObjekte.ZündEnergie),
+            String.valueOf(DatenObjekte.ZündDrossel),
+            String.valueOf(DatenObjekte.ZündLichtbogenkorrektur),
+            String.valueOf(DatenObjekte.Strom1),
+            String.valueOf(DatenObjekte.Spannung1),
+            String.valueOf(DatenObjekte.Energie1),
+            String.valueOf(DatenObjekte.Drossel1),
+            String.valueOf(DatenObjekte.Lichtbogenkorrektur1),
+            String.valueOf(DatenObjekte.Strom2),
+            String.valueOf(DatenObjekte.Spannung2),
+            String.valueOf(DatenObjekte.Energie2),
+            String.valueOf(DatenObjekte.Drossel2),
+            String.valueOf(DatenObjekte.Lichtbogenkorrektur2),
+            String.valueOf(DatenObjekte.Strom3),
+            String.valueOf(DatenObjekte.Spannung3),
+            String.valueOf(DatenObjekte.Energie3),
+            String.valueOf(DatenObjekte.Drossel3),
+            String.valueOf(DatenObjekte.Lichtbogenkorrektur3),
+            String.valueOf(DatenObjekte.EndkraterStrom),
+            String.valueOf(DatenObjekte.EndkraterSpannung),
+            String.valueOf(DatenObjekte.EndkraterEnergie),
+            String.valueOf(DatenObjekte.EndkraterDrossel),
+            String.valueOf(DatenObjekte.EndKraterLichtbogenkorrektur),
+            String.valueOf(DatenObjekte.VorschubSetwert),
+            String.valueOf(DatenObjekte.VorschubIstwert),
+            String.valueOf(DatenObjekte.VorschubHoldwert),
+            String.valueOf(DatenObjekte.VorschubStatus),
+            String.valueOf(DatenObjekte.VorschubAusKennlinie),
+            String.valueOf(DatenObjekte.StromSetwert),
+            String.valueOf(DatenObjekte.StromIstwert),
+            String.valueOf(DatenObjekte.StromHoldwert),
+            String.valueOf(DatenObjekte.StromStatus),
+            String.valueOf(DatenObjekte.StromInkremental),
+            String.valueOf(DatenObjekte.SpannungSetwert),
+            String.valueOf(DatenObjekte.SpannungIstwert),
+            String.valueOf(DatenObjekte.SpannungHoldwert),
+            String.valueOf(DatenObjekte.SpannungStatus),
+            String.valueOf(DatenObjekte.SpannungInkremental),
+            String.valueOf(DatenObjekte.BlechdickeSetwert),
+            String.valueOf(DatenObjekte.BlechdickeIstwert),
+            String.valueOf(DatenObjekte.BlechdickeHoldwert),
+            String.valueOf(DatenObjekte.BlechdickeStatus),
+            //DatenObjekte.Reset_String,
+            String.valueOf(DatenObjekte.ElektrodeStromSetwert),
+            String.valueOf(DatenObjekte.ElektrodeStromIstwert),
+            String.valueOf(DatenObjekte.HotstartDauer),
+            String.valueOf(DatenObjekte.Hotstart),
+            String.valueOf(DatenObjekte.ArcForce),
+            String.valueOf(DatenObjekte.InnenwiderstandfürElektrode),
+            String.valueOf(DatenObjekte.RMTPosAmplitude),
+            String.valueOf(DatenObjekte.RMTNegAmplitude),
+            String.valueOf(DatenObjekte.StartAmplitude),
+            String.valueOf(DatenObjekte.StartZeit),
+            String.valueOf(DatenObjekte.StartÜberhöhung),
+            String.valueOf(DatenObjekte.InnenwiderstandfürDossel),
+            String.valueOf(DatenObjekte.Überblendzeit),
+            String.valueOf(DatenObjekte.DrosselAbfall),
+            String.valueOf(DatenObjekte.MotorFlanke),
+            String.valueOf(DatenObjekte.DrosselDynamic),
+            String.valueOf(DatenObjekte.MAGACPositiveZeit),
+            String.valueOf(DatenObjekte.MAGACStromschwellwert),
+            String.valueOf(DatenObjekte.LBRMode),
+            DatenObjekte.MAGACBetriebsart_String,
+            String.valueOf(DatenObjekte.MAGACKältewert),
+            String.valueOf(DatenObjekte.MAGACNegativZeit),
+            String.valueOf(DatenObjekte.MAGACKurzschlusserkennung),
+            String.valueOf(DatenObjekte.MAGACKurzschlussaufhebung),
+            String.valueOf(DatenObjekte.MACAGVerweilzeitPosNeg),
+            String.valueOf(DatenObjekte.MACAGVerweilzeitNegPos),
+            String.valueOf(DatenObjekte.WIGSpeedPulsFrequenz),
+            String.valueOf(DatenObjekte.WIGSpeedPulsI1Anteil),
+            String.valueOf(DatenObjekte.WIGSpeedPulsI3),
+            String.valueOf(DatenObjekte.GasSollwert),
+            String.valueOf(DatenObjekte.UserNummer),
+            String.valueOf(DatenObjekte.WIGACStromoffset),
+            DatenObjekte.WIGStatus_String,
+            String.valueOf(DatenObjekte.WIGACFrequenz),
+            String.valueOf(DatenObjekte.WIGACBalance),
+            String.valueOf(DatenObjekte.WIGDurchmesserWolframElektrode),
+            DatenObjekte.WIGBetriebsartWechselrichter_String,
+            String.valueOf(DatenObjekte.KaltdrahtpulsenT1SV21_5),
+            String.valueOf(DatenObjekte.WIGStromLimit),
+            DatenObjekte.KHMode_String,
+            String.valueOf(DatenObjekte.VerzögerungsZeitKaltdrahtEin),
+            String.valueOf(DatenObjekte.VerzögerungsZeitKaltdrahtAus),
+            String.valueOf(DatenObjekte.VerzögerungsZeitHeißdrahtÜberwachung),
+            String.valueOf(DatenObjekte.Vorpositionierungsstrecke),
+            String.valueOf(DatenObjekte.Rückzugsstrecke),
+            String.valueOf(DatenObjekte.KaltdrahtpulsenT1SV22_7),
+            DatenObjekte.KHStatus_String,
+    };
 }

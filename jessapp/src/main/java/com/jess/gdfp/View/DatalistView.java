@@ -18,6 +18,7 @@ import com.jess.gdfp.DatenBank.InfoContract;
 import com.jess.gdfp.DatenObjekte;
 import com.jess.gdfp.R;
 
+import java.time.temporal.ValueRange;
 import java.util.ArrayList;
 
 public class DatalistView extends AppCompatActivity  {
@@ -34,9 +35,10 @@ public class DatalistView extends AppCompatActivity  {
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
         datenLoggerAdapter=new DatenLoggerAdapter(this,initDatenlogger());
         listView.setAdapter(datenLoggerAdapter);
+
     }
 
-    private String[] infosArray={
+    static public String[] infosArray={
             //InfoContract.infoEntry.COLUMN_TIME_ ,
             InfoContract.infoEntry.Verfahren,
             InfoContract.infoEntry.Betriebsart,
@@ -176,7 +178,9 @@ public class DatalistView extends AppCompatActivity  {
             InfoContract.infoEntry.KH_Status,
     };
 
-    private String[] VALUE_STRING = {
+
+
+    private static String[] VALUE_STRING = {
             DatenObjekte.Verfahren,
             DatenObjekte.Betriebsart,
             String.valueOf(DatenObjekte.SV1pos3), //pos 3 DrahtDurchmesser
@@ -320,6 +324,10 @@ public class DatalistView extends AppCompatActivity  {
         for (int i=0;i<infosArray.length;i++){
             Datenlogger.add(new Datenlogger(infosArray[i],VALUE_STRING[i]));
         }
+
+
         return Datenlogger;
     }
+
+
 }

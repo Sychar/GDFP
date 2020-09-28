@@ -48,7 +48,7 @@ public class JopDataProvider extends ContentProvider {
                 break;
 
             case ID_JOBS:
-                selection = JobContract.jobEntry.HI_UI_JOB_NR + "=?";//hier wurde die id =? zuwiesen
+                selection = JobContract.jobEntry.HI_UI_JOB_NR + "=?" +"AND" +JobContract.jobEntry.HI_UI_STROM_SET + "=?";//hier wurde die id =? zuwiesen
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};//hier welche id ist das
                 cursor = database.query(JobContract.jobEntry.TABEL_NAME, projection, selection, selectionArgs, null, null, sortOrder);
                 break;
