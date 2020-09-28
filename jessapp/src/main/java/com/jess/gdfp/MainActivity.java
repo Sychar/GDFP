@@ -888,8 +888,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                          runOnUiThread(new Runnable() {
                              @Override
                              public void run() {
-                                 TextView tdate = findViewById(R.id.date);
-                                 TextView tdate2 = findViewById(R.id.date2);
+                                 TextView tdate = findViewById(R.id.date); //right top button
+                                 TextView tdate2 = findViewById(R.id.date2); //left top button
 
                                  long date = System.currentTimeMillis();
 
@@ -897,8 +897,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                                  String dateString = sdf.format(date);
                                  SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
                                  String dateString2 = sdf2.format(date);
-                                 tdate.setText(dateString);
-                                 tdate2.setText(dateString2);
+                                 tdate.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
+                                 tdate2.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
 
                              }
                          });
@@ -2262,7 +2262,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     //---------------------------Display job number in textview-----------------------------
                     //JOB_DISPLAY.setText(String.valueOf(DatenObjekte.Jobnummer));
                     //JOB_DISPLAY.setTextColor(Color.WHITE);
-                    JOB_NUM.setText("JOB"+"\n"+String.valueOf(DatenObjekte.Jobnummer));
+                    JOB_NUM.setText("JOB");
                     JOB_NUM.setTextColor(Color.WHITE);
 
                     Button Korrektur = findViewById(R.id.btn_korrektur); //korrektur textview

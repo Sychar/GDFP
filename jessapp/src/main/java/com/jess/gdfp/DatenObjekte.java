@@ -242,6 +242,14 @@ public class DatenObjekte {
     public static String KHMode_String = "";
     public static String KHStatus_String = "";
 
+    //Time
+    public static byte SECOND = 0;
+    public static byte MINUTE = 0;
+    public static byte HOUR = 0;
+    public static byte DAY = 0;
+    public static byte MONTH = 0;
+    public static byte YEAR = 0;
+
     //-------------------------------------------
 
     public static int mpm_display = 0;
@@ -1130,6 +1138,20 @@ public class DatenObjekte {
                     if ((iKHStatus & 1) == 1) {
                         KHStatus_String = "Heiß-Draht-Strom ok";
                     }
+                } else if (gethex.equals("07FF")) {
+
+                    YEAR = DO_FRAME[8];
+                    MONTH = DO_FRAME[9];
+                    DAY = DO_FRAME[10];
+                    HOUR = DO_FRAME[11];
+                    MINUTE = DO_FRAME[12];
+                    SECOND = DO_FRAME[13];
+                    /*Log.i("MONTH",String.valueOf(MONTH));
+                    Log.i("DAY",String.valueOf(DAY));
+                    Log.i("HOUR",String.valueOf(HOUR));
+                    Log.i("MINUTE",String.valueOf(MINUTE));
+                    Log.i("SECOND",String.valueOf(SECOND));*/
+
                 }
 
                 if (gethex.equals("0484")) {
@@ -1145,7 +1167,8 @@ public class DatenObjekte {
 
         }
         MyDataProvider myDataProvider = new MyDataProvider();
-        myDataProvider.insert(InfoContract.infoEntry.CONTENT_URI, values);
+
+        //myDataProvider.insert(InfoContract.infoEntry.CONTENT_URI, values);
     }
 
 

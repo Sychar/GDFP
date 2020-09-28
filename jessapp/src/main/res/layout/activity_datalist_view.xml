@@ -12,22 +12,26 @@
     android:layout_height="80dp"
     android:orientation="horizontal"
     android:background="@drawable/border2">
+
     <TextView
+        android:id="@+id/TIME_DL"
+        android:layout_width="220dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="300dp"
+        android:gravity="center_vertical"
         android:text=" 00:00:00"
         android:textColor="#ffff"
-        android:gravity="center_vertical"
-        android:textSize="28sp"
-        android:layout_marginLeft="300dp"
-        android:layout_width="220dp"
-        android:layout_height="80dp">
+        android:textSize="28sp">
 
     </TextView>
+
     <TextView
+        android:id="@+id/DATE_DL"
+        android:layout_width="220dp"
+        android:layout_height="80dp"
         android:text="01/01/2021"
         android:textColor="#ffff"
-        android:textSize="28sp"
-        android:layout_width="220dp"
-        android:layout_height="80dp">
+        android:textSize="28sp">
 
     </TextView>
 </LinearLayout>

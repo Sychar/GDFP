@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jess.gdfp.Controller.DatenLoggerAdapter;
 import com.jess.gdfp.DatenBank.Datenlogger;
@@ -25,16 +26,23 @@ public class DatalistView extends AppCompatActivity  {
     public static int timer=1;
     private static final int COUNT_LOADR=0;
     DatenLoggerAdapter datenLoggerAdapter;
+    private TextView Time_view;
+    private TextView Date_view;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datalist_view);
 
-        ListView listView =(ListView) findViewById(R.id.datalistview);
+        listView =(ListView) findViewById(R.id.datalistview);
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
-        datenLoggerAdapter=new DatenLoggerAdapter(this,initDatenlogger());
-        listView.setAdapter(datenLoggerAdapter);
+        Time_view = findViewById(R.id.TIME_DL);
+        Date_view = findViewById(R.id.DATE_DL);
+        //datenLoggerAdapter=new DatenLoggerAdapter(this,initDatenlogger());
+        //listView.setAdapter(datenLoggerAdapter);
+        datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
+        datetime_thread();
 
     }
 
@@ -180,7 +188,7 @@ public class DatalistView extends AppCompatActivity  {
 
 
 
-    private static String[] VALUE_STRING = {
+    private  String[] VALUE_STRING = {
             DatenObjekte.Verfahren,
             DatenObjekte.Betriebsart,
             String.valueOf(DatenObjekte.SV1pos3), //pos 3 DrahtDurchmesser
@@ -319,12 +327,38 @@ public class DatalistView extends AppCompatActivity  {
             DatenObjekte.KHStatus_String,
     };
 
+    private void datetime_thread(){
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                initDatenlogger();
+                                listView.setAdapter(datenLoggerAdapter);
+                                Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
+                                Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
+                                datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
+                                datenLoggerAdapter.notifyDataSetChanged();
+
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+        t.start();
+    }
+
     private ArrayList initDatenlogger(){
         ArrayList Datenlogger =new ArrayList<>();
         for (int i=0;i<infosArray.length;i++){
             Datenlogger.add(new Datenlogger(infosArray[i],VALUE_STRING[i]));
         }
-
 
         return Datenlogger;
     }
