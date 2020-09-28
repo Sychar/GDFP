@@ -253,6 +253,7 @@ public class DatenObjekte {
     //-------------------------------------------
 
     public static int mpm_display = 0;
+    public static int mm_display = 0;
 
     //-------------------------------------------
 
@@ -1157,6 +1158,7 @@ public class DatenObjekte {
                 if (gethex.equals("0484")) {
                     //Log.i("gethex ","0484");
                     SV1pos3 = (int) DO_FRAME[6];//pos 3 DrahtDurchmesser
+                    mm_display = SV1pos3;
                 }
             }
         }

@@ -13,18 +13,6 @@
   },
   {
     "level": "INFO",
-    "message": "- a dependent build file changed"
-  },
-  {
-    "level": "INFO",
-    "message": "  - C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\src\\main\\jni\\Android.mk"
-  },
-  {
-    "level": "INFO",
-    "message": "  - C:\\Users\\saljendi\\Desktop\\jessapp\\jessapp\\src\\main\\jni\\Application.mk"
-  },
-  {
-    "level": "INFO",
     "message": "removing stale contents from \u0027O:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\.cxx\\ndkBuild\\debug\\arm64-v8a\u0027"
   },
   {

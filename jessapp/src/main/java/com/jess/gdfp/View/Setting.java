@@ -58,7 +58,7 @@ public class Setting extends AppCompatActivity {
                                 MainActivity.ENCODERBUTTON_TOKEN =  false;
                                 Log.i("Jobs button", "is pressed");
                             }
-                        }else if (MainActivity.SETTING_COUNTER == 2) {
+                        } else if (MainActivity.SETTING_COUNTER == 2) {
                             //Log.i("Setting ", "Datenlogger");
                             datalogger.setTextColor(Color.BLACK);
                             datalogger.setBackground(getResources().getDrawable( R.drawable.job_button_chosen ));

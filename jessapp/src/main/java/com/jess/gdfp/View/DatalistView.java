@@ -46,20 +46,7 @@ public class DatalistView extends AppCompatActivity  {
         //datenLoggerAdapter=new DatenLoggerAdapter(this,initDatenlogger());
         //listView.setAdapter(datenLoggerAdapter);
         datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
-      finden(infosArray);
-
         datetime_thread();
-
-    }
-
-   void  finden (String[] str){
-        for( int i=0;i<str.length;i++){
-            for(int j=0;j<str[i].length();j++){
-                if(str[i].charAt(j)== ' ' || str[i].charAt(j)== '-'){
-                  System.out.println(str[i]);
-                }
-            }
-        }
 
     }
 
@@ -368,6 +355,17 @@ public class DatalistView extends AppCompatActivity  {
                                     Datenlogger.add(new Datenlogger(infosArray[i],VALUE_STRING[i]));
                                 }
                                 datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,Datenlogger);
+                                if(DatenObjekte.HOUR<10) Time_view.setText("0"+String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
+                                else if(DatenObjekte.MINUTE<10) Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":0"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
+                                else if(DatenObjekte.SECOND<10) Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":0"+String.valueOf(DatenObjekte.SECOND));
+                                else Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
+
+                                if(DatenObjekte.DAY<10) Date_view.setText("0"+String.valueOf(DatenObjekte.DAY)+"/0"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
+                                else if(DatenObjekte.MONTH<10) Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/0"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
+                                else if(DatenObjekte.YEAR<10) Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"200"+String.valueOf(DatenObjekte.YEAR));
+                                else Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
+                                initDatenlogger().clear();
+                                datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
                                 datenLoggerAdapter.notifyDataSetChanged();
                                 ContentValues values = new ContentValues();
                                 for (int i = 0; i < DatalistView.infosArray.length; i++) {

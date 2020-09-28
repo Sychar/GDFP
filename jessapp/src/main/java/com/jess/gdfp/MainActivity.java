@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static boolean JOB_TOKEN = false;
     public static boolean STOP_DATENOBJEKTE = false;
     public static boolean PARSE_TOKEN = true;
+    public static boolean HOME = false;
+    public static int HOME_COUNTER = 0;
 
     private BluetoothService BSF = null;
     private Boolean btCom_status = false;
@@ -2234,7 +2236,27 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             //setFilters();  // Start listening notifications from UartService
             counterDisplay++;
 
-            if (READVAL_STATUS[1]==1) txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
+            if (READVAL_STATUS[1]==1) {
+                switch(HOME_COUNTER){
+                    case 0: txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
+                        break;
+                    case 1: txtprogress.setText(String.valueOf(DatenObjekte.SV1pos3/10)+ "," + String.valueOf(DatenObjekte.SV1pos3 % 10) + "\n" + "mm"); //mm
+                        break;
+                    case 2: txtprogress.setText(String.valueOf(DatenObjekte.StromSetwert)+"\n"+" A"); //A
+                        break;
+                    case 3: txtprogress.setText(String.valueOf(DatenObjekte.Lichtbogenkorrektur1)+"\n"+"Korrektur"); //Korrektur
+                        break;
+                    case 4: txtprogress.setText(DatenObjekte.Verfahren); //Verfahren
+                        break;
+                    case 5: txtprogress.setText(DatenObjekte.Gas); //Gas
+                        break;
+                    case 6: txtprogress.setText(DatenObjekte.Werkstoff+"\n"+"Werkstoff"); //Werkstoff
+                        break;
+                    case 7: txtprogress.setText(String.valueOf(DatenObjekte.Jobnummer)+"\n"+"Job"); //Job
+                        break;
+                }
+                //txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
+            }
 
                 if (msg_for_me != null && !msg_for_me.equals("")) { //data in hex string
 
@@ -2250,12 +2272,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         //if (UartService.ByteArray[4]<0) tempCANID=UartService.ByteArray[4]+256;
 
                         //if((UartService.ByteArray[3]==6) && (tempCANID== 240) && (UartService.ByteArray[9]==5)) { //CanID 06F0
-
                             ANZEIGE1.setText(DatenObjekte.Verfahren);
                             //Log.i("Verfahren", String.valueOf(tempDO));
                             ANZEIGE2.setText(DatenObjekte.Werkstoff);
                             ANZEIGE3.setText(DatenObjekte.Gas);
-                            //Log.i("PARSE_TOKEN", "Kennlinie");
                         //}
                     //}
 
@@ -2338,13 +2358,20 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
          if (counterDisplay==100) {
              if (CONTROL_PANEL_MODE==1) {
                  if(DatenObjekte.SV1pos1 != 4) { //Not elektrode mode
-                     if (DatenObjekte.mpm_display!=DatenObjekte.Energie1)  sendEnergie.ChangeParameter(2, DatenObjekte.mpm_display, 1);
-                     else CONTROL_PANEL_MODE = 0;
+                     switch(HOME_COUNTER){
+                         case 0: if (DatenObjekte.mpm_display!=DatenObjekte.Energie1)  sendEnergie.ChangeParameter(2, DatenObjekte.mpm_display, 1);
+                                else CONTROL_PANEL_MODE = 0;
+                                break;
+                         case 1: if (DatenObjekte.mm_display!=DatenObjekte.SV1pos3) sendEnergie.ChangeParameter(3, DatenObjekte.mm_display, 1);
+                                else CONTROL_PANEL_MODE = 0;
+                         //System.out.println("Here");
+                                 break;
                      //Log.i("VERFAHREN_MODE",String.valueOf(VERFAHREN_MODE));
                      //Energie = DatenObjekte.Energie1 + val_encoder; // m/min
 
                      //DatenObjekteSend sendEnergie = new DatenObjekteSend();
                      //sendEnergie.ChangeParameter(2, DatenObjekte.mpm_display, 1);   //Something Wrong Here
+                         }
                  }
              } else if (CONTROL_PANEL_MODE==0){
                  DatenObjekte.mpm_display=DatenObjekte.Energie1;
@@ -2378,26 +2405,50 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     }
 
     public void incrementEncoder1(int val_encoder){
+        //Log.i(TAG,"incrementEncoder1 is called");
 
-        if(!JOB_NUM_TOKEN) {//Job button in home page is not pressed
+        if(!JOB_NUM_TOKEN) { //Job button in home page is not pressed
             //Log.i(TAG,"job not pressed");
             CONTROL_PANEL_MODE = 1;
-
-            if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display < 240)) { //Normal
-                DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-                progressBar.setProgress((int) (DatenObjekte.mpm_display) * (100 / 232) - (800 / 232));
-            } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display < 120)) { //Synergie
-                DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-                progressBar.setProgress((int) ((DatenObjekte.mpm_display) * 100 / 80 - 50));
-            } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display < 120)) {//Pulse
-                DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-                progressBar.setProgress(DatenObjekte.mpm_display - 20);
+            switch(HOME_COUNTER){
+                case 0: if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display < 240)) { //Normal
+                    DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
+                    progressBar.setProgress((int) (DatenObjekte.mpm_display) * (100 / 232) - (800 / 232));
+                } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display < 120)) { //Synergie
+                    DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
+                    progressBar.setProgress((int) ((DatenObjekte.mpm_display) * 100 / 80 - 50));
+                } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display < 120)) {//Pulse
+                    DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
+                    progressBar.setProgress(DatenObjekte.mpm_display - 20);
+                }
+                break;
+                case 1: DatenObjekte.mm_display = DatenObjekte.mm_display + val_encoder; //mm
+                    break;
             }
+
+            //Log.i("mpm_display",String.valueOf());
             //---------------------------------------Energie--------------------------------------------
-            if (DatenObjekte.SV1pos1 != 4)
-                txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
-            else
-                txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert + " A")); // Elektrode mode
+            if (DatenObjekte.SV1pos1 != 4) {
+                switch(HOME_COUNTER){
+                    case 0: txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
+                        break;
+                    case 1: txtprogress.setText(String.valueOf(DatenObjekte.SV1pos3)); //mm
+                        break;
+                    case 2: txtprogress.setText(String.valueOf(DatenObjekte.StromSetwert)); //A
+                        break;
+                    case 3: txtprogress.setText(String.valueOf(DatenObjekte.Lichtbogenkorrektur1)); //Korrektur
+                        break;
+                    case 4: txtprogress.setText(DatenObjekte.Verfahren); //Verfahren
+                        break;
+                    case 5: txtprogress.setText(DatenObjekte.Gas); //Gas
+                        break;
+                    case 6: txtprogress.setText(DatenObjekte.Werkstoff); //Werkstoff
+                        break;
+                    case 7: txtprogress.setText(String.valueOf(DatenObjekte.Jobnummer)); //Job
+                        break;
+                }
+                //txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
+            } else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert + " A")); // Elektrode mode
 
             if (SETTING_TOKEN) { //Setting button is pressed
                 //Log.i(TAG,"Turn encoder");
@@ -2428,7 +2479,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
      public void decrementEncoder1(int val_encoder){
 
-         if(!JOB_NUM_TOKEN) {//Job button in home page is not pressed
+         if(!JOB_NUM_TOKEN) { //Job button in home page is not pressed
              CONTROL_PANEL_MODE = 1;
              if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display > 8)) { //Normal
                  DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
@@ -2471,8 +2522,13 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
       }
 
     public void pressbuttonEncoder1(){
-        ENCODERBUTTON_TOKEN = true;
-        //txtprogress.setText("pressbuttonEncoder1");
+        //ENCODERBUTTON_TOKEN = true;
+        Log.i(TAG,"pressbuttonEncoder1 is pressed");
+        if(!HOME){
+            Log.i("HOME_COUNTER",String.valueOf(HOME_COUNTER));
+            HOME_COUNTER++;
+            if(HOME_COUNTER==7) HOME_COUNTER = 0;
+        }else ENCODERBUTTON_TOKEN = true;
     }
 
     public void pressMenu(){
