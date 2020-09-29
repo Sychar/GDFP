@@ -28,7 +28,7 @@ public class DatenObjekteSend {
                     PARAMTOKEN = 1;
                     VALTOKEN = 0;
                 }else{
-                    PARAMTOKEN = 1;
+                    PARAMTOKEN = 0;
                     VALTOKEN = 1;
                 }
                 //PARAMTOKEN = 1;
@@ -52,6 +52,7 @@ public class DatenObjekteSend {
                 //VALTOKEN= 1;
                 break;
             case 3: //mm
+                //Log.i("DatenObjekte.a_display","Debug");
                 FRAMEVAL = 2;
                 FRAMEEXTRA = 34;
                 //Mm = ((float) value) /10.0 ;
@@ -120,8 +121,13 @@ public class DatenObjekteSend {
                 FIRVAL = value&0xFF;//lsb
                 SECVAL = (value>>8)&0xFF;//msb
                 THDVAL = 53;//35H
-                PARAMTOKEN = 1;
-                VALTOKEN= 1;
+                if(mode==0) {
+                    PARAMTOKEN = 1;
+                    VALTOKEN = 0;
+                }else{
+                    PARAMTOKEN = 0;
+                    VALTOKEN = 1;
+                }
                 break;
             case 10://CrNi(bei synergie)
                 FRAMEVAL = 0;

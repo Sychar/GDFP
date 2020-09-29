@@ -254,6 +254,7 @@ public class DatenObjekte {
 
     public static int mpm_display = 0;
     public static int mm_display = 0;
+    public static int a_display = 0;
 
     //-------------------------------------------
 
@@ -841,11 +842,13 @@ public class DatenObjekte {
                     if (MainActivity.READVAL_STATUS[1] != 1) {
                         MainActivity.READVAL_STATUS[1] = 1;
                         mpm_display = Energie1;
+                        MainActivity.mm_a_display = mpm_display;
                     }
                 }
 
                 if (gethex.equals("0201")) {
                     Stromtest = ((int) (DO_FRAME[6])) & 0xFF;
+                    a_display = Stromtest;
                 } else if (gethex.equals("0284")) {
 
                     Strom2 = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
@@ -885,6 +888,7 @@ public class DatenObjekte {
                     StromHoldwert = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 and 6
                     StromStatus = DO_FRAME[12];//pos 7
                     StromInkremental = DO_FRAME[13];//pos 8
+                    //a_display = StromSetwert;
 
                 } else if (gethex.equals("0483")) {
 

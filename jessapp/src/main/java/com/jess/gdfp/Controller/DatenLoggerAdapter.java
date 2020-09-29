@@ -23,8 +23,6 @@ public class DatenLoggerAdapter extends ArrayAdapter {
     private View mylist ;
     private Datenlogger datenloggerObjekt;
 
-
-
     public DatenLoggerAdapter(Activity context , ArrayList<Datenlogger> datenlogers){
         super(context,0,datenlogers);
     }
@@ -36,16 +34,12 @@ public class DatenLoggerAdapter extends ArrayAdapter {
         mylist=convertView;
         if(mylist==null){
             mylist= LayoutInflater.from(getContext()).inflate(R.layout.item_for_datenlogger,parent,false);
-
         }
-
         param=mylist.findViewById(R.id.job_name);
         Vaule=mylist.findViewById(R.id.job_nr);
         datenloggerObjekt=(Datenlogger) getItem(position);
         param.setText(datenloggerObjekt.getParam());
         Vaule.setText(datenloggerObjekt.getVaule());
         return mylist;
-
-
     }
 }

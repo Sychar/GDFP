@@ -33,6 +33,7 @@ public class DatalistView extends AppCompatActivity  {
     private TextView Date_view;
     private ListView listView;
     static public String dateString ="1";
+    //private static String[] NEW_STRING ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,7 +193,7 @@ public class DatalistView extends AppCompatActivity  {
 
 
 
-    private  String[] VALUE_STRING = {
+    private  static String[] VALUE_STRING = {
             DatenObjekte.Verfahren,
             DatenObjekte.Betriebsart,
             String.valueOf(DatenObjekte.SV1pos3), //pos 3 DrahtDurchmesser
@@ -333,7 +334,7 @@ public class DatalistView extends AppCompatActivity  {
 
     private void datetime_thread(){
         Thread t = new Thread() {
-            int j =1;
+
             @Override
             public void run() {
                 try {
@@ -342,17 +343,15 @@ public class DatalistView extends AppCompatActivity  {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                              dateString = String.valueOf(j);
-                                j++;
-                                System.out.println(j);
                                 initDatenlogger();
+                                String[] DATALOGGER_PARAM = RefreshString();
                                 listView.setAdapter(datenLoggerAdapter);
                                 Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
                                 Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
                               //  datenLoggerAdapter.clear();
                                 ArrayList Datenlogger = new ArrayList<>();
                                 for(int i=0;i<infosArray.length;i++){
-                                    Datenlogger.add(new Datenlogger(infosArray[i],VALUE_STRING[i]));
+                                    Datenlogger.add(new Datenlogger(infosArray[i],DATALOGGER_PARAM[i]));
                                 }
                                 datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,Datenlogger);
                                 if(DatenObjekte.HOUR<10) Time_view.setText("0"+String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
@@ -365,16 +364,17 @@ public class DatalistView extends AppCompatActivity  {
                                 else if(DatenObjekte.YEAR<10) Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"200"+String.valueOf(DatenObjekte.YEAR));
                                 else Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
                                 initDatenlogger().clear();
-                                datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
+                              //  datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
                                 datenLoggerAdapter.notifyDataSetChanged();
-                                ContentValues values = new ContentValues();
+                               /* ContentValues values = new ContentValues();
                                 for (int i = 0; i < DatalistView.infosArray.length; i++) {
-                                    values.put(DatalistView.infosArray[i], VALUE_STRING[i]);
+                                    values.put(DatalistView.infosArray[i], String.valueOf (DatenObjekte.SV1pos3));
 
                                 }
+                                System.out.println(String.valueOf(DatenObjekte.SV1pos3));
 
                          getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI, values);
-
+*/
                             }
                         });
                     }
@@ -388,10 +388,152 @@ public class DatalistView extends AppCompatActivity  {
     private ArrayList initDatenlogger(){
         ArrayList Datenlogger =new ArrayList<>();
         for (int i=0;i<infosArray.length;i++){
-            Datenlogger.add(new Datenlogger(infosArray[i],dateString));
+            Datenlogger.add(new Datenlogger(infosArray[i],VALUE_STRING[i]));
         }
 
         return Datenlogger;
+    }
+
+    private static String[] RefreshString(){
+          String[] NEW_STRING = {
+                DatenObjekte.Verfahren,
+                DatenObjekte.Betriebsart,
+                String.valueOf(DatenObjekte.SV1pos3), //pos 3 DrahtDurchmesser
+                DatenObjekte.Gas,
+                DatenObjekte.Werkstoff,
+                DatenObjekte.Reglertyp,
+                DatenObjekte.StatusMSR,
+                DatenObjekte.StatusFLG,
+                String.valueOf(DatenObjekte.Kennliniennummer),
+                String.valueOf(DatenObjekte.Jobnummer),
+                DatenObjekte.KennlinienTyp_String,
+                String.valueOf(DatenObjekte.JobKommando),
+                String.valueOf(DatenObjekte.JobStatus_String),
+                String.valueOf(DatenObjekte.Verriegelungsstufe),
+                String.valueOf(DatenObjekte.Gasvorströmen),
+                String.valueOf(DatenObjekte.Gasnachströmen),
+                String.valueOf(DatenObjekte.EinschleichenAbsolut),
+                String.valueOf(DatenObjekte.EinschleichenKorrektur),
+                String.valueOf(DatenObjekte.UpSlope),
+                String.valueOf(DatenObjekte.DownSlope),
+                String.valueOf(DatenObjekte.Zündenergie),
+                String.valueOf(DatenObjekte.Endkraterenergie),
+                String.valueOf(DatenObjekte.GebirgeStatus),
+                String.valueOf(DatenObjekte.SchweißState),
+                String.valueOf(DatenObjekte.Freibrand),
+                String.valueOf(DatenObjekte.FreibandKorrektur),
+                String.valueOf(DatenObjekte.KorrekturPulsamplitude),
+                String.valueOf(DatenObjekte.KorrekturDrossel),
+                String.valueOf(DatenObjekte.Einfädeln),
+                String.valueOf(DatenObjekte.GastestZeit),
+                String.valueOf(DatenObjekte.PausenZeit),
+                String.valueOf(DatenObjekte.Punktzeit),
+                String.valueOf(DatenObjekte.ZündDauer),
+                String.valueOf(DatenObjekte.EndkraterDauer),
+                String.valueOf(DatenObjekte.SynergieVorgabe),
+                String.valueOf(DatenObjekte.AnzahlLeistungsmodule),
+                DatenObjekte.PowerpulsEinAus_String,
+                String.valueOf(DatenObjekte.PowerpulsE2),
+                String.valueOf(DatenObjekte.PowerpulsT1E1),
+                String.valueOf(DatenObjekte.PowerpulsT2E1),
+                String.valueOf(DatenObjekte.PowerpulsLBKorrE2),
+                String.valueOf(DatenObjekte.PowerpulsUpSlope),
+                String.valueOf(DatenObjekte.PowerpulsDownSlope),
+                String.valueOf(DatenObjekte.JobSlope),
+                String.valueOf(DatenObjekte.ZündStrom),
+                String.valueOf(DatenObjekte.ZündSpannung),
+                String.valueOf(DatenObjekte.ZündEnergie),
+                String.valueOf(DatenObjekte.ZündDrossel),
+                String.valueOf(DatenObjekte.ZündLichtbogenkorrektur),
+                String.valueOf(DatenObjekte.Strom1),
+                String.valueOf(DatenObjekte.Spannung1),
+                String.valueOf(DatenObjekte.Energie1),
+                String.valueOf(DatenObjekte.Drossel1),
+                String.valueOf(DatenObjekte.Lichtbogenkorrektur1),
+                String.valueOf(DatenObjekte.Strom2),
+                String.valueOf(DatenObjekte.Spannung2),
+                String.valueOf(DatenObjekte.Energie2),
+                String.valueOf(DatenObjekte.Drossel2),
+                String.valueOf(DatenObjekte.Lichtbogenkorrektur2),
+                String.valueOf(DatenObjekte.Strom3),
+                String.valueOf(DatenObjekte.Spannung3),
+                String.valueOf(DatenObjekte.Energie3),
+                String.valueOf(DatenObjekte.Drossel3),
+                String.valueOf(DatenObjekte.Lichtbogenkorrektur3),
+                String.valueOf(DatenObjekte.EndkraterStrom),
+                String.valueOf(DatenObjekte.EndkraterSpannung),
+                String.valueOf(DatenObjekte.EndkraterEnergie),
+                String.valueOf(DatenObjekte.EndkraterDrossel),
+                String.valueOf(DatenObjekte.EndKraterLichtbogenkorrektur),
+                String.valueOf(DatenObjekte.VorschubSetwert),
+                String.valueOf(DatenObjekte.VorschubIstwert),
+                String.valueOf(DatenObjekte.VorschubHoldwert),
+                String.valueOf(DatenObjekte.VorschubStatus),
+                String.valueOf(DatenObjekte.VorschubAusKennlinie),
+                String.valueOf(DatenObjekte.StromSetwert),
+                String.valueOf(DatenObjekte.StromIstwert),
+                String.valueOf(DatenObjekte.StromHoldwert),
+                String.valueOf(DatenObjekte.StromStatus),
+                String.valueOf(DatenObjekte.StromInkremental),
+                String.valueOf(DatenObjekte.SpannungSetwert),
+                String.valueOf(DatenObjekte.SpannungIstwert),
+                String.valueOf(DatenObjekte.SpannungHoldwert),
+                String.valueOf(DatenObjekte.SpannungStatus),
+                String.valueOf(DatenObjekte.SpannungInkremental),
+                String.valueOf(DatenObjekte.BlechdickeSetwert),
+                String.valueOf(DatenObjekte.BlechdickeIstwert),
+                String.valueOf(DatenObjekte.BlechdickeHoldwert),
+                String.valueOf(DatenObjekte.BlechdickeStatus),
+                //DatenObjekte.Reset_String,
+                String.valueOf(DatenObjekte.ElektrodeStromSetwert),
+                String.valueOf(DatenObjekte.ElektrodeStromIstwert),
+                String.valueOf(DatenObjekte.HotstartDauer),
+                String.valueOf(DatenObjekte.Hotstart),
+                String.valueOf(DatenObjekte.ArcForce),
+                String.valueOf(DatenObjekte.InnenwiderstandfürElektrode),
+                String.valueOf(DatenObjekte.RMTPosAmplitude),
+                String.valueOf(DatenObjekte.RMTNegAmplitude),
+                String.valueOf(DatenObjekte.StartAmplitude),
+                String.valueOf(DatenObjekte.StartZeit),
+                String.valueOf(DatenObjekte.StartÜberhöhung),
+                String.valueOf(DatenObjekte.InnenwiderstandfürDossel),
+                String.valueOf(DatenObjekte.Überblendzeit),
+                String.valueOf(DatenObjekte.DrosselAbfall),
+                String.valueOf(DatenObjekte.MotorFlanke),
+                String.valueOf(DatenObjekte.DrosselDynamic),
+                String.valueOf(DatenObjekte.MAGACPositiveZeit),
+                String.valueOf(DatenObjekte.MAGACStromschwellwert),
+                String.valueOf(DatenObjekte.LBRMode),
+                DatenObjekte.MAGACBetriebsart_String,
+                String.valueOf(DatenObjekte.MAGACKältewert),
+                String.valueOf(DatenObjekte.MAGACNegativZeit),
+                String.valueOf(DatenObjekte.MAGACKurzschlusserkennung),
+                String.valueOf(DatenObjekte.MAGACKurzschlussaufhebung),
+                String.valueOf(DatenObjekte.MACAGVerweilzeitPosNeg),
+                String.valueOf(DatenObjekte.MACAGVerweilzeitNegPos),
+                String.valueOf(DatenObjekte.WIGSpeedPulsFrequenz),
+                String.valueOf(DatenObjekte.WIGSpeedPulsI1Anteil),
+                String.valueOf(DatenObjekte.WIGSpeedPulsI3),
+                String.valueOf(DatenObjekte.GasSollwert),
+                String.valueOf(DatenObjekte.UserNummer),
+                String.valueOf(DatenObjekte.WIGACStromoffset),
+                DatenObjekte.WIGStatus_String,
+                String.valueOf(DatenObjekte.WIGACFrequenz),
+                String.valueOf(DatenObjekte.WIGACBalance),
+                String.valueOf(DatenObjekte.WIGDurchmesserWolframElektrode),
+                DatenObjekte.WIGBetriebsartWechselrichter_String,
+                String.valueOf(DatenObjekte.KaltdrahtpulsenT1SV21_5),
+                String.valueOf(DatenObjekte.WIGStromLimit),
+                DatenObjekte.KHMode_String,
+                String.valueOf(DatenObjekte.VerzögerungsZeitKaltdrahtEin),
+                String.valueOf(DatenObjekte.VerzögerungsZeitKaltdrahtAus),
+                String.valueOf(DatenObjekte.VerzögerungsZeitHeißdrahtÜberwachung),
+                String.valueOf(DatenObjekte.Vorpositionierungsstrecke),
+                String.valueOf(DatenObjekte.Rückzugsstrecke),
+                String.valueOf(DatenObjekte.KaltdrahtpulsenT1SV22_7),
+                DatenObjekte.KHStatus_String
+        };
+          return NEW_STRING;
     }
 
 

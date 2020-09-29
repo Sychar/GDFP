@@ -22,6 +22,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme.sakhr">
+
         <activity android:name=".Kennlinier_user"></activity>
         <!-- android:name=".Application"> -->
         <!-- <uses-library android:name="com.google.android.things" /> -->
@@ -43,40 +44,42 @@
         <activity android:name=".View.DatalistView" />
         <activity android:name=".View.D_Base" />
         <activity android:name=".View.listitem1" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- <receiver -->
-        <!-- android:name="com.jess.gdfp.StartMyActivityAtBootReceiver" -->
-        <!-- android:label="StartMyServiceAtBootReceiver"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.BOOT_COMPLETED"/> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
-        <!-- <receiver -->
-        <!-- android:name=".StartMyActivityAtBootReceiver" -->
-        <!-- android:enabled="true" -->
-        <!-- android:exported="false"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.BOOT_COMPLETED" /> -->
-        <!-- </intent-filter> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.PACKAGE_REPLACED" /> -->
-        <!-- <data android:scheme="package" /> -->
-        <!-- </intent-filter> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.PACKAGE_ADDED" /> -->
-        <!-- <data android:scheme="package" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
+        </activity>
+        <!--<receiver
+         android:name="com.jess.gdfp.StartMyActivityAtBootReceiver"
+         android:label="StartMyServiceAtBootReceiver">
+         <intent-filter>
+         <action android:name="android.intent.action.BOOT_COMPLETED"/>
+         </intent-filter>
+        </receiver>-->
+
+         <receiver
+         android:name=".StartMyActivityAtBootReceiver"
+         android:enabled="true"
+         android:exported="false">
+         <intent-filter>
+         <action android:name="android.intent.action.BOOT_COMPLETED" />
+         </intent-filter>
+         <!--<intent-filter>
+         <action android:name="android.intent.action.PACKAGE_REPLACED" />
+         <data android:scheme="package" />
+         </intent-filter>
+         <intent-filter>
+         <action android:name="android.intent.action.PACKAGE_ADDED" />
+         <data android:scheme="package" />
+         </intent-filter>-->
+         </receiver>
         <service
             android:name=".UartService"
             android:enabled="true" />

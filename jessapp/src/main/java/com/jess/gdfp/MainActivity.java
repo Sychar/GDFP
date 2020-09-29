@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
     private ImageButton backHome;
     private int len;
-    byte[] c = new byte[14];
     private TextView ANZEIGE1;
     private TextView ANZEIGE2;
     private TextView ANZEIGE3;
@@ -118,6 +117,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public static boolean PARSE_TOKEN = true;
     public static boolean HOME = false;
     public static int HOME_COUNTER = 0;
+    public static boolean gas_token = false;
+    public static boolean werkstoff_token = false;
+    public static boolean job_token = false;
+    public  static int mm_a_display = 0;
 
     private BluetoothService BSF = null;
     private Boolean btCom_status = false;
@@ -1202,15 +1205,15 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
         JOB_NUM.setOnClickListener(view12 -> {
             if (!job_gedrückt) {
-                JOB_NUM_TOKEN = true;
+                //JOB_NUM_TOKEN = true;
                 JOB_NUM.setTextColor(Color.BLACK);
                 JOB_NUM.setBackgroundColor(Color.GRAY);
                 //JOB_DISPLAY.setTextColor(Color.BLACK);
                 //JOB_DISPLAY.setBackgroundColor(Color.GRAY);
 
                 //---------------------------- Activate Job ----------------------------------------
-                DatenObjekteSend activateJob = new DatenObjekteSend();
-                activateJob.ChangeParameter(5, 0, 1);
+                //DatenObjekteSend activateJob = new DatenObjekteSend();
+                //activateJob.ChangeParameter(5, 0, 1);
                 job_gedrückt = true;
                 //---------------------------- Store Job -------------------------------------------
                 //DatenObjekteSend storeJob = new DatenObjekteSend();
@@ -1221,7 +1224,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 //String SECSTR = UartService.getJob1(1); //ascii string
 
             } else {
-                JOB_NUM_TOKEN = false;
+                //JOB_NUM_TOKEN = false;
                 JOB_NUM.setTextColor(Color.WHITE);
                 JOB_NUM.setBackgroundColor(Color.BLACK);
                 job_gedrückt = false;
@@ -2235,10 +2238,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             UartService.token = false;
             //setFilters();  // Start listening notifications from UartService
             counterDisplay++;
-
             if (READVAL_STATUS[1]==1) {
                 switch(HOME_COUNTER){
-                    case 0: txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
+                    case 0: txtprogress.setText(String.valueOf(mm_a_display / 10) + "," + String.valueOf(mm_a_display  % 10) + "\n" + "m/min"); // m/min
                         break;
                     case 1: txtprogress.setText(String.valueOf(DatenObjekte.SV1pos3/10)+ "," + String.valueOf(DatenObjekte.SV1pos3 % 10) + "\n" + "mm"); //mm
                         break;
@@ -2255,6 +2257,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     case 7: txtprogress.setText(String.valueOf(DatenObjekte.Jobnummer)+"\n"+"Job"); //Job
                         break;
                 }
+
                 //txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
             }
 
@@ -2321,12 +2324,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 String dateString = sdf.format(date);
                 String s= dateString;
                 len = DatenObjekte.LengthProtocol2;
-                String len1=len+" ";
-                ContentValues values = new ContentValues();
-               // values.put(InfoContract.infoEntry.COLUMN_LEN_,len1);
-               // values.put(InfoContract.infoEntry.COLUMN_CANID, DatenObjekte.gethex);
-                //values.put(InfoContract.infoEntry.COLUMN_TIME_,s );
-                //values.put(InfoContract.infoEntry.COLUMN_CANDATA_," ");
 
                 //getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI,values); // this line crash suddenly
 
@@ -2355,22 +2352,32 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 }
             }
 
-         if (counterDisplay==100) {
+         if (counterDisplay==100) { //update every 0.1s
              if (CONTROL_PANEL_MODE==1) {
                  if(DatenObjekte.SV1pos1 != 4) { //Not elektrode mode
                      switch(HOME_COUNTER){
-                         case 0: if (DatenObjekte.mpm_display!=DatenObjekte.Energie1)  sendEnergie.ChangeParameter(2, DatenObjekte.mpm_display, 1);
+                         case 0: if (mm_a_display!=DatenObjekte.Energie1)  sendEnergie.ChangeParameter(2, mm_a_display, 1); //m/min
                                 else CONTROL_PANEL_MODE = 0;
                                 break;
-                         case 1: if (DatenObjekte.mm_display!=DatenObjekte.SV1pos3) sendEnergie.ChangeParameter(3, DatenObjekte.mm_display, 1);
-                                else CONTROL_PANEL_MODE = 0;
-                         //System.out.println("Here");
-                                 break;
-                     //Log.i("VERFAHREN_MODE",String.valueOf(VERFAHREN_MODE));
-                     //Energie = DatenObjekte.Energie1 + val_encoder; // m/min
-
-                     //DatenObjekteSend sendEnergie = new DatenObjekteSend();
-                     //sendEnergie.ChangeParameter(2, DatenObjekte.mpm_display, 1);   //Something Wrong Here
+                         case 1:
+                             if (mm_a_display!=DatenObjekte.SV1pos3) sendEnergie.ChangeParameter(3, mm_a_display, 1); //mm
+                             else CONTROL_PANEL_MODE = 0;
+                                break;
+                         case 2: if (mm_a_display!=DatenObjekte.StromSetwert) sendEnergie.ChangeParameter(1,mm_a_display,1); //strom
+                             break;
+                         case 3: //Korrektur
+                             break;
+                         case 4: //verfahren
+                             break;
+                         case 5: if (gas_token) sendEnergie.ChangeParameter(10, 0, 1); //Gas
+                             gas_token = false;
+                             break;
+                         case 6: if (werkstoff_token) sendEnergie.ChangeParameter(10, 0, 1); //werkstoff
+                             werkstoff_token = false;
+                             break;
+                         case 7: //if (job_token) sendEnergie.ChangeParameter(5, 0, 1); //job
+                             job_token = false;
+                             break;
                          }
                  }
              } else if (CONTROL_PANEL_MODE==0){
@@ -2412,23 +2419,36 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             CONTROL_PANEL_MODE = 1;
             switch(HOME_COUNTER){
                 case 0: if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display < 240)) { //Normal
-                    DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-                    progressBar.setProgress((int) (DatenObjekte.mpm_display) * (100 / 232) - (800 / 232));
+                    mm_a_display = DatenObjekte.a_display + val_encoder; // m/min
+                    progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
                 } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display < 120)) { //Synergie
-                    DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-                    progressBar.setProgress((int) ((DatenObjekte.mpm_display) * 100 / 80 - 50));
+                    mm_a_display = DatenObjekte.a_display + val_encoder; // m/min
+                    progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
                 } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display < 120)) {//Pulse
-                    DatenObjekte.mpm_display = DatenObjekte.mpm_display + val_encoder; // m/min
-                    progressBar.setProgress(DatenObjekte.mpm_display - 20);
+                    mm_a_display = DatenObjekte.a_display + val_encoder; // m/min
+                    progressBar.setProgress(DatenObjekte.a_display - 20);
                 }
                 break;
-                case 1: DatenObjekte.mm_display = DatenObjekte.mm_display + val_encoder; //mm
+                case 1: mm_a_display = DatenObjekte.a_display + val_encoder; //mm
+                    progressBar.setProgress((mm_a_display) * (123 / 8) - 23);
+                    break;
+                case 2: mm_a_display = DatenObjekte.a_display + val_encoder; //A
+                    break;
+                case 3: //DatenObjekte.korrektur_display = DatenObjekte.korrektur_display + val_encoder; //korrektur
+                    break;
+                case 4: //verfahren
+                    break;
+                case 5: gas_token = true; //gas
+                    break;
+                case 6: werkstoff_token = true; //gas
+                    break;
+                case 7: job_token = true; //job
                     break;
             }
 
             //Log.i("mpm_display",String.valueOf());
             //---------------------------------------Energie--------------------------------------------
-            if (DatenObjekte.SV1pos1 != 4) {
+            /*if (DatenObjekte.SV1pos1 != 4) {
                 switch(HOME_COUNTER){
                     case 0: txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
                         break;
@@ -2448,7 +2468,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         break;
                 }
                 //txtprogress.setText(String.valueOf(DatenObjekte.mpm_display / 10) + "," + String.valueOf(DatenObjekte.mpm_display % 10) + "\n" + "m/min"); // m/min
-            } else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert + " A")); // Elektrode mode
+            } else txtprogress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert + " A")); // Elektrode mode*/
 
             if (SETTING_TOKEN) { //Setting button is pressed
                 //Log.i(TAG,"Turn encoder");
@@ -2481,12 +2501,40 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
          if(!JOB_NUM_TOKEN) { //Job button in home page is not pressed
              CONTROL_PANEL_MODE = 1;
-             if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display > 8)) { //Normal
+             /*if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display > 8)) { //Normal
                  DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
              } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display > 40)) { //Synergie
                  DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
              } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display > 20)) { //Pulse
                  DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
+             }*/
+             switch(HOME_COUNTER){
+                 case 0: if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display < 240)) { //Normal
+                     mm_a_display = DatenObjekte.a_display - val_encoder; // m/min
+                     progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
+                 } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display < 120)) { //Synergie
+                     mm_a_display = DatenObjekte.a_display - val_encoder; // m/min
+                     progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
+                 } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display < 120)) {//Pulse
+                     mm_a_display = DatenObjekte.a_display - val_encoder; // m/min
+                     progressBar.setProgress(DatenObjekte.a_display - 20);
+                 }
+                     break;
+                 case 1: mm_a_display = DatenObjekte.a_display - val_encoder; //mm
+                     progressBar.setProgress((mm_a_display) * (123 / 8) - 23);
+                     break;
+                 case 2: mm_a_display = DatenObjekte.a_display - val_encoder; //A
+                     break;
+                 case 3: //DatenObjekte.korrektur_display = DatenObjekte.korrektur_display + val_encoder; //korrektur
+                     break;
+                 case 4: //verfahren
+                     break;
+                 case 5: gas_token = true; //gas
+                     break;
+                 case 6: werkstoff_token = true; //werkstoff
+                     break;
+                 case 7: job_token = true; //job
+                     break;
              }
 
              if (DatenObjekte.SV1pos1 != 4)
@@ -2514,7 +2562,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                  Kennlinier_user.changeKennBackground(KENNBTN_COUNTER);
              }
          } else { //Job button in home page is pressed
-             //---------------------------Decrement Job number---------------------------------------
+             //---------------------------Decrement Job number--------------------------------------
             DatenObjekteSend decrementJob = new DatenObjekteSend();
             decrementJob.ChangeParameter(6,0, 1);
              //Log.i("decrementJob","is called");
@@ -2522,12 +2570,31 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
       }
 
     public void pressbuttonEncoder1(){
-        //ENCODERBUTTON_TOKEN = true;
-        Log.i(TAG,"pressbuttonEncoder1 is pressed");
+        //Log.i(TAG,"pressbuttonEncoder1 is pressed");
+        DatenObjekteSend sendsth = new DatenObjekteSend();
         if(!HOME){
-            Log.i("HOME_COUNTER",String.valueOf(HOME_COUNTER));
+            //Log.i("HOME_COUNTER",String.valueOf(HOME_COUNTER));
             HOME_COUNTER++;
-            if(HOME_COUNTER==7) HOME_COUNTER = 0;
+            //-------------------------------activate parameter mode--------------------------------
+            switch(HOME_COUNTER) {
+                case 1: sendsth.ChangeParameter(3,0,0); //activate drahtdurchmesser mode
+                    break;
+                case 2: sendsth.ChangeParameter(1,0,0); //activate strom mode
+                    break;
+                case 3: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0); //activate korrektur mode
+                    break;
+                case 4: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0); //activate verfahren mode
+                    break;
+                case 5: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0);//Gas not necessary to send mode
+                    break;
+                case 6: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0);//Werkstoff not necessary
+                    break;
+                case 7: //sendsth.ChangeParameter(5,0,0); //activate job mode
+                    break;
+                case 8: sendsth.ChangeParameter(2,0,0); //activate energie mode
+                    HOME_COUNTER=0;
+                    break;
+            }
         }else ENCODERBUTTON_TOKEN = true;
     }
 
