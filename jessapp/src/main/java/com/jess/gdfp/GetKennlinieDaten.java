@@ -247,10 +247,10 @@ public class GetKennlinieDaten {
         WHOLE_JOB_FRAME[9] = 5; // 0x05 Write to machine
         WHOLE_JOB_FRAME[12] = 42; //ox2A
         WHOLE_JOB_FRAME[13] = 2;
-        WHOLE_JOB_FRAME[17] = (byte)MainActivity.VERFAHREN;
-        WHOLE_JOB_FRAME[18] = (byte)MainActivity.DRAHTDURCHMESSER;
-        WHOLE_JOB_FRAME[19] = (byte)MainActivity.GAS;
-        WHOLE_JOB_FRAME[20] = (byte)MainActivity.WERKSTOFF;
+        WHOLE_JOB_FRAME[17] = (byte)WeldingProcess.VERFAHREN;
+        WHOLE_JOB_FRAME[18] = (byte)WeldingProcess.DRAHTDURCHMESSER;
+        WHOLE_JOB_FRAME[19] = (byte)WeldingProcess.GAS;
+        WHOLE_JOB_FRAME[20] = (byte)WeldingProcess.WERKSTOFF;
         WHOLE_JOB_FRAME[220] = 35; //0x23
         /**
          * Calculate the checksum of dataframe
@@ -270,7 +270,6 @@ public class GetKennlinieDaten {
         WHOLE_JOB_FRAME[220] = (byte)(MYCHECKSUM & 0x000000FF);
         WHOLE_JOB_FRAME[221] = 35; //Footer 0x23
         //for(int i=6;i<222;i++) WHOLE_JOB_FRAME[i] = DatenObjekte.KENN_FRAME[i-6];
-
         return WHOLE_JOB_FRAME;
     }
 }

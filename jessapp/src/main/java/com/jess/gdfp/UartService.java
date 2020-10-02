@@ -3,6 +3,7 @@ package com.jess.gdfp;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -68,6 +69,9 @@ public class UartService extends Service {
 
     private IBinder binder = new UsbBinder();
     UsbSerialInterface ser;
+    private static UartService uartService;
+    private static Handler newHandler = new Handler();
+    private static MyHandler thisHandler = new MyHandler();
 
     private static Context context;
     private static Handler mHandler; //private Handler mHandler;
@@ -136,6 +140,19 @@ public class UartService extends Service {
      *  be treated there.
      */
 
+    public static final ServiceConnection usbConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName arg0, IBinder arg1) {
+            uartService = ((UartService.UsbBinder) arg1).getService();
+            uartService.setHandler(thisHandler);
+            //uartService.setHandler1(newHandler);
+        }
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            uartService = null;
+        }
+    };
+
     private UsbSerialInterface.UsbReadCallback mCallback = new UsbSerialInterface.UsbReadCallback() {
         @Override
         public void onReceivedData(byte[] arg0) {
@@ -150,6 +167,8 @@ public class UartService extends Service {
             }
         }
     };
+
+
 
 
     /*
@@ -204,7 +223,22 @@ public class UartService extends Service {
         context.sendBroadcast(var);
     }*/
 
-    public static String getJob(){
+
+
+public static void WriteToSerial(String s){
+        try {
+            if(mOutputStream != null) {
+                //Log.i("mOutputStream","not null");
+                mOutputStream.write(s.getBytes(iso88591charset));
+                //mOutputStream.write('\n');
+            }
+            //Log.i(TAG,"Write "+ s +" to console");
+        } catch (IOException e){
+            Log.e(TAG,"Cant write to the console");
+        }
+    }
+
+public static String getJob(){
         StringBuilder sbjob = new StringBuilder();
         byte[] frameArr = new byte[16];
 
@@ -392,7 +426,7 @@ public class UartService extends Service {
         } catch (IOException e) {
             Log.e(TAG, "Cant write to the console");
         }
-        MainActivity.delayInMilli(300);
+        GlobalVariable.delayInMilli(300);
     }
 
     public static void buffParsing(String RXBuff) {

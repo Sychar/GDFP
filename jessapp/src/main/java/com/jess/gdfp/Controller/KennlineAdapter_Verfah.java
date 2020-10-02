@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.jess.gdfp.DatenBank.Kennline_text;
+import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.IO.OnloadMoreListener;
 import com.jess.gdfp.MainActivity;
 import com.jess.gdfp.R;
+import com.jess.gdfp.WeldingProcess;
 
 import java.util.List;
 
@@ -87,7 +89,7 @@ public   class KennlineAdapter_Verfah extends RecyclerView.Adapter {
         if(i==x){
             ((KennlineHolder) viewHolder).button.setTextColor(Color.GREEN);
            String s = (String) ((KennlineHolder) viewHolder).button.getText();
-           MainActivity.setVerfahren(s);
+           WeldingProcess.setVerfahren(s);
            //System.out.println(s);
         }else {
             ((KennlineHolder) viewHolder).button.setTextColor(Color.GRAY);

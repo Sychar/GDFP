@@ -842,7 +842,7 @@ public class DatenObjekte {
                     if (MainActivity.READVAL_STATUS[1] != 1) {
                         MainActivity.READVAL_STATUS[1] = 1;
                         mpm_display = Energie1;
-                        MainActivity.mm_a_display = mpm_display;
+                        GlobalVariable.mm_a_display = mpm_display;
                     }
                 }
 
