@@ -32,6 +32,13 @@ public class GlobalVariable {
     public static int SETTING_COUNTER = 0;
     public static int JOBBTN_COUNTER = 0;
     public static int KENNBTN_COUNTER = 0;
+    public static int VERFAHREN_COUNTER = 0;
+
+    public static int VERFAHREN_VAL = 0;
+    public static boolean ACTIVATE_VARFAHREN = false;
+    public static String[][] VER_PAR_ARR = new String[1][2]; //[Row_size][Column_size]
+
+    private final static String TAG = GlobalVariable.class.getSimpleName(); //name of this class
 
     public static void delayInMilli(int DELAY_MILLISEC){
         try {
@@ -183,11 +190,19 @@ public class GlobalVariable {
     }
 
     public void pressbuttonEncoder1(){
-        //Log.i(TAG,"pressbuttonEncoder1 is pressed");
+        Log.i(TAG,"pressbuttonEncoder1 is pressed");
         DatenObjekteSend sendsth = new DatenObjekteSend();
         if(!HOME){
             //Log.i("HOME_COUNTER",String.valueOf(HOME_COUNTER));
             HOME_COUNTER++;
+            switch(GlobalVariable.VERFAHREN_VAL) {
+                case 1: //Normal mode
+                    if(HOME_COUNTER==1 || HOME_COUNTER==2) HOME_COUNTER = 3;
+                    break;
+                case 4: //Elektrode mode
+                    if(HOME_COUNTER==8 || HOME_COUNTER==1) HOME_COUNTER = 2;
+                    break;
+            }
             //-------------------------------activate parameter mode--------------------------------
             switch(HOME_COUNTER) {
                 case 1: sendsth.ChangeParameter(3,0,0); //activate drahtdurchmesser mode
@@ -195,10 +210,13 @@ public class GlobalVariable {
                 case 2: sendsth.ChangeParameter(1,0,0); //activate strom mode
                     break;
                 case 3: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0); //activate korrektur mode
+                    ACTIVATE_VARFAHREN = false;
                     break;
-                case 4: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0); //activate verfahren mode
+                case 4: //sendsth.ChangeParameter(28,0,0); //Verfahren not necessary to send mode
+                    ACTIVATE_VARFAHREN = true;
                     break;
                 case 5: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0);//Gas not necessary to send mode
+                    ACTIVATE_VARFAHREN = false;
                     break;
                 case 6: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0);//Werkstoff not necessary
                     break;

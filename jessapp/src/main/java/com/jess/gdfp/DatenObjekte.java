@@ -504,6 +504,7 @@ public class DatenObjekte {
                 } else if (gethex.equals("0181")) {
                     //Log.i("gethex ","0181");
                     SV1pos1 = (int) DO_FRAME[6];//pos 1
+                    GlobalVariable.VERFAHREN_VAL = (int) DO_FRAME[6];//pos 1
                     //Log.i("Verfahren mode",String.valueOf(SV1pos1));
                     VerfahrenParam(SV1pos1);
 
@@ -1154,9 +1155,8 @@ public class DatenObjekte {
                     /*Log.i("MONTH",String.valueOf(MONTH));
                     Log.i("DAY",String.valueOf(DAY));
                     Log.i("HOUR",String.valueOf(HOUR));
-                    Log.i("MINUTE",String.valueOf(MINUTE));
-                    Log.i("SECOND",String.valueOf(SECOND));*/
-
+                    Log.i("MINUTE",String.valueOf(MINUTE));*/
+                    //Log.i("SECOND",String.valueOf(SECOND));
                 }
 
                 if (gethex.equals("0484")) {
@@ -1276,10 +1276,6 @@ public class DatenObjekte {
         }
 
     }
-
-
-
-
 
     private static String[] VALUE_STRING_IN_SECOND = {
             DatenObjekte.Verfahren,

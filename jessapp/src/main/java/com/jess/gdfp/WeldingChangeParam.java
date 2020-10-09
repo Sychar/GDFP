@@ -1,5 +1,7 @@
 package com.jess.gdfp;
 
+import android.util.Log;
+
 import com.jess.gdfp.View.JobsUser;
 
 import static com.jess.gdfp.View.Setting.JOBUSER_TOKEN;
@@ -8,20 +10,20 @@ import static com.jess.gdfp.View.Setting.KENN_TOKEN;
 public class WeldingChangeParam {
 
     public void incrementEncoder1(int val_encoder){
-        //Log.i(TAG,"incrementEncoder1 is called");
+        Log.i("incrementEncoder1","is called");
 
         if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button in home page is not pressed
             //Log.i(TAG,"job not pressed");
             GlobalVariable.CONTROL_PANEL_MODE = 1;
             switch(GlobalVariable.HOME_COUNTER){
                 case 0: if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display < 240)) { //Normal
-                    GlobalVariable.mm_a_display = DatenObjekte.a_display + val_encoder; // m/min
+                    GlobalVariable.mm_a_display = DatenObjekte.mpm_display + val_encoder; // m/min
                     //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
                 } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display < 120)) { //Synergie
-                    GlobalVariable.mm_a_display = DatenObjekte.a_display + val_encoder; // m/min
+                    GlobalVariable.mm_a_display = DatenObjekte.mpm_display + val_encoder; // m/min
                     //progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
                 } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display < 120)) {//Pulse
-                    GlobalVariable.mm_a_display = DatenObjekte.a_display + val_encoder; // m/min
+                    GlobalVariable.mm_a_display = DatenObjekte.mpm_display + val_encoder; // m/min
                     //progressBar.setProgress(DatenObjekte.a_display - 20);
                 }
                     break;
@@ -40,6 +42,14 @@ public class WeldingChangeParam {
                     break;
                 case 7: GlobalVariable.job_token = true; //job
                     break;
+            }
+
+            //---------------------------------- Verfahren mode ------------------------------------
+            if (GlobalVariable.ACTIVATE_VARFAHREN) {
+                DatenObjekteSend sendObject = new DatenObjekteSend();
+                sendObject.ChangeParameter(28,0,0); //activate verfahren mode
+                //GlobalVariable.VERFAHREN_COUNTER++;
+                //if (GlobalVariable.VERFAHREN_COUNTER > 4) GlobalVariable.VERFAHREN_COUNTER = 1;
             }
 
             if (GlobalVariable.SETTING_TOKEN) { //Setting button is pressed
@@ -70,7 +80,6 @@ public class WeldingChangeParam {
     }
 
     public void decrementEncoder1(int val_encoder){
-
         if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button in home page is not pressed
             GlobalVariable.CONTROL_PANEL_MODE = 1;
              /*if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display > 8)) { //Normal
@@ -107,6 +116,14 @@ public class WeldingChangeParam {
                     break;
                 case 7: GlobalVariable.job_token = true; //job
                     break;
+            }
+
+            //---------------------------------- Verfahren mode ------------------------------------
+            if (GlobalVariable.ACTIVATE_VARFAHREN) {
+                DatenObjekteSend sendObject = new DatenObjekteSend();
+                sendObject.ChangeParameter(28,0,0); //activate verfahren mode
+                //GlobalVariable.VERFAHREN_COUNTER++;
+                //if (GlobalVariable.VERFAHREN_COUNTER > 4) GlobalVariable.VERFAHREN_COUNTER = 1;
             }
 
             if (GlobalVariable.SETTING_TOKEN) { //Setting button is pressed
