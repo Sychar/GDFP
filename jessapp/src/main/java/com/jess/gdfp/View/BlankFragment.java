@@ -1,17 +1,25 @@
 package com.jess.gdfp.View;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jess.gdfp.Controller.KennlineAdapter_Gas;
 import com.jess.gdfp.Controller.KennlineAdapter_Matrial;
@@ -45,7 +53,7 @@ public class BlankFragment extends Fragment {
     private ArrayList<Kennline_text> detail;
     private List<Kennline_text> detail2;
     private  List<Kennline_text> detail3;
-    private  List<Kennline_text>detail4;
+    private  ArrayList detail4;
     protected Handler handler;
 
 
@@ -97,10 +105,9 @@ public class BlankFragment extends Fragment {
 
 
 
-        detail= intit_verfahren();
-        FrameLayout frameLayout =view.findViewById(R.id.fram1);
-        frameLayout.setVisibility(View.INVISIBLE);
-        RecyclerView rv0= view.findViewById(R.id.listone);
+      detail= intit_verfahren();
+
+     /*   RecyclerView rv0= view.findViewById(R.id.listone);
         LinearLayoutManager mLayoutManager0 = new LinearLayoutManager(getContext() );
         mLayoutManager0.setOrientation(LinearLayoutManager.VERTICAL);
         mLayoutManager0.setReverseLayout(true);
@@ -111,12 +118,12 @@ public class BlankFragment extends Fragment {
         adapter_verfah.notifyDataSetChanged();
 
 
-        /*************************************************************************/
-        RecyclerView rv = view.findViewById(R.id.listzwei);
+        *//*************************************************************************/
+        //RecyclerView rv = view.findViewById(R.id.listzwei);
         FrameLayout frameLayout2 =view.findViewById(R.id.fram2);
         frameLayout2.setVisibility(View.INVISIBLE);
         detail2=init_matrial();
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext() );
+        /*LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext() );
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
@@ -126,34 +133,54 @@ public class BlankFragment extends Fragment {
         adapter_matrial.notifyDataSetChanged();
 
 
-        /*************************************************************************/
-        RecyclerView rv1 = view.findViewById(R.id.listdrei);
+        *//*************************************************************************/
+        //RecyclerView rv1 = view.findViewById(R.id.listdrei);
         detail3= init_Gas();
         FrameLayout frameLayout3 =view.findViewById(R.id.fram3);
         frameLayout3.setVisibility(View.INVISIBLE);
-        LinearLayoutManager mLayoutManager1 = new LinearLayoutManager(getContext() );
+       /* LinearLayoutManager mLayoutManager1 = new LinearLayoutManager(getContext() );
         mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
         mLayoutManager1.setReverseLayout(true);
         mLayoutManager1.setStackFromEnd(true);
         rv1.setLayoutManager(mLayoutManager1);
         final KennlineAdapter_Gas adpater_gas = new KennlineAdapter_Gas(detail3,rv1);
         rv1.setAdapter(adpater_gas);
-        adpater_gas.notifyDataSetChanged();
+        adpater_gas.notifyDataSetChanged();*/
         /*************************************************************************/
+        FrameLayout frameLayout4 =view.findViewById(R.id.fram4);
+        frameLayout4.setVisibility(View.INVISIBLE);
 
 
-        RecyclerView rv2 = view.findViewById(R.id.listvier);
+
+        FrameLayout frameLayout =view.findViewById(R.id.fram1);
+        frameLayout.setVisibility(View.VISIBLE);
+       ListView rv2 = view.findViewById(R.id.list_for_kennline_durchmeeser);
+
         detail4= init_durchmesser();
         LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(getContext() );
         mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
        // mLayoutManager2.setReverseLayout(true);
         mLayoutManager2.setStackFromEnd(true);
-        rv2.setLayoutManager(mLayoutManager2);
-        final KennlineAdapter_durchmesser adpater_durchmesser = new KennlineAdapter_durchmesser(detail4,rv2);
-        rv2.setAdapter(adpater_durchmesser);
-        adpater_durchmesser.notifyDataSetChanged();
+       // rv2.setLayoutManager(mLayoutManager2);
+        ArrayAdapter<String>adapter= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,detail4){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+              View view1 =super.getView(position,convertView,parent);
+               TextView tv =view1.findViewById(R.id.textdurchmesser);
+                tv.setTextColor(Color.WHITE);
+                view1.setBackgroundResource(R.drawable.border2);
+                tv.setTextSize(40);
+                return  view1;
+            }
+        };
+
+      //final KennlineAdapter_durchmesser adpater_durchmesser = new KennlineAdapter_durchmesser(detail4,rv2);
+        rv2.setAdapter(adapter);
+       // adpater_durchmesser.notifyDataSetChanged();
 
         /*********************************************************************************/
+/*
 
 adapter_verfah.setOnLoadMoreListener(new OnloadMoreListener() {
     @Override
@@ -229,6 +256,7 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
     }
 });
 
+*/
 
        /* listView3=view.findViewById(R.id.listdrei);
         detail3=init_durchmesser();
@@ -308,12 +336,12 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
      return detail2;
  }
 
- private  List init_durchmesser(){
-     List  detail3 = new ArrayList<>();
-     detail3.add(new Kennline_text("0.8"));
+ private  ArrayList init_durchmesser(){
+        ArrayList  detail3 = new ArrayList<>();
+     detail3.add("0.8");
     double count= 9;
      for (int i=1;i<153;i++){
-      detail3.add(new Kennline_text(Double.toString(count/10)));
+      detail3.add(Double.toString(count/10));
       //System.out.println(count);
          count =  count + 1;
      }

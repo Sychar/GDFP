@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.jess.gdfp.DatenBank.Kennline_text;
 import com.jess.gdfp.GlobalVariable;
@@ -17,9 +19,10 @@ import com.jess.gdfp.MainActivity;
 import com.jess.gdfp.R;
 import com.jess.gdfp.WeldingProcess;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class KennlineAdapter_durchmesser extends RecyclerView.Adapter {
+public class KennlineAdapter_durchmesser extends RecyclerView.Adapter{
     private final int ViEW_REPLAY = 0;
     private final int VIEW_ITEM = 1;
     private int lastVisibleItem, totalItemCount;
@@ -39,6 +42,10 @@ public class KennlineAdapter_durchmesser extends RecyclerView.Adapter {
             super(view);
             int pos[]=new int[2];
               button = view.findViewById(R.id.listButton);
+              int[] location = new int[2];
+             // FrameLayout frameLayout= view.findViewById(R.id.myframe_location);
+              //frameLayout.getLocationInWindow(location);
+              System.out.println("the location"+location[1]);
               button.getLocationOnScreen(pos);
               System.out.println(pos[1]);
 
@@ -91,7 +98,9 @@ public class KennlineAdapter_durchmesser extends RecyclerView.Adapter {
             ((KennlineHolder) viewHolder).button.setText(kennline_texts.get(i).getTitel());
             ((KennlineHolder) viewHolder).button.getLocationOnScreen(pos);
 
+
         }
+        System.out.println("the first on  "+first +"\n" + "the last on  "+ last);
         x =(last +first)/2;
         if(i==x){
 

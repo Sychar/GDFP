@@ -6,56 +6,45 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".Backend.Test">
-    <Button
-        android:text="Next"
-        android:layout_marginLeft="9dp"
-        android:id="@+id/button_link"
-        android:layout_marginTop="220dp"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content">
-
-    </Button>
 <FrameLayout
-    android:layout_marginLeft="200dp"
+     android:layout_marginLeft="180dp"
     android:id="@+id/fram1"
     android:layout_width="500dp"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_marginLeft="17dp"
-        android:background="@drawable/border2"
-        android:layout_marginTop="246dp"
-        android:layout_width="170dp"
-        android:layout_height="50dp" >
 
-    </TextView>
+
     <LinearLayout
-        android:layout_width="500dp"
-        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="#111111"
+        android:orientation="vertical"
+        tools:context=".Backend.Test">
 
         <TextView
-            android:id="@+id/verfahren_btn"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="18dp"
-            android:gravity="center"
-            android:text="Verfahren"
-            android:textColor="#fff"
-            android:textSize="18sp"
-            android:textStyle="bold"></TextView>
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:paddingRight="12dp"
+            android:text="durchmesser"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="20sp"></TextView>
+
+        <ListView
+            android:layout_marginLeft="50dp"
+            android:id="@+id/list_for_kennline_durchmeeser"
+            android:layout_width="390dp"
+            android:layout_height="360dp"
+            android:layout_marginBottom="45dp"
+            android:background="@drawable/border2">
 
 
+        </ListView>
 
-               <android.support.v7.widget.RecyclerView
-                   android:background="@drawable/border2"
-                   android:layout_height="330dp"
-                   android:layout_width="500dp"
-                   android:layout_marginLeft="7dp"
-                 style="@style/scroll"
-                   android:id="@+id/listone"
-                   ></android.support.v7.widget.RecyclerView>
+
 
 
 
@@ -63,137 +52,131 @@
 </FrameLayout>
 
     <FrameLayout
-        android:layout_marginLeft="200dp"
+
         android:id="@+id/fram2"
         android:layout_width="500dp"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_marginLeft="17dp"
-            android:background="@drawable/border2"
-            android:layout_marginTop="246dp"
-            android:layout_width="170dp"
-            android:layout_height="50dp" >
-        </TextView>
-    <LinearLayout
-        android:layout_width="500dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#111111"
+            android:orientation="vertical"
+            tools:context=".Backend.Test">
 
-        <TextView
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"
-            android:textColor="#fff"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="Matrial"
-            android:gravity="center"
-            ></TextView>
+            <TextView
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:paddingRight="12dp"
+                android:text="Matrial"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="20sp"></TextView>
+
+            <ListView
+                android:id="@+id/list_for_matrial"
+                android:layout_width="390dp"
+                android:layout_height="360dp"
+                android:layout_marginLeft="200dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/border2">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listzwei"
-            style="@style/scroll"
-            android:layout_width="500dp"
-            android:layout_height="330dp"
-            android:layout_marginLeft="7dp"
-            android:background="@drawable/border2"
-            android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+            </ListView>
 
-    </LinearLayout>
+
+
+
+
+        </LinearLayout>
 
     </FrameLayout>
     <FrameLayout
-        android:layout_marginLeft="200dp"
+
         android:id="@+id/fram3"
         android:layout_width="500dp"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_marginLeft="17dp"
-            android:background="@drawable/border2"
-            android:layout_marginTop="246dp"
-            android:layout_width="170dp"
-            android:layout_height="50dp" >
-        </TextView>
-    <LinearLayout
-        android:layout_width="500dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#111111"
+            android:orientation="vertical"
+            tools:context=".Backend.Test">
 
-        <TextView
-            android:layout_marginLeft="20dp"
-            android:textColor="#fff"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="GAS"
-            android:gravity="center"
-            ></TextView>
+            <TextView
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:paddingRight="12dp"
+                android:text="Gas"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="20sp"></TextView>
+
+            <ListView
+                android:id="@+id/list_for_Gas"
+                android:layout_width="390dp"
+                android:layout_height="360dp"
+                android:layout_marginLeft="200dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/border2">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listdrei"
-            style="@style/scroll"
-            android:layout_width="500dp"
-            android:layout_height="332dp"
-            android:layout_marginLeft="7dp"
-            android:background="@drawable/border2"></android.support.v7.widget.RecyclerView>
+            </ListView>
 
-    </LinearLayout>
+
+
+
+
+        </LinearLayout>
     </FrameLayout>
     <FrameLayout
-android:layout_marginLeft="170dp"
+android:layout_marginLeft="300dp"
         android:id="@+id/fram4"
         android:layout_width="500dp"
         android:layout_height="match_parent">
-        <TextView
-            android:layout_marginLeft="17dp"
-            android:background="@drawable/border2"
-            android:layout_marginTop="226dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp" >
-        </TextView>
-    <LinearLayout
-        android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#111111"
+            android:orientation="vertical"
+            tools:context=".Backend.Test">
 
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+            <TextView
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:paddingRight="12dp"
+                android:text="Gas"
+                android:textAlignment="center"
+                android:textColor="#ffffff"
+                android:textSize="20sp"></TextView>
 
-        <TextView
-            android:layout_marginLeft="24dp"
-            android:textColor="#fff"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_width="120dp"
-            android:layout_height="100dp"
-            android:text="Durchmesser"
-            android:gravity="center"
-            ></TextView>
-        <android.support.v7.widget.RecyclerView
-       android:paddingLeft="170dp"
-            android:id="@+id/listvier"
-            style="@style/scroll"
-            android:layout_width="match_parent"
-            android:layout_height="320dp"
+            <ListView
+                android:id="@+id/list_for_verfahren"
+                android:layout_width="390dp"
+                android:layout_height="360dp"
+                android:layout_marginLeft="200dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/border2">
 
-            android:background="@drawable/border2"></android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+            </ListView>
+
+
+
+
+
+        </LinearLayout>
     </FrameLayout>
-    <Button
-        android:text="Previus"
-        android:id="@+id/button_recht"
-        android:layout_marginLeft="720dp"
-        android:layout_marginTop="220dp"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content">
-
-    </Button>
 </FrameLayout>
 
 
