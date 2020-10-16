@@ -77,18 +77,15 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private TextView ANZEIGE1;
     private TextView ANZEIGE2;
     private TextView ANZEIGE3;
-    private  TextView TxtPr;
+    private TextView tdate;
+    private TextView tdate2;
     private static TextView txtprogress;
-    public TextView TxtProgress;
     private ImageButton Setting;
     private View frame;
     private View kenn_fragment;
     private View betriebsart_fragement;
     private Button kennlinie;
     private Button JOB_NUM;
-
-
-    //public static int JOB_INCREMENT = 0;
 
     public static boolean JOB_TOKEN = false;
     public static boolean STOP_DATENOBJEKTE = false;
@@ -410,8 +407,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 /*------------------------------------------------------------------------------------------
     END of onCreate() method
 ------------------------------------------------------------------------------------------*/
-
-
     public void shortclick() {
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, circle_button);
         popupMenu.getMenuInflater().inflate(R.menu.menu1, popupMenu.getMenu());
@@ -456,7 +451,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     @Override
     public void onResume() {
         super.onResume();
-        //Log.i(TAG,"onResume");
         //setFilters();  // Start listening notifications from UartService
         UartService UsbObj = new UartService(this);//mine
         UsbObj.startService(UartService.class, UartService.usbConnection, null); // Start UartService(if it was not started before) and Bind it
@@ -488,7 +482,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Runnable TimerHandler = new Runnable() {
         @Override
         public void run() {
-            //Log.i("TimerHandler", "Running");
             UartService.token = false;
             //setFilters();  // Start listening notifications from UartService
             counterDisplay++;
@@ -498,11 +491,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             switch(GlobalVariable.HOME_COUNTER) {
                 case 0:
                     if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display < 240)) { //Normal
-                        progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
+                        progressBar.setProgress((int) (GlobalVariable.mm_a_display) * (100 / 232) - (800 / 232));
                     } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display < 120)) { //Synergie
-                        progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
+                        progressBar.setProgress((int) ((GlobalVariable.mm_a_display) * 100 / 80 - 50));
                     } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display < 120)) {//Pulse
-                        progressBar.setProgress(DatenObjekte.a_display - 20);
+                        progressBar.setProgress(GlobalVariable.mm_a_display - 20);
                     }
                     break;
             }
@@ -510,7 +503,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             if (READVAL_STATUS[1] == 1) {
                 switch (GlobalVariable.HOME_COUNTER) {
                     case 0:
-                        txtprogress.setText(String.valueOf(GlobalVariable.mm_a_display / 10) + "," + String.valueOf(GlobalVariable.mm_a_display % 10) + "\n" + "m/min"); // m/min
+                        if(GlobalVariable.VERFAHREN_VAL!=4) txtprogress.setText(String.valueOf(GlobalVariable.mm_a_display / 10) + "," + String.valueOf(GlobalVariable.mm_a_display % 10) + "\n" + "m/min"); // m/min
+                        else {
+                            GlobalVariable.HOME_COUNTER = 2;
+                        }
                         break;
                     case 1:
                         txtprogress.setText(String.valueOf(DatenObjekte.SV1pos3 / 10) + "," + String.valueOf(DatenObjekte.SV1pos3 % 10) + "\n" + "mm"); //mm
@@ -534,28 +530,14 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         txtprogress.setText(String.valueOf(DatenObjekte.Jobnummer) + "\n" + "Job"); //Job
                         break;
                 }
-
-                //txtprogress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
             }
                 if (check) {
-                    //txtProgress.setText(String.valueOf(Drahtdurchmesser));
                     //if(DatenObjekte.SV1pos1 != 4) txtProgress.setText(String.valueOf(DatenObjekte.Energie1/10) + "," + String.valueOf(DatenObjekte.Energie1%10)+"\n"+"m/min"); // m/min
                     // if(DatenObjekte.SV1pos1 != 4) txtProgress.setText(String.valueOf(DatenObjekte.mpm_display/10) + "," + String.valueOf(DatenObjekte.mpm_display%10)+"\n"+"m/min"); // m/min
                     //else txtProgress.setText(String.valueOf(DatenObjekte.ElektrodeStromSetwert+" A")); // Elektrode mode
-
-                    //if (!PARSE_TOKEN) { //if token is false
-                    //Validate CAN ID 0x6F0
-                    //int tempCANID=UartService.ByteArray[4];
-                    //if (UartService.ByteArray[4]<0) tempCANID=UartService.ByteArray[4]+256;
-
-                    //if((UartService.ByteArray[3]==6) && (tempCANID== 240) && (UartService.ByteArray[9]==5)) { //CanID 06F0
-
                     ANZEIGE1.setText(DatenObjekte.Verfahren);
                     ANZEIGE2.setText(DatenObjekte.Werkstoff);
                     ANZEIGE3.setText(DatenObjekte.Gas);
-                    //}
-                    //}
-
                     //---------------------------Display job number in textview-----------------------------
                     //JOB_DISPLAY.setText(String.valueOf(DatenObjekte.Jobnummer));
                     //JOB_DISPLAY.setTextColor(Color.WHITE);
@@ -568,7 +550,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
                     Korrektur.setText(String.valueOf(DatenObjekte.Lichtbogenkorrektur1));
                     m_min.setText(String.valueOf(DatenObjekte.SV1pos3 / 10 + "," + String.valueOf(DatenObjekte.SV1pos3 % 10))); //Drahtdurchmesser (mm)
-                    //m_min.setText(String.valueOf(DatenObjekte.mpm_display/10+ "," + String.valueOf(DatenObjekte.mpm_display%10))); //Drahtdurchmesser (mm)
 
                     if (DatenObjekte.SV1pos1 != 4) { // Not elektrode mode
                         strom.setTextColor(Color.WHITE);
@@ -616,6 +597,31 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     DatenObjekte.jobtoken = 0;
                 }
             }
+
+            //---------------------------------- date thread ---------------------------------------
+            //if (counterDisplay2 == 1) { //update every 1ms
+
+            //tdate.setText(String.valueOf(DatenObjekte.HOUR) + ":" + String.valueOf(DatenObjekte.MINUTE) + ":" + String.valueOf(DatenObjekte.SECOND));
+            //tdate2.setText(String.valueOf(DatenObjekte.DAY) + "/" + String.valueOf(DatenObjekte.MONTH) + "/" + "20" + String.valueOf(DatenObjekte.YEAR));
+            String second=String.valueOf(DatenObjekte.SECOND);
+            String minute=String.valueOf(DatenObjekte.MINUTE);
+            String hour=String.valueOf(DatenObjekte.HOUR);
+
+            if(DatenObjekte.HOUR<10)  hour="0"+String.valueOf(DatenObjekte.HOUR);
+            if(DatenObjekte.MINUTE<10)  minute="0"+String.valueOf(DatenObjekte.MINUTE);
+            if(DatenObjekte.SECOND<10)  second="0"+String.valueOf(DatenObjekte.SECOND);
+            tdate.setText(hour+":"+minute+":"+second);
+
+            String day=String.valueOf(DatenObjekte.DAY);
+            String month=String.valueOf(DatenObjekte.MONTH);
+            String year=String.valueOf(DatenObjekte.YEAR);
+
+            if(DatenObjekte.DAY<10) day="0"+String.valueOf(DatenObjekte.DAY);
+            if(DatenObjekte.MONTH<10) month="0"+String.valueOf(DatenObjekte.MONTH);
+            if(DatenObjekte.YEAR<10) year="200"+String.valueOf(DatenObjekte.YEAR);
+            tdate2.setText(day+"/"+month+"/"+year);
+            //counterDisplay2 = 0;
+            //}
 
             if (counterDisplay == 100) { //update every 0.1s
                 if (GlobalVariable.CONTROL_PANEL_MODE == 1) {
@@ -712,15 +718,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 counterDisplay1 = 0;
             }
 
-            //---------------------------------- date thread ---------------------------------------
-            if (counterDisplay2 == 1000) { //update every 1s
-
-                TextView tdate = findViewById(R.id.date); //right top button
-                TextView tdate2 = findViewById(R.id.date2); //left top button
-                tdate.setText(String.valueOf(DatenObjekte.HOUR) + ":" + String.valueOf(DatenObjekte.MINUTE) + ":" + String.valueOf(DatenObjekte.SECOND));
-                tdate2.setText(String.valueOf(DatenObjekte.DAY) + "/" + String.valueOf(DatenObjekte.MONTH) + "/" + "20" + String.valueOf(DatenObjekte.YEAR));
-                counterDisplay2 = 0;
-            }
             newHandler.postDelayed(TimerHandler, 1); //reads data from service every 1ms
             UartService.token = true;
         }
@@ -785,6 +782,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         ANZEIGE3 = findViewById(R.id.anzeige3);
         txtprogress = findViewById(R.id.txtpro);
         JOB_NUM  = findViewById(R.id.job_btn);
+        tdate = findViewById(R.id.date); //right top button
+        tdate2 = findViewById(R.id.date2); //left top button
     }
 
     private void setVisibility(){
