@@ -4,9 +4,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
  <Button
+     android:layout_gravity="bottom"
+     android:textAlignment="center"
      style="@style/scroll"
      android:id="@+id/listButton"
-
+     android:textSize="30dp"
      android:text="test">
 
  </Button>

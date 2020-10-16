@@ -84,7 +84,15 @@
     android:orientation="vertical">
 
     <Button
+        android:textColor="#ffff"
+        android:background="@drawable/border2"
+        android:id="@+id/button0"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="Stop" />
 
+    <Button
+        android:layout_marginTop="20dp"
         android:background="@drawable/border2"
         android:id="@+id/button5"
         android:layout_width="144dp"

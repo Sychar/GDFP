@@ -65,7 +65,9 @@
             android:layout_height="600dp"
             android:orientation="vertical">
 
+
             <Button
+                android:layout_marginTop="20dp"
                 android:textColor="#ffff"
                 android:background="@drawable/border2"
                 android:id="@+id/button"

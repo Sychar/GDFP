@@ -90,7 +90,7 @@ public   class KennlineAdapter_Verfah extends RecyclerView.Adapter {
             ((KennlineHolder) viewHolder).button.setTextColor(Color.GREEN);
            String s = (String) ((KennlineHolder) viewHolder).button.getText();
            WeldingProcess.setVerfahren(s);
-           //System.out.println(s);
+           System.out.println(s);
         }else {
             ((KennlineHolder) viewHolder).button.setTextColor(Color.GRAY);
         }

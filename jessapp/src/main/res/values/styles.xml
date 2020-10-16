@@ -13,25 +13,10 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-
-    </style>
 
     <style name="AppBaseTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppBaseTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppBaseTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-    <style name="ViewVerfaren">
-        <item name="android:shape">rectangle</item>
-        <item name="android:background">#ffff</item>
-        <item name="android:strokeWidth">4</item>
-        <item name="android:strokeColor">@color/colorPrimary</item>
     </style>
 
     <style name="AppBaseTheme.sakhr" parent="AppBaseTheme.NoActionBar">
@@ -55,10 +40,6 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="AppBaseTheme.sakhr.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppBaseTheme.sakhr.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="genralstyle">
         <item name="android:textStyle">italic</item>

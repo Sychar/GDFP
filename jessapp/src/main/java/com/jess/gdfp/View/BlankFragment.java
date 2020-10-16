@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.jess.gdfp.Controller.KennlineAdapter_Gas;
@@ -97,6 +98,8 @@ public class BlankFragment extends Fragment {
 
 
         detail= intit_verfahren();
+        FrameLayout frameLayout =view.findViewById(R.id.fram1);
+        frameLayout.setVisibility(View.INVISIBLE);
         RecyclerView rv0= view.findViewById(R.id.listone);
         LinearLayoutManager mLayoutManager0 = new LinearLayoutManager(getContext() );
         mLayoutManager0.setOrientation(LinearLayoutManager.VERTICAL);
@@ -110,6 +113,8 @@ public class BlankFragment extends Fragment {
 
         /*************************************************************************/
         RecyclerView rv = view.findViewById(R.id.listzwei);
+        FrameLayout frameLayout2 =view.findViewById(R.id.fram2);
+        frameLayout2.setVisibility(View.INVISIBLE);
         detail2=init_matrial();
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext() );
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -124,6 +129,8 @@ public class BlankFragment extends Fragment {
         /*************************************************************************/
         RecyclerView rv1 = view.findViewById(R.id.listdrei);
         detail3= init_Gas();
+        FrameLayout frameLayout3 =view.findViewById(R.id.fram3);
+        frameLayout3.setVisibility(View.INVISIBLE);
         LinearLayoutManager mLayoutManager1 = new LinearLayoutManager(getContext() );
         mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
         mLayoutManager1.setReverseLayout(true);

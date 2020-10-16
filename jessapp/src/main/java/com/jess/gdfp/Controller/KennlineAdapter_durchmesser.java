@@ -1,6 +1,7 @@
 package com.jess.gdfp.Controller;
 
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,15 +27,21 @@ public class KennlineAdapter_durchmesser extends RecyclerView.Adapter {
     static int first;
     static int last;
     static  int x;
+
+
     private OnloadMoreListener onLoadMoreListener;
     List<Kennline_text> kennline_texts;
 
     public static class KennlineHolder extends RecyclerView.ViewHolder {
-        Button button;
 
+      Button button;
         KennlineHolder(View view) {
             super(view);
-            button = view.findViewById(R.id.listButton);
+            int pos[]=new int[2];
+              button = view.findViewById(R.id.listButton);
+              button.getLocationOnScreen(pos);
+              System.out.println(pos[1]);
+
         }
     }
 
@@ -48,10 +55,11 @@ public class KennlineAdapter_durchmesser extends RecyclerView.Adapter {
                 public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                     super.onScrolled(recyclerView, dx, dy);
 
-                    totalItemCount = linearLayoutManager.getItemCount();
-                    first=linearLayoutManager.findFirstVisibleItemPosition();
-                    lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+
+                    first=linearLayoutManager.findFirstCompletelyVisibleItemPosition();
+                    lastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition();
                     last=lastVisibleItem;
+
                     if (!loading && (totalItemCount <= totalItemCount)) {
 
                         if (onLoadMoreListener != null) {
@@ -76,12 +84,21 @@ public class KennlineAdapter_durchmesser extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
         if (viewHolder instanceof KennlineHolder) {
+            int pos[]=new int[2];
             ((KennlineHolder) viewHolder).button.setText(kennline_texts.get(i).getTitel());
+            ((KennlineHolder) viewHolder).button.getLocationOnScreen(pos);
+
         }
         x =(last +first)/2;
         if(i==x){
+
             ((KennlineHolder) viewHolder).button.setTextColor(Color.GREEN);
+
+
+
             String DRAHTDM = (String)((KennlineHolder) viewHolder).button.getText();
             WeldingProcess.setDrahtDM(DRAHTDM);
             //System.out.println(DRAHTDM);

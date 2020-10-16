@@ -12,8 +12,12 @@ import android.widget.ListView;
 import com.jess.gdfp.Controller.Kennlinie_user_adapter;
 import com.jess.gdfp.Controller.jobAdapter;
 import com.jess.gdfp.DatenBank.Jobs;
+import com.jess.gdfp.DatenBank.MyJeson;
 import com.jess.gdfp.View.JobsDetails;
 import com.jess.gdfp.View.Setting;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -29,7 +33,19 @@ public class Kennlinier_user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kennlinier_user);
-
+         MyJeson myJeson = new MyJeson();
+         String kennlinieJson= myJeson.readJeson("kennlinie_json.json",this);
+         try {
+             JSONArray kennlines= new JSONArray(kennlinieJson);
+            // kennlines.remove(0);
+             for(int i =0;i<kennlines.length();i++){
+                 JSONObject kenn= kennlines.getJSONObject(i);
+                 System.out.println(kenn.getString("Verfahren"));
+             }
+         }
+       catch (Exception e){
+             e.printStackTrace();
+       }
         myCardView = findViewById(R.id.card_view);
         checkBox=findViewById(R.id.cheak_box);
         // myCardView.setCardBackgroundColor(Color.TRANSPARENT);
