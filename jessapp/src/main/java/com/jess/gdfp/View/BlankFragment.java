@@ -16,7 +16,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -50,11 +52,16 @@ public class BlankFragment extends Fragment {
     private RecyclerView listView2 ;
     private  ListView listView3;
     private  ListView listView4;
-    private ArrayList<Kennline_text> detail;
-    private List<Kennline_text> detail2;
-    private  List<Kennline_text> detail3;
-    private  ArrayList detail4;
+    private ArrayList detail;
+    private ArrayList detail2;
+    private ArrayList detail3;
+    private ArrayList detail4;
     protected Handler handler;
+    private FrameLayout frameLayout3;
+    private FrameLayout frameLayout4;
+    private FrameLayout frameLayout2;
+    private FrameLayout frameLayout;
+    static int zähler =1;
 
 
     private static int i =0;
@@ -102,27 +109,69 @@ public class BlankFragment extends Fragment {
                              Bundle savedInstanceState) {
        // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_kennline, container, false);
-
-
+        Button next =view.findViewById(R.id.next);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNext_perVios(v);
+            }
+        });
+        Button previos =view.findViewById(R.id.previos);
+        previos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onNext_perVios(v);
+            }
+        });
 
       detail= intit_verfahren();
+         frameLayout4 =view.findViewById(R.id.fram4);
+        frameLayout4.setVisibility(View.INVISIBLE);
+       ListView rv0= view.findViewById(R.id.list_for_verfahren);
+rv0.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        /***************** JJ Code *************************/
+    }
+});
+        ArrayAdapter<String>adapter2= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,detail){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view1 =super.getView(position,convertView,parent);
+                TextView tv =view1.findViewById(R.id.textdurchmesser);
+                tv.setTextColor(Color.WHITE);
+                view1.setBackgroundResource(R.drawable.border2);
+                tv.setTextSize(40);
+                return  view1;
+            }
+        };
+        rv0.setAdapter(adapter2);
 
-     /*   RecyclerView rv0= view.findViewById(R.id.listone);
-        LinearLayoutManager mLayoutManager0 = new LinearLayoutManager(getContext() );
-        mLayoutManager0.setOrientation(LinearLayoutManager.VERTICAL);
-        mLayoutManager0.setReverseLayout(true);
-        mLayoutManager0.setStackFromEnd(true);
-        rv0.setLayoutManager(mLayoutManager0);
-        final KennlineAdapter_Verfah adapter_verfah=new KennlineAdapter_Verfah(detail,rv0);
-        rv0.setAdapter(adapter_verfah);
-        adapter_verfah.notifyDataSetChanged();
-
-
-        *//*************************************************************************/
-        //RecyclerView rv = view.findViewById(R.id.listzwei);
-        FrameLayout frameLayout2 =view.findViewById(R.id.fram2);
-        frameLayout2.setVisibility(View.INVISIBLE);
+        //*************************************************************************/
+        ListView rv = view.findViewById(R.id.list_for_matrial);
+        rv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /************** JJ *****************/
+            }
+        });
+       frameLayout3 =view.findViewById(R.id.fram2);
+        frameLayout3.setVisibility(View.INVISIBLE);
         detail2=init_matrial();
+        ArrayAdapter<String>adapter1= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,detail2){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view1 =super.getView(position,convertView,parent);
+                TextView tv =view1.findViewById(R.id.textdurchmesser);
+                tv.setTextColor(Color.WHITE);
+                view1.setBackgroundResource(R.drawable.border2);
+                tv.setTextSize(40);
+                return  view1;
+            }
+        };
+        rv.setAdapter(adapter1);
         /*LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext() );
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mLayoutManager.setReverseLayout(true);
@@ -134,28 +183,43 @@ public class BlankFragment extends Fragment {
 
 
         *//*************************************************************************/
-        //RecyclerView rv1 = view.findViewById(R.id.listdrei);
+        ListView rv1 = view.findViewById(R.id.list_for_Gas);
+        rv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /********* JJ Code *****************/
+            }
+        });
         detail3= init_Gas();
-        FrameLayout frameLayout3 =view.findViewById(R.id.fram3);
-        frameLayout3.setVisibility(View.INVISIBLE);
-       /* LinearLayoutManager mLayoutManager1 = new LinearLayoutManager(getContext() );
-        mLayoutManager1.setOrientation(LinearLayoutManager.VERTICAL);
-        mLayoutManager1.setReverseLayout(true);
-        mLayoutManager1.setStackFromEnd(true);
-        rv1.setLayoutManager(mLayoutManager1);
-        final KennlineAdapter_Gas adpater_gas = new KennlineAdapter_Gas(detail3,rv1);
-        rv1.setAdapter(adpater_gas);
-        adpater_gas.notifyDataSetChanged();*/
+       frameLayout2 =view.findViewById(R.id.fram3);
+        frameLayout2.setVisibility(View.INVISIBLE);
+        ArrayAdapter<String>adapter4= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,detail3){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view1 =super.getView(position,convertView,parent);
+                TextView tv =view1.findViewById(R.id.textdurchmesser);
+                tv.setTextColor(Color.WHITE);
+                view1.setBackgroundResource(R.drawable.border2);
+                tv.setTextSize(40);
+                return  view1;
+            }
+        };
+        rv1.setAdapter(adapter4);
         /*************************************************************************/
-        FrameLayout frameLayout4 =view.findViewById(R.id.fram4);
-        frameLayout4.setVisibility(View.INVISIBLE);
 
 
 
-        FrameLayout frameLayout =view.findViewById(R.id.fram1);
+
+      frameLayout =view.findViewById(R.id.fram1);
         frameLayout.setVisibility(View.VISIBLE);
        ListView rv2 = view.findViewById(R.id.list_for_kennline_durchmeeser);
-
+rv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        /********* JJ Code *****************/
+    }
+});
         detail4= init_durchmesser();
         LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(getContext() );
         mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
@@ -310,29 +374,29 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
 
  private  ArrayList intit_verfahren(){
    ArrayList detail=new ArrayList();
-     detail.add(new Kennline_text("MIG/MAG Normal"));
-     detail.add(new Kennline_text("MIG/MAG synregy"));
-     detail.add(new Kennline_text("PLUS"));
-     detail.add(new Kennline_text("ElECTRODE"));
-     detail.add(new Kennline_text("WIG"));
-     detail.add(new Kennline_text("WIG PULSEN"));
-     detail.add(new Kennline_text("WIG SPEED"));
+     detail.add(("MIG/MAG Normal"));
+     detail.add(("MIG/MAG synregy"));
+     detail.add(("PLUS"));
+     detail.add(("ElECTRODE"));
+     detail.add(("WIG"));
+     detail.add(("WIG PULSEN"));
+     detail.add(("WIG SPEED"));
 
 
      return detail;
  }
- private  List init_matrial(){
-     List  detail2 = new ArrayList<>();
-     detail2.add(new Kennline_text("Fe"));
-     detail2.add(new Kennline_text("Cr/Ni"));
-     detail2.add(new Kennline_text("AL/Mg"));
-     detail2.add(new Kennline_text("AL/Si"));
-     detail2.add(new Kennline_text("Cu/Si"));
-     detail2.add(new Kennline_text("Al/mg3"));
-     detail2.add(new Kennline_text("Al/mg5"));
-     detail2.add(new Kennline_text("Al/mg4/5Mn"));
-     detail2.add(new Kennline_text("Al/Bz"));
-     detail2.add(new Kennline_text("Spezial"));
+ private  ArrayList init_matrial(){
+     ArrayList  detail2 = new ArrayList<>();
+     detail2.add(("Fe"));
+     detail2.add(("Cr/Ni"));
+     detail2.add(("AL/Mg"));
+     detail2.add(("AL/Si"));
+     detail2.add(("Cu/Si"));
+     detail2.add(("Al/mg3"));
+     detail2.add(("Al/mg5"));
+     detail2.add(("Al/mg4/5Mn"));
+     detail2.add(("Al/Bz"));
+     detail2.add(("Spezial"));
      return detail2;
  }
 
@@ -348,27 +412,108 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
 
      return detail3;
  }
- private  List init_Gas(){
-     List  detail4 = new ArrayList<>();
-     detail4.add(new Kennline_text("82%AR / 18%CO"));
-     detail4.add(new Kennline_text("98%AR / 2%CO"));
-     detail4.add(new Kennline_text("100%AR"));
-     detail4.add(new Kennline_text("100%CO"));
-     detail4.add(new Kennline_text("92%AR / 8%CO"));
-     detail4.add(new Kennline_text("99%AR / 1%O2"));
-     detail4.add(new Kennline_text("98%AR / 2%O2"));
-     detail4.add(new Kennline_text("97%AR / 3%O2"));
-     detail4.add(new Kennline_text("92%AR / 8%O2"));
-     detail4.add(new Kennline_text("90%AR / 5%O2/ 5%CO"));
-     detail4.add(new Kennline_text("100%HE"));
-     detail4.add(new Kennline_text("80%AR / 20%HE"));
-     detail4.add(new Kennline_text("69%AR/ 30%HE/1%O2"));
-     detail4.add(new Kennline_text("50Ar / 50%HE"));
-     detail4.add(new Kennline_text("98Ar / 2%H2"));
-     detail4.add(new Kennline_text("94Ar / 6%H2"));
-     detail4.add(new Kennline_text("50Ar / 50%H2"));
-     detail4.add(new Kennline_text("30Ar / 70%H2"));
-     detail4.add(new Kennline_text("Spezial"));
+ private  ArrayList init_Gas(){
+     ArrayList  detail4 = new ArrayList<>();
+     detail4.add(("82%AR / 18%CO"));
+     detail4.add(("98%AR / 2%CO"));
+     detail4.add(("100%AR"));
+     detail4.add(("100%CO"));
+     detail4.add(("92%AR / 8%CO"));
+     detail4.add(("99%AR / 1%O2"));
+     detail4.add(("98%AR / 2%O2"));
+     detail4.add(("97%AR / 3%O2"));
+     detail4.add(("92%AR / 8%O2"));
+     detail4.add(("90%AR / 5%O2/ 5%CO"));
+     detail4.add(("100%HE"));
+     detail4.add(("80%AR / 20%HE"));
+     detail4.add(("69%AR/ 30%HE/1%O2"));
+     detail4.add(("50Ar / 50%HE"));
+     detail4.add(("98Ar / 2%H2"));
+     detail4.add(("94Ar / 6%H2"));
+     detail4.add(("50Ar / 50%H2"));
+     detail4.add(("30Ar / 70%H2"));
+     detail4.add(("Spezial"));
      return detail4;
+ }
+ public void onNext_perVios(View  view){
+
+
+if( view.getId() == R.id.next) {
+
+    System.out.println(zähler);
+
+    zähler++;
+    if (zähler > 4)
+        zähler=4;
+        if (zähler <= 4) {
+            switch (zähler) {
+                case 1:
+                    Visi_Invisi(1);
+                    break;
+                case 2:
+                    Visi_Invisi(2);
+                    break;
+                case 3:
+                    Visi_Invisi(3);
+                    break;
+                case 4:
+                    Visi_Invisi(4);
+                    break;
+            }
+
+        }
+    }
+
+if(view.getId()==R.id.previos) {
+    zähler--;
+    if(zähler<0)
+        zähler=1;
+    if (zähler > 0) {
+
+        switch (zähler) {
+            case 1:
+                Visi_Invisi(1);
+                break;
+            case 2:
+                Visi_Invisi(2);
+                break;
+            case 3:
+                Visi_Invisi(3);
+                break;
+            case 4:
+                Visi_Invisi(4);
+                break;
+        }
+
+    }
+}
+ }
+ public void Visi_Invisi (int index){
+        switch(index){
+            case 1:
+                frameLayout2.setVisibility(View.INVISIBLE);
+                frameLayout3.setVisibility(View.INVISIBLE);
+                frameLayout.setVisibility(View.VISIBLE);
+                frameLayout4.setVisibility(View.INVISIBLE);
+                break;
+            case 2:
+                frameLayout2.setVisibility(View.VISIBLE);
+                frameLayout3.setVisibility(View.INVISIBLE);
+                frameLayout.setVisibility(View.INVISIBLE);
+                frameLayout4.setVisibility(View.INVISIBLE);
+                break;
+            case 3:
+                frameLayout2.setVisibility(View.INVISIBLE);
+                frameLayout3.setVisibility(View.VISIBLE);
+                frameLayout.setVisibility(View.INVISIBLE);
+                frameLayout4.setVisibility(View.INVISIBLE);
+                break;
+            case 4:
+                frameLayout2.setVisibility(View.INVISIBLE);
+                frameLayout3.setVisibility(View.INVISIBLE);
+                frameLayout.setVisibility(View.INVISIBLE);
+                frameLayout4.setVisibility(View.VISIBLE);
+                break;
+        }
  }
 }

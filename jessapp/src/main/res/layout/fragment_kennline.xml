@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:context=".Backend.Test">
+
+    <Button
+
+        android:id="@+id/next"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="700dp"
+        android:layout_width="100dp"
+        android:onClick="onNext_perVios"
+        android:layout_height="80dp"
+        android:text="next">
+
+    </Button>
 <FrameLayout
      android:layout_marginLeft="180dp"
     android:id="@+id/fram1"
@@ -53,7 +65,7 @@
 </FrameLayout>
 
     <FrameLayout
-
+        android:layout_marginLeft="180dp"
         android:id="@+id/fram2"
         android:layout_width="500dp"
         android:layout_height="match_parent">
@@ -81,7 +93,7 @@
                 android:id="@+id/list_for_matrial"
                 android:layout_width="390dp"
                 android:layout_height="360dp"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/border2">
 
@@ -96,7 +108,7 @@
 
     </FrameLayout>
     <FrameLayout
-
+        android:layout_marginLeft="180dp"
         android:id="@+id/fram3"
         android:layout_width="500dp"
         android:layout_height="match_parent">
@@ -124,7 +136,7 @@
                 android:id="@+id/list_for_Gas"
                 android:layout_width="390dp"
                 android:layout_height="360dp"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/border2">
 
@@ -138,7 +150,7 @@
         </LinearLayout>
     </FrameLayout>
     <FrameLayout
-android:layout_marginLeft="300dp"
+        android:layout_marginLeft="180dp"
         android:id="@+id/fram4"
         android:layout_width="500dp"
         android:layout_height="match_parent">
@@ -156,7 +168,7 @@ android:layout_marginLeft="300dp"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:paddingRight="12dp"
-                android:text="Gas"
+                android:text="Verfahren"
                 android:textAlignment="center"
                 android:textColor="#ffffff"
                 android:textSize="20sp"></TextView>
@@ -165,7 +177,7 @@ android:layout_marginLeft="300dp"
                 android:id="@+id/list_for_verfahren"
                 android:layout_width="390dp"
                 android:layout_height="360dp"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginBottom="12dp"
                 android:background="@drawable/border2">
 
@@ -178,6 +190,18 @@ android:layout_marginLeft="300dp"
 
         </LinearLayout>
     </FrameLayout>
+
+
+    <Button
+        android:onClick="onNext_perVios"
+        android:id="@+id/previos"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:text="previos">
+
+    </Button>
 </FrameLayout>
 
 
