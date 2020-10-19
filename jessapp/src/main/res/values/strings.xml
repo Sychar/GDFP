@@ -5,6 +5,8 @@
 
     <!-- Toast message in editor when new pet has failed to be inserted [CHAR LIMIT=NONE] -->
     <string name="title_activity_job_view">JobView</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 

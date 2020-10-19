@@ -1,12 +1,18 @@
 package com.jess.gdfp.View;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.jess.gdfp.R;
 
@@ -67,6 +73,30 @@ public class BetriebsArt extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_betriebs_art, container, false);
+
+        ListView listView = view.findViewById(R.id.list_for_betriebsart);
+        String[] betriebsArt={"Betreibsart 1 ",
+                "Betreibsart 2 "
+                ,"Betreibsart 3 "
+                ,"Betreibsart 4 "
+                ,"Betreibsart 5 "
+                ,"Betreibsart 6 "
+                ,"Betreibsart 7 "
+                ,"Betreibsart 8 "
+                ,"Betreibsart 9 " };
+        ArrayAdapter<String> adapter1= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,betriebsArt){
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view1 =super.getView(position,convertView,parent);
+                TextView tv =view1.findViewById(R.id.textdurchmesser);
+                tv.setTextColor(Color.WHITE);
+                view1.setBackgroundResource(R.drawable.border2);
+                tv.setTextSize(40);
+                return  view1;
+            }
+        };
+        listView.setAdapter(adapter1);
         return  view;
     }
 
