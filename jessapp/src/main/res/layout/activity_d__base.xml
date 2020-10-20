@@ -54,7 +54,7 @@
         android:layout_marginBottom="26dp"
         android:layout_toRightOf="@+id/buttons"
         android:scaleY="1.5"
-        android:src="@drawable/test"></ImageView>
+       ></ImageView>
 
     <Button
         android:layout_width="150dp"

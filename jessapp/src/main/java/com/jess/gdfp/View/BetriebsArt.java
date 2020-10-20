@@ -91,7 +91,6 @@ public class BetriebsArt extends Fragment {
                 View view1 =super.getView(position,convertView,parent);
                 TextView tv =view1.findViewById(R.id.textdurchmesser);
                 tv.setTextColor(Color.WHITE);
-                view1.setBackgroundResource(R.drawable.border2);
                 tv.setTextSize(40);
                 return  view1;
             }

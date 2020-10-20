@@ -135,144 +135,8 @@
         </TextView>
 
     </LinearLayout>
-<FrameLayout
-    android:id="@+id/framelayout"
-    android:layout_width="500dp"
-    android:layout_height="440dp"
-    android:layout_marginLeft="40dp"
-    android:layout_below="@id/obere_layout"
-
-    android:layout_toRightOf="@id/linke_layout">
-
-    <LinearLayout
-        android:layout_marginLeft="40dp"
-        android:layout_width="500dp"
-        android:orientation="vertical"
-        android:layout_height="400dp">
- <TextView
-     style="@style/genralstyle"
-     android:layout_width="300dp"
-     android:layout_height="70dp"
-     android:textColor="#ffff"
-     android:text="Verfahren"
-     android:background="@drawable/border2"
-     android:gravity="center"
-
-android:layout_gravity="center_horizontal"
-     android:textSize="20sp">
-    </TextView>
-    <ScrollView
-        style="@style/genralstyle"
-        android:fillViewport="true"
-        android:layout_marginRight="40dp"
-       android:layout_gravity="center_vertical"
-        android:layout_marginTop="5dp"
-        android:layout_width="500dp"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".View.Verfahren">
-
-                <Button
-                    android:id="@+id/MMNormal_btn"
-                    style="@style/genralstyle"
-                    android:layout_width="300dp"
-                    android:layout_height="90dp"
-
-                    android:background="@drawable/border2"
-
-                    android:text="MIG/MAG NORMAL"
-                    android:textColor="#ffff"></Button>
-
-                <Button
-                    android:id="@+id/MMSynergy_btn"
-                    style="@style/genralstyle"
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/border2"
-                    android:gravity="center"
-                    android:text="MIG/MAF Synergy"
-                    android:textColor="#ffff"></Button>
-
-                <Button
-                    android:id="@+id/MMPuls_btn"
-                    style="@style/genralstyle"
-
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/border2"
-                    android:gravity="center"
-                    android:text="MIG/MAG puls"
-                    android:textColor="#ffff"></Button>
-
-                <Button
-                    android:id="@+id/ElectrodeMMA_btn"
-                    style="@style/genralstyle"
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border2"
-                    android:gravity="center"
-                    android:text="Electrode MMA"
-                    android:textColor="#ffff"></Button>
-
-                <Button
-                    style="@style/genralstyle"
-                    android:id="@+id/WIG_btn"
-                    android:layout_weight="1"
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/border2"
-                    android:text="WIG"
-                    android:textColor="#ffff"
-                    android:gravity="center"> </Button>
-
-                <Button
-                    android:id="@+id/WIGPulsen_btn"
-                    style="@style/genralstyle"
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-
-                    android:background="@drawable/border2"
-                    android:gravity="center"
-                    android:text="WIG pulsen"
-                    android:textColor="#ffff"></Button>
-
-                <Button
-                    android:id="@+id/WIGSpeed_btn"
-                    style="@style/genralstyle"
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/border2"
-                    android:gravity="center"
-                    android:text="WIG speed"
-                    android:textColor="#ffff"></Button>
-
-                <Button
-                    android:id="@+id/WIGSpeedPulsen_btn"
-                    style="@style/genralstyle"
-                    android:layout_width="300dp"
-                    android:layout_height="100dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border2"
-                    android:gravity="center"
-                    android:text="WIG Speed+pulsen"
-                    android:textColor="#ffff"></Button>
-            </LinearLayout>
 
 
-
-
-    </ScrollView>
-
-    </LinearLayout
-        >
-
-</FrameLayout>
 
 <fragment
     android:id="@+id/fragment_test"
@@ -287,6 +151,7 @@ android:layout_gravity="center_horizontal"
 </fragment>
     <fragment
         android:id="@+id/frgment_Betriebsart"
+
         android:layout_width="745dp"
         android:layout_height="match_parent"
         android:layout_below="@id/obere_layout"
@@ -497,7 +362,7 @@ android:layout_gravity="center_horizontal"
         android:id="@+id/zweitelayout"
         android:orientation="vertical"
         android:layout_width="490dp"
-        android:layout_height="250dp"
+        android:layout_height="150dp"
         android:layout_marginTop="20dp"
         android:layout_toLeftOf="@+id/rechte_layout"
         android:layout_toRightOf="@+id/circleButton"
@@ -591,49 +456,50 @@ android:layout_gravity="center_horizontal"
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/progressBar_layout"
+        android:layout_width="492dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/zweitelayout"
         android:layout_marginTop="30dp"
         android:layout_toRightOf="@+id/circleButton"
-        android:layout_width="480dp"
-        android:layout_height="130dp"
-        android:orientation="horizontal"
-        android:layout_below="@+id/zweitelayout">
+        android:orientation="horizontal">
 
         <Button
-            android:onClick="onpressed_Minus_plus"
             android:id="@+id/minus"
             android:layout_width="90dp"
             android:layout_height="80dp"
+            android:onClick="onpressed_Minus_plus"
             android:text="-- Weich"
             android:textSize="20sp"></Button>
 
         <ProgressBar
-            android:scaleX="-1"
-            android:minHeight="30dip"
-            android:layout_marginTop="20dp"
+            android:id="@+id/progress"
             style="@style/progress"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:id="@+id/progress"
             android:layout_centerHorizontal="false"
             android:layout_centerVertical="false"
+            android:layout_marginTop="20dp"
             android:max="100"
-            android:progress="30"/>
+            android:minHeight="30dip"
+            android:progress="30"
+            android:scaleX="-1" />
 
 
         <ProgressBar
 
-            android:minHeight="30dip"
-            android:layout_marginTop="20dp"
+            android:id="@+id/progress1"
             style="@style/progress"
             android:layout_width="150dp"
             android:layout_height="40dp"
-            android:id="@+id/progress1"
             android:layout_centerHorizontal="false"
             android:layout_centerVertical="false"
+            android:layout_marginTop="20dp"
             android:max="100"
-            android:progress="30"/>
+            android:minHeight="30dip"
+            android:progress="30" />
 
 
         <!--     <ProgressBar
@@ -648,16 +514,216 @@ android:layout_gravity="center_horizontal"
                  android:max="100"
                  android:progress="40"/>-->
         <Button
-            android:onClick="onpressed_Minus_plus"
             android:id="@+id/plus"
-            android:textAlignment="center"
-            android:text="+ hart"
-            android:textSize="20sp"
             android:layout_width="90dp"
             android:layout_height="80dp"
-            ></Button>
+            android:onClick="onpressed_Minus_plus"
+            android:text="+ hart"
+            android:textAlignment="center"
+            android:textSize="20sp"></Button>
 
 
     </LinearLayout>
+
+    <LinearLayout
+
+        android:id="@+id/hodldlayout"
+        android:layout_width="350dp"
+        android:layout_height="180dp"
+        android:layout_above="@id/untere_layout"
+        android:layout_below="@+id/progressBar_layout"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="40dp"
+        android:layout_toLeftOf="@id/rechte_layout"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Hold"
+            android:textAlignment="center"
+            android:textColor="#FFC200"
+            android:textSize="40sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/strom_hold"
+                android:layout_width="150dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="40dp"
+                android:text="128 A "
+                android:textColor=" #FFC200"
+                android:textSize="50sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/spannung_hold"
+                android:layout_width="150dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="12dp"
+                android:text="1.4 V "
+                android:textColor=" #FFC200"
+                android:textSize="50sp"
+                android:textStyle="bold">
+
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+    <FrameLayout
+
+        android:id="@+id/framelayout"
+        android:layout_width="540dp"
+        android:layout_marginLeft="172dp"
+        android:layout_height="510dp"
+        android:layout_below="@id/obere_layout"
+        android:layout_alignStart="@+id/circleButton"
+        android:layout_toRightOf="@id/linke_layout">
+
+        <LinearLayout
+
+            android:layout_width="500dp"
+            android:layout_height="500dp"
+            android:orientation="vertical">
+
+            <TextView
+
+
+                android:layout_width="490dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+
+                android:text="Verfahren"
+
+                android:textColor="#ffff"
+                android:textSize="40sp"></TextView>
+
+            <ScrollView
+
+                android:background="#80252424"
+
+                android:layout_width="500dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:context=".View.Verfahren">
+
+                    <Button
+
+                        android:id="@+id/MMNormal_btn"
+
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border2"
+
+                        android:text="MIG/MAG NORMAL"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/MMSynergy_btn"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:text="MIG/MAF Synergy"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/MMPuls_btn"
+                        style="@style/genralstyle"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+
+                        android:text="MIG/MAG puls"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/ElectrodeMMA_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:text="Electrode MMA"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/WIG_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:text="WIG"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/WIGPulsen_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:text="WIG pulsen"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/WIGSpeed_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:text="WIG speed"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/WIGSpeedPulsen_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:text="WIG Speed+pulsen"
+                        android:textColor="#ffff"></Button>
+                </LinearLayout>
+
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </RelativeLayout>

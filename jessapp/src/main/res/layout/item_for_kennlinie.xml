@@ -2,17 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#131212"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:gravity="center">
 
+
   <TextView
-      android:gravity="center"
-      android:text="haloo"
-      android:textAlignment="center"
+      android:layout_marginTop="12dp"
+      android:background="@drawable/border2"
       android:id="@+id/textdurchmesser"
       android:layout_width="fill_parent"
-      android:layout_height="60dp" />
+      android:layout_height="100dp"
+      android:gravity="center"
+      android:textColor="#FCF8F4F4"
+      android:textSize="30sp"
+      android:text="haloo"
+      android:textAlignment="center" />
 
 
 </LinearLayout>
