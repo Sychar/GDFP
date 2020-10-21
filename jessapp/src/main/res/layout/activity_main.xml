@@ -171,6 +171,150 @@
         tools:layout="@layout/fragment_betriebs_art"
         class="com.jess.gdfp.View.BetriebsArt"
         android:layout_toRightOf="@+id/linke_layout"></fragment>
+    <FrameLayout
+
+        android:id="@+id/framelayout"
+        android:layout_width="540dp"
+        android:layout_marginLeft="172dp"
+        android:layout_height="510dp"
+        android:layout_below="@id/obere_layout"
+        android:layout_alignStart="@+id/circleButton"
+        android:layout_toRightOf="@id/linke_layout">
+
+        <LinearLayout
+
+            android:layout_width="500dp"
+            android:layout_height="440dp"
+            android:orientation="vertical">
+
+            <TextView
+
+
+                android:layout_width="490dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+
+                android:text="Verfahren"
+
+                android:textColor="#ffff"
+                android:textSize="40sp"></TextView>
+
+            <ScrollView
+
+                android:background="#80252424"
+
+                android:layout_width="500dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="40dp"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:context=".View.Verfahren">
+
+                    <Button
+
+                        android:id="@+id/MMNormal_btn"
+
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border2"
+
+                        android:text="MIG/MAG NORMAL"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:layout_marginTop="12dp"
+                        android:id="@+id/MMSynergy_btn"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:text="MIG/MAF Synergy"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/MMPuls_btn"
+                        style="@style/genralstyle"
+                        android:layout_marginTop="12dp"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+
+                        android:text="MIG/MAG puls"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/ElectrodeMMA_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:text="Electrode MMA"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/WIG_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:text="WIG"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/WIGPulsen_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:text="WIG pulsen"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/WIGSpeed_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:text="WIG speed"
+                        android:textColor="#ffff"></Button>
+
+                    <Button
+                        android:id="@+id/WIGSpeedPulsen_btn"
+                        style="@style/genralstyle"
+                        android:layout_width="490dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border2"
+                        android:gravity="center"
+                        android:text="WIG Speed+pulsen"
+                        android:textColor="#ffff"></Button>
+                </LinearLayout>
+
+
+            </ScrollView>
+
+        </LinearLayout>
+
+    </FrameLayout>
     <RelativeLayout
         android:textStyle="bold"
         android:id="@+id/circleButton"
@@ -594,149 +738,6 @@
         </LinearLayout>
 
     </LinearLayout>
-    <FrameLayout
 
-        android:id="@+id/framelayout"
-        android:layout_width="540dp"
-        android:layout_marginLeft="172dp"
-        android:layout_height="510dp"
-        android:layout_below="@id/obere_layout"
-        android:layout_alignStart="@+id/circleButton"
-        android:layout_toRightOf="@id/linke_layout">
-
-        <LinearLayout
-
-            android:layout_width="500dp"
-            android:layout_height="500dp"
-            android:orientation="vertical">
-
-            <TextView
-
-
-                android:layout_width="490dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-
-                android:text="Verfahren"
-
-                android:textColor="#ffff"
-                android:textSize="40sp"></TextView>
-
-            <ScrollView
-
-                android:background="#80252424"
-
-                android:layout_width="500dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="40dp"
-                android:fillViewport="true">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:context=".View.Verfahren">
-
-                    <Button
-
-                        android:id="@+id/MMNormal_btn"
-
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/border2"
-
-                        android:text="MIG/MAG NORMAL"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:layout_marginTop="12dp"
-                        android:id="@+id/MMSynergy_btn"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:text="MIG/MAF Synergy"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/MMPuls_btn"
-                        style="@style/genralstyle"
-                        android:layout_marginTop="12dp"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-
-                        android:text="MIG/MAG puls"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/ElectrodeMMA_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:text="Electrode MMA"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/WIG_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:text="WIG"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/WIGPulsen_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:text="WIG pulsen"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/WIGSpeed_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:text="WIG speed"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/WIGSpeedPulsen_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:text="WIG Speed+pulsen"
-                        android:textColor="#ffff"></Button>
-                </LinearLayout>
-
-
-            </ScrollView>
-
-        </LinearLayout>
-
-    </FrameLayout>
 
 </RelativeLayout>
