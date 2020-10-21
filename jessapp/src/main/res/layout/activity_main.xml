@@ -97,7 +97,7 @@
         <TextView
             style="@style/genralstyle"
             android:id="@+id/anzeige1"
-            android:layout_width="210dp"
+            android:layout_width="310dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
             android:gravity="center"
@@ -116,7 +116,20 @@
             android:id="@+id/anzeige2"
             android:text="Anzeige2"
             android:textColor="@android:color/white"
-            android:layout_width="210dp"
+            android:layout_width="110dp"
+            android:layout_height="74dp"
+            android:background="@drawable/border2">
+
+        </TextView>
+        <TextView
+            style="@style/genralstyle"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:id="@+id/anzeige3"
+            android:text="Anzeige2"
+            android:textColor="@android:color/white"
+            android:layout_width="110dp"
             android:layout_height="74dp"
             android:background="@drawable/border2">
 
@@ -125,10 +138,10 @@
             style="@style/genralstyle"
             android:gravity="center"
             android:textSize="24sp"
-            android:id="@+id/anzeige3"
+            android:id="@+id/anzeige4"
             android:text="Anzeige3"
             android:textColor="@android:color/white"
-            android:layout_width="420dp"
+            android:layout_width="320dp"
             android:layout_height="74dp"
             android:background="@drawable/border2">
 
