@@ -8,18 +8,16 @@
     android:orientation="vertical"
     android:gravity="center">
 
-
   <TextView
       android:layout_marginTop="12dp"
       android:background="@drawable/border2"
-      android:id="@+id/textdurchmesser"
+      android:id="@+id/textBetriebsart"
       android:layout_width="fill_parent"
       android:layout_height="100dp"
       android:gravity="center"
-      android:textColor="#FCF8F4F4"
-      android:textSize="30sp"
-      android:text="haloo"
+      android:textColor="#ffff"
+      android:textSize="25sp"
+      android:text="hello"
       android:textAlignment="center" />
-
 
 </LinearLayout>

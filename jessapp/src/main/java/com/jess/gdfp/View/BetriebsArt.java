@@ -10,11 +10,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.R;
+import com.jess.gdfp.WeldingProcess;
 
 
 /**
@@ -73,31 +76,47 @@ public class BetriebsArt extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_betriebs_art, container, false);
-
         ListView listView = view.findViewById(R.id.list_for_betriebsart);
-        String[] betriebsArt={"Betreibsart 1 ",
-                "Betreibsart 2 "
-                ,"Betreibsart 3 "
-                ,"Betreibsart 4 "
-                ,"Betreibsart 5 "
-                ,"Betreibsart 6 "
-                ,"Betreibsart 7 "
-                ,"Betreibsart 8 "
-                ,"Betreibsart 9 " };
-        ArrayAdapter<String> adapter1= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,betriebsArt){
+
+        //String[] betriebsArt = {"NONE","2-Takt","4-Takt","4-Takt Sonder","Programm","Punkten","Intervall","Extern","2-Takt + HF"
+        //        ,"4-Takt + HF"};
+
+        String[] betriebsArt = {"2-TAKT","4-TAKT","4-TAKT SONDER","PUNKTEN"};
+
+        ArrayAdapter<String> adapter1= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,betriebsArt){
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view1 =super.getView(position,convertView,parent);
-                TextView tv =view1.findViewById(R.id.textdurchmesser);
-                tv.setTextColor(Color.WHITE);
-                tv.setTextSize(40);
+                TextView drahtdurchmesser_tv = view1.findViewById(R.id.textBetriebsart);
+                drahtdurchmesser_tv.setTextColor(Color.WHITE);
+                //drahtdurchmesser_tv.setTextSize(25);
                 return  view1;
             }
         };
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                GlobalVariable.Betriebsart_Token = true;
+
+                switch(i){
+                    case 0: WeldingProcess.BETRIEBSART = 1; //2-Takt
+                        break;
+                    case 1: WeldingProcess.BETRIEBSART = 2;//4-Takt
+                        break;
+                    case 2: WeldingProcess.BETRIEBSART = 3;//4-Takt Sonder
+                        break;
+                    case 3: WeldingProcess.BETRIEBSART = 5;//Punkten
+                        break;
+                }
+
+            }
+        });
         listView.setAdapter(adapter1);
         return  view;
     }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

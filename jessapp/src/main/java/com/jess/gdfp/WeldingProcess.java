@@ -6,6 +6,7 @@ public class WeldingProcess {
     public static int DRAHTDURCHMESSER = 0;
     public static int GAS = 0;
     public static int WERKSTOFF = 0;
+    public static int BETRIEBSART = 0;
 
     public static void setVerfahren(String s){
         //Log.i("Verfahren",String.valueOf(DatenObjekte.Verfahren));
@@ -79,6 +80,56 @@ public class WeldingProcess {
     }
 
     public static void setMaterial(String s){
+        switch (s){
+            case "Al/mg4/5Mn": //case 8
+                WERKSTOFF = 8;
+                //System.out.println("Al/mg4/5Mn");
+                break;
+            case"Al/mg5": //case 7
+                WERKSTOFF = 7;
+                //System.out.println("Al/mg5");
+                break;
+            case "Al/mg3": //case 6
+                WERKSTOFF = 6;
+                //System.out.println("Al/mg3");
+                break;
+            case"Cu/Si": //case 5
+                WERKSTOFF = 5;
+                //System.out.println("Cu/Si");
+                break;
+            case"AL/Si": //case 4
+                WERKSTOFF = 4;
+                //System.out.println("AL/Si");
+                //callChangeParameter(1,12,0,1);
+                break;
+            case"AL/Mg":
+                WERKSTOFF = 3;
+                //System.out.println("AL/Mg");
+                //callChangeParameter(1,11,0,1);
+                break;
+            case"Cr/Ni":
+                WERKSTOFF = 2;
+                //System.out.println("Cr/Ni");
+                //callChangeParameter(1,10,0,1);
+                break;
+            case"Fe":
+                WERKSTOFF = 1;
+                //System.out.println("Fe");
+                //callChangeParameter(1,14,0,1);
+                break;
+            case"Al/Bz": // case 9
+                WERKSTOFF = 9;
+                //System.out.println("Al/Bz");
+                break;
+            case"Spezial":
+                WERKSTOFF = 10;
+                //System.out.println("Spezial");
+                //callChangeParameter(1,13,0,1);
+                break;
+        }
+    }
+
+    public static void setBetriebsart(String s){
         switch (s){
             case "Al/mg4/5Mn": //case 8
                 WERKSTOFF = 8;

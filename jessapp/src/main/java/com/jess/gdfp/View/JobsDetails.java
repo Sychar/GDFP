@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.jess.gdfp.DatenBank.JobContract;
+import com.jess.gdfp.DatenObjekte;
 import com.jess.gdfp.DatenObjekteJob;
 import com.jess.gdfp.R;
 
@@ -33,6 +34,7 @@ public class JobsDetails extends AppCompatActivity {
     public static String[] modiJobsdeateils = new String[112];
     public static String[] Mesdeateils = new String[112];
     private Uri uri;
+
 
     public static String[] jobdetails = {
             JobContract.jobEntry.HI_UI_JOB_NR,
@@ -148,6 +150,7 @@ public class JobsDetails extends AppCompatActivity {
             JobContract.jobEntry.UCKS_AUFHEBUNG,
             JobContract.jobEntry.UCKS_ERKENNUNG,
             JobContract.jobEntry._ID};
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +168,7 @@ public class JobsDetails extends AppCompatActivity {
         System.out.println(uri);
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.jobdeatailslist, R.id.jobdeateils, jobPARAM);
         listView.setAdapter(arrayAdapter);
+
     }
 
     public static String[] jobPARAM={
@@ -181,7 +185,6 @@ public class JobsDetails extends AppCompatActivity {
 
 
     public void iint_datejob() {
-        modiJobsdeateils[30] = "id";
         modiJobsdeateils[1] = String.valueOf(DatenObjekteJob.uiJobNr);
         modiJobsdeateils[2] = String.valueOf(DatenObjekteJob.uiStufe1Spann);
         modiJobsdeateils[3] = String.valueOf(DatenObjekteJob.uiStufe3Spann);
@@ -193,7 +196,6 @@ public class JobsDetails extends AppCompatActivity {
         modiJobsdeateils[9] = String.valueOf(DatenObjekteJob.uiLimitLbKorr);
         modiJobsdeateils[10] = String.valueOf(DatenObjekteJob.uiNegZeit);
         modiJobsdeateils[11] = String.valueOf(DatenObjekteJob.uiNegZeit);
-        // modiJobsdeateils[12]=String.valueOf(DatenObjekteJob.uiPausenZeit);
         modiJobsdeateils[12] = String.valueOf(DatenObjekteJob.uiProtokollTyp);
         modiJobsdeateils[13] = String.valueOf(DatenObjekteJob.uiPunktZeit);
         modiJobsdeateils[14] = String.valueOf(DatenObjekteJob.uiStartAmplitude);
@@ -212,10 +214,6 @@ public class JobsDetails extends AppCompatActivity {
         modiJobsdeateils[27] = String.valueOf(DatenObjekteJob.uiStufe2Spann);
         modiJobsdeateils[28] = String.valueOf(DatenObjekteJob.uiStufe3Spann);
         modiJobsdeateils[29] = String.valueOf(DatenObjekteJob.uiEndKraStrom);
-
-        for (int i = 31; i < 112; i++) {
-            modiJobsdeateils[i] = "test";
-        }
     }
 
     /**

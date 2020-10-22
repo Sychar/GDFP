@@ -14,6 +14,7 @@ import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.Kennlinier_user;
 import com.jess.gdfp.MainActivity;
 import com.jess.gdfp.R;
+import com.jess.gdfp.WeldingChangeParam;
 
 public class Setting extends AppCompatActivity {
 
@@ -54,9 +55,9 @@ public class Setting extends AppCompatActivity {
                             menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             account.setTextColor(Color.WHITE);
                             account.setBackground(getResources().getDrawable( R.drawable.job_button ));
-                            if (GlobalVariable.ENCODERBUTTON_TOKEN) {
+                            if (WeldingChangeParam.ENCODERBUTTON_TOKEN) {
                                 jobuser.performClick();
-                                GlobalVariable.ENCODERBUTTON_TOKEN =  false;
+                                WeldingChangeParam.ENCODERBUTTON_TOKEN =  false;
                                 Log.i("Jobs button", "is pressed");
                             }
                         } else if (GlobalVariable.SETTING_COUNTER == 2) {
@@ -71,9 +72,9 @@ public class Setting extends AppCompatActivity {
                             menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             account.setTextColor(Color.WHITE);
                             account.setBackground(getResources().getDrawable( R.drawable.job_button ));
-                            if (GlobalVariable.ENCODERBUTTON_TOKEN) {
+                            if (WeldingChangeParam.ENCODERBUTTON_TOKEN) {
                                 datalogger.performClick();
-                                GlobalVariable.ENCODERBUTTON_TOKEN =  false;
+                                WeldingChangeParam.ENCODERBUTTON_TOKEN =  false;
                                 Log.i("Datalogger button", "is pressed");
                             }
                         } else if (GlobalVariable.SETTING_COUNTER == 3) {
@@ -88,9 +89,9 @@ public class Setting extends AppCompatActivity {
                             menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             account.setTextColor(Color.WHITE);
                             account.setBackground(getResources().getDrawable( R.drawable.job_button ));
-                            if (GlobalVariable.ENCODERBUTTON_TOKEN) {
+                            if (WeldingChangeParam.ENCODERBUTTON_TOKEN) {
                                 Kennlinie.performClick();
-                                GlobalVariable.ENCODERBUTTON_TOKEN =  false;
+                                WeldingChangeParam.ENCODERBUTTON_TOKEN =  false;
                                 Log.i("Kennlinie button", "is pressed");
                             }
                         } else if (GlobalVariable.SETTING_COUNTER == 4) {
@@ -105,9 +106,9 @@ public class Setting extends AppCompatActivity {
                             Kennlinie.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             account.setTextColor(Color.WHITE);
                             account.setBackground(getResources().getDrawable( R.drawable.job_button ));
-                            if (GlobalVariable.ENCODERBUTTON_TOKEN) {
+                            if (WeldingChangeParam.ENCODERBUTTON_TOKEN) {
                                 menu_setting.performClick();
-                                GlobalVariable.ENCODERBUTTON_TOKEN =  false;
+                                WeldingChangeParam.ENCODERBUTTON_TOKEN =  false;
                                 Log.i("Setting button", "is pressed");
                             }
                         } else if (GlobalVariable.SETTING_COUNTER == 5) {
@@ -122,25 +123,25 @@ public class Setting extends AppCompatActivity {
                             Kennlinie.setBackground(getResources().getDrawable( R.drawable.job_button ));
                             menu_setting.setTextColor(Color.WHITE);
                             menu_setting.setBackground(getResources().getDrawable( R.drawable.job_button ));
-                            if (GlobalVariable.ENCODERBUTTON_TOKEN) {
+                            if (WeldingChangeParam.ENCODERBUTTON_TOKEN) {
                                 account.performClick();
-                                GlobalVariable.ENCODERBUTTON_TOKEN = false;
+                                WeldingChangeParam.ENCODERBUTTON_TOKEN = false;
                                 Log.i("Exit button", "is pressed");
                             }
                         }
                     }else if(!INIT_ENCODER){
-                        if (GlobalVariable.ENCODERBUTTON_TOKEN) {
+                        if (WeldingChangeParam.ENCODERBUTTON_TOKEN) {
                             //Log.i("Setting ", "jobs");
                             jobuser.performClick();
-                            GlobalVariable.ENCODERBUTTON_TOKEN =  false;
+                            WeldingChangeParam.ENCODERBUTTON_TOKEN =  false;
                             INIT_ENCODER = true;
                         }
                     }
-                    if ((GlobalVariable.HOME_TOKEN) && (!GlobalVariable.MA_TOKEN)){
+                    if ((WeldingChangeParam.HOME_TOKEN) && (!WeldingChangeParam.MA_TOKEN)){
                         intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
-                        GlobalVariable.HOME_TOKEN = false;
-                        GlobalVariable.MA_TOKEN = true;
+                        WeldingChangeParam.HOME_TOKEN = false;
+                        WeldingChangeParam.MA_TOKEN = true;
                         Log.i("Home button", "is pressed");
                     }
                 });

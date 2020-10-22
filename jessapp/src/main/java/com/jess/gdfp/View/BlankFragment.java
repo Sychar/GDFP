@@ -1,17 +1,12 @@
 package com.jess.gdfp.View;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,18 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.jess.gdfp.Controller.KennlineAdapter_Gas;
-import com.jess.gdfp.Controller.KennlineAdapter_Matrial;
-import com.jess.gdfp.Controller.KennlineAdapter_Verfah;
-import com.jess.gdfp.Controller.KennlineAdapter_durchmesser;
-import com.jess.gdfp.DatenBank.Kennline_text;
-import com.jess.gdfp.IO.OnloadMoreListener;
 import com.jess.gdfp.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -135,7 +122,7 @@ rv0.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         /***************** JJ Code *************************/
     }
 });
-        ArrayAdapter<String>adapter2= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,detail){
+        ArrayAdapter<String>adapter2= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail){
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -159,7 +146,7 @@ rv0.setOnItemClickListener(new AdapterView.OnItemClickListener() {
        frameLayout3 =view.findViewById(R.id.fram2);
         frameLayout3.setVisibility(View.INVISIBLE);
         detail2=init_matrial();
-        ArrayAdapter<String>adapter1= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,detail2){
+        ArrayAdapter<String>adapter1= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail2){
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -194,7 +181,7 @@ rv0.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         detail3= init_Gas();
        frameLayout2 =view.findViewById(R.id.fram3);
         frameLayout2.setVisibility(View.INVISIBLE);
-        ArrayAdapter<String>adapter4= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,detail3){
+        ArrayAdapter<String>adapter4= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail3){
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -228,7 +215,7 @@ rv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
        // mLayoutManager2.setReverseLayout(true);
         mLayoutManager2.setStackFromEnd(true);
        // rv2.setLayoutManager(mLayoutManager2);
-        ArrayAdapter<String>adapter= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textdurchmesser,detail4){
+        ArrayAdapter<String>adapter= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail4){
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -403,13 +390,23 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
 
  private  ArrayList init_durchmesser(){
         ArrayList  detail3 = new ArrayList<>();
-     detail3.add("0.8");
+     /*detail3.add("0.8");
     double count= 9;
      for (int i=1;i<153;i++){
       detail3.add(Double.toString(count/10));
       //System.out.println(count);
          count =  count + 1;
-     }
+     }*/
+     detail3.add(("NONE"));
+     detail3.add(("0,6 mm"));
+     detail3.add(("0,8 mm"));
+     detail3.add(("0,9 mm"));
+     detail3.add(("1,0 mm"));
+     detail3.add(("1,4 mm"));
+     detail3.add(("1,6 mm"));
+     detail3.add(("2,0 mm"));
+     detail3.add(("2,4 mm"));
+     detail3.add(("Spezial"));
 
      return detail3;
  }

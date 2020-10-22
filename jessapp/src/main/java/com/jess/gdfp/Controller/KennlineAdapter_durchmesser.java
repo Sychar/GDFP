@@ -110,7 +110,7 @@ public class KennlineAdapter_durchmesser extends RecyclerView.Adapter{
 
             String DRAHTDM = (String)((KennlineHolder) viewHolder).button.getText();
             WeldingProcess.setDrahtDM(DRAHTDM);
-            //System.out.println(DRAHTDM);
+            System.out.println(DRAHTDM);
         }else {
             ((KennlineHolder) viewHolder).button.setTextColor(Color.WHITE);
         }

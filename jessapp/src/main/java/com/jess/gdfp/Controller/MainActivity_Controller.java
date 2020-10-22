@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jess.gdfp.DatenObjekteSend;
+import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.R;
 import com.jess.gdfp.MainActivity;
 
@@ -26,28 +28,34 @@ public MainActivity_Controller(){
 }
 
 public  void minus_plus_interagieren(ProgressBar progressBar_minus ,ProgressBar progressBar_plus ,View view){
-    int x =   progressBar_plus.getProgress();
+    int x = progressBar_plus.getProgress();
     int y = progressBar_minus.getProgress();
     if (view.getId() == R.id.plus) {
 
-        if(x==0&&y<=0){
+        GlobalVariable.korrektur_display = GlobalVariable.Lichtbogenkorrektur1+1;
+        DatenObjekteSend sendKorrektur = new DatenObjekteSend();
+        sendKorrektur.ChangeParameter(21, GlobalVariable.korrektur_display, 1);
+
+        /*if(x==0&&y<=0){
             progressBar_plus.setProgress(x+3);
-        }
-        else if(x==0&&y>0){
+        } else if(x==0&&y>0){
             progressBar_minus.setProgress(y-3);
-        }
-        else if(x>0){
+        } else if(x>0){
             progressBar_plus.setProgress(x+3);
-        }
+        }*/
     }
 
     if (view.getId() == R.id.minus) {
-        if(x>0){
+
+        GlobalVariable.korrektur_display = GlobalVariable.Lichtbogenkorrektur1-1;
+        DatenObjekteSend sendKorrektur = new DatenObjekteSend();
+        sendKorrektur.ChangeParameter(21, GlobalVariable.korrektur_display, 1);
+        /*if(x>0){
             progressBar_plus.setProgress(x-3);
         }
         if(x<=0){
             progressBar_minus.setProgress(y+3);
-        }
+        }*/
 
     }
 }
@@ -68,7 +76,7 @@ public  void minus_plus_interagieren(ProgressBar progressBar_minus ,ProgressBar 
             temp = s;
             cheack = false;
         }
-        if (id == R.id.btn_mm) {
+        if (id == R.id.btn_strom) {
 
             TextView textView = findViewById(R.id.Mm);
             String s = textView.getText().toString();
@@ -81,7 +89,7 @@ public  void minus_plus_interagieren(ProgressBar progressBar_minus ,ProgressBar 
             temp = s;
             cheack = false;
         }
-        if (id == R.id.btn_current) {
+        if (id == R.id.btn_voltage) {
             TextView textView = findViewById(R.id.strom);
             String s = textView.getText().toString();
             String s1 = btn.getText().toString();

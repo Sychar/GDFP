@@ -22,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="126dp"
             android:background="@drawable/border2"
-            android:paddingTop="30dp"
+            android:paddingTop="50dp"
             android:paddingLeft="5dp"
             android:text="Datum"
             android:textAlignment="center"
@@ -83,8 +83,6 @@
 
     </LinearLayout>
 
-
-
     <LinearLayout
         android:id="@+id/obere_layout"
         android:layout_width="865dp"
@@ -121,29 +119,31 @@
             android:background="@drawable/border2">
 
         </TextView>
+
         <TextView
-            style="@style/genralstyle"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textSize="25sp"
             android:id="@+id/anzeige3"
-            android:text="Anzeige2"
-            android:textColor="@android:color/white"
+            style="@style/genralstyle"
             android:layout_width="110dp"
             android:layout_height="74dp"
-            android:background="@drawable/border2">
+            android:background="@drawable/border2"
+            android:gravity="center"
+            android:text="Anzeige3"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="25sp">
 
         </TextView>
+
         <TextView
-            style="@style/genralstyle"
-            android:gravity="center"
-            android:textSize="24sp"
             android:id="@+id/anzeige4"
-            android:text="Anzeige3"
-            android:textColor="@android:color/white"
+            style="@style/genralstyle"
             android:layout_width="320dp"
             android:layout_height="74dp"
-            android:background="@drawable/border2">
+            android:background="@drawable/border2"
+            android:gravity="center"
+            android:text="Anzeige4"
+            android:textColor="@android:color/white"
+            android:textSize="24sp">
 
         </TextView>
 
@@ -182,35 +182,25 @@
         android:layout_toRightOf="@id/linke_layout">
 
         <LinearLayout
-
             android:layout_width="500dp"
             android:layout_height="440dp"
             android:orientation="vertical">
-
             <TextView
-
-
                 android:layout_width="490dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-
-                android:text="Verfahren"
-
+                android:text="VERFAHREN"
                 android:textColor="#ffff"
-                android:textSize="40sp"></TextView>
-
+                android:textSize="20sp"></TextView>
             <ScrollView
-
                 android:background="#80252424"
-
                 android:layout_width="500dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="40dp"
                 android:fillViewport="true">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -220,13 +210,11 @@
                     tools:context=".View.Verfahren">
 
                     <Button
-
                         android:id="@+id/MMNormal_btn"
-
                         android:layout_width="490dp"
                         android:layout_height="100dp"
                         android:background="@drawable/border2"
-
+                        android:textSize="25sp"
                         android:text="MIG/MAG NORMAL"
                         android:textColor="#ffff"></Button>
 
@@ -237,7 +225,8 @@
                         android:layout_height="100dp"
                         android:background="@drawable/border2"
                         android:gravity="center"
-                        android:text="MIG/MAF Synergy"
+                        android:textSize="25sp"
+                        android:text="MIG/MAG Synergie"
                         android:textColor="#ffff"></Button>
 
                     <Button
@@ -248,7 +237,7 @@
                         android:layout_height="100dp"
                         android:background="@drawable/border2"
                         android:gravity="center"
-
+                        android:textSize="25sp"
                         android:text="MIG/MAG puls"
                         android:textColor="#ffff"></Button>
 
@@ -261,6 +250,7 @@
                         android:background="@drawable/border2"
                         android:gravity="center"
                         android:layout_marginTop="12dp"
+                        android:textSize="25sp"
                         android:text="Electrode MMA"
                         android:textColor="#ffff"></Button>
 
@@ -272,10 +262,11 @@
                         android:layout_weight="1"
                         android:background="@drawable/border2"
                         android:gravity="center"
+                        android:textSize="25sp"
                         android:text="WIG"
                         android:textColor="#ffff"></Button>
 
-                    <Button
+                    <!--Button
                         android:id="@+id/WIGPulsen_btn"
                         style="@style/genralstyle"
                         android:layout_width="490dp"
@@ -283,6 +274,7 @@
                         android:layout_marginTop="12dp"
                         android:background="@drawable/border2"
                         android:gravity="center"
+                        android:textSize="25sp"
                         android:text="WIG pulsen"
                         android:textColor="#ffff"></Button>
 
@@ -294,6 +286,7 @@
                         android:background="@drawable/border2"
                         android:gravity="center"
                         android:layout_marginTop="12dp"
+                        android:textSize="25sp"
                         android:text="WIG speed"
                         android:textColor="#ffff"></Button>
 
@@ -305,15 +298,12 @@
                         android:layout_weight="1"
                         android:background="@drawable/border2"
                         android:gravity="center"
+                        android:textSize="25sp"
                         android:text="WIG Speed+pulsen"
-                        android:textColor="#ffff"></Button>
+                        android:textColor="#ffff"></Button>-->
                 </LinearLayout>
-
-
             </ScrollView>
-
         </LinearLayout>
-
     </FrameLayout>
     <RelativeLayout
         android:textStyle="bold"
@@ -321,10 +311,7 @@
         android:layout_width="350dp"
         android:layout_height="450dp"
         android:layout_below="@id/obere_layout"
-        android:layout_toRightOf="@id/linke_layout"
-
-
-        >
+        android:layout_toRightOf="@id/linke_layout">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -383,42 +370,49 @@
 
 
         <Button
-            android:text="fav1"
+            android:id="@+id/Button_fav1"
             style="@style/genralstyle"
-            android:drawableTint="@android:color/white"
-            android:drawableEnd="@drawable/fav"
             android:layout_width="213dp"
             android:layout_height="70dp"
             android:background="@drawable/border2"
+            android:drawableEnd="@drawable/fav"
+            android:drawableTint="@android:color/white"
+            android:text="fav1"
             android:textAlignment="center"
             android:textColor="@android:color/white">
 
         </Button>
+
         <Button
+            android:id="@+id/Button_fav2"
             style="@style/genralstyle"
-            android:text="fav2"
-            android:textColor="@android:color/white"
             android:layout_width="213dp"
             android:layout_height="70dp"
-            android:background="@drawable/border2">
+            android:background="@drawable/border2"
+            android:text="fav2"
+            android:textColor="@android:color/white">
 
         </Button>
+
         <Button
+            android:id="@+id/Button_fav3"
             style="@style/genralstyle"
-            android:text="Fav3"
-            android:textColor="@android:color/white"
             android:layout_width="211dp"
             android:layout_height="70dp"
-            android:background="@drawable/border2">
+            android:background="@drawable/border2"
+            android:text="Fav3"
+            android:textColor="@android:color/white">
 
         </Button>
+
         <Button
+            android:id="@+id/Button_fav4"
             style="@style/genralstyle"
-            android:text="Fav4"
-            android:textColor="@android:color/white"
             android:layout_width="210dp"
             android:layout_height="70dp"
-            android:background="@drawable/border2">
+            android:background="@drawable/border2"
+            android:text="Fav4"
+            android:textColor="@android:color/white">
 
         </Button>
 
@@ -472,7 +466,6 @@
             android:textColor="@android:color/white"
             android:textSize="17sp"
             android:background="@drawable/border2">
-
         </ImageButton>
 
         <Button
@@ -544,28 +537,29 @@
                 android:layout_height="60dp">
 
             </TextView>
+
             <TextView
-                style="@style/genralstyle"
                 android:id="@+id/Mm"
-                android:textSize="30sp"
+                style="@style/genralstyle"
+                android:layout_width="155dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border2"
                 android:gravity="center"
+                android:text="Ampere"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:background="@drawable/border2"
-                android:text= "Mm"
-                android:layout_width="155dp"
-                android:layout_height="60dp">
+                android:textSize="30sp">
 
             </TextView>
 
             <TextView
-                style="@style/genralstyle"
                 android:id="@+id/strom"
+                style="@style/genralstyle"
                 android:layout_width="151dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/border2"
                 android:gravity="center"
-                android:text="Strom"
+                android:text="Voltage"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="30sp">
@@ -591,7 +585,7 @@
 
             <Button
                 style="@style/genralstyle"
-                    android:id="@+id/btn_mm"
+                    android:id="@+id/btn_strom"
                     android:layout_width="155dp"
                     android:layout_height="90dp"
                     android:background="@drawable/border2"
@@ -602,7 +596,7 @@
 
             <Button
                     style="@style/genralstyle"
-                    android:id="@+id/btn_current"
+                    android:id="@+id/btn_voltage"
                     android:layout_width="155dp"
                     android:layout_height="90dp"
                     android:textColor="@android:color/white"
@@ -684,7 +678,7 @@
 
     <LinearLayout
 
-        android:id="@+id/hodldlayout"
+        android:id="@+id/hold_layout"
         android:layout_width="350dp"
         android:layout_height="180dp"
         android:layout_above="@id/untere_layout"
@@ -695,6 +689,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/hold_ist"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -720,9 +715,7 @@
                 android:textColor=" #FFC200"
                 android:textSize="50sp"
                 android:textStyle="bold">
-
             </TextView>
-
 
             <TextView
                 android:id="@+id/spannung_hold"
@@ -733,7 +726,6 @@
                 android:textColor=" #FFC200"
                 android:textSize="50sp"
                 android:textStyle="bold">
-
             </TextView>
         </LinearLayout>
 

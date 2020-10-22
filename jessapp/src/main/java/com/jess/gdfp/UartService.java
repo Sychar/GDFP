@@ -223,22 +223,20 @@ public class UartService extends Service {
         context.sendBroadcast(var);
     }*/
 
-
-
-public static void WriteToSerial(String s){
+    public static void WriteToSerial(String s){
         try {
             if(mOutputStream != null) {
                 //Log.i("mOutputStream","not null");
                 mOutputStream.write(s.getBytes(iso88591charset));
                 //mOutputStream.write('\n');
             }
-            //Log.i(TAG,"Write "+ s +" to console");
+            Log.i(TAG,"Write "+ s +" to console");
         } catch (IOException e){
             Log.e(TAG,"Cant write to the console");
         }
     }
 
-public static String getJob(){
+    public static String getJob(){
         StringBuilder sbjob = new StringBuilder();
         byte[] frameArr = new byte[16];
 
@@ -432,7 +430,9 @@ public static String getJob(){
     public static void buffParsing(String RXBuff) {
         byte[] str = RXBuff.getBytes(iso88591charset);
         for (int i = 0; i < RXBuff.length(); i++) {
-            byte character =str[i];//get char from string
+            byte character = str[i];//get char from string
+            //filter negative value of byte
+            //if (character < 0) character = (byte)(256 + character) ;
             //System.out.println(character);
             dataCombiner(character);
             //Log.i("buffParsing","called");
@@ -458,7 +458,7 @@ public static String getJob(){
             //Log.i("Length is ",String.valueOf(LengthProtocol));
             ByteArray[CounterData] = Input;
             CounterData++;
-        } else if (CounterData < LengthProtocol-1 && CounterData< 223) {
+        } else if (CounterData < LengthProtocol-1 && CounterData < 223) {
                 ByteArray[CounterData] = Input;
                 CounterData++;
         } else if (CounterData == LengthProtocol-1 && CounterData < 223) { //at this point, CounterData = 222
@@ -472,11 +472,9 @@ public static String getJob(){
             if((ByteArray[CounterData-1]) < 0) RECEIVED_CHECKSUM = 256 + (ByteArray[CounterData-1]) ;
             else RECEIVED_CHECKSUM = (ByteArray[CounterData-1]) ;
 
-            //Log.i("Received checksum ", String.valueOf(RECEIVED_CHECKSUM));
-            //System.out.println( "the last data = " + ByteArray[CounterData]);
-
-            int ByteCompare1 = Byte.compare(ByteArray[CounterData], (byte) 35); //check footer
-            //-----------------------Receive footer--------------------------------------------------
+            //----------------------------------- check footer -------------------------------------
+            int ByteCompare1 = Byte.compare(ByteArray[CounterData], (byte) 35);
+            //-----------------------Receive footer-------------------------------------------------
             if (ByteCompare1 == 0) {
                 //Log.i(TAG,"footer");
                 if(LengthProtocol < 250) { //length between 9 and 16
@@ -506,6 +504,8 @@ public static String getJob(){
                      * Compare received checksum with calculated checksum
                      */
                     if (RECEIVED_CHECKSUM == (CHECKSUM & 0x000000FF)) {
+                        //Log.i("byte1",String.valueOf(ByteArray[102]));
+                        //Log.i("byte2",String.valueOf(ByteArray[103]));
                         //Log.i("Checksum ","is correct");
                         StringBuilder sbhex_data = new StringBuilder(); //data in hex
                         StringBuilder sbascii_data = new StringBuilder(); //data in ascii char
@@ -519,7 +519,6 @@ public static String getJob(){
                         if(HEX_DATA !=null && !HEX_DATA.equals("")) {
                             int tempCANID=ByteArray[4];
                             if (ByteArray[4]<0) tempCANID=ByteArray[4]+256;
-
 
                             //SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
                             //if(LengthProtocol==15 && ByteArray[3]==0 && ByteArray[4]==0){
@@ -545,15 +544,15 @@ public static String getJob(){
 
                                 int tempDO = ByteArray[17]; //Verfahren
                                 if (tempDO < 0) tempDO = tempDO + 256;
-                                DatenObjekte.VerfahrenParam(tempDO);
+//                                DatenObjekte.VerfahrenParam(tempDO);
 
                                 tempDO = ByteArray[20]; //Werkstoff
                                 if (tempDO < 0) tempDO = tempDO + 256;
-                                DatenObjekte.WerkstoffParam(tempDO);
+                                //DatenObjekte.WerkstoffParam(tempDO);
 
                                 tempDO = ByteArray[19]; //Gas
                                 if (tempDO < 0) tempDO = tempDO + 256;
-                                DatenObjekte.GasParam(tempDO);
+                                //DatenObjekte.GasParam(tempDO);
 
                                 MainActivity.PARSE_TOKEN = false;
                             }

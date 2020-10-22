@@ -189,9 +189,11 @@ public class DatenObjekteSend {
                 FRAMEEXTRA = 0;
                 FIRVAL = value&0xFF;//lsb
                 SECVAL = 0;//msb
-                THDVAL = 52;//34H
-                PARAMTOKEN = 0;
-                VALTOKEN= 1;
+                THDVAL = 50;//new 32H //original 34H
+                if(mode==1) {
+                    PARAMTOKEN = 0;//no param id
+                    VALTOKEN = 1;
+                }
                 break;
             case 16: //A
                 FRAMEVAL = 0;
@@ -245,8 +247,13 @@ public class DatenObjekteSend {
                 FIRVAL = value&0xFF;//lsb
                 SECVAL = (value>>8)&0xFF;//msb
                 THDVAL = 53;//35H
-                PARAMTOKEN = 0;
-                VALTOKEN = 1;
+                if (mode==0) {
+                    PARAMTOKEN = 1;
+                    VALTOKEN = 0;
+                } else {
+                    PARAMTOKEN = 0;
+                    VALTOKEN = 1;
+                }
                 break;
             case 22: //energie 1(bei synergie)
                 FRAMEVAL = 1;
@@ -391,8 +398,13 @@ public class DatenObjekteSend {
                 FIRVAL = 0;
                 SECVAL = 0;
                 THDVAL = 0;
-                PARAMTOKEN = 1;
-                VALTOKEN= 0; // no value id
+                if(mode==0) {
+                    PARAMTOKEN = 1;
+                    VALTOKEN = 0; // no value id
+                }else{
+                    PARAMTOKEN = 0;
+                    VALTOKEN = 1; // no value id
+                }
                 break;
             case 38: //Strom (Elektrode)
                 FRAMEVAL = 0;
@@ -413,47 +425,54 @@ public class DatenObjekteSend {
             /**
              * Material
              */
-            case 39://Al/mg4/5Mn(bei synergie)
-                FRAMEVAL = 0;
-                FRAMEEXTRA = 0;
-                FIRVAL = 10;//lsb
-                SECVAL = 0;//msb
-                THDVAL = 4;
-                if(mode==1) {
-                    PARAMTOKEN = 0;//no param id
+            case 39: //job(no value) increment
+                FRAMEVAL = 7;
+                FRAMEEXTRA = 11; //0x0B
+                FIRVAL = 0;
+                SECVAL = 0;
+                THDVAL = 0;
+                PARAMTOKEN = 1;
+                VALTOKEN= 0; // no value id
+                break;
+            case 40: //job(no value) decrement
+                FRAMEVAL = 9;
+                FRAMEEXTRA = 11; //0x0B
+                FIRVAL = 0;
+                SECVAL = 0;
+                THDVAL = 0;
+                if(mode==0) {
+                    PARAMTOKEN = 1;
+                    VALTOKEN = 0; // no value id
+                }else{
+                    PARAMTOKEN = 0;
+                    VALTOKEN = 1; // no value id
+                }
+                break;
+            case 41: //Thickness mm
+                FRAMEVAL = 2;
+                FRAMEEXTRA = 2; //0x0B
+                FIRVAL = 0;
+                SECVAL = 0;
+                THDVAL = 0;
+                if(mode==0) {
+                    PARAMTOKEN = 1;
+                    VALTOKEN = 0; // no value id
+                }else{
+                    PARAMTOKEN = 0;
                     VALTOKEN = 1;
                 }
                 break;
-            case 40://Al/mg5(bei synergie)
-                FRAMEVAL = 0;
-                FRAMEEXTRA = 0;
-                FIRVAL = 10;//lsb
-                SECVAL = 0;//msb
-                THDVAL = 4;
-                if(mode==1) {
-                    PARAMTOKEN = 0;//no param id
-                    VALTOKEN = 1;
-                }
-                break;
-            case 41://Al/mg3(bei synergie)
-                FRAMEVAL = 0;
-                FRAMEEXTRA = 0;
-                FIRVAL = 10;//lsb
-                SECVAL = 0;//msb
-                THDVAL = 4;
-                if(mode==1) {
-                    PARAMTOKEN = 0;//no param id
-                    VALTOKEN = 1;
-                }
-                break;
-            case 42://Cu/Si(bei synergie)
-                FRAMEVAL = 0;
-                FRAMEEXTRA = 0;
-                FIRVAL = 10;//lsb
-                SECVAL = 0;//msb
-                THDVAL = 4;
-                if(mode==1) {
-                    PARAMTOKEN = 0;//no param id
+            case 42: //Betriebsart
+                FRAMEVAL = 5;
+                FRAMEEXTRA = 1;
+                FIRVAL = 0;
+                SECVAL = 0;
+                THDVAL = 0;
+                if(mode==0) {
+                    PARAMTOKEN = 1;
+                    VALTOKEN = 0; // no value id
+                }else{
+                    PARAMTOKEN = 0;
                     VALTOKEN = 1;
                 }
                 break;
