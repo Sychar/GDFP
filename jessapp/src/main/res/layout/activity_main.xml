@@ -95,7 +95,7 @@
         <TextView
             style="@style/genralstyle"
             android:id="@+id/anzeige1"
-            android:layout_width="310dp"
+            android:layout_width="260dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
             android:gravity="center"
@@ -119,9 +119,21 @@
             android:background="@drawable/border2">
 
         </TextView>
-
         <TextView
+            style="@style/genralstyle"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="25sp"
             android:id="@+id/anzeige3"
+            android:text="Anzeige2"
+            android:textColor="@android:color/white"
+            android:layout_width="110dp"
+            android:layout_height="74dp"
+            android:background="@drawable/border2">
+
+        </TextView>
+        <TextView
+            android:id="@+id/anzeige4"
             style="@style/genralstyle"
             android:layout_width="110dp"
             android:layout_height="74dp"
@@ -135,9 +147,9 @@
         </TextView>
 
         <TextView
-            android:id="@+id/anzeige4"
+            android:id="@+id/anzeige5"
             style="@style/genralstyle"
-            android:layout_width="320dp"
+            android:layout_width="270dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
             android:gravity="center"
@@ -151,17 +163,17 @@
 
 
 
-<fragment
-    android:id="@+id/fragment_test"
-    android:layout_width="820dp"
-    android:layout_height="match_parent"
-    android:layout_below="@id/obere_layout"
-    tools:layout="@layout/fragment_kennline"
-    class="com.jess.gdfp.View.BlankFragment"
-    android:layout_toRightOf="@id/linke_layout">
+    <fragment
+        android:id="@+id/fragment_test"
+        android:layout_width="820dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/obere_layout"
+        tools:layout="@layout/fragment_kennline"
+        class="com.jess.gdfp.View.BlankFragment"
+        android:layout_toRightOf="@id/linke_layout">
 
 
-</fragment>
+    </fragment>
     <fragment
         android:id="@+id/frgment_Betriebsart"
 
@@ -573,35 +585,35 @@
             android:layout_height="190dp"
             android:orientation="horizontal">
 
-                <Button
-                    style="@style/genralstyle"
-                    android:id="@+id/btn_korrektur"
-                    android:layout_width="155dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/border2"
-                    android:textColor="@android:color/white"
-                    android:textSize="40sp"></Button>
+            <Button
+                style="@style/genralstyle"
+                android:id="@+id/btn_korrektur"
+                android:layout_width="155dp"
+                android:layout_height="90dp"
+                android:background="@drawable/border2"
+                android:textColor="@android:color/white"
+                android:textSize="40sp"></Button>
 
 
             <Button
                 style="@style/genralstyle"
-                    android:id="@+id/btn_strom"
-                    android:layout_width="155dp"
-                    android:layout_height="90dp"
-                    android:background="@drawable/border2"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="40sp"></Button>
+                android:id="@+id/btn_strom"
+                android:layout_width="155dp"
+                android:layout_height="90dp"
+                android:background="@drawable/border2"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="40sp"></Button>
 
 
             <Button
-                    style="@style/genralstyle"
-                    android:id="@+id/btn_voltage"
-                    android:layout_width="155dp"
-                    android:layout_height="90dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="40sp"
-                    android:background="@drawable/border2"></Button>
+                style="@style/genralstyle"
+                android:id="@+id/btn_voltage"
+                android:layout_width="155dp"
+                android:layout_height="90dp"
+                android:textColor="@android:color/white"
+                android:textSize="40sp"
+                android:background="@drawable/border2"></Button>
 
 
         </LinearLayout>
