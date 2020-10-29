@@ -86,11 +86,9 @@
     <LinearLayout
         android:id="@+id/obere_layout"
         android:layout_width="865dp"
-        android:layout_height="105dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
-        android:layout_toRightOf="@id/linke_layout"
-
-        >
+        android:layout_toRightOf="@id/linke_layout">
 
         <TextView
             style="@style/genralstyle"
@@ -103,7 +101,6 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="25sp">
-
         </TextView>
 
         <TextView
@@ -131,7 +128,6 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="25sp">
-
         </TextView>
 
         <TextView
@@ -145,7 +141,6 @@
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="25sp">
-
         </TextView>
 
         <TextView
@@ -158,7 +153,6 @@
             android:text="Anzeige5"
             android:textColor="@android:color/white"
             android:textSize="24sp">
-
         </TextView>
 
     </LinearLayout>
@@ -173,189 +167,62 @@
         android:layout_toRightOf="@id/linke_layout">
     </fragment>
 
-    <fragment
-        android:id="@+id/frgment_Betriebsart"
-        android:layout_width="745dp"
-        android:layout_height="match_parent"
-        android:layout_below="@id/obere_layout"
-        tools:layout="@layout/fragment_betriebs_art"
-        class="com.jess.gdfp.View.BetriebsArt"
-        android:layout_toRightOf="@+id/linke_layout"></fragment>
-
-    <FrameLayout
-
-        android:id="@+id/framelayout"
-        android:layout_width="540dp"
-        android:layout_marginLeft="172dp"
-        android:layout_height="510dp"
-        android:layout_below="@id/obere_layout"
-        android:layout_alignStart="@+id/circleButton"
-        android:layout_toRightOf="@id/linke_layout">
-
-        <LinearLayout
-            android:layout_width="500dp"
-            android:layout_height="440dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="490dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="VERFAHREN"
-                android:textColor="#ffff"
-                android:textSize="20sp"></TextView>
-            <ScrollView
-                android:background="#80252424"
-                android:layout_width="500dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="40dp"
-                android:fillViewport="true">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    tools:context=".View.Verfahren">
-
-                    <Button
-                        android:id="@+id/MMNormal_btn"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/border2"
-                        android:textSize="25sp"
-                        android:text="MIG/MAG NORMAL"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:layout_marginTop="12dp"
-                        android:id="@+id/MMSynergy_btn"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:textSize="25sp"
-                        android:text="MIG/MAG Synergie"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/MMPuls_btn"
-                        style="@style/genralstyle"
-                        android:layout_marginTop="12dp"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:textSize="25sp"
-                        android:text="MIG/MAG puls"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/ElectrodeMMA_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:textSize="25sp"
-                        android:text="Electrode MMA"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/WIG_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:textSize="25sp"
-                        android:text="WIG"
-                        android:textColor="#ffff"></Button>
-
-                    <!--Button
-                        android:id="@+id/WIGPulsen_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:layout_marginTop="12dp"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:textSize="25sp"
-                        android:text="WIG pulsen"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/WIGSpeed_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:layout_marginTop="12dp"
-                        android:textSize="25sp"
-                        android:text="WIG speed"
-                        android:textColor="#ffff"></Button>
-
-                    <Button
-                        android:id="@+id/WIGSpeedPulsen_btn"
-                        style="@style/genralstyle"
-                        android:layout_width="490dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/border2"
-                        android:gravity="center"
-                        android:textSize="25sp"
-                        android:text="WIG Speed+pulsen"
-                        android:textColor="#ffff"></Button>-->
-                </LinearLayout>
-            </ScrollView>
-        </LinearLayout>
-    </FrameLayout>
     <RelativeLayout
         android:textStyle="bold"
         android:id="@+id/circleButton"
-        android:layout_width="350dp"
+        android:layout_width="450dp"
         android:layout_height="450dp"
         android:layout_below="@id/obere_layout"
-        android:layout_toRightOf="@id/linke_layout">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_height="wrap_content">
+        android:layout_marginLeft="80dp">
+<!--        android:layout_toRightOf="@id/linke_layout"-->
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="320dp"
-                android:layout_height="3200dp"
-                android:layout_centerInParent="true"
-                android:indeterminate="false"
-
+                android:layout_width="500dp"
+                android:layout_height="500dp"
                 android:max="100"
                 android:progress="0"
-                android:progressDrawable="@drawable/custom_progressbar_drawable"
-                />
+                android:progressDrawable="@drawable/custom_progressbar_drawable"/>
 
+            <LinearLayout
+                android:textStyle="bold"
+                android:id="@+id/inside_circlebtn"
+                android:layout_width="350dp"
+                android:layout_height="250dp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="130dp"
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
                 android:textColor="@android:color/white"
-                android:text="Ampere"
+                android:text="0"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:gravity="center"
-                android:textSize="30sp"
+                android:textSize="70sp"
                 android:id="@+id/txtpro"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_width="250dp"
+                android:layout_height="140dp"
                 android:layout_alignBottom="@+id/progressBar"
                 android:layout_centerInParent="true"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <TextView
+                    android:textColor="@android:color/white"
+                    android:text="A"
+                    android:textAlignment="center"
+                    android:textSize="50sp"
+                    android:textStyle="bold"
+                    android:id="@+id/unit"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="60dp"
+                    android:layout_alignBottom="@+id/progressBar"
+                    android:layout_centerInParent="true"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            </LinearLayout>
 
             <Button
                 style="@style/genralstyle"
@@ -364,10 +231,8 @@
                 android:layout_height="280dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginTop="12dp"
-                android:background="@drawable/round_button"></Button>
-
-        </RelativeLayout>
-
+                android:background="@drawable/round_button">
+            </Button>
 
     </RelativeLayout>
 
@@ -376,10 +241,10 @@
         android:id="@+id/untere_layout"
         android:layout_width="840dp"
         android:layout_height="70dp"
+        android:layout_marginTop="24dp"
         android:orientation="horizontal"
         android:layout_below="@id/circleButton"
         android:layout_toRightOf="@id/linke_layout">
-
 
         <Button
             android:id="@+id/Button_fav1"
@@ -392,7 +257,6 @@
             android:text="fav1"
             android:textAlignment="center"
             android:textColor="@android:color/white">
-
         </Button>
 
         <Button
@@ -403,7 +267,6 @@
             android:background="@drawable/border2"
             android:text="fav2"
             android:textColor="@android:color/white">
-
         </Button>
 
         <Button
@@ -414,7 +277,6 @@
             android:background="@drawable/border2"
             android:text="Fav3"
             android:textColor="@android:color/white">
-
         </Button>
 
         <Button
@@ -425,7 +287,6 @@
             android:background="@drawable/border2"
             android:text="Fav4"
             android:textColor="@android:color/white">
-
         </Button>
 
     </LinearLayout>
@@ -439,7 +300,6 @@
         android:orientation="vertical">
 
         <TextView
-
             android:id="@+id/date"
             style="@style/genralstyle"
             android:layout_width="match_parent"
@@ -449,8 +309,9 @@
             android:text=""
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="24sp"></TextView>
-        <!-- verfaheren Button -->
+            android:textSize="24sp">
+        </TextView>
+
         <Button
             android:paddingTop="12dp"
             android:drawableTop="@drawable/home2"
@@ -462,23 +323,7 @@
             android:background="@drawable/border2"
             android:text="HOME"
             android:textSize="20sp">
-
         </Button>
-
-        <!-- kennlinie Button -->
-
-        <!-- Droosel Button -->
-<!--        <ImageButton-->
-<!--            android:src="@drawable/home2"-->
-<!--            style="@style/genralstyle"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="125dp"-->
-<!--            android:id="@+id/gas"-->
-<!--            android:text="GAS"-->
-<!--            android:textColor="@android:color/white"-->
-<!--            android:textSize="17sp"-->
-<!--            android:background="@drawable/border2">-->
-<!--        </ImageButton>-->
 
         <Button
             android:drawableTop="@drawable/menuf"
@@ -514,7 +359,6 @@
             android:layout_height="70dp"
             android:background="@drawable/border2">
         </Button>
-
     </LinearLayout>
 
     <LinearLayout
@@ -522,10 +366,9 @@
         android:orientation="vertical"
         android:layout_width="490dp"
         android:layout_height="150dp"
-        android:layout_marginTop="20dp"
-        android:layout_toLeftOf="@+id/rechte_layout"
-        android:layout_toRightOf="@+id/circleButton"
+        android:layout_marginLeft="470dp"
         android:layout_below="@+id/obere_layout">
+
         <LinearLayout
             android:layout_width="500dp"
             android:layout_height="60dp"
@@ -539,9 +382,11 @@
                 android:background="@drawable/border2"
                 android:gravity="center"
                 android:text="KorrLB"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="30sp"></TextView>
+                android:textSize="30sp">
+            </TextView>
 
             <TextView
                 android:id="@+id/mmin"
@@ -551,9 +396,11 @@
                 android:background="@drawable/border2"
                 android:gravity="center"
                 android:text="m/min"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="30sp"></TextView>
+                android:textSize="30sp">
+            </TextView>
 
             <TextView
                 android:id="@+id/strom"
@@ -563,6 +410,7 @@
                 android:background="@drawable/border2"
                 android:gravity="center"
                 android:text="Voltage"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="30sp">
@@ -581,7 +429,7 @@
                 android:layout_height="90dp"
                 android:background="@drawable/border2"
                 android:textColor="@android:color/white"
-                android:textSize="40sp"></Button>
+                android:textSize="55sp"></Button>
 
             <Button
                 style="@style/genralstyle"
@@ -591,7 +439,7 @@
                 android:background="@drawable/border2"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="40sp"></Button>
+                android:textSize="55sp"></Button>
 
             <Button
                 style="@style/genralstyle"
@@ -599,7 +447,7 @@
                 android:layout_width="155dp"
                 android:layout_height="90dp"
                 android:textColor="@android:color/white"
-                android:textSize="40sp"
+                android:textSize="55sp"
                 android:background="@drawable/border2"
                 ></Button>
         </LinearLayout>
@@ -608,10 +456,10 @@
     <LinearLayout
         android:id="@+id/drossel_layout"
         android:layout_width="492dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="290dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="250dp"
         android:orientation="vertical"
-        android:layout_toRightOf="@+id/circleButton">
+        android:layout_marginLeft="475dp">
 
     <TextView
         android:id="@+id/drossel_value"
@@ -621,6 +469,7 @@
         android:gravity="center"
         android:text="DROSSEL [-30]"
         android:textAlignment="center"
+        android:layout_marginTop="20dp"
         android:textColor="@android:color/white"
         android:textSize="24sp">
     </TextView>
@@ -631,21 +480,24 @@
         android:layout_height="100dp"
         android:layout_below="@+id/zweitelayout"
         android:layout_toRightOf="@+id/circleButton"
+        android:layout_marginLeft="20dp"
         android:orientation="horizontal">
 
         <Button
+            android:layout_marginTop="10dp"
             android:id="@+id/minus"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:onClick="onpressed_Minus_plus"
             android:text="+"
-            android:textSize="35sp"></Button>
+            android:textSize="35sp">
+        </Button>
 
         <ProgressBar
             android:id="@+id/progress"
             style="@style/progress"
             android:layout_width="150dp"
-            android:layout_height="30dp"
+            android:layout_height="20dp"
             android:layout_centerHorizontal="false"
             android:layout_centerVertical="false"
             android:layout_marginTop="30dp"
@@ -658,87 +510,85 @@
             android:id="@+id/progress1"
             style="@style/progress"
             android:layout_width="150dp"
-            android:layout_height="30dp"
+            android:layout_height="20dp"
             android:layout_centerHorizontal="false"
             android:layout_centerVertical="false"
             android:layout_marginTop="30dp"
             android:max="100"
             android:minHeight="30dip"
             android:progress="30" />
-        <!--     <ProgressBar
-                 android:layout_marginTop="10dp"
-                 android:layout_marginLeft="10dp"
-                 style="?android:attr/progressBarStyleHorizontal"
-                 android:layout_width="150dp"
-                 android:layout_height="wrap_content"
-                 android:id="@+id/progress1"
-                 android:layout_centerHorizontal="true"
-                 android:layout_centerVertical="true"
-                 android:max="100"
-                 android:progress="40"/>-->
+
         <Button
             android:id="@+id/plus"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
             android:onClick="onpressed_Minus_plus"
             android:text="-"
             android:textAlignment="center"
-            android:textSize="35sp"></Button>
+            android:textSize="35sp">
+            </Button>
+
+        <fragment
+            android:id="@+id/frgment_Betriebsart"
+            class="com.jess.gdfp.View.BetriebsArt"
+            android:layout_width="745dp"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_betriebs_art">
+        </fragment>
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/hold_layout"
-        android:layout_width="350dp"
-        android:layout_height="180dp"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
         android:layout_above="@id/untere_layout"
-        android:layout_marginLeft="50dp"
-        android:layout_marginBottom="40dp"
         android:layout_toLeftOf="@id/rechte_layout"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/hold_ist"
-            android:layout_width="400dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
             android:text="Hold"
-            android:textAlignment="center"
+            android:layout_marginLeft="180dp"
             android:textColor="#FFC200"
-            android:textSize="30sp"
+            android:textSize="40sp"
             android:textStyle="bold">
         </TextView>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="150dp"
             android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/strom_hold"
-                android:layout_width="150dp"
-                android:layout_height="110dp"
-                android:layout_marginLeft="40dp"
-                android:text="128 A "
-                android:textColor=" #FFC200"
-                android:textSize="50sp"
-                android:textStyle="bold">
-            </TextView>
-
-            <TextView
-                android:id="@+id/spannung_hold"
-                android:layout_width="150dp"
-                android:layout_height="110dp"
-                android:layout_marginLeft="12dp"
-                android:text="1.4 V "
-                android:textColor=" #FFC200"
-                android:textSize="50sp"
-                android:textStyle="bold">
-            </TextView>
+            <FrameLayout
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="20dp">
+                <TextView
+                    android:id="@+id/strom_hold"
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:text="A"
+                    android:textColor=" #FFC200"
+                    android:textStyle="bold">
+                </TextView>
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="240dp"
+                android:layout_height="150dp"
+                android:layout_marginLeft="20dp">
+                    <TextView
+                      android:id="@+id/spannung_hold"
+                      android:layout_width="240dp"
+                      android:layout_height="150dp"
+                      android:text="V"
+                      android:textColor=" #FFC200"
+                      android:textStyle="bold">
+                    </TextView>
+            </FrameLayout>
         </LinearLayout>
-
     </LinearLayout>
-    </LinearLayout>
-
+  </LinearLayout>
 
 </RelativeLayout>

@@ -63,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Button Mmin;
     private Button Voltage;
     private Button Korrektur;
-    private Button Werkstoff;
     private Button circle_button;
     private Button minus_button;
     private Button Setting;
+    private Button Menu;
     private Button plus;
     private Button WIG_btn;
     private Button MMNormal_btn;
@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Button Fav2_btn;
     private Button Fav3_btn;
     private Button Fav4_btn;
-    private Button Gas;
     private Button home;
     private int len;
     private TextView ANZEIGE1;
@@ -94,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Button button_yes;
     private Button button_no;
     private static TextView txtprogress;
-    private Button Menu;
+    private static TextView unitprogress;
     private View frame;
     private View kenn_fragment;
     private View betriebsart_fragement;
@@ -298,9 +297,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
         final ProgressBar progress = findViewById(R.id.progress);
         progress.setVisibility(View.GONE);
-        /*Setting.setOnClickListener(new View.OnClickListener() {
+        Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                BlankFragment.setButtonInvisible();
                 BlankFragment.tv.setText("SETTING");
                 BlankFragment.detail = BlankFragment.init_Setting();
                 ArrayAdapter<String> adapter2= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,BlankFragment.detail){
@@ -317,9 +317,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 view=findViewById(R.id.fragment_test);
                 allgemeinOnclick(view);
             }
-        });*/
+        });
 
-        Menu = findViewById(R.id.menu_btn);
         Menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view ) {
@@ -346,85 +345,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 WeldingChangeParam.MA_TOKEN = false;*/
             }
         });
-
-        //-------------------------------- Verfahren button ----------------------------------------
-        WIG_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //GlobalVariable.VERFAHREN_MODE = 5;
-                //GlobalVariable.Verfahren_Token = true;
-                    WIG_btn.setTextColor(Color.BLACK);
-                    WIG_btn.setBackgroundColor(Color.WHITE);
-            }
-        });
-
-        MMNormal_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //GlobalVariable.VERFAHREN_MODE = 1;
-                //GlobalVariable.Verfahren_Token = true;
-                MMNormal_btn.setTextColor(Color.BLACK);
-                MMNormal_btn.setBackgroundColor(Color.WHITE);
-            }
-        });
-
-        MMSynergy_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //GlobalVariable.VERFAHREN_MODE = 2;
-                //GlobalVariable.Verfahren_Token = true;
-                    MMSynergy_btn.setTextColor(Color.BLACK);
-                    MMSynergy_btn.setBackgroundColor(Color.WHITE);
-            }
-        });
-
-        MMPuls_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //GlobalVariable.VERFAHREN_MODE = 3;
-                //GlobalVariable.Verfahren_Token = true;
-                    MMPuls_btn.setTextColor(Color.BLACK);
-                    MMPuls_btn.setBackgroundColor(Color.WHITE);
-            }
-        });
-
-        ElectrodeMMA_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //GlobalVariable.VERFAHREN_MODE = 4;
-                //GlobalVariable.Verfahren_Token = true;
-                    ElectrodeMMA_btn.setTextColor(Color.BLACK);
-                    ElectrodeMMA_btn.setBackgroundColor(Color.WHITE);
-            }
-        });
-
-        //------------------------------------------------------------------------------------------
-
         Drossel_view();
-        /*Werkstoff = findViewById(R.id.werkFstoff);
-
-        Werkstoff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                BlankFragment.tv.setText("WERKSTOFF");
-                BlankFragment.detail = BlankFragment.init_werkstoff();
-                ArrayAdapter<String> adapter2= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,BlankFragment.detail){
-                    @NonNull
-                    @Override
-                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                        View view1 =super.getView(position,convertView,parent);
-                        return  view1;
-                    }
-                };
-                BlankFragment.rv.setAdapter(adapter2);
-                droessel_gone();
-                hold_layout_gone();
-                view=findViewById(R.id.fragment_test);
-                allgemeinOnclick(view);
-            }
-        });*/
-        //Werkstoff.setVisibility(View.INVISIBLE);
 
         home.setOnClickListener(view1 -> {
             View layout = findViewById(R.id.zweitelayout);
@@ -643,24 +564,36 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             if (READVAL_STATUS[1] == 1) {
                 switch (WeldingChangeParam.HOME_COUNTER) {
                     case 0:
-                        if(GlobalVariable.VERFAHREN_VAL!=4) txtprogress.setText(String.valueOf(GlobalVariable.mpm_display / 10) + "," + String.valueOf(GlobalVariable.mpm_display % 10) + "\n" + "m/min"); // m/min
-                        else WeldingChangeParam.HOME_COUNTER = 2;
+                        if(GlobalVariable.VERFAHREN_VAL!=4) {
+                            txtprogress.setText(String.valueOf(GlobalVariable.mpm_display / 10) + "." + String.valueOf(GlobalVariable.mpm_display % 10)); // m/min
+                            unitprogress.setText("m/min");
+                        } else WeldingChangeParam.HOME_COUNTER = 2;
                         break;
                     case 1:
-                        txtprogress.setText(String.valueOf(GlobalVariable.BlechdickeSetwert / 10) + "," + String.valueOf(GlobalVariable.BlechdickeSetwert % 10) + "\n" + "mm"); //mm
+                        txtprogress.setText(String.valueOf(GlobalVariable.BlechdickeSetwert / 10) + "." + String.valueOf(GlobalVariable.BlechdickeSetwert % 10)); //mm
+                        unitprogress.setText("mm");
                         break;
                     case 2:
-                        txtprogress.setText(String.valueOf(GlobalVariable.StromSetwert) + "\n" + " A"); //A
+                        txtprogress.setText(String.valueOf(GlobalVariable.StromSetwert)); //A
+                        unitprogress.setText("A");
                         break;
                     case 3:
-                        txtprogress.setText(String.valueOf(GlobalVariable.Lichtbogenkorrektur1) + "\n" + "Korrektur"); //Korrektur
+                        txtprogress.setText(String.valueOf(GlobalVariable.Lichtbogenkorrektur1)); //Korrektur
+                        unitprogress.setText("%");
                         break;
                     case 4:
-                        txtprogress.setText(String.valueOf(GlobalVariable.SpannungSetwert / 10) + "," + String.valueOf(GlobalVariable.SpannungSetwert % 10)+ "\n" + "Volt"); //Voltage
+                        txtprogress.setText(String.valueOf(GlobalVariable.SpannungSetwert / 10) + "." + String.valueOf(GlobalVariable.SpannungSetwert % 10)); //Voltage
+                        txtprogress.setText(String.valueOf(GlobalVariable.SpannungSetwert / 10) + "." + String.valueOf(GlobalVariable.SpannungSetwert % 10)); //Voltage
+                        unitprogress.setText("V");
                         break;
                     case 5:
-                        if (GlobalVariable.encoder)txtprogress.setText(String.valueOf(GlobalVariable.Jobnummer) + "\n" + "Job"); //Job
-                        else txtprogress.setText("Job");
+                        if (GlobalVariable.encoder) {
+                            txtprogress.setText(String.valueOf(GlobalVariable.Jobnummer)); //Job
+                            unitprogress.setText("Job");
+                        } else {
+                            txtprogress.setText("Job");
+                            unitprogress.setText("");
+                        }
                         if (GlobalVariable.JOBCOUNT==0) txtprogress.setText("Job");
                         break;
                 }
@@ -679,19 +612,23 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungIstwert)+" V");
                     } else {
                         HoldIst.setText("Hold");
-                        StromHoldwertTV.setText(String.valueOf(GlobalVariable.StromHoldwert)+" A");
-                        SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungHoldwert)+" V");
+                        //StromHoldwertTV.setText(String.valueOf(GlobalVariable.StromHoldwert)+" A");
+                        //SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungHoldwert)+" V");
+                        StromHoldwertTV.setTextSize(70);
+                        SpannungHoldwertTV.setTextSize(70);
+                        StromHoldwertTV.setText(String.valueOf(350)+" A");
+                        SpannungHoldwertTV.setText(String.valueOf(35)+",9"+" V");
                     }
 
                     //------------------------------------------------------- Display variables in textview -----------------------------------------------------------------
                     //Log.i("Lichtbogenkorrektur1",String.valueOf(GlobalVariable.Lichtbogenkorrektur1));
 
-                    if (GlobalVariable.KorrekturDrossel >= 0) DROSSEL.setText("DROSSEL "+"["+ String.valueOf(GlobalVariable.KorrekturDrossel)+"]");
-                    else DROSSEL.setText("DROSSEL "+"[-"+ String.valueOf(GlobalVariable.KorrekturDrossel)+"]");
+                    if (GlobalVariable.KorrekturDrossel >= 0) DROSSEL.setText("DROSSEL   "+"[ "+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
+                    else DROSSEL.setText("DROSSEL  "+"[ -"+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
 
                     if (GlobalVariable.SV1pos1 != 4) { // Not elektrode mode
                         Korrektur.setTextColor(Color.WHITE);
-                        Mmin.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "," + String.valueOf(GlobalVariable.Energie1 % 10)));
+                        Mmin.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
                         Mmin.setTextColor(Color.WHITE);
                     } else {
                         Voltage.setTextColor(Color.BLACK);
@@ -703,7 +640,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     if (GlobalVariable.SV1pos1 == 1) { // Normal mode
                         Korrektur.setText(String.valueOf((GlobalVariable.Drossel1)));
                         Voltage.setTextColor(Color.WHITE);
-                        Voltage.setText(String.valueOf((GlobalVariable.SpannungSetwert)/ 10 + "," + String.valueOf(GlobalVariable.SpannungSetwert % 10)));
+                        Voltage.setText(String.valueOf((GlobalVariable.SpannungSetwert)/ 10 + "." + String.valueOf(GlobalVariable.SpannungSetwert % 10)));
                     } else {
                         Korrektur.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
                         Voltage.setTextColor(Color.BLACK);
@@ -877,13 +814,13 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
                 if ((WeldingChangeParam.HOME_TOKEN) && (WeldingChangeParam.MA_TOKEN)) {
                     Log.i(TAG, "HOME_TOKEN is true.");
-                    Gas.performClick();
+                    //Gas.performClick();
                     WeldingChangeParam.HOME_TOKEN = false;
                 }
 
                 if (WeldingChangeParam.DROSSEL_TOKEN) {
                     Log.i(TAG, "DROSSEL_TOKEN is true.");
-                    Werkstoff.performClick();
+                    //Werkstoff.performClick();
                     WeldingChangeParam.DROSSEL_TOKEN = false;
                 }
 
@@ -962,25 +899,29 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         plus = findViewById(R.id.plus);
         progressBarMinus = findViewById(R.id.progress);
         progressBarPlus = findViewById(R.id.progress1);
-        WIG_btn = findViewById(R.id.WIG_btn);
-        MMNormal_btn = findViewById(R.id.MMNormal_btn);
-        MMSynergy_btn = findViewById(R.id.MMSynergy_btn);
-        MMPuls_btn = findViewById(R.id.MMPuls_btn);
-        ElectrodeMMA_btn = findViewById(R.id.ElectrodeMMA_btn);
+        //WIG_btn = findViewById(R.id.WIG_btn);
+        //MMNormal_btn = findViewById(R.id.MMNormal_btn);
+        //MMSynergy_btn = findViewById(R.id.MMSynergy_btn);
+        //MMPuls_btn = findViewById(R.id.MMPuls_btn);
+        //ElectrodeMMA_btn = findViewById(R.id.ElectrodeMMA_btn);
         minus_button = findViewById(R.id.minus);
         Voltage = findViewById(R.id.btn_voltage);
         Mmin = findViewById(R.id.btn_mmin);
         Korrektur = findViewById(R.id.btn_korrektur); //korrektur textview
-        //Setting = findViewById(R.id.setting_btn);
+        Setting = findViewById(R.id.setting_btn);
+        Menu = findViewById(R.id.menu_btn);
         progressBar = findViewById(R.id.progressBar);
         circle_button = findViewById(R.id.button1);
-        frame = findViewById(R.id.framelayout);
+        //frame = findViewById(R.id.framelayout);
         ANZEIGE1 = findViewById(R.id.anzeige1);
         ANZEIGE2 = findViewById(R.id.anzeige2);
         ANZEIGE3 = findViewById(R.id.anzeige3);
         ANZEIGE4 = findViewById(R.id.anzeige4);
         ANZEIGE5 = findViewById(R.id.anzeige5);
         txtprogress = findViewById(R.id.txtpro);
+        txtprogress.setTextSize(120);
+        unitprogress = findViewById(R.id.unit);
+
         JOB_NUM  = findViewById(R.id.job_btn);
         tdate = findViewById(R.id.date); //right top button
         tdate2 = findViewById(R.id.date2); //left top button
@@ -1003,7 +944,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Voltage.setVisibility(View.VISIBLE);
         progressBarPlus.setVisibility(View.INVISIBLE);
         progressBarMinus.setVisibility(View.INVISIBLE);
-        frame.setVisibility(View.INVISIBLE);
+        //frame.setVisibility(View.INVISIBLE);
         circle_button.setVisibility(View.GONE);
         minus_button.setVisibility(View.GONE);
     }
