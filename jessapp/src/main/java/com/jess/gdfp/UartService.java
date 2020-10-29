@@ -230,7 +230,7 @@ public class UartService extends Service {
                 mOutputStream.write(s.getBytes(iso88591charset));
                 //mOutputStream.write('\n');
             }
-            Log.i(TAG,"Write "+ s +" to console");
+            //Log.i(TAG,"Write "+ s +" to console");
         } catch (IOException e){
             Log.e(TAG,"Cant write to the console");
         }
@@ -517,20 +517,18 @@ public class UartService extends Service {
                         }
 
                         if(HEX_DATA !=null && !HEX_DATA.equals("")) {
-                            int tempCANID=ByteArray[4];
+                            int tempCANID = ByteArray[4];
                             if (ByteArray[4]<0) tempCANID=ByteArray[4]+256;
-
+                            //Log.i("dataCombiner",HEX_DATA);
                             //SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
                             //if(LengthProtocol==15 && ByteArray[3]==0 && ByteArray[4]==0){
                             if(LengthProtocol==10 && ByteArray[3]==0 && ByteArray[4]==0){ //CanID 0000
+                                //if(LengthProtocol==10 && ByteArray[2]==1){ //CanID 0000
                                 SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
                                 //Log.i("CanId is","0000");
                             } else if((ByteArray[3]==6) && (tempCANID== 240) && (ByteArray[9]==5) && (LengthProtocol==222)) { //CanID 06F0
-                                //Log.i("Gas byte",String.valueOf(ByteArray[19]));
-                                //Log.i("Werkstoff byte",String.valueOf(ByteArray[20]));
-                                //Log.i("PARSE_TOKEN","is false");
-                                /*Log.i("dataCombiner",HEX_DATA);
-                                String testFrame="";
+                                /*
+                               String testFrame="";
                                 StringBuilder tesb= new StringBuilder();
                                 //DOFRAME_KENNFRAME = HEX_DATA.getBytes(iso88591charset);
                                 int tesi=0;
@@ -540,23 +538,31 @@ public class UartService extends Service {
                                     DOFRAME_KENNFRAME[i]=tesi;
                                     //testFrame=tesb.append(DOFRAME_KENNFRAME[i]).toString();
                                 }*/
-                                //Log.i("dataCombiner",testFrame);
+                                //Log.i("Received 06F0","from uart");
+                                //Log.i("verfahren",String.valueOf(ByteArray[17]));
+                                //Log.i("Drahtdurchmesser",String.valueOf(ByteArray[18]));
+                                //Log.i("Gas",String.valueOf(ByteArray[19]));
+                                //Log.i("Werkstoff",String.valueOf(ByteArray[20]));
 
                                 int tempDO = ByteArray[17]; //Verfahren
                                 if (tempDO < 0) tempDO = tempDO + 256;
-//                                DatenObjekte.VerfahrenParam(tempDO);
+                                GlobalVariable.SV1pos1 = tempDO;
 
-                                tempDO = ByteArray[20]; //Werkstoff
+                                tempDO = ByteArray[18]; //Drahtdurchmesser
                                 if (tempDO < 0) tempDO = tempDO + 256;
-                                //DatenObjekte.WerkstoffParam(tempDO);
+                                GlobalVariable.Drahtdurchmesser = tempDO;
 
                                 tempDO = ByteArray[19]; //Gas
                                 if (tempDO < 0) tempDO = tempDO + 256;
-                                //DatenObjekte.GasParam(tempDO);
+                                GlobalVariable.SV1pos4 = tempDO;
+
+                                tempDO = ByteArray[20]; //Werkstoff
+                                if (tempDO < 0) tempDO = tempDO + 256;
+                                GlobalVariable.SV1pos5 = tempDO;
 
                                 MainActivity.PARSE_TOKEN = false;
                             }
-                            if (UpdateJobFlag != 1) {
+                            if (UpdateJobFlag != 1) { // Parsing in DatenObjekte
                                 //Log.i("HEX_DATA",HEX_DATA);
                                 DatenObjekte.buffParsing(ASCII_DATA);
                                 DatenObjekte.callme(HEX_DATA);

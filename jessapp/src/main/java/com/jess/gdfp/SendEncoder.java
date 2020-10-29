@@ -9,7 +9,7 @@ public class SendEncoder {
 
     private final static String TAG = SendEncoder.class.getSimpleName(); //name of this class
     public static byte[] ENCODER_FRAME = new byte[20];
-    private static String GETHEX = "";
+    //private static String GETHEX = "";
 
     public static void changeEncoder(String HEXDATA){ //HEXDATA is 10 bytes
 
@@ -18,11 +18,9 @@ public class SendEncoder {
         char POSITION_15 = HEXDATA.charAt(14);
         char POSITION_16 = HEXDATA.charAt(15);
 
-        StringBuilder JOINCHAR = new StringBuilder();
-        GETHEX = JOINCHAR.append(POSITION_13).append(POSITION_14).append(POSITION_15).append(POSITION_16).toString();
-        //Log.i("changeEncoder",GETHEX);
+        //StringBuilder JOINCHAR = new StringBuilder();
+        //GETHEX = JOINCHAR.append(POSITION_13).append(POSITION_14).append(POSITION_15).append(POSITION_16).toString();
 
-        MainActivity MA_OBJECT = new MainActivity();
         WeldingChangeParam WC_OBJECT = new WeldingChangeParam();
 
         if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 0

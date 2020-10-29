@@ -1,5 +1,7 @@
 package com.jess.gdfp;
 
+import android.util.Log;
+
 public class GetKennlinieDaten {
 
     private static byte[] KENN_FRAME = new byte[30];
@@ -247,10 +249,14 @@ public class GetKennlinieDaten {
         WHOLE_JOB_FRAME[9] = 5; // 0x05 Write to machine
         WHOLE_JOB_FRAME[12] = 42; //ox2A
         WHOLE_JOB_FRAME[13] = 2;
-        WHOLE_JOB_FRAME[17] = (byte)WeldingProcess.VERFAHREN;
-        WHOLE_JOB_FRAME[18] = (byte)WeldingProcess.DRAHTDURCHMESSER;
-        WHOLE_JOB_FRAME[19] = (byte)WeldingProcess.GAS;
-        WHOLE_JOB_FRAME[20] = (byte)WeldingProcess.WERKSTOFF;
+        if(GlobalVariable.Kennlinie_Token) {
+            WHOLE_JOB_FRAME[17] = (byte) GlobalVariable.VERFAHREN;
+            WHOLE_JOB_FRAME[18] = (byte) GlobalVariable.DRAHTDURCHMESSER;
+            //Log.i("VERFAHREN",String.valueOf(GlobalVariable.VERFAHREN));
+            WHOLE_JOB_FRAME[19] = (byte) GlobalVariable.GAS;
+            WHOLE_JOB_FRAME[20] = (byte) GlobalVariable.WERKSTOFF;
+            GlobalVariable.Kennlinie_Token = false;
+        }
         WHOLE_JOB_FRAME[220] = 35; //0x23
         /**
          * Calculate the checksum of dataframe

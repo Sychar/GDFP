@@ -1,6 +1,7 @@
 package com.jess.gdfp.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.jess.gdfp.GlobalVariable;
+import com.jess.gdfp.Kennlinier_user;
 import com.jess.gdfp.R;
 
 import java.util.ArrayList;
@@ -40,7 +45,7 @@ public class BlankFragment extends Fragment {
     private RecyclerView listView2 ;
     private  ListView listView3;
     private  ListView listView4;
-    private ArrayList detail;
+    public static ArrayList detail;
     private ArrayList detail2;
     private ArrayList detail3;
     private ArrayList detail4;
@@ -50,9 +55,13 @@ public class BlankFragment extends Fragment {
     private FrameLayout frameLayout2;
     private FrameLayout frameLayout;
     static int zähler =1;
+    public static TextView tv;
+    public static ListView rv;
+    private static Button next;
+    private static Button previous;
 
+    private Intent intent;
 
-    private static int i =0;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -80,7 +89,6 @@ public class BlankFragment extends Fragment {
         return fragment;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +96,6 @@ public class BlankFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
@@ -97,228 +103,67 @@ public class BlankFragment extends Fragment {
                              Bundle savedInstanceState) {
        // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_kennline, container, false);
-        Button next =view.findViewById(R.id.next);
+        next = view.findViewById(R.id.next);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNext_perVios(v);
+                onNext_pervious(v);
             }
         });
-        Button previos =view.findViewById(R.id.previos);
-        previos.setOnClickListener(new View.OnClickListener() {
+
+        previous = view.findViewById(R.id.previous);
+        previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onNext_perVios(v);
+                onNext_pervious(v);
             }
         });
 
-      detail= intit_verfahren();
-         frameLayout4 =view.findViewById(R.id.fram4);
-        frameLayout4.setVisibility(View.INVISIBLE);
-       ListView rv0= view.findViewById(R.id.list_for_verfahren);
-rv0.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        rv = view.findViewById(R.id.listview_content);
+        tv = view.findViewById(R.id.listview_title);
+
+        rv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         /***************** JJ Code *************************/
-    }
-});
-        ArrayAdapter<String>adapter2= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail){
-            @NonNull
-            @Override
-            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view1 =super.getView(position,convertView,parent);
-
-
-
-                return  view1;
-            }
-        };
-        rv0.setAdapter(adapter2);
-
-        //*************************************************************************/
-        ListView rv = view.findViewById(R.id.list_for_matrial);
-        rv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /************** JJ *****************/
+                if(tv.getText().equals("DRAHTDURCHMESSER")){
+                    //Log.i("DRAHTDURCHMESSER","is here");
+                    GlobalVariable.DRAHTDURCHMESSER_MODE = position + 1;
+                    GlobalVariable.Drahtdurchmesser_Token = true;
+                }else if(tv.getText().equals("VERFAHREN")){
+                    //---------------------------------- Verfahren ---------------------------------
+                    //Log.i("VERFAHREN","is here");
+                    GlobalVariable.VERFAHREN_MODE = position + 1;
+                    GlobalVariable.Verfahren_Token = true;
+                }else if(tv.getText().equals("GAS")){
+                    //-------------------------------- GAS -----------------------------------------
+                    //Log.i("GAS","is here");
+                    GlobalVariable.GAS_MODE = position + 1;
+                    GlobalVariable.Gas_Token = true;
+                }else if(tv.getText().equals("WERKSTOFF")){
+                    //-------------------------- Werkstoff -----------------------------------------
+                    //Log.i("WERKSTOFF","is here");
+                    GlobalVariable.WERKSTOFF = position + 1;
+                    GlobalVariable.Kennlinie_Token = true;
+                }else if(tv.getText().equals("BETRIEBSART")){
+                //---------------------------- Betriebsart -----------------------------------------
+                    //Log.i("BETRIEBSART","is here");
+                    GlobalVariable.BETRIEBSART_MODE = position + 1;
+                    GlobalVariable.Betriebsart_Token = true;
+                }else if(tv.getText().equals("MENU")){
+                    //---------------------------- Menu -----------------------------------------
+                    //Log.i("MENU","is here");
+                    GlobalVariable.MENU_MODE = position;
+                    GlobalVariable.Menu_Token = true;
+                }else if(tv.getText().equals("SETTING")){
+                    //---------------------------- setting -----------------------------------------
+                    //Log.i("MENU","is here");
+                    //GlobalVariable.MENU_MODE = position + 1;
+                    //GlobalVariable.Menu_Token = true;
+                }
             }
         });
-       frameLayout3 =view.findViewById(R.id.fram2);
-        frameLayout3.setVisibility(View.INVISIBLE);
-        detail2=init_matrial();
-        ArrayAdapter<String>adapter1= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail2){
-            @NonNull
-            @Override
-            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view1 =super.getView(position,convertView,parent);
-
-               // cardView.setBackgroundResource(R.drawable.border2);
-
-               // view1.setBackgroundResource(R.drawable.border2);
-
-                return  view1;
-            }
-        };
-        rv.setAdapter(adapter1);
-        /*LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext() );
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
-        rv.setLayoutManager(mLayoutManager);
-        final KennlineAdapter_Matrial adapter_matrial=new KennlineAdapter_Matrial(detail2,rv);
-        rv.setAdapter(adapter_matrial);
-        adapter_matrial.notifyDataSetChanged();
-
-
-        *//*************************************************************************/
-        ListView rv1 = view.findViewById(R.id.list_for_Gas);
-        rv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /********* JJ Code *****************/
-            }
-        });
-        detail3= init_Gas();
-       frameLayout2 =view.findViewById(R.id.fram3);
-        frameLayout2.setVisibility(View.INVISIBLE);
-        ArrayAdapter<String>adapter4= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail3){
-            @NonNull
-            @Override
-            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                View view1 =super.getView(position,convertView,parent);
-
-
-
-
-
-                return  view1;
-            }
-        };
-        rv1.setAdapter(adapter4);
-        /*************************************************************************/
-
-
-
-
-      frameLayout =view.findViewById(R.id.fram1);
-        frameLayout.setVisibility(View.VISIBLE);
-       ListView rv2 = view.findViewById(R.id.list_for_kennline_durchmeeser);
-rv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        /********* JJ Code *****************/
-    }
-});
-        detail4= init_durchmesser();
-        LinearLayoutManager mLayoutManager2 = new LinearLayoutManager(getContext() );
-        mLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
-       // mLayoutManager2.setReverseLayout(true);
-        mLayoutManager2.setStackFromEnd(true);
-       // rv2.setLayoutManager(mLayoutManager2);
-        ArrayAdapter<String>adapter= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail4){
-            @NonNull
-            @Override
-            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-              View view1 =super.getView(position,convertView,parent);
-
-
-
-                return  view1;
-            }
-        };
-
-      //final KennlineAdapter_durchmesser adpater_durchmesser = new KennlineAdapter_durchmesser(detail4,rv2);
-        rv2.setAdapter(adapter);
-       // adpater_durchmesser.notifyDataSetChanged();
-
-        /*********************************************************************************/
-/*
-
-adapter_verfah.setOnLoadMoreListener(new OnloadMoreListener() {
-    @Override
-    public void onLoadMore() {
-        handler=new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for(int i=0;i<7;i++){
-                    detail.add(detail.get(i));
-                    adapter_verfah.notifyItemInserted(detail.size());
-                    adapter_verfah.notifyDataSetChanged();
-                }
-                adapter_verfah.setLoaded();
-            }
-        },200);
-    }
-});
-
-        adapter_matrial.setOnLoadMoreListener(new OnloadMoreListener() {
-         @Override
-         public void onLoadMore() {
-
-             handler =new Handler();
-             handler.postDelayed(new Runnable() {
-                 @Override
-                 public void run() {
-                     for (int i = 0; i < 10; i++) {
-
-                         detail2.add(detail2.get(i));
-                         adapter_matrial.notifyItemInserted(detail2.size());
-                         adapter_matrial.notifyDataSetChanged();
-                     }
-                       adapter_matrial.setLoaded();
-                 }
-
-             }, 500);
-         }
-     });
-adpater_gas.setOnLoadMoreListener(new OnloadMoreListener() {
-    @Override
-    public void onLoadMore() {
-        handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for(int i=0 ;i<19;i++){
-                    detail3.add(detail3.get(i));
-                    adpater_gas.notifyItemInserted(detail3.size());
-                    adpater_gas.notifyDataSetChanged();
-                }
-                adpater_gas.setLoaded();
-            }
-        },500);
-
-    }
-});
-adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
-    @Override
-    public void onLoadMore() {
-        handler=new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                for (int i=0;i<230;i++){
-                    detail4.add(detail4.get(i));
-                    adpater_durchmesser.notifyItemInserted(detail4.size());
-                    adpater_durchmesser.notifyDataSetChanged();
-                }
-                adpater_durchmesser.setLoaded();
-            }
-        },200);
-    }
-});
-
-*/
-
-       /* listView3=view.findViewById(R.id.listdrei);
-        detail3=init_durchmesser();
-        KennlineAdapter_Verfahren kennlineAdapter2 =new KennlineAdapter_Verfahren(getActivity(),detail3);
-        listView3.setAdapter(kennlineAdapter2);
-        listView4=view.findViewById(R.id.listvier);
-        detail4=init_Gas();
-        KennlineAdapter_Verfahren kennlineAdapter3=new KennlineAdapter_Verfahren(getActivity(),detail4);
-        listView4.setAdapter(kennlineAdapter3);*/
-                return view;
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -360,21 +205,17 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
         void onFragmentInteraction(Uri uri);
     }
 
- private  ArrayList intit_verfahren(){
-   ArrayList detail=new ArrayList();
-     detail.add(("MIG/MAG Normal"));
-     detail.add(("MIG/MAG synregy"));
-     detail.add(("PLUS"));
-     detail.add(("ElECTRODE"));
+ public static ArrayList init_verfahren(){
+   ArrayList detail = new ArrayList();
+     detail.add(("MIG/MAG NORMAL"));
+     detail.add(("MIG/MAG SYNERGIE"));
+     detail.add(("MIG/MAG PULS"));
+     detail.add(("ElEKTRODE"));
      detail.add(("WIG"));
-     detail.add(("WIG PULSEN"));
-     detail.add(("WIG SPEED"));
-
-
      return detail;
  }
- private  ArrayList init_matrial(){
-     ArrayList  detail2 = new ArrayList<>();
+ public static ArrayList init_werkstoff(){
+     ArrayList detail2 = new ArrayList<>();
      detail2.add(("Fe"));
      detail2.add(("Cr/Ni"));
      detail2.add(("AL/Mg"));
@@ -388,35 +229,37 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
      return detail2;
  }
 
- private  ArrayList init_durchmesser(){
-        ArrayList  detail3 = new ArrayList<>();
-     /*detail3.add("0.8");
-    double count= 9;
-     for (int i=1;i<153;i++){
-      detail3.add(Double.toString(count/10));
-      //System.out.println(count);
-         count =  count + 1;
-     }*/
-     detail3.add(("NONE"));
+ public static ArrayList init_durchmesser(){
+     ArrayList  detail3 = new ArrayList<>();
      detail3.add(("0,6 mm"));
      detail3.add(("0,8 mm"));
      detail3.add(("0,9 mm"));
      detail3.add(("1,0 mm"));
+     detail3.add(("1,2 mm"));
      detail3.add(("1,4 mm"));
      detail3.add(("1,6 mm"));
      detail3.add(("2,0 mm"));
      detail3.add(("2,4 mm"));
      detail3.add(("Spezial"));
-
      return detail3;
  }
- private  ArrayList init_Gas(){
-     ArrayList  detail4 = new ArrayList<>();
-     detail4.add(("82%AR / 18%CO"));
+
+    public static ArrayList init_Betriebsart(){
+        ArrayList detail3 = new ArrayList<>();
+        detail3.add(("2-TAKT"));
+        detail3.add(("4-TAKT"));
+        detail3.add(("4-TAKT SONDER"));
+        detail3.add(("PUNKTEN"));
+        return detail3;
+    }
+
+ public static ArrayList init_Gas(){
+     ArrayList detail4 = new ArrayList<>();
+     //detail4.add(("82%AR / 18%CO"));
      detail4.add(("98%AR / 2%CO"));
      detail4.add(("100%AR"));
      detail4.add(("100%CO"));
-     detail4.add(("92%AR / 8%CO"));
+     /*detail4.add(("92%AR / 8%CO"));
      detail4.add(("99%AR / 1%O2"));
      detail4.add(("98%AR / 2%O2"));
      detail4.add(("97%AR / 3%O2"));
@@ -430,88 +273,88 @@ adpater_durchmesser.setOnLoadMoreListener(new OnloadMoreListener() {
      detail4.add(("94Ar / 6%H2"));
      detail4.add(("50Ar / 50%H2"));
      detail4.add(("30Ar / 70%H2"));
-     detail4.add(("Spezial"));
+     detail4.add(("Spezial"));*/
      return detail4;
  }
- public void onNext_perVios(View  view){
 
+    public static ArrayList init_Menu(){
+        ArrayList detail3 = new ArrayList<>();
+        detail3.add(("JOBS"));
+        detail3.add(("DATENLOGGER"));
+        detail3.add(("KENNLINIE"));
+        detail3.add(("GUIDE"));
+        return detail3;
+    }
+
+    public static ArrayList init_Setting(){
+        ArrayList detail3 = new ArrayList<>();
+        detail3.add(("DATE"));
+        detail3.add(("TIME"));
+        detail3.add(("DISPLAY"));
+        detail3.add(("LANGUAGE"));
+        return detail3;
+    }
+
+ public void onNext_pervious(View  view){
 
 if( view.getId() == R.id.next) {
-
-    System.out.println(zähler);
-
-    zähler++;
-    if (zähler > 4)
-        zähler=4;
-        if (zähler <= 4) {
-            switch (zähler) {
-                case 1:
-                    Visi_Invisi(1);
-                    break;
-                case 2:
-                    Visi_Invisi(2);
-                    break;
-                case 3:
-                    Visi_Invisi(3);
-                    break;
-                case 4:
-                    Visi_Invisi(4);
-                    break;
-            }
-
-        }
+    if ((tv.getText().equals("VERFAHREN"))) {
+        tv.setText("WERKSTOFF");
+        detail = init_werkstoff();
+    }else if ((tv.getText().equals("WERKSTOFF"))){
+        tv.setText("DRAHTDURCHMESSER");
+        detail = init_durchmesser();
+    } else if ((tv.getText().equals("DRAHTDURCHMESSER"))){
+        tv.setText("BETRIEBSART");
+        detail = init_Betriebsart();
+    }else if ((tv.getText().equals("BETRIEBSART"))){
+        tv.setText("GAS");
+        detail = init_Gas();
+    }else if ((tv.getText().equals("GAS"))){
+        tv.setText("VERFAHREN");
+        detail = init_verfahren();
+    }
+    CreateAdapter();
     }
 
-if(view.getId()==R.id.previos) {
-    zähler--;
-    if(zähler<0)
-        zähler=1;
-    if (zähler > 0) {
-
-        switch (zähler) {
-            case 1:
-                Visi_Invisi(1);
-                break;
-            case 2:
-                Visi_Invisi(2);
-                break;
-            case 3:
-                Visi_Invisi(3);
-                break;
-            case 4:
-                Visi_Invisi(4);
-                break;
-        }
-
+if(view.getId()==R.id.previous) {
+    if ((tv.getText().equals("VERFAHREN"))) {
+        tv.setText("GAS");
+        detail = init_Gas();
+    }else if ((tv.getText().equals("GAS"))){
+        tv.setText("BETRIEBSART");
+        detail = init_Betriebsart();
+    }else if ((tv.getText().equals("BETRIEBSART"))){
+        tv.setText("DRAHTDURCHMESSER");
+        detail = init_durchmesser();
+    }else if ((tv.getText().equals("DRAHTDURCHMESSER"))){
+        tv.setText("WERKSTOFF");
+        detail = init_werkstoff();
+    }else if ((tv.getText().equals("WERKSTOFF"))){
+        tv.setText("VERFAHREN");
+        detail = init_verfahren();
     }
+    CreateAdapter();
 }
+    }
+
+ public void CreateAdapter(){
+     ArrayAdapter<String>adapter2= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail){
+         @NonNull
+         @Override
+         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+             View view1 =super.getView(position,convertView,parent);
+             return  view1;
+         }
+     };
+     rv.setAdapter(adapter2);
  }
- public void Visi_Invisi (int index){
-        switch(index){
-            case 1:
-                frameLayout2.setVisibility(View.INVISIBLE);
-                frameLayout3.setVisibility(View.INVISIBLE);
-                frameLayout.setVisibility(View.VISIBLE);
-                frameLayout4.setVisibility(View.INVISIBLE);
-                break;
-            case 2:
-                frameLayout2.setVisibility(View.VISIBLE);
-                frameLayout3.setVisibility(View.INVISIBLE);
-                frameLayout.setVisibility(View.INVISIBLE);
-                frameLayout4.setVisibility(View.INVISIBLE);
-                break;
-            case 3:
-                frameLayout2.setVisibility(View.INVISIBLE);
-                frameLayout3.setVisibility(View.VISIBLE);
-                frameLayout.setVisibility(View.INVISIBLE);
-                frameLayout4.setVisibility(View.INVISIBLE);
-                break;
-            case 4:
-                frameLayout2.setVisibility(View.INVISIBLE);
-                frameLayout3.setVisibility(View.INVISIBLE);
-                frameLayout.setVisibility(View.INVISIBLE);
-                frameLayout4.setVisibility(View.VISIBLE);
-                break;
-        }
+
+ public static void setButtonInvisible(){
+     next.setVisibility(View.INVISIBLE);
+     previous.setVisibility(View.INVISIBLE);
  }
+
+
+
 }

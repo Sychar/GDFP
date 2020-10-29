@@ -22,7 +22,6 @@ public class JobsUser extends AppCompatActivity {
     public static int JOB_POINTER;
     private static jobAdapter myjobAdapte;
     private static ListView rv;
-    private Button back;
 
     @Override
 
@@ -50,12 +49,11 @@ public class JobsUser extends AppCompatActivity {
 
     //------------------------- goes into activity_jobs_details.xml --------------------------------
     public void jobuser(View view) {
-//    public void jobuser() {
         intent = new Intent(this, JobsDetails.class);
         startActivity(intent);
     }
-    public  void exit(View view){
-        intent=new Intent(this,Setting.class);
+    public void exit(View view){
+        intent = new Intent(this,Setting.class);
         startActivity(intent);
         this.fileList();
     }

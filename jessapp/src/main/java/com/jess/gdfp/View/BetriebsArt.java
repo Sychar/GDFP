@@ -12,12 +12,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.R;
 import com.jess.gdfp.WeldingProcess;
+import java.lang.*;
+
+import java.util.ArrayList;
 
 
 /**
@@ -72,14 +75,10 @@ public class BetriebsArt extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_betriebs_art, container, false);
-        ListView listView = view.findViewById(R.id.list_for_betriebsart);
-
-        //String[] betriebsArt = {"NONE","2-Takt","4-Takt","4-Takt Sonder","Programm","Punkten","Intervall","Extern","2-Takt + HF"
-        //        ,"4-Takt + HF"};
+        android.widget.ListView listView = view.findViewById(R.id.list_for_betriebsart);
 
         String[] betriebsArt = {"2-TAKT","4-TAKT","4-TAKT SONDER","PUNKTEN"};
 
@@ -110,13 +109,11 @@ public class BetriebsArt extends Fragment {
                     case 3: WeldingProcess.BETRIEBSART = 5;//Punkten
                         break;
                 }
-
             }
         });
         listView.setAdapter(adapter1);
         return  view;
     }
-
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -156,5 +153,7 @@ public class BetriebsArt extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }
 

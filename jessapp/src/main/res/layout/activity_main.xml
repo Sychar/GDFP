@@ -20,66 +20,66 @@
         <TextView
             android:id="@+id/date2"
             android:layout_width="match_parent"
-            android:layout_height="126dp"
+            android:layout_height="75dp"
             android:background="@drawable/border2"
-            android:paddingTop="50dp"
-            android:paddingLeft="5dp"
+            android:padding="20dp"
             android:text="Datum"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="14sp"></TextView>
+            android:textSize="24sp"></TextView>
 
         <Button
 
+            android:id="@+id/methode_button"
             style="@style/genralstyle"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:background="@drawable/border2"
             android:drawableTop="@drawable/verharen1"
             android:paddingTop="12dp"
-            android:id="@+id/button_menu"
-            android:layout_width="120dp"
-            android:layout_height="124dp"
-            android:background="@drawable/border2"
-            android:text="verfahen"
+            android:text="METHODE"
+            android:textSize="20sp"
             android:textColor="@android:color/white">
 
         </Button>
         <!-- kennlinie Button -->
         <Button
+            android:id="@+id/geberge"
+            style="@style/genralstyle"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:background="@drawable/border2"
             android:drawableTop="@drawable/kenn"
             android:paddingTop="12dp"
-            style="@style/genralstyle"
-            android:id="@+id/kenn"
-            android:layout_width="120dp"
-            android:layout_height="124dp"
-            android:background="@drawable/border2"
-            android:text="Kennlinie"
+            android:text="GEBERGE"
+            android:textSize="20sp"
             android:textColor="@android:color/white">
 
         </Button>
         <!-- BetriebsArt Button -->
         <Button
-            android:paddingTop="12dp"
-            style="@style/genralstyle"
-            android:drawableTop="@drawable/betriebsart"
-            android:id="@+id/Betribsart"
-            android:layout_width="120dp"
-            android:layout_height="125dp"
             android:background="@drawable/border2"
-            android:text="BetribsART"
-            android:textColor="@android:color/white">
-
-        </Button>
-        <ImageButton
-            android:src="@drawable/menuf"
+            android:paddingTop="12dp"
+            android:drawableTop="@drawable/disk"
             style="@style/genralstyle"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="JOB"
+            android:id="@+id/job_btn"
+            android:textColor="@android:color/white"
+            android:textSize="20sp">
+        </Button>
 
-            android:id="@+id/setting"
+        <Button
+            style="@style/genralstyle"
             android:textSize="17dp"
             android:textColor="@android:color/white"
             android:layout_width="120dp"
-            android:layout_height="125dp"
+            android:layout_height="70dp"
             android:background="@drawable/border2">
-
-        </ImageButton>
+        </Button>
 
     </LinearLayout>
 
@@ -95,7 +95,7 @@
         <TextView
             style="@style/genralstyle"
             android:id="@+id/anzeige1"
-            android:layout_width="260dp"
+            android:layout_width="220dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
             android:gravity="center"
@@ -119,21 +119,9 @@
             android:background="@drawable/border2">
 
         </TextView>
-        <TextView
-            style="@style/genralstyle"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textSize="25sp"
-            android:id="@+id/anzeige3"
-            android:text="Anzeige2"
-            android:textColor="@android:color/white"
-            android:layout_width="110dp"
-            android:layout_height="74dp"
-            android:background="@drawable/border2">
 
-        </TextView>
         <TextView
-            android:id="@+id/anzeige4"
+            android:id="@+id/anzeige3"
             style="@style/genralstyle"
             android:layout_width="110dp"
             android:layout_height="74dp"
@@ -147,21 +135,33 @@
         </TextView>
 
         <TextView
-            android:id="@+id/anzeige5"
+            android:id="@+id/anzeige4"
             style="@style/genralstyle"
-            android:layout_width="270dp"
+            android:layout_width="110dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
             android:gravity="center"
             android:text="Anzeige4"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="25sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/anzeige5"
+            style="@style/genralstyle"
+            android:layout_width="310dp"
+            android:layout_height="74dp"
+            android:background="@drawable/border2"
+            android:gravity="center"
+            android:text="Anzeige5"
             android:textColor="@android:color/white"
             android:textSize="24sp">
 
         </TextView>
 
     </LinearLayout>
-
-
 
     <fragment
         android:id="@+id/fragment_test"
@@ -171,18 +171,17 @@
         tools:layout="@layout/fragment_kennline"
         class="com.jess.gdfp.View.BlankFragment"
         android:layout_toRightOf="@id/linke_layout">
-
-
     </fragment>
+
     <fragment
         android:id="@+id/frgment_Betriebsart"
-
         android:layout_width="745dp"
         android:layout_height="match_parent"
         android:layout_below="@id/obere_layout"
         tools:layout="@layout/fragment_betriebs_art"
         class="com.jess.gdfp.View.BetriebsArt"
         android:layout_toRightOf="@+id/linke_layout"></fragment>
+
     <FrameLayout
 
         android:id="@+id/framelayout"
@@ -274,6 +273,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/border2"
                         android:gravity="center"
+                        android:layout_marginTop="12dp"
                         android:textSize="25sp"
                         android:text="WIG"
                         android:textColor="#ffff"></Button>
@@ -432,91 +432,88 @@
 
     <LinearLayout
         android:id="@+id/rechte_layout"
-        android:layout_width="103dp"
+        android:layout_width="120dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="0dp"
         android:layout_toLeftOf="@id/untere_layout"
         android:orientation="vertical">
 
-        <Button
+        <TextView
 
-            style="@style/genralstyle"
             android:id="@+id/date"
+            style="@style/genralstyle"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="75dp"
             android:background="@drawable/border2"
             android:padding="20dp"
             android:text=""
+            android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="14sp"></Button>
+            android:textSize="24sp"></TextView>
         <!-- verfaheren Button -->
         <Button
             android:paddingTop="12dp"
-            android:drawableTop="@drawable/standby"
+            android:drawableTop="@drawable/home2"
             style="@style/genralstyle"
-            android:id="@+id/testbutton"
+            android:id="@+id/home"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
+            android:layout_height="160dp"
             android:textColor="@android:color/white"
             android:background="@drawable/border2"
-            android:text="OFF">
+            android:text="HOME"
+            android:textSize="20sp">
 
         </Button>
-
 
         <!-- kennlinie Button -->
 
         <!-- Droosel Button -->
-        <ImageButton
-            android:src="@drawable/home2"
-            style="@style/genralstyle"
-            android:layout_width="match_parent"
-            android:layout_height="125dp"
-            android:id="@+id/backhome"
-            android:text="Home"
-            android:textColor="@android:color/white"
-            android:textSize="17sp"
-            android:background="@drawable/border2">
-        </ImageButton>
+<!--        <ImageButton-->
+<!--            android:src="@drawable/home2"-->
+<!--            style="@style/genralstyle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="125dp"-->
+<!--            android:id="@+id/gas"-->
+<!--            android:text="GAS"-->
+<!--            android:textColor="@android:color/white"-->
+<!--            android:textSize="17sp"-->
+<!--            android:background="@drawable/border2">-->
+<!--        </ImageButton>-->
 
         <Button
-            android:paddingTop="12dp"
-            android:drawableTop="@drawable/droessel"
+            android:drawableTop="@drawable/menuf"
+            android:src="@drawable/menuf"
             style="@style/genralstyle"
-            android:id="@+id/drossel"
-            android:layout_width="match_parent"
-            android:layout_height="125dp"
-            android:background="@drawable/border2"
-            android:text="Drossel"
+            android:id="@+id/menu_btn"
             android:textColor="@android:color/white"
-            android:textSize="17sp">
-
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:background="@drawable/border2"
+            android:text="MENU"
+            android:textSize="20sp">
         </Button>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="125dp"
+        <Button
+            android:id="@+id/setting_btn"
+            android:drawableTop="@drawable/betriebsart"
+            style="@style/genralstyle"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
             android:background="@drawable/border2"
-            android:orientation="vertical">
+            android:paddingTop="12dp"
+            android:text="SETTING"
+            android:textSize="20sp"
+            android:textColor="@android:color/white">
+        </Button>
 
-            <Button
-                android:paddingTop="12dp"
-                android:drawableTop="@drawable/disk"
-                android:background="#80000000"
-                style="@style/genralstyle"
-                android:layout_width="match_parent"
-                android:layout_height="125dp"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:text="JOB"
-                android:id="@+id/job_btn"
-                android:textColor="@android:color/white"
-                android:textSize="20sp">
-            </Button>
-
-
-        </LinearLayout>
+        <Button
+            style="@style/genralstyle"
+            android:textSize="17dp"
+            android:textColor="@android:color/white"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:background="@drawable/border2">
+        </Button>
 
     </LinearLayout>
 
@@ -530,57 +527,49 @@
         android:layout_toRightOf="@+id/circleButton"
         android:layout_below="@+id/obere_layout">
         <LinearLayout
-
             android:layout_width="500dp"
             android:layout_height="60dp"
             android:orientation="horizontal">
 
-
             <TextView
-                style="@style/genralstyle"
                 android:id="@+id/korrektur"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:textAlignment="center"
-                android:background="@drawable/border2"
-                android:text="Korrektur"
-                android:textColor="@android:color/white"
-                android:layout_width="155dp"
-                android:layout_height="60dp">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/Mm"
                 style="@style/genralstyle"
                 android:layout_width="155dp"
                 android:layout_height="60dp"
                 android:background="@drawable/border2"
                 android:gravity="center"
-                android:text="Ampere"
+                android:text="KorrLB"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="30sp">
+                android:textSize="30sp"></TextView>
 
-            </TextView>
+            <TextView
+                android:id="@+id/mmin"
+                style="@style/genralstyle"
+                android:layout_width="155dp"
+                android:layout_height="60dp"
+                android:background="@drawable/border2"
+                android:gravity="center"
+                android:text="m/min"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="30sp"></TextView>
 
             <TextView
                 android:id="@+id/strom"
                 style="@style/genralstyle"
-                android:layout_width="151dp"
-                android:layout_height="match_parent"
+                android:layout_width="155dp"
+                android:layout_height="60dp"
                 android:background="@drawable/border2"
                 android:gravity="center"
                 android:text="Voltage"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="30sp">
-
             </TextView>
         </LinearLayout>
 
         <LinearLayout
-
             android:layout_width="490dp"
             android:layout_height="190dp"
             android:orientation="horizontal">
@@ -594,17 +583,15 @@
                 android:textColor="@android:color/white"
                 android:textSize="40sp"></Button>
 
-
             <Button
                 style="@style/genralstyle"
-                android:id="@+id/btn_strom"
+                android:id="@+id/btn_mmin"
                 android:layout_width="155dp"
                 android:layout_height="90dp"
                 android:background="@drawable/border2"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
                 android:textSize="40sp"></Button>
-
 
             <Button
                 style="@style/genralstyle"
@@ -613,58 +600,71 @@
                 android:layout_height="90dp"
                 android:textColor="@android:color/white"
                 android:textSize="40sp"
-                android:background="@drawable/border2"></Button>
-
-
+                android:background="@drawable/border2"
+                ></Button>
         </LinearLayout>
-
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/drossel_layout"
+        android:layout_width="492dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="290dp"
+        android:orientation="vertical"
+        android:layout_toRightOf="@+id/circleButton">
+
+    <TextView
+        android:id="@+id/drossel_value"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="150dp"
+        android:gravity="center"
+        android:text="DROSSEL [-30]"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="24sp">
+    </TextView>
 
     <LinearLayout
         android:id="@+id/progressBar_layout"
         android:layout_width="492dp"
         android:layout_height="100dp"
         android:layout_below="@+id/zweitelayout"
-        android:layout_marginTop="30dp"
         android:layout_toRightOf="@+id/circleButton"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/minus"
-            android:layout_width="90dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:onClick="onpressed_Minus_plus"
-            android:text="-- Weich"
-            android:textSize="20sp"></Button>
+            android:text="+"
+            android:textSize="35sp"></Button>
 
         <ProgressBar
             android:id="@+id/progress"
             style="@style/progress"
             android:layout_width="150dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="false"
             android:layout_centerVertical="false"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:max="100"
             android:minHeight="30dip"
             android:progress="30"
             android:scaleX="-1" />
 
-
         <ProgressBar
-
             android:id="@+id/progress1"
             style="@style/progress"
             android:layout_width="150dp"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_centerHorizontal="false"
             android:layout_centerVertical="false"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:max="100"
             android:minHeight="30dip"
             android:progress="30" />
-
-
         <!--     <ProgressBar
                  android:layout_marginTop="10dp"
                  android:layout_marginLeft="10dp"
@@ -678,24 +678,21 @@
                  android:progress="40"/>-->
         <Button
             android:id="@+id/plus"
-            android:layout_width="90dp"
+            android:layout_width="80dp"
             android:layout_height="80dp"
             android:onClick="onpressed_Minus_plus"
-            android:text="+ hart"
+            android:text="-"
             android:textAlignment="center"
-            android:textSize="20sp"></Button>
-
+            android:textSize="35sp"></Button>
 
     </LinearLayout>
 
     <LinearLayout
-
         android:id="@+id/hold_layout"
         android:layout_width="350dp"
         android:layout_height="180dp"
         android:layout_above="@id/untere_layout"
-        android:layout_below="@+id/progressBar_layout"
-        android:layout_marginRight="80dp"
+        android:layout_marginLeft="50dp"
         android:layout_marginBottom="40dp"
         android:layout_toLeftOf="@id/rechte_layout"
         android:orientation="vertical">
@@ -708,9 +705,8 @@
             android:text="Hold"
             android:textAlignment="center"
             android:textColor="#FFC200"
-            android:textSize="40sp"
+            android:textSize="30sp"
             android:textStyle="bold">
-
         </TextView>
 
         <LinearLayout
@@ -741,6 +737,7 @@
             </TextView>
         </LinearLayout>
 
+    </LinearLayout>
     </LinearLayout>
 
 

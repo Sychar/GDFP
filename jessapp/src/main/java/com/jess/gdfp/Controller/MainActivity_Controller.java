@@ -12,12 +12,9 @@ import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.R;
 import com.jess.gdfp.MainActivity;
 
-
 public class MainActivity_Controller extends AppCompatActivity {
 Intent intent;
 MainActivity mainActivity;
-
-
 
 public MainActivity_Controller(MainActivity mainActivity){
 this.mainActivity=mainActivity;
@@ -76,9 +73,9 @@ public  void minus_plus_interagieren(ProgressBar progressBar_minus ,ProgressBar 
             temp = s;
             cheack = false;
         }
-        if (id == R.id.btn_strom) {
+        if (id == R.id.btn_mmin) {
 
-            TextView textView = findViewById(R.id.Mm);
+            TextView textView = findViewById(R.id.mmin);
             String s = textView.getText().toString();
             String s1 = btn.getText().toString();
 

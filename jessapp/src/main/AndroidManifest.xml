@@ -3,9 +3,14 @@
     package="com.jess.gdfp"
     android:versionCode="10000"
     android:versionName="1.0.0">
+<!--    android:sharedUserId="android.uid.system">-->
     <!-- <uses-sdk android:targetSdkVersion="19" /> -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SET_TIME_ZONE" />
+    <!-- Allows applications to set the system time -->
+    <uses-permission android:name="android.permission.SET_TIME"
+        android:protectionLevel="signature|system" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- <uses-permission android:name= "android.permission.CALL_PHONE" /> -->
     <!-- If your app targets Android 9 or lower, you can declareACCESS_COARSE_LOCATION instead. -->

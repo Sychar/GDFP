@@ -5,12 +5,12 @@ import android.util.Log;
 import java.io.IOException;
 import java.nio.charset.Charset;
 
+import static com.jess.gdfp.MainActivity.PARSE_TOKEN;
 import static com.jess.gdfp.UartService.mOutputStream;
 
 public class DatenObjekte {
 
     private final static String TAG = DatenObjekte.class.getSimpleName(); //name of this class
-
     private static String HexData = "";
     private HeartBeat mHeartBeat;
     public static byte[] DO_FRAME = new byte[250];
@@ -250,150 +250,6 @@ public class DatenObjekte {
 
     private static Charset iso88591charset = Charset.forName("ISO-8859-1");
 
-    /*public static void VerfahrenParam(int number) {
-        switch (number) {
-            case 0:
-                GlobalVariable.Verfahren = "NONE";
-                break;
-            case 1:
-                GlobalVariable.Verfahren = "MAG_Normal";
-                break;
-            case 2:
-                GlobalVariable.Verfahren = "MAG-Synergie";
-                break;
-            case 3:
-                GlobalVariable.Verfahren = "MAG Puls";
-                break;
-            case 4:
-                GlobalVariable.Verfahren = "Elektrode";
-                break;
-            case 5:
-                GlobalVariable.Verfahren = "WIG";
-                break;
-            case 6:
-                GlobalVariable.Verfahren = "WIG-Puls";
-                break;
-            case 7:
-                GlobalVariable.Verfahren = "WIG-Speed-Puls";
-                break;
-            case 8:
-                GlobalVariable.Verfahren = "WIG-Speed_Puls + Puls";
-                break;
-            case 9:
-                GlobalVariable.Verfahren = "HC_MAG";
-                break;
-            default:
-                GlobalVariable.Verfahren = "Error";
-                break;
-        }
-    }*/
-
-    /*public static void GasParam(int number) {
-        switch (number) {
-            case 0:
-                GlobalVariable.Gas = "82% Argon 18% CO2";
-                break;
-            case 1:
-                GlobalVariable.Gas = "98% Argon 2% CO2";
-                break;
-            case 2:
-                GlobalVariable.Gas = "100% Argon";
-                break;
-            case 3:
-                GlobalVariable.Gas = "100% CO2";
-                break;
-            case 4:
-                GlobalVariable.Gas = "92% Argon 8% CO2";
-                break;
-            case 5:
-                GlobalVariable.Gas = "99% Argon 1% O2";
-                break;
-            case 6:
-                GlobalVariable.Gas = "98% Argon 2% O2";
-                break;
-            case 7:
-                GlobalVariable.Gas = "97% Argon 3% O2";
-                break;
-            case 8:
-                GlobalVariable.Gas = "92% Argon 8% O2";
-                break;
-            case 9:
-                GlobalVariable.Gas = "90% Argon 5% O2 5% CO2";
-                break;
-            case 10:
-                GlobalVariable.Gas = "100% Helium";
-                break;
-            case 11:
-                GlobalVariable.Gas = "80% Argon 20% He";
-                break;
-            case 12:
-                GlobalVariable.Gas = "69% Argon 30% He 1% O2";
-                break;
-            case 13:
-                GlobalVariable.Gas = "50% Argon 50% Helium";
-                break;
-            case 14:
-                GlobalVariable.Gas = "98% Argon 2% H2";
-                break;
-            case 15:
-                GlobalVariable.Gas = "94% Argon 6% H2";
-                break;
-            case 16:
-                GlobalVariable.Gas = "50% Argon 50% H2";
-                break;
-            case 17:
-                GlobalVariable.Gas = "30% Argon 70% H2";
-                break;
-            case 18:
-                GlobalVariable.Gas = "Spezial";
-                break;
-            default:
-                GlobalVariable.Gas = "Error";
-                break;
-        }
-    }*/
-
-    /*public static void WerkstoffParam(int number) {
-        switch (number) {
-            case 0:
-                GlobalVariable.Werkstoff = "NONE";
-                break;
-            case 1:
-                GlobalVariable.Werkstoff = "Fe";
-                break;
-            case 2:
-                GlobalVariable.Werkstoff = "CrNi";
-                break;
-            case 3:
-                GlobalVariable.Werkstoff = "AlMg";
-                break;
-            case 4:
-                GlobalVariable.Werkstoff = "AlSi";
-                break;
-            case 5:
-                GlobalVariable.Werkstoff = "CuSi";
-                break;
-            case 6:
-                GlobalVariable.Werkstoff = "AlMg3";
-                break;
-            case 7:
-                GlobalVariable.Werkstoff = "AlMg5";
-                break;
-            case 8:
-                GlobalVariable.Werkstoff = "AlMg4,5Mn";
-                break;
-            case 9:
-                GlobalVariable.Werkstoff = "AlBz";
-                break;
-            case 10:
-                GlobalVariable.Werkstoff = "Spezial";
-                break;
-            default:
-                GlobalVariable.Werkstoff = "Error";
-                break;
-        }
-    }*/
-
     public static void callme(String msgReceiver) {//msgReceiver is in hex String
 
         char pos_7 = msgReceiver.charAt(6);
@@ -479,181 +335,106 @@ public class DatenObjekte {
                     }
                     System.out.println("Kenn response : " + y);*/
                 }
-            } else if (MainActivity.PARSE_TOKEN) {
+            } else if (PARSE_TOKEN) {
                 //Log.i("PARSE_TOKEN","Datenobjekte");
                 if (gethex.equals("3232")) {
                     GlobalVariable.SV1pos1 = (int) DO_FRAME[6];//pos 1 Verfahren
                     GlobalVariable.VERFAHREN_VAL = (int) DO_FRAME[6];//pos 1
                     //Log.i("Verfahren",String.valueOf(GlobalVariable.SV1pos1));
-                    //VerfahrenParam(GlobalVariable.SV1pos1);
 
                     GlobalVariable.SV1pos2 = (int) DO_FRAME[7];//pos 2 Betriebsart
-                    /*switch (GlobalVariable.SV1pos2) {
-                        case 0:
-                            GlobalVariable.Betriebsart = "NONE";
-                            break;
-                        case 1:
-                            GlobalVariable.Betriebsart = "2-Takt";
-                            break;
-                        case 2:
-                            GlobalVariable.Betriebsart = "4-Takt";
-                            break;
-                        case 3:
-                            GlobalVariable.Betriebsart = "4-Takt Sonder";
-                            break;
-                        case 4:
-                            GlobalVariable.Betriebsart = "Programm";
-                            break;
-                        case 5:
-                            GlobalVariable.Betriebsart = "Punkten";
-                            break;
-                        case 6:
-                            GlobalVariable.Betriebsart = "Intervall";
-                            break;
-                        case 7:
-                            GlobalVariable.Betriebsart = "Extern";
-                            break;
-                        case 8:
-                            GlobalVariable.Betriebsart = "2-Takt + HF";
-                            break;
-                        case 9:
-                            GlobalVariable.Betriebsart = "4-Takt + HF";
-                            break;
-                        default:
-                            GlobalVariable.Betriebsart = "Error";
-                            break;
-                    }*/
-
                     GlobalVariable.Drahtdurchmesser = (int) DO_FRAME[8];//pos 3 Drahtdurchmesser
                     mm_display = GlobalVariable.Drahtdurchmesser;
 
                     GlobalVariable.SV1pos4 = (int) DO_FRAME[9];//pos 4 Gas
                     //Log.i("GlobalVariable.SV1pos4",String.valueOf(GlobalVariable.SV1pos4));
-                    //GasParam(GlobalVariable.SV1pos4);
 
                     GlobalVariable.SV1pos5 = (int) DO_FRAME[10];//pos 5 Werkstoff
                     //Log.i("GlobalVariable.SV1pos5",String.valueOf(GlobalVariable.SV1pos5));
-                    //WerkstoffParam(GlobalVariable.SV1pos5);
 
                     GlobalVariable.SV1pos6 = (int) DO_FRAME[11];//pos 6 Reglertyp
                     //Log.i("GlobalVariable.SV1pos6",String.valueOf(GlobalVariable.SV1pos6));
                     switch (GlobalVariable.SV1pos6) {
                         case 0:
-                            Reglertyp = "U/I - Regler ohne Lichtbogen-Regler";
+                            GlobalVariable.Reglertyp = "U/I - Regler ohne Lichtbogen-Regler";
                             break;
                         case 1:
-                            Reglertyp = "I/I - Regler ohne Lichtbogen-Regler";
+                            GlobalVariable.Reglertyp = "I/I - Regler ohne Lichtbogen-Regler";
                             break;
                         case 2:
-                            Reglertyp = "U/I - Regler mit Lichtbogen-Regler";
+                            GlobalVariable.Reglertyp = "U/I - Regler mit Lichtbogen-Regler";
                             break;
                         case 3:
-                            Reglertyp = "I/I - Regler mit Lichtbogen-Regler";
+                            GlobalVariable.Reglertyp = "I/I - Regler mit Lichtbogen-Regler";
                             break;
                         default:
-                            Reglertyp = "Error";
+                            GlobalVariable.Reglertyp = "Error";
                             break;
                     }
                     int result = (int) DO_FRAME[12];//pos 7 Status MSR
-                    //System.out.println("StatusMSR  "+result);
-
-                    if ((result & 0x01) == 1) {
-                        StatusMSR = "Schweißen Ein";
-                    }
+                    if ((result & 0x01) == 1) GlobalVariable.StatusMSR = "Schweißen Ein";
 
                     result = result >>> 1;//shift first time
 
-                    if ((result & 1) == 0) {
-                        StatusMSR = "akt. Koffer 1";
-                    } else {
-                        StatusMSR = "akt. Koffer 2";
-                    }
+                    if ((result & 1) == 0) GlobalVariable.StatusMSR = "akt. Koffer 1";
+                    else GlobalVariable.StatusMSR = "akt. Koffer 2";
 
                     result = result >>> 1;//shift second time
 
-                    if ((result & 1) == 0) {
-                        StatusMSR = "Synergie Ein";
-                    } else {
-                        StatusMSR = "Synergie Aus";
-                    }
+                    if ((result & 1) == 0) GlobalVariable.StatusMSR = "Synergie Ein";
+                    else GlobalVariable.StatusMSR = "Synergie Aus";
 
                     result = result >>> 1;//shift third time
 
-                    if ((result & 1) == 1) {
-                        StatusMSR = "Einfädeln Vor";
-                    }
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Einfädeln Vor";
 
                     result = result >>> 1;//shift fourth time
 
-                    if ((result & 1) == 1) {
-                        StatusMSR = "Kühlen";
-                    }
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Kühlen";
 
                     result = result >>> 1;//shift fifth time
 
-                    if ((result & 1) == 1) {
-                        StatusMSR = "Einfädeln Zurück";
-                    }
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Einfädeln Zurück";
 
                     result = result >>> 1;//shift sixth time
 
-                    if ((result & 1) == 1) {
-                        StatusMSR = "Gas-Test";
-                    }
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Gas-Test";
 
                     result = result >>> 1;//shift seventh time
 
-                    if ((result & 1) == 1) {
-                        StatusMSR = "Tastenklick Ein";
-                    }
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Tastenklick Ein";
 
                     int iSFLG = (int) DO_FRAME[13];//pos 8 Status FLG
 
-                    if ((iSFLG & 1) == 1) {
-                        StatusFLG = "FLG im Gebirge-Mode";
-                    }
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "FLG im Gebirge-Mode";
 
                     iSFLG = iSFLG >>> 1;//shift first time
 
-                    if ((iSFLG & 1) == 1) {
-                        StatusFLG = "FLG mit Gebirge";
-                    }
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "FLG mit Gebirge";
 
                     iSFLG = iSFLG >>> 1;//shift second time
 
-                    if ((iSFLG & 1) == 1) {
-                        StatusFLG = "Zünden Aus";
-                    }
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Zünden Aus";
 
                     iSFLG = iSFLG >>> 1;//shift third time
 
-                    if ((iSFLG & 1) == 1) {
-                        StatusFLG = "Rückzugs-Zündung Aus";
-                    }
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Rückzugs-Zündung Aus";
 
                     iSFLG = iSFLG >>> 1;//shift fourth time
 
-                    if ((iSFLG & 1) == 1) {
-                        StatusFLG = "Endpuls Aus";
-                    }
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Endpuls Aus";
 
                     iSFLG = iSFLG >>> 1;//shift fifth time
 
-                    if ((iSFLG & 1) == 1) {
-                        StatusFLG = "Locking-Edit_Mode";
-                    }
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Locking-Edit_Mode";
 
                     iSFLG = iSFLG >>> 1;//shift sixth time
 
-                    if ((iSFLG & 1) == 1) {
-                        StatusFLG = "Wasser fließt";
-                    }
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Wasser fließt";
 
                     iSFLG = iSFLG >>> 1;//shift seventh time
 
-                    if ((iSFLG & 1) == 1) {
-                        StatusFLG = "Freiband-Warnung";
-                    }
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Freiband-Warnung";
 
                     GlobalVariable.Kennliniennummer = (DO_FRAME[14] & 0xFF) + ((DO_FRAME[15] & 0xFF) << 8);//pos 1 or 2 Kennliniennummer
                     //Log.i("(int) DO_FRAME[6]",String.valueOf((int) DO_FRAME[6]));
@@ -664,104 +445,70 @@ public class DatenObjekte {
                     GlobalVariable.KennlinienTyp = DO_FRAME[18];
                     int iKT = (int) DO_FRAME[18];//pos 5 Kennlinien-Typ
 
-                    if ((iKT & 1) == 1) {
-                        GlobalVariable.KennlinienTyp_String = "Typ-Bit 1 = 2^0";
-                    }
+                    if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Typ-Bit 1 = 2^0";
 
                     iKT = iKT >>> 1;//shift first time
 
-                    if ((iKT & 1) == 1) {
-                        GlobalVariable.KennlinienTyp_String = "Typ-Bit 2 = 2^1";
-                    }
+                    if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Typ-Bit 2 = 2^1";
 
                     iKT = iKT >>> 1;//shift second time
 
-                    if ((iKT & 1) == 1) {
-                        GlobalVariable.KennlinienTyp_String = "Typ-Bit 3 = 2^2";
-                    }
+                    if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Typ-Bit 3 = 2^2";
 
                     iKT = iKT >>> 1;//shift third time
 
-                    if ((iKT & 1) == 1) {
-                        GlobalVariable.KennlinienTyp_String = "Typ-Bit 4 = 2^4";
-                    }
+                    if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Typ-Bit 4 = 2^4";
 
                     iKT = iKT >>> 1;//shift fourth time
 
-                    if ((iKT & 1) == 1) {
-                        GlobalVariable.KennlinienTyp_String = "Res.";
-                    }
+                    if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Res.";
 
                     iKT = iKT >>> 1;//shift fifth time
 
-                    if ((iKT & 1) == 1) {
-                        GlobalVariable.KennlinienTyp_String = "RMT-Verfahren ist ein";
-                    }
+                    if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "RMT-Verfahren ist ein";
 
                     iKT = iKT >>> 1;//shift sixth time
 
-                    if ((iKT & 1) == 1) {
-                        GlobalVariable.KennlinienTyp_String = "HC-MAG ist ein";
-                    }
+                    if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "HC-MAG ist ein";
 
                     iKT = iKT >>> 1;//shift seventh time
 
-                    if ((iKT & 1) == 1) {
-                        GlobalVariable.KennlinienTyp_String = "Kennlinie sichtbar";
-                    }
+                    if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Kennlinie sichtbar";
 
                     GlobalVariable.JobKommando = (int) DO_FRAME[19];//pos 6 Job-Kommando
-
                     int iJS = (int) DO_FRAME[20];//pos 5 Job-Status
-                    if ((iJS & 1) == 1) {
-                        JobStatus_String = "Jobschweißen aktiv";
-                    }
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Jobschweißen aktiv";
 
                     iJS = iJS >>> 1;//shift first time
 
-                    if ((iJS & 1) == 1) {
-                        JobStatus_String = "Job-Edit";
-                    }
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Job-Edit";
 
                     iJS = iJS >>> 1;//shift second time
 
-                    if ((iJS & 1) == 0) {
-                        JobStatus_String = "Job-Nr. Frei";
-                    } else {
-                        JobStatus_String = "Job-Nr. belegt";
-                    }
+                    if ((iJS & 1) == 0) GlobalVariable.JobStatus_String = "Job-Nr. Frei";
+                    else GlobalVariable.JobStatus_String = "Job-Nr. belegt";
 
                     iJS = iJS >>> 1;//shift third time
 
-                    if ((iJS & 1) == 1) {
-                        JobStatus_String = "Keine Jobs im Speicher";
-                    }
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Keine Jobs im Speicher";
 
                     iJS = iJS >>> 1;//shift fourth time
 
-                    if ((iJS & 1) == 1) {
-                        JobStatus_String = "Job gespeichert";
-                    }
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Job gespeichert";
 
                     iJS = iJS >>> 1;//shift fifth time
 
-                    if ((iJS & 1) == 1) {
-                        JobStatus_String = "Display";
-                    }
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Display";
 
                     iJS = iJS >>> 1;//shift sixth time
 
-                    if ((iJS & 1) == 1) {
-                        JobStatus_String = "Job Extern";
-                    }
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Job Extern";
 
                     iJS = iJS >>> 1;//shift seventh time
 
-                    if ((iJS & 1) == 1) {
-                        JobStatus_String = " ";
-                    }
-                    GlobalVariable.Verriegelungsstufe = DO_FRAME[21];//pos 8 Verriegelungsstufe
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = " ";
 
+                    GlobalVariable.Verriegelungsstufe = DO_FRAME[21];//pos 8 Verriegelungsstufe
                     GlobalVariable.Gasvorströmen = DO_FRAME[22];//pos 1 Gasvorströmen
                     GlobalVariable.Gasnachströmen = DO_FRAME[23];//pos 2 Gasnachströmen
                     GlobalVariable.EinschleichenAbsolut = DO_FRAME[24];//pos 3 Einschleichen absolut
@@ -788,11 +535,8 @@ public class DatenObjekte {
                     GlobalVariable.AnzahlLeistungsmodule = DO_FRAME[45];//pos 8 Anzahl Leistungsmodule
 
                     GlobalVariable.PowerpulsEinAus = DO_FRAME[46];//pos 1 Powerpuls Ein/Aus
-                    if (GlobalVariable.PowerpulsEinAus == 0) {
-                        PowerpulsEinAus_String = "Aus";
-                    } else if (GlobalVariable.PowerpulsEinAus == 1) {
-                        PowerpulsEinAus_String = "Aktiv";
-                    }
+                    if (GlobalVariable.PowerpulsEinAus == 0) GlobalVariable.PowerpulsEinAus_String = "Aus";
+                    else if (GlobalVariable.PowerpulsEinAus == 1) GlobalVariable.PowerpulsEinAus_String = "Aktiv";
                     GlobalVariable.PowerpulsE2 = DO_FRAME[47];//pos 2 Powerpuls Energie 2
                     GlobalVariable.PowerpulsT1E1 = DO_FRAME[48];//pos 3 Power-Puls Time 1 für Energie 1
                     GlobalVariable.PowerpulsT2E1 = DO_FRAME[49];//pos 4 Power-Puls Time 2 für Energie 1
@@ -813,7 +557,6 @@ public class DatenObjekte {
                         MainActivity.READVAL_STATUS[3] = 1;
                         GlobalVariable.voltage_display = GlobalVariable.Spannung1;
                     }
-                    //Energie1 = DO_FRAME[10] & 0xFF;//pos 5 or 6
                     GlobalVariable.Energie1 = (DO_FRAME[66] & 0xFF) + ((DO_FRAME[67] & 0xFF) << 8);//pos 5 or 6 Energie 1
                     GlobalVariable.Drossel1 = DO_FRAME[68];//pos 7 Drossel 1
                     GlobalVariable.Lichtbogenkorrektur1 = DO_FRAME[69];//pos 8 Lichtbogenkorrektur 1
@@ -821,8 +564,6 @@ public class DatenObjekte {
                         MainActivity.READVAL_STATUS[2] = 1;
                         GlobalVariable.korrektur_display = GlobalVariable.Lichtbogenkorrektur1;
                     }
-                    //GlobalVariable.korrektur_display = GlobalVariable.Lichtbogenkorrektur1;
-                    //Log.i("Lichtbogenkorrektur1",String.valueOf(GlobalVariable.Lichtbogenkorrektur1));
                     if (MainActivity.READVAL_STATUS[1] != 1) {
                         MainActivity.READVAL_STATUS[1] = 1;
                         GlobalVariable.mpm_display = GlobalVariable.Energie1;
@@ -854,7 +595,6 @@ public class DatenObjekte {
                     GlobalVariable.VorschubAusKennlinie = DO_FRAME[101];//pos 8 Vorschub aus Kennlinie
 
                     GlobalVariable.StromSetwert = (DO_FRAME[102] & 0xFF) + ((DO_FRAME[103] & 0xFF) << 8);//pos 1 and 2 Strom Setwert
-                    //Log.i("StromSetwert",String.valueOf(GlobalVariable.StromSetwert));
                     GlobalVariable.StromIstwert = (DO_FRAME[104] & 0xFF) + ((DO_FRAME[105] & 0xFF) << 8);//pos 3 and 4 Strom Istwert
                     GlobalVariable.StromHoldwert = (DO_FRAME[106] & 0xFF) + ((DO_FRAME[107] & 0xFF) << 8);//pos 5 and 6 Strom Holdwert
                     GlobalVariable.StromStatus = DO_FRAME[108];//pos 7 Strom Status
@@ -876,9 +616,8 @@ public class DatenObjekte {
                     GlobalVariable.BlechdickeStatus = DO_FRAME[124];//pos 7
 
                     GlobalVariable.Reset = DO_FRAME[125];//pos 8
-                    if ((GlobalVariable.Reset & 1) == 1) {
-                        Reset_String = "Error-Reset";
-                    } else Reset_String = "No Error";
+                    if ((GlobalVariable.Reset & 1) == 1) GlobalVariable.Reset_String = "Error-Reset";
+                    else GlobalVariable.Reset_String = "No Error";
 
                     GlobalVariable.ElektrodeStromSetwert = (DO_FRAME[126] & 0xFF) + ((DO_FRAME[127] & 0xFF) << 8);//pos 1 and 2
                     GlobalVariable.ElektrodeStromIstwert = (DO_FRAME[128] & 0xFF) + ((DO_FRAME[129] & 0xFF) << 8);//pos 3 or 4
@@ -903,13 +642,9 @@ public class DatenObjekte {
                     GlobalVariable.LBRMode = DO_FRAME[149];//pos 8
 
                     GlobalVariable.MAGACBetriebsart = DO_FRAME[150];//pos 1
-                    if (GlobalVariable.MAGACBetriebsart == 0) {
-                        MAGACBetriebsart_String = "DC+ (entspricht AUS)";
-                    } else if (GlobalVariable.MAGACBetriebsart == 1) {
-                        MAGACBetriebsart_String = "DC-";
-                    } else if (GlobalVariable.MAGACBetriebsart == 2) {
-                        MAGACBetriebsart_String = "AC";
-                    }
+                    if (GlobalVariable.MAGACBetriebsart == 0) GlobalVariable.MAGACBetriebsart_String = "DC+ (entspricht AUS)";
+                    else if (GlobalVariable.MAGACBetriebsart == 1) GlobalVariable.MAGACBetriebsart_String = "DC-";
+                    else if (GlobalVariable.MAGACBetriebsart == 2) GlobalVariable.MAGACBetriebsart_String = "AC";
 
                     GlobalVariable.MAGACKältewert = DO_FRAME[151];//pos 2
                     GlobalVariable.MAGACNegativZeit = (DO_FRAME[152] & 0xFF) + ((DO_FRAME[153] & 0xFF) << 8);//pos 3 and 4
@@ -928,70 +663,47 @@ public class DatenObjekte {
                     GlobalVariable.WIGStatus = DO_FRAME[165]; //pos 8
                     int iWIGStatus = (int) GlobalVariable.WIGStatus;
 
-                    if ((iWIGStatus & 1) == 1) {
-                        WIGStatus_String = "WIG-Brennertaste 2 ein";
-                    }
+                    if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "WIG-Brennertaste 2 ein";
 
                     iWIGStatus = iWIGStatus >>> 1;//shift first time
 
-                    if ((iWIGStatus & 1) == 1) {
-                        WIGStatus_String = "Puls I2";
-                    }
+                    if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "Puls I2";
 
                     iWIGStatus = iWIGStatus >>> 1;//shift second time
 
-                    if ((iWIGStatus & 1) == 1) {
-                        WIGStatus_String = "Fußpedal vorhanden";
-                    }
+                    if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "Fußpedal vorhanden";
 
                     iWIGStatus = iWIGStatus >>> 1;//shift third time
 
-                    if ((iWIGStatus & 1) == 1) {
-                        WIGStatus_String = "Automatisierung";
-                    }
+                    if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "Automatisierung";
 
                     iWIGStatus = iWIGStatus >>> 1;//shift fourth time
 
-                    if ((iWIGStatus & 1) == 1) {
-                        WIGStatus_String = "Wechselrichter vorhanden";
-                    }
+                    if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "Wechselrichter vorhanden";
 
                     iWIGStatus = iWIGStatus >>> 1;//shift fifth time
 
-                    if ((iWIGStatus & 1) == 1) {
-                        WIGStatus_String = "I2 ist in % von I1";
-                    }
+                    if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "I2 ist in % von I1";
 
                     iWIGStatus = iWIGStatus >>> 1;//shift sixth time
 
-                    if ((iWIGStatus & 1) == 1) {
-                        WIGStatus_String = "Reserve";
-                    }
+                    if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "Reserve";
 
                     iWIGStatus = iWIGStatus >>> 1;//shift seventh time
 
-                    if ((iWIGStatus & 1) == 1) {
-                        WIGStatus_String = "Reserve";
-                    }
+                    if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "Reserve";
 
                     GlobalVariable.WIGACFrequenz = (DO_FRAME[166] & 0xFF) + ((DO_FRAME[167] & 0xFF) << 8);//pos 1 and 2
                     GlobalVariable.WIGACBalance = DO_FRAME[168];//pos 3
                     GlobalVariable.WIGDurchmesserWolframElektrode = DO_FRAME[169];//pos 4
 
                     GlobalVariable.WIGBetriebsartWechselrichter = DO_FRAME[170];//pos 5
-                    if (GlobalVariable.WIGBetriebsartWechselrichter == 0) {
-                        WIGBetriebsartWechselrichter_String = "NONE";
-                    } else if (GlobalVariable.WIGBetriebsartWechselrichter == 1) {
-                        WIGBetriebsartWechselrichter_String = "DC - Minus";
-                    } else if (GlobalVariable.WIGBetriebsartWechselrichter == 2) {
-                        WIGBetriebsartWechselrichter_String = "DC - Plus";
-                    } else if (GlobalVariable.WIGBetriebsartWechselrichter == 3) {
-                        WIGBetriebsartWechselrichter_String = "AC - Sinus";
-                    } else if (GlobalVariable.WIGBetriebsartWechselrichter == 4) {
-                        WIGBetriebsartWechselrichter_String = "AC - Rechteck";
-                    } else if (GlobalVariable.WIGBetriebsartWechselrichter == 5) {
-                        WIGBetriebsartWechselrichter_String = "AC - MIX";
-                    }
+                    if (GlobalVariable.WIGBetriebsartWechselrichter == 0) GlobalVariable.WIGBetriebsartWechselrichter_String = "NONE";
+                    else if (GlobalVariable.WIGBetriebsartWechselrichter == 1) GlobalVariable.WIGBetriebsartWechselrichter_String = "DC - Minus";
+                    else if (GlobalVariable.WIGBetriebsartWechselrichter == 2) GlobalVariable.WIGBetriebsartWechselrichter_String = "DC - Plus";
+                    else if (GlobalVariable.WIGBetriebsartWechselrichter == 3) GlobalVariable.WIGBetriebsartWechselrichter_String = "AC - Sinus";
+                    else if (GlobalVariable.WIGBetriebsartWechselrichter == 4) GlobalVariable.WIGBetriebsartWechselrichter_String = "AC - Rechteck";
+                    else if (GlobalVariable.WIGBetriebsartWechselrichter == 5) GlobalVariable.WIGBetriebsartWechselrichter_String = "AC - MIX";
 
                     GlobalVariable.KaltdrahtpulsenT1SV21_5 = (int) DO_FRAME[171];//pos 6
                     GlobalVariable.WIGStromLimit = (DO_FRAME[172] & 0xFF) + ((DO_FRAME[173] & 0xFF) << 8);//pos 7 and 8
@@ -999,51 +711,35 @@ public class DatenObjekte {
                     GlobalVariable.KHMode = DO_FRAME[174]; //pos 1
                     int iKHMode = (int) GlobalVariable.KHMode;
 
-                    if ((iKHMode & 1) == 1) {
-                        KHMode_String = "Kaltdraht Freigabe";
-                    }
+                    if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Kaltdraht Freigabe";
 
                     iKHMode = iKHMode >>> 1;//shift first time
 
-                    if ((iKHMode & 1) == 1) {
-                        KHMode_String = "Kaltdraht Start Roboter";
-                    }
+                    if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Kaltdraht Start Roboter";
 
                     iKHMode = iKHMode >>> 1;//shift second time
 
-                    if ((iKHMode & 1) == 0) {
-                        KHMode_String = "Kaltdraht Stop wenn Min. Unterschr";
-                    }
+                    if ((iKHMode & 1) == 0) GlobalVariable.KHMode_String = "Kaltdraht Stop wenn Min. Unterschr";
 
                     iKHMode = iKHMode >>> 1;//shift third time
 
-                    if ((iKHMode & 1) == 1) {
-                        KHMode_String = "Kaltdraht Pulsen an Strom gekoppelt";
-                    }
+                    if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Kaltdraht Pulsen an Strom gekoppelt";
 
                     iKHMode = iKHMode >>> 1;//shift fourth time
 
-                    if ((iKHMode & 1) == 1) {
-                        KHMode_String = "Heißdraht Freigabe";
-                    }
+                    if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Heißdraht Freigabe";
 
                     iKHMode = iKHMode >>> 1;//shift fifth time
 
-                    if ((iKHMode & 1) == 1) {
-                        KHMode_String = "Heißdraht Start Roboter";
-                    }
+                    if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Heißdraht Start Roboter";
 
                     iKHMode = iKHMode >>> 1;//shift sixth time
 
-                    if ((iKHMode & 1) == 1) {
-                        KHMode_String = "Kaltdraht Pulsen Freigabe";
-                    }
+                    if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Kaltdraht Pulsen Freigabe";
 
                     iKHMode = iKHMode >>> 1;//shift seventh time
 
-                    if ((iKHMode & 1) == 1) {
-                        KHMode_String = "Kaltdraht V2 Absolut in m/min";
-                    }
+                    if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Kaltdraht V2 Absolut in m/min";
 
                     GlobalVariable.VerzögerungsZeitKaltdrahtEin = DO_FRAME[175];//pos 2
                     GlobalVariable.VerzögerungsZeitKaltdrahtAus = DO_FRAME[176];//pos 3
@@ -1054,51 +750,35 @@ public class DatenObjekte {
 
                     GlobalVariable.KHStatus = DO_FRAME[181];//pos 8
                     int iKHStatus = (int) GlobalVariable.KHStatus;
-                    if ((iKHStatus & 1) == 1) {
-                        KHStatus_String = "Kaltdraht ok(DVC im System";
-                    }
+                    if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = "Kaltdraht ok(DVC im System";
 
                     iKHStatus = iKHStatus >>> 1;//shift first time
 
-                    if ((iKHStatus & 1) == 1) {
-                        KHStatus_String = "Kalt-Draht Ein";
-                    }
+                    if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = "Kalt-Draht Ein";
 
                     iKHStatus = iKHStatus >>> 1;//shift second time
 
-                    if ((iKHStatus & 1) == 0) {
-                        KHStatus_String = "Kalt-Draht fördert";
-                    }
+                    if ((iKHStatus & 1) == 0) GlobalVariable.KHStatus_String = "Kalt-Draht fördert";
 
                     iKHStatus = iKHStatus >>> 1;//shift third time
 
-                    if ((iKHStatus & 1) == 1) {
-                        KHStatus_String = " ";
-                    }
+                    if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = " ";
 
                     iKHStatus = iKHStatus >>> 1;//shift fourth time
 
-                    if ((iKHStatus & 1) == 1) {
-                        KHStatus_String = "Heißdraht ok(MSRC-HW DVC im System)";
-                    }
+                    if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = "Heißdraht ok(MSRC-HW DVC im System)";
 
                     iKHStatus = iKHStatus >>> 1;//shift fifth time
 
-                    if ((iKHStatus & 1) == 1) {
-                        KHStatus_String = "Heiß-Draht Ein";
-                    }
+                    if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = "Heiß-Draht Ein";
 
                     iKHStatus = iKHStatus >>> 1;//shift sixth time
 
-                    if ((iKHStatus & 1) == 1) {
-                        KHStatus_String = "Heiß-Draht Strom fließt";
-                    }
+                    if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = "Heiß-Draht Strom fließt";
 
                     iKHStatus = iKHStatus >>> 1;//shift seventh time
 
-                    if ((iKHStatus & 1) == 1) {
-                        KHStatus_String = "Heiß-Draht-Strom ok";
-                    }
+                    if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = "Heiß-Draht-Strom ok";
 
                     GlobalVariable.YEAR = DO_FRAME[184];
                     GlobalVariable.MONTH = DO_FRAME[185];
@@ -1962,9 +1642,7 @@ public class DatenObjekte {
     }*/
 
     public static void buffParsing(String Receiverdata) {
-
         str1 = Receiverdata.getBytes(iso88591charset);//convert String to byte array
-
         for (int c = 0; c < Receiverdata.length(); c++) {
             byte ccb = str1[c];//get char from string
             dataCombiner1(ccb);
@@ -1995,19 +1673,15 @@ public class DatenObjekte {
             CounterData1++;
         }
         if(CounterData1 == LengthProtocol1 - 1){
-            //LengthProtocol2=LengthProtocol1;
             DO_FRAME[CounterData1]=Inn; //DO_FRAME[18]=Inn;
-
             int ByteCompare2=Byte.compare(DO_FRAME[CounterData1],(byte)35); //int ByteCompare2=Byte.compare(DO_FRAME[18],(byte)35);
             if(ByteCompare2==0){ //received footer
-                //Log.i(TAG,"Receive footer");
                 String[] value = new String[250];
                 StringBuilder sb_data = new StringBuilder(); //data in hex
 
                 int tempCANID=DO_FRAME[4];
                 if (DO_FRAME[4]<0) tempCANID=DO_FRAME[4]+256;
                 if((DO_FRAME[3]==6) && (tempCANID== 240) && (DO_FRAME[9]==5)  ) { //CanID 06F0
-                    //Log.i(TAG,"Reach here");
                     //Log.i("Length Protocol1",String.valueOf(LengthProtocol1));
                     //Log.i("DO_FRAME[17]",String.valueOf(DO_FRAME[17]));
                     /*for (int i = 0; i < LengthProtocol1; i++) {
@@ -2024,17 +1698,12 @@ public class DatenObjekte {
                     VAL[i] = String.format("%02x", (int) ((DO_FRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
                     HexData = sbhex_data.append(VAL[i]).toString(); //hex string
                 }*/
-                //Log.i("dataCombiner","called");
-
                 //if(HexData !=null && !HexData.equals("")) Log.i("dataCombiner",HexData);
-
                 HeaderFound1=0;
                 CounterData1=0;
                 LengthFound1=0;
                 LengthProtocol1=0;
-
             }
-
         }
     }
 

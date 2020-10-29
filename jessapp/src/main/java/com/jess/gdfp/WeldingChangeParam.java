@@ -26,10 +26,8 @@ public class WeldingChangeParam {
 
     public void incrementEncoder1(int val_encoder){
         GlobalVariable.encoder = true;
-        Log.i("incrementEncoder1","is called");
-
+        //Log.i("incrementEncoder1","is called");
         if (GlobalVariable.JOB_PRESSED){
-            //Log.i("JOB_PRESSED_COUNTER",String.valueOf(GlobalVariable.JOB_PRESSED_COUNTER));
             GlobalVariable.JOB_PRESSED_COUNTER++;
             DatenObjekteSend incrementJob = new DatenObjekteSend();
             incrementJob.ChangeParameter(39, 0, 0);
@@ -136,13 +134,6 @@ public class WeldingChangeParam {
 
         } else if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button in home page is not pressed
             GlobalVariable.CONTROL_PANEL_MODE = 1;
-             /*if ((DatenObjekte.SV1pos1 == 1) && (DatenObjekte.mpm_display > 8)) { //Normal
-                 DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-             } else if ((DatenObjekte.SV1pos1 == 2) && (DatenObjekte.mpm_display > 40)) { //Synergie
-                 DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-             } else if ((DatenObjekte.SV1pos1 == 3) && (DatenObjekte.mpm_display > 20)) { //Pulse
-                 DatenObjekte.mpm_display = DatenObjekte.mpm_display - val_encoder; // m/min
-             }*/
             switch(HOME_COUNTER){
                 case 0:
                     if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.Energie1 < 240)) { //Normal
@@ -185,7 +176,6 @@ public class WeldingChangeParam {
                     GlobalVariable.job_token = true; //job
                     break;
             }
-
             //---------------------------------- Verfahren mode ------------------------------------
             if (ACTIVATE_VARFAHREN) {
                 DatenObjekteSend sendObject = new DatenObjekteSend();
@@ -225,98 +215,81 @@ public class WeldingChangeParam {
 
     public void pressMenu(){
         MENU_TOKEN = true;
-        //txtprogress.setText("Button0");
     }
 
     public void pressJob(){
         TEST_TOKEN = true;
-        //txtprogress.setText("Button1");
     }
 
     public void pressHome(){
         HOME_TOKEN = true;
-        //txtprogress.setText("Button2");
     }
 
     public void pressDroessel(){
         DROSSEL_TOKEN = true;
-        //txtprogress.setText("Button3");
     }
 
     public void pressDaten(){
         DATEN_TOKEN = true;
-        //txtprogress.setText("Button4");
     }
 
     public void pressVerfahren(){
         VERFAHREN_TOKEN = true;
-        //txtprogress.setText("Button5");
     }
 
     public void pressKennlinie(){
         KENNLINIE_TOKEN = true;
-        //txtprogress.setText("Button6");
     }
 
     public void pressBetriebsart(){
         BETRIEBSART_TOKEN = true;
-        //txtprogress.setText("Button7");
     }
 
     public void pressbuttonEncoder1() {
         GlobalVariable.ENCODER_PRESSED = true;
-        //Log.i(TAG,"pressbuttonEncoder1 is pressed");
         if (!GlobalVariable.JOB_PRESSED) {
             DatenObjekteSend sendsth = new DatenObjekteSend();
             if (!HOME) {
-                //Log.i("HOME_COUNTER",String.valueOf(HOME_COUNTER));
                 HOME_COUNTER++;
                 switch (GlobalVariable.VERFAHREN_VAL) {
                     case 1: //Normal mode
                         if (HOME_COUNTER == 1 || HOME_COUNTER == 2) HOME_COUNTER = 3;
-                        else if(HOME_COUNTER == 7) HOME_COUNTER = 8;
                         break;
                     case 2: //Synergie mode
-                        if (HOME_COUNTER == 8) HOME_COUNTER = 9;
+                        if (HOME_COUNTER == 4) HOME_COUNTER = 5;
                         break;
-                    case 3: //Pulse mode
-                        if (HOME_COUNTER == 8) HOME_COUNTER = 9;
+                    case 3: //Puls mode
+                        if (HOME_COUNTER == 4) HOME_COUNTER = 5;
                         break;
                     case 4: //Elektrode mode
-                        if (HOME_COUNTER == 10 || HOME_COUNTER == 1) HOME_COUNTER = 2;
-                        else if(HOME_COUNTER == 7 || HOME_COUNTER == 8) HOME_COUNTER = 9;
-                        //Log.i("HOME_COUNTER", String.valueOf(HOME_COUNTER));
+                        if (HOME_COUNTER == 6 || HOME_COUNTER == 1) HOME_COUNTER = 2;
+                        else if(HOME_COUNTER == 4) HOME_COUNTER = 5;
                         break;
                 }
-                //-------------------------------activate parameter mode--------------------------------
+                //------------------------- When Kennlinie button is active ------------------------
+                /*if (MainActivity.kenn_token) { // if button is pressed
+                    //---------------- skip verfahren,gas,werkstoff and drahtdurchmesser -----------
+                    if (HOME_COUNTER == 4 || HOME_COUNTER == 5 ||
+                            HOME_COUNTER == 6 || HOME_COUNTER == 7) HOME_COUNTER = 8;
+                }*/
+
+                //-------------------------------activate parameter mode----------------------------
                 switch (HOME_COUNTER) {
                     case 1:
-                        sendsth.ChangeParameter(3, 0, 0); //activate drahtdurchmesser mode
+                        sendsth.ChangeParameter(3, 0, 0); //activate Blechdicke mode (mm)
                         break;
                     case 2:
                         sendsth.ChangeParameter(1, 0, 0); //activate strom mode
                         break;
-                    case 3: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0); //activate korrektur mode
-                        ACTIVATE_VARFAHREN = false;
+                    case 3: //activate korrektur mode
                         break;
-                    case 4: //sendsth.ChangeParameter(28,0,0); //Verfahren not necessary to send mode
-                        ACTIVATE_VARFAHREN = true;
+                    case 4: //sendsth.ChangeParameter(15,5,1);// activate voltage mode
                         break;
-                    case 5: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0);//Gas not necessary to send mode
-                        ACTIVATE_VARFAHREN = false;
-                        break;
-                    case 6: //sendsth.ChangeParameter(9,DatenObjekte.mm_display,0);//Werkstoff not necessary
-                        break;
-                    case 7: //Drahtdurchmesser not necessary
-                        break;
-                    case 8: //sendsth.ChangeParameter(15,5,1);// activate voltage mode
-                        break;
-                    case 9: //sendsth.ChangeParameter(5,0,0); //activate job mode
+                    case 5: //sendsth.ChangeParameter(5,0,0); //activate job mode
                         GlobalVariable.JOB_NUM_TOKEN = true;
                         break;
-                    case 10:
-                        GlobalVariable.JOB_NUM_TOKEN = false;
-                        sendsth.ChangeParameter(2, 0, 0); //activate energie mode
+                    case 6: GlobalVariable.JOB_NUM_TOKEN = false;
+                        sendsth.ChangeParameter(2, 0, 0); //activate energie mode (m/min)
                         HOME_COUNTER = 0;
                         break;
                 }

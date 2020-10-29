@@ -476,6 +476,20 @@ public class DatenObjekteSend {
                     VALTOKEN = 1;
                 }
                 break;
+            case 43: //KorrekturDrossel
+                FRAMEVAL = 0;
+                FRAMEEXTRA = 0;
+                FIRVAL = value & 0xFF;
+                SECVAL = 255; //FFH
+                THDVAL = 27; //1BH
+                if(mode==0) {
+                    PARAMTOKEN = 1;
+                    VALTOKEN = 0; // no value id
+                }else{
+                    PARAMTOKEN = 0;
+                    VALTOKEN = 1;
+                }
+                break;
         }
         UartService.canSend(VALTOKEN,PARAMTOKEN,FRAMEVAL,FRAMEEXTRA,(byte)FIRVAL,(byte)SECVAL,(byte)THDVAL);
         //Log.i(TAG,"canSend called");
