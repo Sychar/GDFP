@@ -17,35 +17,34 @@ public class SendEncoder {
         char POSITION_14 = HEXDATA.charAt(13);
         char POSITION_15 = HEXDATA.charAt(14);
         char POSITION_16 = HEXDATA.charAt(15);
-
         //StringBuilder JOINCHAR = new StringBuilder();
         //GETHEX = JOINCHAR.append(POSITION_13).append(POSITION_14).append(POSITION_15).append(POSITION_16).toString();
 
         WeldingChangeParam WC_OBJECT = new WeldingChangeParam();
 
-        if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 0
+        if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 0 (left)
+            //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
+            WC_OBJECT.incrementEncoder0(UartService.ByteArray[7] & 0x0F);
+            //Log.i(TAG,"incrementEncoder0 is called");
+        }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 0
+            //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
+            WC_OBJECT.decrementEncoder0(16 - UartService.ByteArray[7] & 0x0F);
+            //Log.i(TAG,"decrementEncoder0 is called");
+        }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 1 (middle)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
             //WC_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
-            //Log.i(TAG,"incrementEncoder0 is called");
-        }else if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 0
-            //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
-            //WC_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
-            //Log.i(TAG,"decrementEncoder0 is called");
-        }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 1
-            //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            WC_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"incrementEncoder1 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 1
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
-            WC_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
-            //Log.i(TAG,"decrementEncoder1 is called");
-        }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 2
-            //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            //WC_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
-            //Log.i(TAG,"incrementEncoder2 is called");
-        }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 2
-            //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
             //WC_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
+            //Log.i(TAG,"decrementEncoder1 is called");
+        }else if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 2 (right)
+            //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
+            WC_OBJECT.incrementEncoder2(UartService.ByteArray[7] & 0x0F);
+            //Log.i(TAG,"incrementEncoder2 is called");
+        }else if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 2
+            //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
+            WC_OBJECT.decrementEncoder2(16 - UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"decrementEncoder2 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 0){ //button 0
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
@@ -79,17 +78,17 @@ public class SendEncoder {
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
             WC_OBJECT.pressJob(); //Job button
             //Log.i(TAG,"button1 is called");
-        }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 8){ //encoder0 button
+        }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 10){ //encoder0 button(left)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            //WC_OBJECT.pressbuttonEncoder0();
-            //Log.i(TAG,"encoder0 button is press");
-        }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 9){ //encoder1 button
+            WC_OBJECT.pressbuttonEncoder0();
+            //Log.i(TAG,"encoder0 button is pressed");
+        }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 9){ //encoder1 button(middle)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            WC_OBJECT.pressbuttonEncoder1();
+            //WC_OBJECT.pressbuttonEncoder1();
             //Log.i(TAG,"encoder1 button is press");
-        }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 10){ //encoder2 button
+        }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 8){ //encoder2 button(right)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            //WC_OBJECT.pressbuttonEncoder2();
+            WC_OBJECT.pressbuttonEncoder2();
             //Log.i(TAG,"encoder2 is called");
         }
 
@@ -114,8 +113,5 @@ public class SendEncoder {
         ENCODER_FRAME[12] = (byte) ((crcValue >>> 8) & 0xFF);
         ENCODER_FRAME[13] = (byte) (crcValue & 0xFF); //lsb CRC
         ENCODER_FRAME[14] = 35; //0x23
-
-        //SendUart(ENCODER_FRAME,15);
-        //SendUart(ENCODER_FRAME,15);
     }
 }

@@ -476,8 +476,13 @@ public class DatenObjekte {
                     if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Kennlinie sichtbar";
 
                     GlobalVariable.JobKommando = (int) DO_FRAME[19];//pos 6 Job-Kommando
+
                     int iJS = (int) DO_FRAME[20];//pos 5 Job-Status
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Jobschweißen aktiv";
+
+                    Log.i("JobStatus_Display",String.valueOf(iJS));
+
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Display = "Jobschweißen aktiv";
+                    else GlobalVariable.JobStatus_Display = "Inactive";
 
                     iJS = iJS >>> 1;//shift first time
 
@@ -506,7 +511,8 @@ public class DatenObjekte {
 
                     iJS = iJS >>> 1;//shift seventh time
 
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = " ";
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String  = "";
+
 
                     GlobalVariable.Verriegelungsstufe = DO_FRAME[21];//pos 8 Verriegelungsstufe
                     GlobalVariable.Gasvorströmen = DO_FRAME[22];//pos 1 Gasvorströmen
@@ -567,7 +573,7 @@ public class DatenObjekte {
                     if (MainActivity.READVAL_STATUS[1] != 1) {
                         MainActivity.READVAL_STATUS[1] = 1;
                         GlobalVariable.mpm_display = GlobalVariable.Energie1;
-                        GlobalVariable.mm_a_display = GlobalVariable.mpm_display;
+                        //GlobalVariable.mm_a_display = GlobalVariable.mpm_display;
                     }
 
                     GlobalVariable.Strom2 = (DO_FRAME[70] & 0xFF) + ((DO_FRAME[71] & 0xFF) << 8);//pos 1 or 2 Strom 2
@@ -1293,7 +1299,7 @@ public class DatenObjekte {
                     if (MainActivity.READVAL_STATUS[1] != 1) {
                         MainActivity.READVAL_STATUS[1] = 1;
                         mpm_display = Energie1;
-                        GlobalVariable.mm_a_display = mpm_display;
+                        //GlobalVariable.mm_a_display = mpm_display;
                     }
                 }
 

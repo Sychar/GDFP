@@ -15,6 +15,7 @@ public class GlobalVariable {
     public static int GAS_MODE = 0;
     public static int BETRIEBSART_MODE = 0;
     public static int MENU_MODE = 0;
+    public static int JOB_MODE = 0;
     public static int DRAHTDURCHMESSER = 1;
     public static int GAS = 1;
     public static int VERFAHREN = 1;
@@ -24,8 +25,11 @@ public class GlobalVariable {
     public static boolean JOB_NUM_TOKEN = false;
     public static boolean JOB_PRESSED = false;
     public static boolean ENCODER_PRESSED = false;
+    public static boolean ENCODER2_PRESSED = false;
+    public static int ENCODER2_COUNT = 0;
     public static int JOB_PRESSED_COUNTER = 0;
     public static int CONTROL_PANEL_MODE = 0;
+    public static int CONTROL_PANEL_MODE1 = 0;
     public static int mm_a_display = 0;
     public static boolean gas_token = false;
     public static boolean werkstoff_token = false;
@@ -36,12 +40,17 @@ public class GlobalVariable {
     public static boolean encoder = false;
     public static boolean Betriebsart_Token = false;
     public static boolean Menu_Token = false;
+    public static boolean Job_Token = false;
+    public static boolean Job_Active = false;
+    public static boolean Hold_Token = false;
     public static boolean Verfahren_Token = false;
     public static boolean Drahtdurchmesser_Token = false;
     public static boolean Gas_Token = false;
     public static boolean Kennlinie_Token = false;
     public static boolean JOBUSER_TOKEN = false;
     public static boolean KENN_TOKEN = false;
+    public static boolean Load_Job = false;
+    public static boolean Save_Job = false;
 
     public static boolean SETTING_TOKEN = false;
     public static boolean CHANGE_TOKEN = false;
@@ -81,6 +90,7 @@ public class GlobalVariable {
             "98% Argon 2% O2","97% Argon 3% O2","92% Argon 8% O2","90% Argon 5% O2 5% CO2","100% Helium","80% Argon 20% He","69% Argon 30% He 1% O2",
             "50% Argon 50% Helium","98% Argon 2% H2","94% Argon 6% H2","50% Argon 50% H2","30% Argon 70% H2","Spezial"};
     public static String[] Werksotff_String = {"NONE","Fe","CrNi","AlMg","AlSi","CuSi","AlMg3","AlMg5","AlMg4,5Mn","AlBz","Spezial"};
+    public static int[] ChangeValue = {0,0,0,0,0};
 
     public static int SV1pos4;
     public static int SV1pos5;
@@ -94,6 +104,7 @@ public class GlobalVariable {
 
     public static int JobKommando;
     public static String JobStatus_String;
+    public static String JobStatus_Display;
     public static byte Verriegelungsstufe;
 
     //SV 3

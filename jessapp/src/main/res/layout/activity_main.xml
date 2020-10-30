@@ -366,7 +366,7 @@
         android:orientation="vertical"
         android:layout_width="490dp"
         android:layout_height="150dp"
-        android:layout_marginLeft="470dp"
+        android:layout_marginLeft="477dp"
         android:layout_below="@+id/obere_layout">
 
         <LinearLayout

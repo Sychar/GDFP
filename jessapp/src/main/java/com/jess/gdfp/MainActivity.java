@@ -8,10 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,6 @@ import com.jess.gdfp.View.DatalistView;
 import com.jess.gdfp.View.JobsDetails;
 import com.jess.gdfp.View.JobsUser;
 
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -60,9 +60,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Handler handler = new Handler();
     private Handler KENN_HANDLER = new Handler();
     private Handler newHandler = new Handler();
-    private Button Mmin;
-    private Button Voltage;
-    private Button Korrektur;
+    public Button Value2;
+    public Button Value3;
+    public Button Value1;
     private Button circle_button;
     private Button minus_button;
     private Button Setting;
@@ -82,6 +82,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Button Fav4_btn;
     private Button home;
     private int len;
+    public TextView Label1;
+    public TextView Label2;
+    public TextView Label3;
     private TextView ANZEIGE1;
     private TextView ANZEIGE2;
     private TextView ANZEIGE3;
@@ -172,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
         READVAL_STATUS[1]=0; //m/min
         READVAL_STATUS[2]=0; //korrektur
-        READVAL_STATUS[3]=0; //Voltage
+        READVAL_STATUS[3]=0; //Value3
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -181,6 +184,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         //progrssinit();
         setVisibility();
         serial_init();
+        hold_layout_gone();
 
         //AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         //alarm.setTime(1330082817);
@@ -214,12 +218,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 JOB_NUM.setText("JOB");
                 JOB_NUM.setTextColor(Color.WHITE);
                 JOB_NUM.setBackgroundColor(Color.BLACK);
-                Uri uri = Uri.parse("content://com.jess.gdfp.jobs/jobs");
+                /*Uri uri = Uri.parse("content://com.jess.gdfp.jobs/jobs");
                 ContentValues values= new ContentValues();
                 for(int i=0;i<DatenObjekteJob.DataBase().length ;i++){
                     values.put(JobsDetails.jobdetails[i],DatenObjekteJob.DataBase()[i]);
                 }
-                Cursor cursor = (Cursor) getContentResolver().insert(uri,values);
+                Cursor cursor = (Cursor) getContentResolver().insert(uri,values);*/
                 job_gedrückt = false;
                 dialog.cancel();
             }
@@ -234,6 +238,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 JOB_NUM.setText("JOB");
                 JOB_NUM.setTextColor(Color.WHITE);
                 JOB_NUM.setBackgroundColor(Color.BLACK);
+                home_view();
                 job_gedrückt = false;
                 dialog.cancel();
             }
@@ -348,29 +353,33 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Drossel_view();
 
         home.setOnClickListener(view1 -> {
-            View layout = findViewById(R.id.zweitelayout);
-            layout.setVisibility(View.VISIBLE);
-            frame.setVisibility(View.INVISIBLE);
-            kenn_fragment.setVisibility(View.INVISIBLE);
-            View layout1 = findViewById(R.id.circleButton);
-            betriebsart_fragement.setVisibility(View.INVISIBLE);
-            layout1.setVisibility(View.VISIBLE);
-            Drossel_view();
-            hold_layout_view();
+            home_view();
         });
 
         JOB_NUM.setOnClickListener(view12 -> {
             if (!job_gedrückt) {
+                BlankFragment.setButtonInvisible();
+                BlankFragment.tv.setText("JOB");
+                BlankFragment.detail = BlankFragment.init_Job();
+                ArrayAdapter<String> adapter2= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,BlankFragment.detail){
+                    @NonNull
+                    @Override
+                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                        View view1 = super.getView(position,convertView,parent);
+                        return  view1;
+                    }
+                };
+                BlankFragment.rv.setAdapter(adapter2);
+                droessel_gone();
+                hold_layout_gone();
+                view12 = findViewById(R.id.fragment_test);
+                allgemeinOnclick(view12);
                 GlobalVariable.JOB_PRESSED = true;
                 JOB_NUM.setTextColor(Color.BLACK);
                 JOB_NUM.setBackgroundColor(Color.GRAY);
-                JOB_NUM.setText("FAV1");
-                //JOB_DISPLAY.setTextColor(Color.BLACK);
-                //JOB_DISPLAY.setBackgroundColor(Color.GRAY);
-
                 //---------------------------- Start Job ----------------------------------------
-                DatenObjekteSend startJob = new DatenObjekteSend();
-                startJob.ChangeParameter(20, 0, 0);
+                //DatenObjekteSend startJob = new DatenObjekteSend();
+                //startJob.ChangeParameter(20, 0, 0);
                 job_gedrückt = true;
                 //---------------------------- Store Job -------------------------------------------
                 //DatenObjekteSend storeJob = new DatenObjekteSend();
@@ -381,9 +390,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 //String SECSTR = UartService.getJob1(1); //ascii string
             } else {
                 GlobalVariable.JOB_PRESSED = false;
-                JOB_NUM.setText("JOB");
+                GlobalVariable.Load_Job = false;
+                WeldingChangeParam.HOME_COUNTER = 0;
                 JOB_NUM.setTextColor(Color.WHITE);
                 JOB_NUM.setBackgroundColor(Color.BLACK);
+                JOB_NUM.setBackground(getResources().getDrawable( R.drawable.border2));
+                hold_layout_gone();
                 job_gedrückt = false;
             }
 
@@ -391,8 +403,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             /*DatenObjekteSend incrementJob = new DatenObjekteSend();
             incrementJob.ChangeParameter(4,0, 1);*/
             //---------------------------Decrement Job number---------------------------------------
-            /*DatenObjekteSend decrementJob = new DatenObjekteSend();
-            decrementJob.ChangeParameter(6,0, 1);*/
+            //DatenObjekteSend decrementJob = new DatenObjekteSend();
+            //decrementJob.ChangeParameter(6,0, 1);
         });
 
         plus.setOnClickListener(view1 -> {
@@ -565,28 +577,96 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 switch (WeldingChangeParam.HOME_COUNTER) {
                     case 0:
                         if(GlobalVariable.VERFAHREN_VAL!=4) {
-                            txtprogress.setText(String.valueOf(GlobalVariable.mpm_display / 10) + "." + String.valueOf(GlobalVariable.mpm_display % 10)); // m/min
+                            txtprogress.setText(String.valueOf(GlobalVariable.Energie1 / 10) + "." + String.valueOf(GlobalVariable.Energie1 % 10)); // m/min
                             unitprogress.setText("m/min");
+                            if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
+                                Label1.setText("mm");
+                                Label2.setText("Ampere");
+                                Label3.setText("KorrLB");
+                                Value1.setText(String.valueOf((GlobalVariable.BlechdickeSetwert)/ 10 + "." + String.valueOf(GlobalVariable.BlechdickeSetwert % 10)));
+                                Value2.setText(String.valueOf(GlobalVariable.StromSetwert));
+                                Value3.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
+                            } else if (GlobalVariable.SV1pos1 == 1) { // Normal mode
+                                Label1.setText("KorrLB");
+                                Label2.setText("Voltage");
+                                Label3.setText("");
+                                Value1.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
+                                Value2.setText(String.valueOf((GlobalVariable.SpannungSetwert)/ 10 + "." + String.valueOf(GlobalVariable.SpannungSetwert % 10)));
+                                Value3.setText("");
+                            }
                         } else WeldingChangeParam.HOME_COUNTER = 2;
                         break;
-                    case 1:
+                    case 1: // ----------------------------------------------- MM ------------------------------------------------------------------------------------
                         txtprogress.setText(String.valueOf(GlobalVariable.BlechdickeSetwert / 10) + "." + String.valueOf(GlobalVariable.BlechdickeSetwert % 10)); //mm
                         unitprogress.setText("mm");
+                        if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
+                            Label1.setText("m/min");
+                            Label2.setText("Ampere");
+                            Label3.setText("KorrLB");
+                            Value1.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
+                            Value2.setText(String.valueOf(GlobalVariable.StromSetwert));
+                            Value3.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
+                        }
                         break;
-                    case 2:
-                        txtprogress.setText(String.valueOf(GlobalVariable.StromSetwert)); //A
+                    case 2: // ----------------------------------------------- Ampere --------------------------------------------------------------------------------
+                        txtprogress.setText(String.valueOf(GlobalVariable.StromSetwert));
                         unitprogress.setText("A");
+                        if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
+                            Label1.setText("m/min");
+                            Label2.setText("mm");
+                            Label3.setText("KorrLB");
+
+                            Value1.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
+                            Value2.setText(String.valueOf((GlobalVariable.BlechdickeSetwert)/ 10 + "." + String.valueOf(GlobalVariable.BlechdickeSetwert % 10)));
+                            Value3.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
+                        } else if (GlobalVariable.SV1pos1 == 4) { // Elektrode mode
+                            Label1.setText("KorrLB");
+                            Label2.setText("");
+                            Label3.setText("");
+                            Value1.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
+                            Value2.setText("");
+                            Value3.setText("");
+                        }
                         break;
-                    case 3:
-                        txtprogress.setText(String.valueOf(GlobalVariable.Lichtbogenkorrektur1)); //Korrektur
+                    case 3: // ----------------------------------------------- Korrektur ----------------------------------------------------------------------------
+                        txtprogress.setText(String.valueOf(GlobalVariable.Lichtbogenkorrektur1));
                         unitprogress.setText("%");
+                        if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
+                            Label1.setText("m/min");
+                            Label2.setText("mm");
+                            Label3.setText("Ampere");
+                            Value1.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
+                            Value2.setText(String.valueOf((GlobalVariable.BlechdickeSetwert)/ 10 + "." + String.valueOf(GlobalVariable.BlechdickeSetwert % 10)));
+                            Value3.setText(String.valueOf(GlobalVariable.StromSetwert));
+                        } else if (GlobalVariable.SV1pos1 == 1) { // Normal mode
+                            Label1.setText("m/min");
+                            Label2.setText("Voltage");
+                            Label3.setText("");
+                            Value1.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
+                            Value2.setText(String.valueOf((GlobalVariable.SpannungSetwert)/ 10 + "." + String.valueOf(GlobalVariable.SpannungSetwert % 10)));
+                            Value3.setText("");
+                        } else if (GlobalVariable.SV1pos1 == 4) { // Elektrode mode
+                            Label1.setText("Ampere");
+                            Label2.setText("");
+                            Label3.setText("");
+                            Value1.setText(String.valueOf(GlobalVariable.StromSetwert));
+                            Value2.setText("");
+                            Value3.setText("");
+                        }
                         break;
-                    case 4:
-                        txtprogress.setText(String.valueOf(GlobalVariable.SpannungSetwert / 10) + "." + String.valueOf(GlobalVariable.SpannungSetwert % 10)); //Voltage
+                    case 4: // ----------------------------------------------- Voltage --------------------------------------------------------------------------------
                         txtprogress.setText(String.valueOf(GlobalVariable.SpannungSetwert / 10) + "." + String.valueOf(GlobalVariable.SpannungSetwert % 10)); //Voltage
                         unitprogress.setText("V");
+                        if (GlobalVariable.SV1pos1 == 1) { // Normal mode
+                            Label1.setText("m/min");
+                            Label2.setText("KorrLB");
+                            Label3.setText("");
+                            Value1.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
+                            Value2.setText(String.valueOf(GlobalVariable.Lichtbogenkorrektur1));
+                            Value3.setText("");
+                        }
                         break;
-                    case 5:
+                    case 5: // ----------------------------------------------------- Job --------------------------------------------------------------------------------
                         if (GlobalVariable.encoder) {
                             txtprogress.setText(String.valueOf(GlobalVariable.Jobnummer)); //Job
                             unitprogress.setText("Job");
@@ -606,55 +686,78 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     ANZEIGE5.setText(GlobalVariable.Gas_String[GlobalVariable.SV1pos4]); // Gas
 
                     //------------------------------------------------ Brennertasten ---------------------------------------------------------------------------------------
-                    if(GlobalVariable.Brennertasten1_string.equals("Brennertaste1 Active")){
+                    if (GlobalVariable.Brennertasten1_string.equals("Brennertaste1 Active") && !GlobalVariable.Job_Token){
                         HoldIst.setText("Ist");
                         StromHoldwertTV.setText(String.valueOf(GlobalVariable.StromIstwert)+" A");
                         SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungIstwert)+" V");
-                    } else {
+                    } else if ((!GlobalVariable.Hold_Token) && (!GlobalVariable.Job_Token)){
                         HoldIst.setText("Hold");
                         //StromHoldwertTV.setText(String.valueOf(GlobalVariable.StromHoldwert)+" A");
                         //SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungHoldwert)+" V");
                         StromHoldwertTV.setTextSize(70);
                         SpannungHoldwertTV.setTextSize(70);
                         StromHoldwertTV.setText(String.valueOf(350)+" A");
-                        SpannungHoldwertTV.setText(String.valueOf(35)+",9"+" V");
+                        SpannungHoldwertTV.setText(String.valueOf(35)+".9"+" V");
                     }
-
                     //------------------------------------------------------- Display variables in textview -----------------------------------------------------------------
-                    //Log.i("Lichtbogenkorrektur1",String.valueOf(GlobalVariable.Lichtbogenkorrektur1));
 
                     if (GlobalVariable.KorrekturDrossel >= 0) DROSSEL.setText("DROSSEL   "+"[ "+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
                     else DROSSEL.setText("DROSSEL  "+"[ -"+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
 
-                    if (GlobalVariable.SV1pos1 != 4) { // Not elektrode mode
-                        Korrektur.setTextColor(Color.WHITE);
-                        Mmin.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
-                        Mmin.setTextColor(Color.WHITE);
-                    } else {
-                        Voltage.setTextColor(Color.BLACK);
-                        Korrektur.setTextColor(Color.BLACK);
-                        Mmin.setText("");
-                        Mmin.setTextColor(Color.BLACK);
+                    //------------------------------------------ Job button --------------------------------------------------------------
+                    if(GlobalVariable.Job_Token) {
+                        if (GlobalVariable.JOB_MODE==0) { //LOAD
+                            if (GlobalVariable.JobStatus_Display.equals("Inactive")) sendEnergie.ChangeParameter(5,0,0);
+                            //Log.i("JobStatus_Display",GlobalVariable.JobStatus_Display);
+                            GlobalVariable.Load_Job = true;
+                            home_view();
+                            HoldIst.setText("");
+                            StromHoldwertTV.setText("    JOB");
+                            //if (GlobalVariable.Load_Job) sendEnergie.ChangeParameter(5,0,0);
+                        } else if (GlobalVariable.JOB_MODE==1) { //SAVE
+                            GlobalVariable.Save_Job = true;
+                            home_view();
+                            HoldIst.setText("");
+                            StromHoldwertTV.setText("    JOB");
+                        }
+                        switch (GlobalVariable.Jobnummer) {
+                            case 1: //FAV1
+                                SpannungHoldwertTV.setText("FAV1");
+                                break;
+                            case 2: //FAV2
+                                SpannungHoldwertTV.setText("FAV2");
+                                break;
+                            case 3: //FAV3
+                                SpannungHoldwertTV.setText("FAV3");
+                                break;
+                            case 4: //FAV4
+                                SpannungHoldwertTV.setText("FAV4");
+                                break;
+                            default:
+                                SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.Jobnummer));
+                                break;
+                        }
                     }
 
-                    if (GlobalVariable.SV1pos1 == 1) { // Normal mode
-                        Korrektur.setText(String.valueOf((GlobalVariable.Drossel1)));
-                        Voltage.setTextColor(Color.WHITE);
-                        Voltage.setText(String.valueOf((GlobalVariable.SpannungSetwert)/ 10 + "." + String.valueOf(GlobalVariable.SpannungSetwert % 10)));
+                    /*if (GlobalVariable.SV1pos1 != 4) { // Not elektrode mode
+                        Value1.setTextColor(Color.WHITE);
+                        Value2.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
+                        Value2.setTextColor(Color.WHITE);
                     } else {
-                        Korrektur.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
-                        Voltage.setTextColor(Color.BLACK);
-                        Voltage.setText("");
-                    }
+                        Value3.setTextColor(Color.BLACK);
+                        Value1.setTextColor(Color.BLACK);
+                        Value2.setText("");
+                        Value2.setTextColor(Color.BLACK);
+                    }*/
                 }
 
-                Mmin.setOnClickListener((View v) -> {
-                    new MainActivity_Controller().ChangeTextprogressBar(Mmin, txtProgress, temp, CHECK);
-                    ChangeTextprogressBar(Mmin);
+                Value2.setOnClickListener((View v) -> {
+                    new MainActivity_Controller().ChangeTextprogressBar(Value2, txtProgress, temp, CHECK);
+                    ChangeTextprogressBar(Value2);
                 });
 
-                Voltage.setOnClickListener((View v) -> {
-                    ChangeTextprogressBar(Voltage);
+                Value3.setOnClickListener((View v) -> {
+                    ChangeTextprogressBar(Value3);
                 });
 
                 //getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI,values); // this line crash suddenly
@@ -723,27 +826,127 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 progressBarPlus.setProgress(0);
             }
 
-            if(GlobalVariable.JOB_PRESSED && GlobalVariable.ENCODER_PRESSED){
+            if(GlobalVariable.Save_Job && GlobalVariable.ENCODER_PRESSED){
                 GlobalVariable.ENCODER_PRESSED = false;
                 dialog.show();
-            }else if (GlobalVariable.JOB_PRESSED){
-                switch(GlobalVariable.Jobnummer){
-                    case 1: //FAV1
-                        MainActivity.JOB_NUM.setText("FAV1");
-                        break;
-                    case 2: //FAV2
-                        MainActivity.JOB_NUM.setText("FAV2");
-                        break;
-                    case 3: //FAV3
-                        MainActivity.JOB_NUM.setText("FAV3");
-                        break;
-                    case 4: //FAV4
-                        MainActivity.JOB_NUM.setText("FAV4");
-                        break;
-                    default:
-                        MainActivity.JOB_NUM.setText(String.valueOf(GlobalVariable.Jobnummer));
-                        break;
-                }
+            }
+
+            if (GlobalVariable.ENCODER2_PRESSED){
+                if (GlobalVariable.ENCODER2_COUNT==1) {
+                    Value1.setTextColor(Color.BLACK);
+                    Value1.setBackgroundColor(Color.GRAY);
+                    Value2.setTextColor(Color.WHITE);
+                    Value2.setBackground(getResources().getDrawable(R.drawable.border2));
+                    Value3.setTextColor(Color.WHITE);
+                    Value3.setBackground(getResources().getDrawable(R.drawable.border2));
+                    if (Label1.getText().equals("KorrLB")) {
+                        GlobalVariable.ChangeValue[3] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label1.getText().equals("Voltage")) {
+                        GlobalVariable.ChangeValue[4] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                    } else if (Label1.getText().equals("Ampere")) {
+                        GlobalVariable.ChangeValue[2] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label1.getText().equals("mm")) {
+                        GlobalVariable.ChangeValue[1] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label1.getText().equals("m/min")) {
+                        GlobalVariable.ChangeValue[0] = 1;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    }
+                } else if (GlobalVariable.ENCODER2_COUNT==2) {
+                    Value2.setTextColor(Color.BLACK);
+                    Value2.setBackgroundColor(Color.GRAY);
+                    Value1.setTextColor(Color.WHITE);
+                    Value1.setBackground(getResources().getDrawable(R.drawable.border2));
+                    Value3.setTextColor(Color.WHITE);
+                    Value3.setBackground(getResources().getDrawable(R.drawable.border2));
+                    if (Label2.getText().equals("KorrLB")) {
+                        GlobalVariable.ChangeValue[3] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label2.getText().equals("Voltage")) {
+                        GlobalVariable.ChangeValue[4] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                    } else if (Label2.getText().equals("Ampere")) {
+                        GlobalVariable.ChangeValue[2] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label2.getText().equals("mm")) {
+                        GlobalVariable.ChangeValue[1] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label2.getText().equals("m/min")) {
+                        GlobalVariable.ChangeValue[0] = 1;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    }
+                } else if (GlobalVariable.ENCODER2_COUNT==3 && !Label3.getText().equals("")) {
+                    Value3.setTextColor(Color.BLACK);
+                    Value3.setBackgroundColor(Color.GRAY);
+                    Value1.setTextColor(Color.WHITE);
+                    Value1.setBackground(getResources().getDrawable(R.drawable.border2));
+                    Value2.setTextColor(Color.WHITE);
+                    Value2.setBackground(getResources().getDrawable(R.drawable.border2));
+                    if (Label3.getText().equals("KorrLB")) {
+                        GlobalVariable.ChangeValue[3] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label3.getText().equals("Voltage")) {
+                        GlobalVariable.ChangeValue[4] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                    } else if (Label3.getText().equals("Ampere")) {
+                        GlobalVariable.ChangeValue[2] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label3.getText().equals("mm")) {
+                        GlobalVariable.ChangeValue[1] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label3.getText().equals("m/min")) {
+                        GlobalVariable.ChangeValue[0] = 1;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    }
+                } else if (GlobalVariable.ENCODER2_COUNT==3) GlobalVariable.ENCODER2_COUNT=1;
             }
 
             if (counterDisplay == 25) { //update every 0.02s
@@ -754,6 +957,43 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 dateString2 = sdf2.format(date);
                 tdate.setText(dateString);
                 tdate2.setText(dateString2);
+
+                //Log.i("blechdicke_display",String.valueOf(GlobalVariable.blechdicke_display));
+                //Log.i("BlechdickeSetwert",String.valueOf(GlobalVariable.BlechdickeSetwert));
+                if (GlobalVariable.CONTROL_PANEL_MODE1 == 1) {
+                    if ((GlobalVariable.ChangeValue[0] == 1)) {
+                        if (GlobalVariable.mpm_display != GlobalVariable.Energie1)
+                            sendEnergie.ChangeParameter(2, GlobalVariable.mpm_display, 1); //m/min
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    } else if ((GlobalVariable.ChangeValue[4] == 1)) {
+                        if (GlobalVariable.voltage_display != GlobalVariable.Spannung1)
+                            sendEnergie.ChangeParameter(15, GlobalVariable.voltage_display, 1); //voltage
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    } else if ((GlobalVariable.ChangeValue[1] == 1)) {
+                        if (GlobalVariable.mm_a_display != GlobalVariable.mirror_display)
+                            sendEnergie.ChangeParameter(3, GlobalVariable.mm_a_display, 1); //Thickness mm
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    } else if ((GlobalVariable.ChangeValue[2] == 1)) {
+                        if (GlobalVariable.mm_a_display != GlobalVariable.mirror_display)
+                            sendEnergie.ChangeParameter(1, GlobalVariable.mm_a_display, 1); //strom
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    } else if ((GlobalVariable.ChangeValue[3] == 1)) {
+                        if (GlobalVariable.korrektur_display != GlobalVariable.Lichtbogenkorrektur1)
+                            sendEnergie.ChangeParameter(21, GlobalVariable.korrektur_display, 1);
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    }
+                }
+
+                if (GlobalVariable.JobStatus_Display.equals("Inactive")) hold_layout_gone();
+
+                if ((!GlobalVariable.JOB_PRESSED) && (GlobalVariable.Job_Token)){
+                    if (GlobalVariable.Jobnummer > 1) sendEnergie.ChangeParameter(6,0,0);  //decrement job
+                    else if (GlobalVariable.Jobnummer == 1) {
+                        sendEnergie.ChangeParameter(6,0,0);  //decrement job
+                        GlobalVariable.Job_Token = false;
+                    }
+
+                }
 
                 if (GlobalVariable.CONTROL_PANEL_MODE == 1) {
                     if (DatenObjekte.SV1pos1 != 4) { //Not elektrode mode
@@ -769,37 +1009,18 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                                 else GlobalVariable.CONTROL_PANEL_MODE = 0;
                                 break;
                             case 2:
-                                if (GlobalVariable.mm_a_display != GlobalVariable.StromSetwert)
+                                if (GlobalVariable.mm_a_display != GlobalVariable.BlechdickeSetwert)
                                     sendEnergie.ChangeParameter(1, GlobalVariable.mm_a_display, 1); //strom
                                 break;
                             case 3: //Korrektur
                                 if (GlobalVariable.korrektur_display != GlobalVariable.Lichtbogenkorrektur1)
                                     sendEnergie.ChangeParameter(21, GlobalVariable.korrektur_display, 1);
                                 break;
-                            case 4: //verfahren
-                                break;
-                            case 5:
-                                //if (GlobalVariable.gas_token) sendEnergie.ChangeParameter(10, 0, 1); //Gas
-                                //GlobalVariable.gas_token = false;
-                                break;
-                            case 6:
-                                if (GlobalVariable.werkstoff_token) sendEnergie.ChangeParameter(10, 0, 1); //Werkstoff
-                                GlobalVariable.werkstoff_token = false;
-                                break;
-                            case 7:
-                                if (GlobalVariable.Drahtdurchmesser_token) sendEnergie.ChangeParameter(41, 0, 0); //Drahtdurchmesser
-                                GlobalVariable.Drahtdurchmesser_token = false;
-                                break;
-                            case 8:
+                            case 4:
                                 if (GlobalVariable.voltage_display != GlobalVariable.Spannung1) sendEnergie.ChangeParameter(15, GlobalVariable.voltage_display, 1); //voltage
-                                break;
-                            case 9: //if (job_token) sendEnergie.ChangeParameter(5, 0, 1); //job
-                                GlobalVariable.job_token = false;
                                 break;
                         }
                     }
-                } else if (GlobalVariable.CONTROL_PANEL_MODE == 0) {
-                    GlobalVariable.mpm_display = GlobalVariable.Energie1;
                 }
                counterDisplay = 0;
             }
@@ -905,9 +1126,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         //MMPuls_btn = findViewById(R.id.MMPuls_btn);
         //ElectrodeMMA_btn = findViewById(R.id.ElectrodeMMA_btn);
         minus_button = findViewById(R.id.minus);
-        Voltage = findViewById(R.id.btn_voltage);
-        Mmin = findViewById(R.id.btn_mmin);
-        Korrektur = findViewById(R.id.btn_korrektur); //korrektur textview
+        Value1 = findViewById(R.id.btn_korrektur);
+        Value2 = findViewById(R.id.btn_mmin);
+        Value3 = findViewById(R.id.btn_voltage);
+        Label1 = findViewById(R.id.korrektur);
+        Label2 = findViewById(R.id.mmin);
+        Label3 = findViewById(R.id.strom);
         Setting = findViewById(R.id.setting_btn);
         Menu = findViewById(R.id.menu_btn);
         progressBar = findViewById(R.id.progressBar);
@@ -921,7 +1145,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         txtprogress = findViewById(R.id.txtpro);
         txtprogress.setTextSize(120);
         unitprogress = findViewById(R.id.unit);
-
         JOB_NUM  = findViewById(R.id.job_btn);
         tdate = findViewById(R.id.date); //right top button
         tdate2 = findViewById(R.id.date2); //left top button
@@ -941,7 +1164,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private void setVisibility(){
         betriebsart_fragement.setVisibility(View.INVISIBLE);
         plus.setVisibility(View.INVISIBLE);
-        Voltage.setVisibility(View.VISIBLE);
+        Value3.setVisibility(View.VISIBLE);
         progressBarPlus.setVisibility(View.INVISIBLE);
         progressBarMinus.setVisibility(View.INVISIBLE);
         //frame.setVisibility(View.INVISIBLE);
@@ -1038,6 +1261,20 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Intent intent = new Intent(this, Kennlinier_user.class);
         startActivity(intent);
     }
+
+    private void home_view(){
+        View layout = findViewById(R.id.zweitelayout);
+        layout.setVisibility(View.VISIBLE);
+        //frame.setVisibility(View.INVISIBLE);
+        kenn_fragment.setVisibility(View.INVISIBLE);
+        View layout1 = findViewById(R.id.circleButton);
+        betriebsart_fragement.setVisibility(View.INVISIBLE);
+        layout1.setVisibility(View.VISIBLE);
+        Drossel_view();
+        hold_layout_view();
+        //hold_layout_gone();
+    }
+
 
     private void SetDefautlTime(){
         /*if (ShellInterface.isSuAvailable()) {

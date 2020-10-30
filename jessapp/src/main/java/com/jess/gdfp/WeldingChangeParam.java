@@ -1,6 +1,10 @@
 package com.jess.gdfp;
 
+import android.graphics.Color;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 
 import com.jess.gdfp.View.JobsUser;
 
@@ -24,14 +28,16 @@ public class WeldingChangeParam {
     public static boolean HOME = false;
     public static int HOME_COUNTER = 0;
 
-    public void incrementEncoder1(int val_encoder){
+
+    public void incrementEncoder0(int val_encoder){ //left
         GlobalVariable.encoder = true;
         //Log.i("incrementEncoder1","is called");
         if (GlobalVariable.JOB_PRESSED){
             GlobalVariable.JOB_PRESSED_COUNTER++;
             DatenObjekteSend incrementJob = new DatenObjekteSend();
-            incrementJob.ChangeParameter(39, 0, 0);
-            if(GlobalVariable.JOB_PRESSED_COUNTER > 100) GlobalVariable.JOB_PRESSED_COUNTER = 0;
+            if (GlobalVariable.Load_Job) incrementJob.ChangeParameter(4,0,0);
+            if (GlobalVariable.Save_Job) incrementJob.ChangeParameter(39, 0, 0);
+            if(GlobalVariable.JOB_PRESSED_COUNTER > 100) GlobalVariable.JOB_PRESSED_COUNTER = 1;
 
         } else if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button in home page is not pressed
             //Log.i(TAG,"job not pressed");
@@ -113,15 +119,15 @@ public class WeldingChangeParam {
                 //GlobalVariable.delayInMilli(200);
                 //activateJob.ChangeParameter(4,0, 1);
             }else {
-            //---------------------------Increment Job number---------------------------------------
-            DatenObjekteSend incrementJob = new DatenObjekteSend();
-            incrementJob.ChangeParameter(4,0, 1);
-            //Log.i("incrementJob","is called");
+                //---------------------------Increment Job number---------------------------------------
+                DatenObjekteSend incrementJob = new DatenObjekteSend();
+                incrementJob.ChangeParameter(4,0, 1);
+                //Log.i("incrementJob","is called");
             }
         }
     }
 
-    public void decrementEncoder1(int val_encoder){
+    public void decrementEncoder0(int val_encoder){ //left
         GlobalVariable.encoder = true;
         //Log.i("decrementEncoder1","is called");
 
@@ -129,7 +135,8 @@ public class WeldingChangeParam {
             //Log.i("JOB_PRESSED_COUNTER",String.valueOf(GlobalVariable.JOB_PRESSED_COUNTER));
             GlobalVariable.JOB_PRESSED_COUNTER--;
             DatenObjekteSend decrementJob1 = new DatenObjekteSend();
-            decrementJob1.ChangeParameter(40, 0, 0);
+            if (GlobalVariable.Load_Job) decrementJob1.ChangeParameter(6,0,0);
+            if (GlobalVariable.Save_Job) decrementJob1.ChangeParameter(40, 0, 0);
             if(GlobalVariable.JOB_PRESSED_COUNTER < 0) GlobalVariable.JOB_PRESSED_COUNTER = 0;
 
         } else if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button in home page is not pressed
@@ -213,9 +220,87 @@ public class WeldingChangeParam {
         }
     }
 
-    public void pressMenu(){
-        MENU_TOKEN = true;
+    public void incrementEncoder2(int val_encoder){ //right
+        GlobalVariable.encoder = true;
+        //Log.i("incrementEncoder1","is called");
+        if (!GlobalVariable.JOB_PRESSED){
+            GlobalVariable.CONTROL_PANEL_MODE1 = 1;
+                if(GlobalVariable.ChangeValue[0]==1) {
+                    if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display < 240)) { //Normal
+                        GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
+                        //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
+                    } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display < 120)) { //Synergie
+                        GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
+                        //progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
+                    } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display < 120)) {//Pulse
+                        GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
+                        //progressBar.setProgress(DatenObjekte.a_display - 20);
+                    }
+                } else if(GlobalVariable.ChangeValue[1]==1){
+                        GlobalVariable.mm_a_display = GlobalVariable.mirror_display + val_encoder; //mm
+                } else if(GlobalVariable.ChangeValue[2]==1){
+                    GlobalVariable.mm_a_display = GlobalVariable.mirror_display + val_encoder; //A
+                } else if(GlobalVariable.ChangeValue[3]==1){
+                    GlobalVariable.korrektur_display = GlobalVariable.korrektur_display + val_encoder; //korrektur
+                    if(GlobalVariable.korrektur_display > 30) GlobalVariable.korrektur_display = 30;
+                } else if(GlobalVariable.ChangeValue[4]==1){
+                    GlobalVariable.voltage_display = GlobalVariable.voltage_display + val_encoder; //voltage
+                }
+
+        } else { //Job button in home page is pressed
+            GlobalVariable.JOBCOUNT++;
+            //---------------------------- Activate Job ----------------------------------------
+            if(GlobalVariable.JOBCOUNT==1) {
+                DatenObjekteSend activateJob = new DatenObjekteSend();
+                activateJob.ChangeParameter(5, 0, 1);
+                //GlobalVariable.delayInMilli(200);
+                //activateJob.ChangeParameter(4,0, 1);
+            }else {
+            //---------------------------Increment Job number---------------------------------------
+            DatenObjekteSend incrementJob = new DatenObjekteSend();
+            incrementJob.ChangeParameter(4,0, 1);
+            //Log.i("incrementJob","is called");
+            }
+        }
     }
+
+    public void decrementEncoder2(int val_encoder){ //right
+        GlobalVariable.encoder = true;
+        //Log.i("decrementEncoder1","is called");
+        if (!GlobalVariable.JOB_PRESSED){
+            GlobalVariable.CONTROL_PANEL_MODE1 = 1;
+            if(GlobalVariable.ChangeValue[0]==1) {
+                if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display < 240)) { //Normal
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
+                    //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
+                } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display < 120)) { //Synergie
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
+                    //progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
+                } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display < 120)) {//Pulse
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
+                    //progressBar.setProgress(DatenObjekte.a_display - 20);
+                }
+            } else if(GlobalVariable.ChangeValue[1]==1){
+                GlobalVariable.mm_a_display = GlobalVariable.mirror_display - val_encoder; //mm
+            } else if(GlobalVariable.ChangeValue[2]==1){
+                GlobalVariable.mm_a_display = GlobalVariable.mirror_display - val_encoder; //A
+            } else if(GlobalVariable.ChangeValue[3]==1){
+                GlobalVariable.korrektur_display = GlobalVariable.korrektur_display - val_encoder; //korrektur
+                if(GlobalVariable.korrektur_display > 30) GlobalVariable.korrektur_display = 30;
+            } else if(GlobalVariable.ChangeValue[4]==1){
+                GlobalVariable.voltage_display = GlobalVariable.voltage_display - val_encoder; //voltage
+            }
+        } else { //Job button in home page is pressed
+            //GlobalVariable.JOBCOUNT--;
+            if(GlobalVariable.Jobnummer==1) GlobalVariable.JOBCOUNT = 0;
+            //---------------------------Decrement Job number--------------------------------------
+            DatenObjekteSend decrementJob = new DatenObjekteSend();
+            decrementJob.ChangeParameter(6,0, 1);
+            //Log.i("decrementJob","is called");
+        }
+    }
+
+    public void pressMenu(){ MENU_TOKEN = true; }
 
     public void pressJob(){
         TEST_TOKEN = true;
@@ -245,7 +330,7 @@ public class WeldingChangeParam {
         BETRIEBSART_TOKEN = true;
     }
 
-    public void pressbuttonEncoder1() {
+    public void pressbuttonEncoder0() { //left
         GlobalVariable.ENCODER_PRESSED = true;
         if (!GlobalVariable.JOB_PRESSED) {
             DatenObjekteSend sendsth = new DatenObjekteSend();
@@ -262,7 +347,7 @@ public class WeldingChangeParam {
                         if (HOME_COUNTER == 4) HOME_COUNTER = 5;
                         break;
                     case 4: //Elektrode mode
-                        if (HOME_COUNTER == 6 || HOME_COUNTER == 1) HOME_COUNTER = 2;
+                        if (HOME_COUNTER == 5 || HOME_COUNTER == 1) HOME_COUNTER = 2;
                         else if(HOME_COUNTER == 4) HOME_COUNTER = 5;
                         break;
                 }
@@ -285,15 +370,21 @@ public class WeldingChangeParam {
                         break;
                     case 4: //sendsth.ChangeParameter(15,5,1);// activate voltage mode
                         break;
-                    case 5: //sendsth.ChangeParameter(5,0,0); //activate job mode
-                        GlobalVariable.JOB_NUM_TOKEN = true;
-                        break;
-                    case 6: GlobalVariable.JOB_NUM_TOKEN = false;
+                    case 5:
                         sendsth.ChangeParameter(2, 0, 0); //activate energie mode (m/min)
                         HOME_COUNTER = 0;
                         break;
                 }
             } else ENCODERBUTTON_TOKEN = true;
+        }
+    }
+
+    public void pressbuttonEncoder2() { //right
+        GlobalVariable.ENCODER2_PRESSED = true;
+        GlobalVariable.ENCODER2_COUNT++;
+        if(GlobalVariable.ENCODER2_COUNT > 3) GlobalVariable.ENCODER2_COUNT = 1;
+        if (!GlobalVariable.JOB_PRESSED) {
+
         }
     }
 }

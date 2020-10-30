@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.Kennlinier_user;
+import com.jess.gdfp.MainActivity;
 import com.jess.gdfp.R;
 
 import java.util.ArrayList;
@@ -160,6 +161,11 @@ public class BlankFragment extends Fragment {
                     //Log.i("MENU","is here");
                     //GlobalVariable.MENU_MODE = position + 1;
                     //GlobalVariable.Menu_Token = true;
+                } else if(tv.getText().equals("JOB")){
+                    //---------------------------- job -----------------------------------------
+                    //Log.i("JOB","is here");
+                    GlobalVariable.JOB_MODE = position;
+                    GlobalVariable.Job_Token = true;
                 }
             }
         });
@@ -292,6 +298,13 @@ public class BlankFragment extends Fragment {
         detail3.add(("TIME"));
         detail3.add(("DISPLAY"));
         detail3.add(("LANGUAGE"));
+        return detail3;
+    }
+
+    public static ArrayList init_Job(){
+        ArrayList detail3 = new ArrayList<>();
+        detail3.add(("LOAD"));
+        detail3.add(("SAVE"));
         return detail3;
     }
 
