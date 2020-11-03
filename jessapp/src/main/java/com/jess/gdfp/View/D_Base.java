@@ -33,7 +33,7 @@ public class D_Base extends AppCompatActivity implements Exit {
 private InfoDataBase datenReader;
 private  Button btn;
 private  Uri uri;
-private  String [] JobsArray  = new String[113];
+private  String [] Array_Data = new String[113];
     private  String [] FinalArray  = new String[112];
 
     @Override
@@ -107,25 +107,31 @@ private  String [] JobsArray  = new String[113];
         if (!exportDir.exists()){
             exportDir.mkdir();
         }
-        File file =new File(exportDir,"JOBS.csv");
+        File file =new File(exportDir,"Datalger.csv");
         try {
             file.createNewFile();
             CSVWriter csvWriter = new CSVWriter(new FileWriter(file));
-            uri = Uri.parse("content://com.felhr.serialportexample.jobs/jobs/");
-            Cursor cursor = getContentResolver().query(uri, JobsDetails.jobdetails, null, null, null);
+           // uri = Uri.parse("content://com.felhr.serialportexample.jobs/jobs/");
+            uri=InfoContract.infoEntry.CONTENT_URI;
+            Cursor cursor = getContentResolver().query(uri, DatalistView.infosArray, null, null, null);
             while (cursor.moveToNext()){
-                for (int i = 0;i<112;i++){
-                    JobsArray[i]=cursor.getString(cursor.getColumnIndexOrThrow(JobsDetails.jobdetails[i]));
-                    FinalArray[i]=JobsDetails.jobdetails[i] + ":"+ JobsArray[i] ;
-                    //System.out.println(JobsArray[i]);
+                for (int i = 0;i<DatalistView.infosArray.length;i++){
+                    Array_Data[i]=cursor.getString(cursor.getColumnIndexOrThrow(DatalistView.infosArray[i]));
+                    //FinalArray[i]=JobsDetails.jobdetails[i] + ":"+ Array_Data[i] ;
+                    //System.out.println(Array_Data[i]);
 
                 }
-                JobsArray[112]="-----------------------------------------------------------------------";
+               // Array_Data[112]="-----------------------------------------------------------------------";
 
-                csvWriter.writeNext(FinalArray);
+                csvWriter.writeNext(Array_Data);
 
 
             }
+
+
+
+
+
             csvWriter.close();
         }catch (Exception E){
             E.printStackTrace();

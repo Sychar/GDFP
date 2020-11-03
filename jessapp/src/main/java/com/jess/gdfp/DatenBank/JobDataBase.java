@@ -19,6 +19,9 @@ public class JobDataBase extends SQLiteOpenHelper {
     private static final String TYPE = " TEXT ";
     private static final String COMMA_SEP = ",";
 
+
+
+
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE " + JobContract.jobEntry.TABEL_NAME +
             "(" + JobContract.jobEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             JobContract.jobEntry.HI_ELEKTOSTROM_SET + TYPE + COMMA_SEP +

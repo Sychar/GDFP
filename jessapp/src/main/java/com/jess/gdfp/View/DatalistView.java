@@ -6,17 +6,27 @@
 
 package com.jess.gdfp.View;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.jess.gdfp.Controller.DatenLoggerAdapter;
+import com.jess.gdfp.DatenBank.CSVWriter;
 import com.jess.gdfp.DatenBank.Datenlogger;
 import com.jess.gdfp.DatenBank.InfoContract;
+import com.jess.gdfp.DatenBank.InfoDataBase;
 import com.jess.gdfp.DatenObjekte;
 import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.R;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.net.URI;
 import java.util.ArrayList;
 
 public class DatalistView extends AppCompatActivity  {
@@ -27,6 +37,8 @@ public class DatalistView extends AppCompatActivity  {
     private TextView Date_view;
     private ListView listView;
     static public String dateString ="1";
+    private  String [] Array_Data = new String[infosArray.length];
+    private Uri uri;
     //private static String[] NEW_STRING ;
 
     @Override
@@ -343,7 +355,15 @@ public class DatalistView extends AppCompatActivity  {
                                 ArrayList Datenlogger = new ArrayList<>();
                                 for (int i=0; i<infosArray.length; i++) {
                                     Datenlogger.add(new Datenlogger(infosArray[i],DATALOGGER_PARAM[i]));
+                                    exportDB();
                                 }
+                                ContentValues values= new ContentValues();
+                                for(int  i=0;i<DATALOGGER_PARAM.length;i++){
+                                    values.put(infosArray[i],DATALOGGER_PARAM[i]);
+
+                                }
+
+                                getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI,values);
                                 datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,Datenlogger);
                                 if(DatenObjekte.HOUR<10) Time_view.setText("0"+String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
                                 else if(DatenObjekte.MINUTE<10) Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":0"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
@@ -515,5 +535,43 @@ public class DatalistView extends AppCompatActivity  {
                 GlobalVariable.KHStatus_String
         };
           return NEW_STRING;
+    }
+
+
+    private  void exportDB(){
+        InfoDataBase infoDataBase = new InfoDataBase(getApplicationContext());
+        File exportDir = new File (Environment.getExternalStorageDirectory(),"");
+        if (!exportDir.exists()){
+            exportDir.mkdir();
+        }
+        File file =new File(exportDir,"Datalger.csv");
+        try {
+            file.createNewFile();
+            CSVWriter csvWriter = new CSVWriter(new FileWriter(file));
+            // uri = Uri.parse("content://com.felhr.serialportexample.jobs/jobs/");
+            uri=InfoContract.infoEntry.CONTENT_URI;
+            Cursor cursor = getContentResolver().query(uri, DatalistView.infosArray, null, null, null);
+            while (cursor.moveToNext()){
+                for (int i = 0;i<DatalistView.infosArray.length;i++){
+                    Array_Data[i]=cursor.getString(cursor.getColumnIndexOrThrow(DatalistView.infosArray[i]));
+                    //FinalArray[i]=JobsDetails.jobdetails[i] + ":"+ Array_Data[i] ;
+                    //System.out.println(Array_Data[i]);
+
+                }
+                // Array_Data[112]="-----------------------------------------------------------------------";
+
+                csvWriter.writeNext(RefreshString());
+
+
+            }
+
+
+
+
+
+            csvWriter.close();
+        }catch (Exception E){
+            E.printStackTrace();
+        }
     }
 }

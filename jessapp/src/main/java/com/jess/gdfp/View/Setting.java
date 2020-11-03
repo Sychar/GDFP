@@ -4,17 +4,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.jess.gdfp.Controller.ReadCSV;
 import com.jess.gdfp.DatenBank.InfoDataBase;
 import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.Kennlinier_user;
 import com.jess.gdfp.MainActivity;
 import com.jess.gdfp.R;
 import com.jess.gdfp.WeldingChangeParam;
+
+import java.io.File;
 
 public class Setting extends AppCompatActivity {
 
@@ -234,15 +238,27 @@ public class Setting extends AppCompatActivity {
         this.finish();
     }
     void onClick_Datenlogger() {
+        ReadCSV.readCSv(this);
         Intent intent = new Intent(this, DatalistView.class);
         startActivity(intent);
+        ReadCSV.readCSv(this);
+
     }
     void onClick_Kennlinie() {
+
         KENN_TOKEN = true;
         Intent intent = new Intent(this, Kennlinier_user.class);
         startActivity(intent);
     }
     void onClick_MenuSetting() {
         Log.i(TAG,"say hi");
+    }
+
+    public String Database() {
+    String str="sakhr";
+        for (int i = 0; i < 100; i++) {
+            str = str.concat("Aljendi");
+        }
+        return  str;
     }
 }

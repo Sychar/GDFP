@@ -984,7 +984,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     }
                 }
 
-                if (GlobalVariable.JobStatus_Display.equals("Inactive")) hold_layout_gone();
+             //   if (GlobalVariable.JobStatus_Display.equals("Inactive")) hold_layout_gone();
 
                 if ((!GlobalVariable.JOB_PRESSED) && (GlobalVariable.Job_Token)){
                     if (GlobalVariable.Jobnummer > 1) sendEnergie.ChangeParameter(6,0,0);  //decrement job
