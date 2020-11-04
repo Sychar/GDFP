@@ -24,7 +24,6 @@
             android:text="Zeit"
             android:textColor="#fff"
             android:textSize="28sp">
-
         </TextView>
 
         <TextView
@@ -37,7 +36,6 @@
             android:text="Date"
             android:textColor="#fff"
             android:textSize="28sp">
-
         </TextView>
 
     </LinearLayout>
@@ -95,7 +93,8 @@
             android:layout_width="450dp"
             android:layout_marginLeft="40dp"
             android:layout_height="match_parent"
-            android:background="@drawable/border2"></ListView>
+            android:background="@drawable/border2">
+        </ListView>
 <LinearLayout
     android:layout_marginLeft="40dp"
     android:layout_width="wrap_content"

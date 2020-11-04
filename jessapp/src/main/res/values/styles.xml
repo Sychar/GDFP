@@ -41,9 +41,8 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="genralstyle">
-        <item name="android:textStyle">italic</item>
-
+    <style name="general_style">
+        <item name="android:textStyle">normal</item>
     </style>
 
     <style name="scroll">

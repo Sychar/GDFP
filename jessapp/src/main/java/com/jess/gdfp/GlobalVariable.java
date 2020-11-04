@@ -13,6 +13,7 @@ public class GlobalVariable {
     public static int VERFAHREN_MODE = 0;
     public static int DRAHTDURCHMESSER_MODE = 0;
     public static int GAS_MODE = 0;
+    public static int WERKSTOFF_MODE = 0;
     public static int BETRIEBSART_MODE = 0;
     public static int MENU_MODE = 0;
     public static int JOB_MODE = 0;
@@ -41,11 +42,12 @@ public class GlobalVariable {
     public static boolean Betriebsart_Token = false;
     public static boolean Menu_Token = false;
     public static boolean Job_Token = false;
-    public static boolean Job_Active = false;
     public static boolean Hold_Token = false;
+    public static int countHold = 0;
     public static boolean Verfahren_Token = false;
     public static boolean Drahtdurchmesser_Token = false;
     public static boolean Gas_Token = false;
+    public static boolean Werkstoff_Token = false;
     public static boolean Kennlinie_Token = false;
     public static boolean JOBUSER_TOKEN = false;
     public static boolean KENN_TOKEN = false;
@@ -58,6 +60,10 @@ public class GlobalVariable {
     public static int JOBBTN_COUNTER = 0;
     public static int KENNBTN_COUNTER = 0;
     public static int VERFAHREN_COUNTER = 0;
+    public static int WERKSTOFF_COUNTER = 0;
+    public static int DRAHTDURCHMESSER_COUNTER = 0;
+    public static int BETRIEBSART_COUNTER = 0;
+    public static int GAS_COUNTER = 0;
     public static int JOBCOUNT = 0;
 
     public static int VERFAHREN_VAL = 0;
@@ -75,8 +81,11 @@ public class GlobalVariable {
     public static String Gas = "";
     public static String Werkstoff;
     public static String Reglertyp;
-    public static String StatusMSR;
-    public static String StatusFLG;
+    public static String StatusMSR_String;
+    public static int StatusMSR;
+    public static String StatusMSR_BT;
+    public static String StatusFLG_String;
+    public static int StatusFLG;
     public static int SV1pos1;
     public static int SV1pos2;
     public static int Drahtdurchmesser;
@@ -104,7 +113,7 @@ public class GlobalVariable {
 
     public static int JobKommando;
     public static String JobStatus_String;
-    public static String JobStatus_Display;
+    public static String JobStatus_Display = "";
     public static byte Verriegelungsstufe;
 
     //SV 3
@@ -330,10 +339,11 @@ public class GlobalVariable {
     public static byte DurchflussLow_DVE;
     public static byte DurchflussHigh_DVE;
     public static byte Status1_DVE;
-    public static byte SeriennummerMonat2_DVE;
-    public static byte SeriennummerJahr2_DVE;
-    public static byte SeriennummerLSB2_DVE;
-    public static byte SeriennummerMSB2_DVE;
+    public static byte SeriennummerMonat1_DVE;
+    public static byte SeriennummerJahr1_DVE;
+    public static byte SeriennummerLSB1_DVE;
+    public static byte SeriennummerMSB1_DVE;
+    public static byte PCBKennungBestückung1_DVE;
 
     //---------------------------------------- IDSP ------------------------------------------------
     public static byte EffektivstromLow_IDSP;
@@ -383,7 +393,7 @@ public class GlobalVariable {
     public static byte SeriennummerJahr1_IDSP;
     public static byte SeriennummerLSB1_IDSP;
     public static byte SeriennummerMSB1_IDSP;
-    public static byte PCBKennungBestückung1_IDSP;
+    public static byte PCBKennung_Bestückung1_IDSP;
 
     //------------------------------------ Regler DSP ----------------------------------------------
     public static byte SollstromLow_ReglerDSP;
@@ -664,6 +674,7 @@ public class GlobalVariable {
     public static int SchweissspanungIst = 0;
     public static int Brennertasten = 0;
     public static String Brennertasten1_string = "";
+    public static Boolean BT1_Interrupt = false;
     public static String Brennertasten2_string = "";
     public static String Brennertasten3_string = "";
     public static String Gastest_string = "";

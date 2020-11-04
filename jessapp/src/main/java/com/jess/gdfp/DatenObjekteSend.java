@@ -434,7 +434,7 @@ public class DatenObjekteSend {
                 PARAMTOKEN = 1;
                 VALTOKEN= 0; // no value id
                 break;
-            case 40: //job(no value) decrement
+            case 40: ////job deactivate (0B 00 09 00)
                 FRAMEVAL = 9;
                 FRAMEEXTRA = 11; //0x0B
                 FIRVAL = 0;
@@ -482,6 +482,20 @@ public class DatenObjekteSend {
                 FIRVAL = value & 0xFF;
                 SECVAL = 255; //FFH
                 THDVAL = 27; //1BH
+                if(mode==0) {
+                    PARAMTOKEN = 1;
+                    VALTOKEN = 0; // no value id
+                }else{
+                    PARAMTOKEN = 0;
+                    VALTOKEN = 1;
+                }
+                break;
+            case 44: //Werkstoff
+                FRAMEVAL = 1;
+                FRAMEEXTRA = 4;
+                FIRVAL = 0;
+                SECVAL = 0;
+                THDVAL = 0;
                 if(mode==0) {
                     PARAMTOKEN = 1;
                     VALTOKEN = 0; // no value id

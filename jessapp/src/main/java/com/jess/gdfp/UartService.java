@@ -517,15 +517,16 @@ public class UartService extends Service {
                         }
 
                         if(HEX_DATA !=null && !HEX_DATA.equals("")) {
+                            /*int tempDO = ByteArray[17]; //Verfahren
+                            if (tempDO < 0) tempDO = tempDO + 256;
+                            GlobalVariable.SV1pos1 = tempDO;*/
+                            //Log.i("SV1pos1",String.valueOf(tempDO));
                             int tempCANID = ByteArray[4];
                             if (ByteArray[4]<0) tempCANID=ByteArray[4]+256;
                             //Log.i("dataCombiner",HEX_DATA);
-                            //SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
                             //if(LengthProtocol==15 && ByteArray[3]==0 && ByteArray[4]==0){
                             if(LengthProtocol==10 && ByteArray[3]==0 && ByteArray[4]==0){ //CanID 0000
-                                //if(LengthProtocol==10 && ByteArray[2]==1){ //CanID 0000
                                 SendEncoder.changeEncoder(HEX_DATA); //SendEncoder.java
-                                //Log.i("CanId is","0000");
                             } else if((ByteArray[3]==6) && (tempCANID== 240) && (ByteArray[9]==5) && (LengthProtocol==222)) { //CanID 06F0
                                 /*
                                String testFrame="";
@@ -568,11 +569,11 @@ public class UartService extends Service {
                                 DatenObjekte.callme(HEX_DATA);
                             }
                         }
-                        Intent iii = new Intent("Main.Activity").putExtra("msg_service", HEX_DATA); //send hex content to Main Activity
+                        /*Intent iii = new Intent("Main.Activity").putExtra("msg_service", HEX_DATA); //send hex content to Main Activity
                         context.sendBroadcast(iii);
 
                         Intent iiii = new Intent("Main.Activity1").putExtra("msg_service1", ASCII_DATA); //send ascii content to Main Activity
-                        context.sendBroadcast(iiii);
+                        context.sendBroadcast(iiii);*/
                     } //else Log.i("Checksum ","is wrong");
                 } else Log.i("Checksum ","length");
             }

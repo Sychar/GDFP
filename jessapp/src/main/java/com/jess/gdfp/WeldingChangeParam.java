@@ -29,7 +29,7 @@ public class WeldingChangeParam {
     public static int HOME_COUNTER = 0;
 
 
-    public void incrementEncoder0(int val_encoder){ //left
+    public void incrementEncoder1(int val_encoder){ //middle
         GlobalVariable.encoder = true;
         //Log.i("incrementEncoder1","is called");
         if (GlobalVariable.JOB_PRESSED){
@@ -43,16 +43,17 @@ public class WeldingChangeParam {
             //Log.i(TAG,"job not pressed");
             GlobalVariable.CONTROL_PANEL_MODE = 1;
             switch(HOME_COUNTER){
-                case 0: if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display < 240)) { //Normal
+                case 0: if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display <= 240)) { //Normal
                     GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
                     //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
-                } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display < 120)) { //Synergie
+                } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display <= 120)) { //Synergie
                     GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
                     //progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
-                } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display < 120)) {//Pulse
+                } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display <= 120)) {//Pulse
                     GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
                     //progressBar.setProgress(DatenObjekte.a_display - 20);
                 }
+                    Log.i("increase encoder",String.valueOf(GlobalVariable.mpm_display));
                     break;
                 case 1:
                     GlobalVariable.mm_a_display = GlobalVariable.mirror_display + val_encoder; //mm
@@ -112,22 +113,21 @@ public class WeldingChangeParam {
             }
         } else { //Job button in home page is pressed
             GlobalVariable.JOBCOUNT++;
-            //---------------------------- Activate Job ----------------------------------------
-            if(GlobalVariable.JOBCOUNT==1) {
-                DatenObjekteSend activateJob = new DatenObjekteSend();
-                activateJob.ChangeParameter(5, 0, 1);
-                //GlobalVariable.delayInMilli(200);
-                //activateJob.ChangeParameter(4,0, 1);
+
+            if (GlobalVariable.JOB_MODE==1 && GlobalVariable.JOBCOUNT==1) {
+                //---------------------------- Start Job ----------------------------------------
+                DatenObjekteSend startJob = new DatenObjekteSend();
+                startJob.ChangeParameter(20, 0, 0);
             }else {
                 //---------------------------Increment Job number---------------------------------------
                 DatenObjekteSend incrementJob = new DatenObjekteSend();
-                incrementJob.ChangeParameter(4,0, 1);
+                incrementJob.ChangeParameter(4, 0, 1);
                 //Log.i("incrementJob","is called");
             }
         }
     }
 
-    public void decrementEncoder0(int val_encoder){ //left
+    public void decrementEncoder1(int val_encoder){ //middle
         GlobalVariable.encoder = true;
         //Log.i("decrementEncoder1","is called");
 
@@ -143,16 +143,18 @@ public class WeldingChangeParam {
             GlobalVariable.CONTROL_PANEL_MODE = 1;
             switch(HOME_COUNTER){
                 case 0:
-                    if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.Energie1 < 240)) { //Normal
+                    if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.Energie1 <= 240)) { //Normal
                         GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
                         //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
-                    } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display < 120)) { //Synergie
+                    } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display <= 120)) { //Synergie
                         GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
+                        Log.i("decrease encoder",String.valueOf(GlobalVariable.mpm_display));
                         //progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
-                    } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display < 120)) {//Pulse
+                    } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display <= 120)) {//Pulse
                         GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
                         //progressBar.setProgress(DatenObjekte.a_display - 20);
                     }
+
                     break;
                 case 1:
                     GlobalVariable.mm_a_display = GlobalVariable.mirror_display - val_encoder; //mm
@@ -214,9 +216,10 @@ public class WeldingChangeParam {
             //GlobalVariable.JOBCOUNT--;
             if(GlobalVariable.Jobnummer==1) GlobalVariable.JOBCOUNT = 0;
             //---------------------------Decrement Job number--------------------------------------
-            DatenObjekteSend decrementJob = new DatenObjekteSend();
-            decrementJob.ChangeParameter(6,0, 1);
-            //Log.i("decrementJob","is called");
+                DatenObjekteSend decrementJob = new DatenObjekteSend();
+                decrementJob.ChangeParameter(6, 0, 1);
+                //Log.i("decrementJob","is called")
+
         }
     }
 
@@ -330,7 +333,7 @@ public class WeldingChangeParam {
         BETRIEBSART_TOKEN = true;
     }
 
-    public void pressbuttonEncoder0() { //left
+    public void pressbuttonEncoder1() { //middle
         GlobalVariable.ENCODER_PRESSED = true;
         if (!GlobalVariable.JOB_PRESSED) {
             DatenObjekteSend sendsth = new DatenObjekteSend();
@@ -380,11 +383,10 @@ public class WeldingChangeParam {
     }
 
     public void pressbuttonEncoder2() { //right
-        GlobalVariable.ENCODER2_PRESSED = true;
+        /*GlobalVariable.ENCODER2_PRESSED = true;
         GlobalVariable.ENCODER2_COUNT++;
         if(GlobalVariable.ENCODER2_COUNT > 3) GlobalVariable.ENCODER2_COUNT = 1;
         if (!GlobalVariable.JOB_PRESSED) {
-
-        }
+        }*/
     }
 }

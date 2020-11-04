@@ -16,53 +16,27 @@ public class MainActivity_Controller extends AppCompatActivity {
 Intent intent;
 MainActivity mainActivity;
 
-public MainActivity_Controller(MainActivity mainActivity){
-this.mainActivity=mainActivity;
-
-}
-public MainActivity_Controller(){
-
-}
+public MainActivity_Controller(MainActivity mainActivity){ this.mainActivity=mainActivity; }
+public MainActivity_Controller(){ }
 
 public  void minus_plus_interagieren(ProgressBar progressBar_minus ,ProgressBar progressBar_plus ,View view){
     int x = progressBar_plus.getProgress();
     int y = progressBar_minus.getProgress();
-    if (view.getId() == R.id.plus) {
-
+    if (view.getId() == R.id.Drossel_plus) {
         GlobalVariable.korrektur_display = GlobalVariable.Lichtbogenkorrektur1+1;
         DatenObjekteSend sendKorrektur = new DatenObjekteSend();
         sendKorrektur.ChangeParameter(21, GlobalVariable.korrektur_display, 1);
-
-        /*if(x==0&&y<=0){
-            progressBar_plus.setProgress(x+3);
-        } else if(x==0&&y>0){
-            progressBar_minus.setProgress(y-3);
-        } else if(x>0){
-            progressBar_plus.setProgress(x+3);
-        }*/
     }
-
-    if (view.getId() == R.id.minus) {
-
+    if (view.getId() == R.id.Drossel_minus) {
         GlobalVariable.korrektur_display = GlobalVariable.Lichtbogenkorrektur1-1;
         DatenObjekteSend sendKorrektur = new DatenObjekteSend();
         sendKorrektur.ChangeParameter(21, GlobalVariable.korrektur_display, 1);
-        /*if(x>0){
-            progressBar_plus.setProgress(x-3);
-        }
-        if(x<=0){
-            progressBar_minus.setProgress(y+3);
-        }*/
-
     }
 }
-
     public void ChangeTextprogressBar(Button btn , TextView txtProgress ,String temp ,boolean cheack )
                                      {
-
         int id = btn.getId();
         if (id == R.id.btn_korrektur) {
-
             TextView textView =  findViewById(R.id.korrektur);
             String s = textView.getText().toString();
             String s1 = btn.getText().toString();

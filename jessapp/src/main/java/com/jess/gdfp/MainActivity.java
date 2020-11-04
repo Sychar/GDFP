@@ -3,16 +3,13 @@ package com.jess.gdfp;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 
-import android.content.ContentValues;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -26,14 +23,15 @@ import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jess.gdfp.Controller.MainActivity_Controller;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.DatalistView;
-import com.jess.gdfp.View.JobsDetails;
 import com.jess.gdfp.View.JobsUser;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -64,10 +62,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     public Button Value3;
     public Button Value1;
     private Button circle_button;
-    private Button minus_button;
+    private Button Drossel_Plus;
     private Button Setting;
     private Button Menu;
-    private Button plus;
+    private Button Drossel_Minus;
     private Button WIG_btn;
     private Button MMNormal_btn;
     private Button MMSynergy_btn;
@@ -143,6 +141,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
     private AlertDialog.Builder builder;
     private AlertDialog dialog;
+    private AlertDialog.Builder builder_verfahren;
+    private AlertDialog dialog_verfahren;
+    private TextView Ver_Tv;
 
     public static byte READVAL_STATUS[] = new byte[10];
 
@@ -186,6 +187,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         serial_init();
         hold_layout_gone();
 
+        /*Intent intent=new Intent();
+        intent.setComponent(new ComponentName("com.android.settings",
+                "com.android.settings.DateTimeSettingsSetupWizard"));
+        startActivity(intent);*/
+
         //AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         //alarm.setTime(1330082817);
         //boolean correct = SystemClock.setCurrentTimeMillis(500);
@@ -206,6 +212,26 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         button_no = dialogView.findViewById(R.id.button_no);
         button_yes = dialogView.findViewById(R.id.button_yes);
         dialog = builder.create();
+
+        //------------------------------- For verfahren only ---------------------------------------
+        builder_verfahren = new AlertDialog.Builder(MainActivity.this);
+        LayoutInflater inflater_verfahren = getLayoutInflater();
+        View dialogView_verfahren = inflater_verfahren.inflate(R.layout.layout_dialog,null);
+        builder_verfahren.setView(dialogView_verfahren);
+        Ver_Tv = dialogView_verfahren.findViewById(R.id.textView_ver);
+
+        Button dialogButton = dialogView_verfahren.findViewById(R.id.button_ok);
+        // if button is clicked, close the custom dialog
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_verfahren.dismiss();
+                Toast.makeText(getApplicationContext(),"Dismiss", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog_verfahren = builder_verfahren.create();
+        //------------------------------------------------------------------------------------------
+
         button_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,6 +244,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 JOB_NUM.setText("JOB");
                 JOB_NUM.setTextColor(Color.WHITE);
                 JOB_NUM.setBackgroundColor(Color.BLACK);
+                JOB_NUM.setBackground(getResources().getDrawable( R.drawable.border2));
+                GlobalVariable.JOBCOUNT = 0;
                 /*Uri uri = Uri.parse("content://com.jess.gdfp.jobs/jobs");
                 ContentValues values= new ContentValues();
                 for(int i=0;i<DatenObjekteJob.DataBase().length ;i++){
@@ -236,9 +264,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 //------------------------- Exit job -----------------------------------------------
                 GlobalVariable.JOB_PRESSED = false;
                 JOB_NUM.setText("JOB");
+                home_view();
                 JOB_NUM.setTextColor(Color.WHITE);
                 JOB_NUM.setBackgroundColor(Color.BLACK);
-                home_view();
+                JOB_NUM.setBackground(getResources().getDrawable( R.drawable.border2));
                 job_gedrückt = false;
                 dialog.cancel();
             }
@@ -270,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     }
                 };
                 BlankFragment.rv.setAdapter(adapter2);
+                BlankFragment.setButtonVisible();
                 droessel_gone();
                 hold_layout_gone();
                 view = findViewById(R.id.fragment_test);
@@ -281,7 +311,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Geberge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SetDefautlTime();
+                changeSystemTime("2020","11","3","9","31","50");
+                Log.i("Geberge button","is pressed");
+                //SetDefautlTime();
                 /*BlankFragment.tv.setText("DRAHTDURCHMESSER");
                 BlankFragment.detail = BlankFragment.init_durchmesser();
                 ArrayAdapter<String> adapter2= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,BlankFragment.detail){
@@ -353,7 +385,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Drossel_view();
 
         home.setOnClickListener(view1 -> {
+            //---------------------------- Request Job -----------------------------------------
+            //String FIRSTSTR = UartService.getJob(); //ascii string
+            //String SECSTR = UartService.getJob1(1); //ascii string
             home_view();
+            //tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+            //dialog_verfahren.show();
         });
 
         JOB_NUM.setOnClickListener(view12 -> {
@@ -377,53 +414,48 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 GlobalVariable.JOB_PRESSED = true;
                 JOB_NUM.setTextColor(Color.BLACK);
                 JOB_NUM.setBackgroundColor(Color.GRAY);
-                //---------------------------- Start Job ----------------------------------------
-                //DatenObjekteSend startJob = new DatenObjekteSend();
-                //startJob.ChangeParameter(20, 0, 0);
                 job_gedrückt = true;
                 //---------------------------- Store Job -------------------------------------------
                 //DatenObjekteSend storeJob = new DatenObjekteSend();
                 //storeJob.ChangeParameter(37, 0, 1);
-
-                //---------------------------- Request Job -----------------------------------------
-                //String FIRSTSTR = UartService.getJob(); //ascii string
-                //String SECSTR = UartService.getJob1(1); //ascii string
             } else {
                 GlobalVariable.JOB_PRESSED = false;
                 GlobalVariable.Load_Job = false;
+                GlobalVariable.Save_Job = false;
+               //GlobalVariable.Job_Token = false; //so that load and save layout can work
                 WeldingChangeParam.HOME_COUNTER = 0;
                 JOB_NUM.setTextColor(Color.WHITE);
                 JOB_NUM.setBackgroundColor(Color.BLACK);
                 JOB_NUM.setBackground(getResources().getDrawable( R.drawable.border2));
+                sendEnergie.ChangeParameter(40,0,0); //deactivate job directly
                 hold_layout_gone();
                 job_gedrückt = false;
             }
 
-            //---------------------------Increment Job number---------------------------------------
-            /*DatenObjekteSend incrementJob = new DatenObjekteSend();
-            incrementJob.ChangeParameter(4,0, 1);*/
             //---------------------------Decrement Job number---------------------------------------
             //DatenObjekteSend decrementJob = new DatenObjekteSend();
             //decrementJob.ChangeParameter(6,0, 1);
         });
 
-        plus.setOnClickListener(view1 -> {
+        //---------------------------------------- Drossel -----------------------------------------
+        Drossel_Minus.setOnClickListener(view1 -> {
             GlobalVariable.Drossel_token = true;
             int drossel_val = GlobalVariable.KorrekturDrossel;
-            drossel_val++;
-            Log.i("drossel_val",String.valueOf(drossel_val));
+            drossel_val--;
+            //Log.i("drossel_val",String.valueOf(drossel_val));
             DatenObjekteSend test = new DatenObjekteSend();
             test.ChangeParameter(43,drossel_val,1);
         });
 
-        minus_button.setOnClickListener(view1 -> {
+        Drossel_Plus.setOnClickListener(view1 -> {
             GlobalVariable.Drossel_token = true;
             int drossel_val = GlobalVariable.KorrekturDrossel;
-            drossel_val--;
-            Log.i("drossel_val",String.valueOf(drossel_val));
+            drossel_val++;
+            //Log.i("drossel_val",String.valueOf(drossel_val));
             DatenObjekteSend test = new DatenObjekteSend();
             test.ChangeParameter(43,drossel_val,1);
         });
+        //------------------------------------------------------------------------------------------
 
         Fav1_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -440,7 +472,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 }
             }
         });
-        Fav1_btn.setTextSize(25);
 
         Fav2_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -451,7 +482,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 } else fav2_gedrückt = false;
             }
         });
-        Fav2_btn.setTextSize(25);
 
         Fav3_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -464,7 +494,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 }
             }
         });
-        Fav3_btn.setTextSize(25);
 
         Fav4_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -475,7 +504,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 } else fav4_gedrückt = false;
             }
         });
-        Fav4_btn.setTextSize(25);
 
         newHandler.post(TimerHandler);
     }
@@ -561,7 +589,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             counterDisplay++;
             counterDisplay1++;
 
-            switch(WeldingChangeParam.HOME_COUNTER) {
+            /*switch(WeldingChangeParam.HOME_COUNTER) {
                 case 0:
                     if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display < 240)) { //Normal
                         progressBar.setProgress((int) (GlobalVariable.mpm_display) * (100 / 232) - (800 / 232));
@@ -571,13 +599,13 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         progressBar.setProgress(GlobalVariable.mpm_display - 20);
                     }
                     break;
-            }
+            }*/
 
             if (READVAL_STATUS[1] == 1) {
                 switch (WeldingChangeParam.HOME_COUNTER) {
                     case 0:
                         if(GlobalVariable.VERFAHREN_VAL!=4) {
-                            txtprogress.setText(String.valueOf(GlobalVariable.Energie1 / 10) + "." + String.valueOf(GlobalVariable.Energie1 % 10)); // m/min
+                            txtprogress.setText(String.valueOf(GlobalVariable.mpm_display / 10) + "." + String.valueOf(GlobalVariable.mpm_display % 10)); // m/min
                             unitprogress.setText("m/min");
                             if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
                                 Label1.setText("mm");
@@ -680,43 +708,69 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             }
                 if (CHECK) {
                     if (!GlobalVariable.Verfahren_Token) ANZEIGE1.setText(GlobalVariable.Verfahren_String[GlobalVariable.SV1pos1]); // Verfahren
-                    ANZEIGE2.setText(GlobalVariable.Werksotff_String[GlobalVariable.SV1pos5]); // Werkstoff
-                    ANZEIGE3.setText(GlobalVariable.Draht_String[GlobalVariable.Drahtdurchmesser]); // Drahtdurchmesser
-                    if (!GlobalVariable.Betriebsart_Token) ANZEIGE4.setText(GlobalVariable.Betriebsart_String[GlobalVariable.SV1pos2]); // Betriebsart
-                    ANZEIGE5.setText(GlobalVariable.Gas_String[GlobalVariable.SV1pos4]); // Gas
+                    if (GlobalVariable.SV1pos1!=1 && GlobalVariable.SV1pos1!=4) {
+                        ANZEIGE2.setText(GlobalVariable.Werksotff_String[GlobalVariable.SV1pos5]); // Werkstoff
+                        ANZEIGE3.setText(GlobalVariable.Draht_String[GlobalVariable.Drahtdurchmesser]); // Drahtdurchmesser
+                        if (!GlobalVariable.Betriebsart_Token)
+                            ANZEIGE4.setText(GlobalVariable.Betriebsart_String[GlobalVariable.SV1pos2]); // Betriebsart
+                        ANZEIGE5.setText(GlobalVariable.Gas_String[GlobalVariable.SV1pos4]); // Gas
+                    } else {
+                        ANZEIGE2.setText("");
+                        ANZEIGE3.setText("");
+                        ANZEIGE4.setText("");
+                        ANZEIGE5.setText("");
+                    }
 
                     //------------------------------------------------ Brennertasten ---------------------------------------------------------------------------------------
-                    if (GlobalVariable.Brennertasten1_string.equals("Brennertaste1 Active") && !GlobalVariable.Job_Token){
+                    if (GlobalVariable.Brennertasten1_string.equals("Brennertaste1 Active")){
+                        //Log.i("Brennertasten1_string","is active");
+                        hold_layout_view();
                         HoldIst.setText("Ist");
                         StromHoldwertTV.setText(String.valueOf(GlobalVariable.StromIstwert)+" A");
-                        SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungIstwert)+" V");
-                    } else if ((!GlobalVariable.Hold_Token) && (!GlobalVariable.Job_Token)){
+                        SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungIstwert / 10) + "." + String.valueOf(GlobalVariable.SpannungIstwert % 10)+"V");
+                        GlobalVariable.Hold_Token=true;
+                        GlobalVariable.countHold = 500;
+                   } else if ((GlobalVariable.countHold > 0) && (GlobalVariable.Hold_Token)){
+                        //Log.i("StromHoldwertTV","is here");
+                        //System.out.println(GlobalVariable.countHold);
+                        GlobalVariable.countHold--;
+                        hold_layout_view();
                         HoldIst.setText("Hold");
-                        //StromHoldwertTV.setText(String.valueOf(GlobalVariable.StromHoldwert)+" A");
-                        //SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungHoldwert)+" V");
-                        StromHoldwertTV.setTextSize(70);
-                        SpannungHoldwertTV.setTextSize(70);
-                        StromHoldwertTV.setText(String.valueOf(350)+" A");
-                        SpannungHoldwertTV.setText(String.valueOf(35)+".9"+" V");
+                        StromHoldwertTV.setText(String.valueOf(GlobalVariable.StromHoldwert)+" A");
+                        SpannungHoldwertTV.setText(String.valueOf(GlobalVariable.SpannungHoldwert / 10) + "." + String.valueOf(GlobalVariable.SpannungHoldwert % 10)+"V");
+                    } else {
+                        GlobalVariable.Hold_Token=false;
+                        GlobalVariable.BT1_Interrupt = false;
+                        hold_layout_gone();
                     }
                     //------------------------------------------------------- Display variables in textview -----------------------------------------------------------------
-
                     if (GlobalVariable.KorrekturDrossel >= 0) DROSSEL.setText("DROSSEL   "+"[ "+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
-                    else DROSSEL.setText("DROSSEL  "+"[ -"+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
+                    else DROSSEL.setText("DROSSEL  "+"[ "+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
 
-                    //------------------------------------------ Job button --------------------------------------------------------------
-                    if(GlobalVariable.Job_Token) {
-                        if (GlobalVariable.JOB_MODE==0) { //LOAD
+                    //-------------------------------------------------------------------- Job button -----------------------------------------------------------------------
+                    if ((!GlobalVariable.JOB_PRESSED) && (GlobalVariable.Job_Token)){
+                        //System.out.println("is also here");
+                        if (!GlobalVariable.JobStatus_Display.equals("Inactive"))
+                            sendEnergie.ChangeParameter(6,0,0);  //decrement job
+                        else {
+                            GlobalVariable.Job_Token = false;
+                            GlobalVariable.JOBCOUNT = 0;
+                            hold_layout_gone();
+                        }
+                    }
+
+                    if (GlobalVariable.Job_Token && !GlobalVariable.BT1_Interrupt) {
+                        //System.out.println("is here");
+                        if (GlobalVariable.Load_Job) { //LOAD
                             if (GlobalVariable.JobStatus_Display.equals("Inactive")) sendEnergie.ChangeParameter(5,0,0);
-                            //Log.i("JobStatus_Display",GlobalVariable.JobStatus_Display);
-                            GlobalVariable.Load_Job = true;
+                             //Log.i("LOAD","is here");
                             home_view();
+                            hold_layout_view();
                             HoldIst.setText("");
                             StromHoldwertTV.setText("    JOB");
-                            //if (GlobalVariable.Load_Job) sendEnergie.ChangeParameter(5,0,0);
-                        } else if (GlobalVariable.JOB_MODE==1) { //SAVE
-                            GlobalVariable.Save_Job = true;
+                        } else if (GlobalVariable.Save_Job) { //SAVE
                             home_view();
+                            hold_layout_view();
                             HoldIst.setText("");
                             StromHoldwertTV.setText("    JOB");
                         }
@@ -738,19 +792,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                                 break;
                         }
                     }
-
-                    /*if (GlobalVariable.SV1pos1 != 4) { // Not elektrode mode
-                        Value1.setTextColor(Color.WHITE);
-                        Value2.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
-                        Value2.setTextColor(Color.WHITE);
-                    } else {
-                        Value3.setTextColor(Color.BLACK);
-                        Value1.setTextColor(Color.BLACK);
-                        Value2.setText("");
-                        Value2.setTextColor(Color.BLACK);
-                    }*/
+                    //-----------------------------------------------------------------------------------------------------------------------------------------------
                 }
-
                 Value2.setOnClickListener((View v) -> {
                     new MainActivity_Controller().ChangeTextprogressBar(Value2, txtProgress, temp, CHECK);
                     ChangeTextprogressBar(Value2);
@@ -759,7 +802,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 Value3.setOnClickListener((View v) -> {
                     ChangeTextprogressBar(Value3);
                 });
-
                 //getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI,values); // this line crash suddenly
 
             if (UartService.HeaderFound == 1) { //found '$'
@@ -778,25 +820,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     DatenObjekte.jobtoken = 0;
                 }
             }
-
-            //--------------------------------------- Verfahren ------------------------------------------------------------------
-            if (GlobalVariable.Verfahren_Token){
-                if (GlobalVariable.SV1pos1 != GlobalVariable.VERFAHREN_MODE) sendEnergie.ChangeParameter(28, 5, 0);
-                else GlobalVariable.Verfahren_Token = false;
-            }
-
-            //------------------------------------------------ Gas ------------------------------------------------------------------
-            if (GlobalVariable.Gas_Token){
-                if (GlobalVariable.SV1pos4 != GlobalVariable.GAS_MODE) sendEnergie.ChangeParameter(10, 0, 1);
-                else GlobalVariable.Gas_Token = false;
-            }
-
-            //------------------------------------------------ Betriebsart ----------------------------------------------------------
-            if (GlobalVariable.Betriebsart_Token){
-                if (GlobalVariable.SV1pos2 != GlobalVariable.BETRIEBSART_MODE) sendEnergie.ChangeParameter(42,0,0);
-                else GlobalVariable.Betriebsart_Token = false;
-            }
-
             //------------------------------------------------ Menu ------------------------------------------------------
             if (GlobalVariable.Menu_Token){
                 if (GlobalVariable.MENU_MODE == 0) onClickJobUser(); //Jobs
@@ -805,19 +828,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 else if (GlobalVariable.MENU_MODE == 3) onClickKennlinie(); //Guide
                 GlobalVariable.Menu_Token = false;
             }
-
-            //------------------------------------------------------ Drahtdurchmesser ------------------------------------------------------------
-            if (GlobalVariable.Drahtdurchmesser_token){
-                if (GlobalVariable.Drahtdurchmesser != GlobalVariable.DRAHTDURCHMESSER_MODE) sendEnergie.ChangeParameter(41, 0, 0);
-                else GlobalVariable.Drahtdurchmesser_token = false;
-            }
-
-            //------------------------------------------------------ Drossel ------------------------------------------------------------
-            /*if (GlobalVariable.Drossel_token){
-                if (GlobalVariable.KorrekturDrossel != GlobalVariable.DRAHTDURCHMESSER_MODE) sendEnergie.ChangeParameter(41, 0, 0);
-                else GlobalVariable.Drossel_token = false;
-            }*/
-
+            //------------------------------------------------------ Korrektur Drossel ------------------------------------------------------------
             if(GlobalVariable.KorrekturDrossel > 0){
                 progressBarPlus.setProgress(100*GlobalVariable.KorrekturDrossel/30);
                 progressBarMinus.setProgress(0);
@@ -831,125 +842,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 dialog.show();
             }
 
-            if (GlobalVariable.ENCODER2_PRESSED){
-                if (GlobalVariable.ENCODER2_COUNT==1) {
-                    Value1.setTextColor(Color.BLACK);
-                    Value1.setBackgroundColor(Color.GRAY);
-                    Value2.setTextColor(Color.WHITE);
-                    Value2.setBackground(getResources().getDrawable(R.drawable.border2));
-                    Value3.setTextColor(Color.WHITE);
-                    Value3.setBackground(getResources().getDrawable(R.drawable.border2));
-                    if (Label1.getText().equals("KorrLB")) {
-                        GlobalVariable.ChangeValue[3] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label1.getText().equals("Voltage")) {
-                        GlobalVariable.ChangeValue[4] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                    } else if (Label1.getText().equals("Ampere")) {
-                        GlobalVariable.ChangeValue[2] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label1.getText().equals("mm")) {
-                        GlobalVariable.ChangeValue[1] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label1.getText().equals("m/min")) {
-                        GlobalVariable.ChangeValue[0] = 1;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    }
-                } else if (GlobalVariable.ENCODER2_COUNT==2) {
-                    Value2.setTextColor(Color.BLACK);
-                    Value2.setBackgroundColor(Color.GRAY);
-                    Value1.setTextColor(Color.WHITE);
-                    Value1.setBackground(getResources().getDrawable(R.drawable.border2));
-                    Value3.setTextColor(Color.WHITE);
-                    Value3.setBackground(getResources().getDrawable(R.drawable.border2));
-                    if (Label2.getText().equals("KorrLB")) {
-                        GlobalVariable.ChangeValue[3] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label2.getText().equals("Voltage")) {
-                        GlobalVariable.ChangeValue[4] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                    } else if (Label2.getText().equals("Ampere")) {
-                        GlobalVariable.ChangeValue[2] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label2.getText().equals("mm")) {
-                        GlobalVariable.ChangeValue[1] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label2.getText().equals("m/min")) {
-                        GlobalVariable.ChangeValue[0] = 1;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    }
-                } else if (GlobalVariable.ENCODER2_COUNT==3 && !Label3.getText().equals("")) {
-                    Value3.setTextColor(Color.BLACK);
-                    Value3.setBackgroundColor(Color.GRAY);
-                    Value1.setTextColor(Color.WHITE);
-                    Value1.setBackground(getResources().getDrawable(R.drawable.border2));
-                    Value2.setTextColor(Color.WHITE);
-                    Value2.setBackground(getResources().getDrawable(R.drawable.border2));
-                    if (Label3.getText().equals("KorrLB")) {
-                        GlobalVariable.ChangeValue[3] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label3.getText().equals("Voltage")) {
-                        GlobalVariable.ChangeValue[4] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                    } else if (Label3.getText().equals("Ampere")) {
-                        GlobalVariable.ChangeValue[2] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label3.getText().equals("mm")) {
-                        GlobalVariable.ChangeValue[1] = 1;
-                        GlobalVariable.ChangeValue[0] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    } else if (Label3.getText().equals("m/min")) {
-                        GlobalVariable.ChangeValue[0] = 1;
-                        GlobalVariable.ChangeValue[1] = 0;
-                        GlobalVariable.ChangeValue[2] = 0;
-                        GlobalVariable.ChangeValue[3] = 0;
-                        GlobalVariable.ChangeValue[4] = 0;
-                    }
-                } else if (GlobalVariable.ENCODER2_COUNT==3) GlobalVariable.ENCODER2_COUNT=1;
-            }
-
-            if (counterDisplay == 25) { //update every 0.02s
+            if (counterDisplay == 20) { //update every 0.02s
                 long date = System.currentTimeMillis();
                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ss");
                 dateString = sdf.format(date);
@@ -957,51 +850,98 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 dateString2 = sdf2.format(date);
                 tdate.setText(dateString);
                 tdate2.setText(dateString2);
-
-                //Log.i("blechdicke_display",String.valueOf(GlobalVariable.blechdicke_display));
-                //Log.i("BlechdickeSetwert",String.valueOf(GlobalVariable.BlechdickeSetwert));
-                if (GlobalVariable.CONTROL_PANEL_MODE1 == 1) {
-                    if ((GlobalVariable.ChangeValue[0] == 1)) {
-                        if (GlobalVariable.mpm_display != GlobalVariable.Energie1)
-                            sendEnergie.ChangeParameter(2, GlobalVariable.mpm_display, 1); //m/min
-                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
-                    } else if ((GlobalVariable.ChangeValue[4] == 1)) {
-                        if (GlobalVariable.voltage_display != GlobalVariable.Spannung1)
-                            sendEnergie.ChangeParameter(15, GlobalVariable.voltage_display, 1); //voltage
-                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
-                    } else if ((GlobalVariable.ChangeValue[1] == 1)) {
-                        if (GlobalVariable.mm_a_display != GlobalVariable.mirror_display)
-                            sendEnergie.ChangeParameter(3, GlobalVariable.mm_a_display, 1); //Thickness mm
-                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
-                    } else if ((GlobalVariable.ChangeValue[2] == 1)) {
-                        if (GlobalVariable.mm_a_display != GlobalVariable.mirror_display)
-                            sendEnergie.ChangeParameter(1, GlobalVariable.mm_a_display, 1); //strom
-                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
-                    } else if ((GlobalVariable.ChangeValue[3] == 1)) {
-                        if (GlobalVariable.korrektur_display != GlobalVariable.Lichtbogenkorrektur1)
-                            sendEnergie.ChangeParameter(21, GlobalVariable.korrektur_display, 1);
-                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                //--------------------------------------------- Verfahren ------------------------------------------------------------------
+                if (GlobalVariable.Verfahren_Token){
+                    if (GlobalVariable.SV1pos1 != GlobalVariable.VERFAHREN_MODE && GlobalVariable.VERFAHREN_COUNTER<8) {
+                        sendEnergie.ChangeParameter(28, 5, 0);
+                        GlobalVariable.VERFAHREN_COUNTER++;
+                    } else if (GlobalVariable.VERFAHREN_COUNTER<8){
+                        GlobalVariable.Verfahren_Token = false;
+                        GlobalVariable.VERFAHREN_COUNTER = 0;
+                    } else {
+                        GlobalVariable.Verfahren_Token = false;
+                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        dialog_verfahren.show();
+                        GlobalVariable.VERFAHREN_COUNTER = 0;
                     }
+                    Log.i("VERFAHREN_COUNTER",String.valueOf(GlobalVariable.VERFAHREN_COUNTER));
                 }
-
-             //   if (GlobalVariable.JobStatus_Display.equals("Inactive")) hold_layout_gone();
-
-                if ((!GlobalVariable.JOB_PRESSED) && (GlobalVariable.Job_Token)){
-                    if (GlobalVariable.Jobnummer > 1) sendEnergie.ChangeParameter(6,0,0);  //decrement job
-                    else if (GlobalVariable.Jobnummer == 1) {
-                        sendEnergie.ChangeParameter(6,0,0);  //decrement job
-                        GlobalVariable.Job_Token = false;
+                //-------------------------------------------------- Gas ------------------------------------------------------------------
+                if (GlobalVariable.Gas_Token){
+                    if (GlobalVariable.SV1pos4 != GlobalVariable.GAS_MODE && GlobalVariable.GAS_COUNTER<18) {
+                        sendEnergie.ChangeParameter(10, 0, 1);
+                        GlobalVariable.GAS_COUNTER++;
+                    } else if (GlobalVariable.GAS_COUNTER<18) {
+                        GlobalVariable.Gas_Token = false;
+                        GlobalVariable.GAS_COUNTER = 0;
+                    } else {
+                        GlobalVariable.Gas_Token = false;
+                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        dialog_verfahren.show();
+                        GlobalVariable.GAS_COUNTER = 0;
                     }
-
+                    Log.i("GAS_COUNTER",String.valueOf(GlobalVariable.GAS_COUNTER));
                 }
-
+                //------------------------------------------------ Betriebsart ----------------------------------------------------------
+                if (GlobalVariable.Betriebsart_Token){
+                    if (GlobalVariable.SV1pos2 != GlobalVariable.BETRIEBSART_MODE && GlobalVariable.BETRIEBSART_COUNTER<8) {
+                        sendEnergie.ChangeParameter(42,0,0);
+                        GlobalVariable.BETRIEBSART_COUNTER++;
+                    } else if(GlobalVariable.BETRIEBSART_COUNTER<8) {
+                        GlobalVariable.Betriebsart_Token = false;
+                        GlobalVariable.BETRIEBSART_COUNTER = 0;
+                    } else {
+                        GlobalVariable.Betriebsart_Token = false;
+                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        dialog_verfahren.show();
+                        GlobalVariable.BETRIEBSART_COUNTER = 0;
+                    }
+                    Log.i("BETRIEBSART_COUNTER",String.valueOf(GlobalVariable.BETRIEBSART_COUNTER));
+                }
+                //------------------------------------------------------ Drahtdurchmesser ------------------------------------------------------------
+                if (GlobalVariable.Drahtdurchmesser_Token){
+                    if (GlobalVariable.Drahtdurchmesser != GlobalVariable.DRAHTDURCHMESSER_MODE && GlobalVariable.DRAHTDURCHMESSER_COUNTER<10) {
+                        sendEnergie.ChangeParameter(41, 0, 0);
+                        GlobalVariable.DRAHTDURCHMESSER_COUNTER++;
+                    } else if (GlobalVariable.DRAHTDURCHMESSER_COUNTER<10) {
+                        GlobalVariable.Drahtdurchmesser_Token = false;
+                        GlobalVariable.DRAHTDURCHMESSER_COUNTER = 0;
+                    } else {
+                        GlobalVariable.Drahtdurchmesser_Token = false;
+                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        dialog_verfahren.show();
+                        GlobalVariable.DRAHTDURCHMESSER_COUNTER = 0;
+                    }
+                    Log.i("DRAHT_COUNTER",String.valueOf(GlobalVariable.DRAHTDURCHMESSER_COUNTER));
+                }
+                //------------------------------------------------ Werkstoff ----------------------------------------------------------
+                if (GlobalVariable.Werkstoff_Token){
+                    if (GlobalVariable.SV1pos5 != GlobalVariable.WERKSTOFF_MODE && GlobalVariable.WERKSTOFF_COUNTER<10) {
+                        sendEnergie.ChangeParameter(44, 0, 0);
+                        GlobalVariable.WERKSTOFF_COUNTER++;
+                    } else if(GlobalVariable.WERKSTOFF_COUNTER<10) {
+                        GlobalVariable.Werkstoff_Token = false;
+                        GlobalVariable.WERKSTOFF_COUNTER = 0;
+                    } else {
+                        GlobalVariable.Werkstoff_Token = false;
+                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        dialog_verfahren.show();
+                        GlobalVariable.WERKSTOFF_COUNTER = 0;
+                    }
+                    Log.i("WERKSTOFF_COUNTER",String.valueOf(GlobalVariable.WERKSTOFF_COUNTER));
+                }
+                //--------------------------------------------------------------------------------------------------------------------
+                //if ((GlobalVariable.JOB_MODE==0) || GlobalVariable.JOB_MODE==1) hold_layout_gone();
                 if (GlobalVariable.CONTROL_PANEL_MODE == 1) {
                     if (DatenObjekte.SV1pos1 != 4) { //Not elektrode mode
+                        Log.i("Energie1",String.valueOf(GlobalVariable.Energie1));
                         switch (WeldingChangeParam.HOME_COUNTER) {
                             case 0:
-                                if (GlobalVariable.mpm_display != GlobalVariable.Energie1)
+                                if (GlobalVariable.mpm_display != GlobalVariable.Energie1) {
+                                    Log.i("mpm_display",String.valueOf(GlobalVariable.mpm_display));
                                     sendEnergie.ChangeParameter(2, GlobalVariable.mpm_display, 1); //m/min
-                                else GlobalVariable.CONTROL_PANEL_MODE = 0;
+                                    //System.out.println("Its here");
+                                } else GlobalVariable.CONTROL_PANEL_MODE = 0;
                                 break;
                             case 1:
                                 if (GlobalVariable.mm_a_display != GlobalVariable.Drahtdurchmesser)
@@ -1117,15 +1057,10 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private void init_view(){
         kenn_fragment = findViewById(R.id.fragment_test);
         betriebsart_fragement = findViewById(R.id.frgment_Betriebsart);
-        plus = findViewById(R.id.plus);
-        progressBarMinus = findViewById(R.id.progress);
-        progressBarPlus = findViewById(R.id.progress1);
-        //WIG_btn = findViewById(R.id.WIG_btn);
-        //MMNormal_btn = findViewById(R.id.MMNormal_btn);
-        //MMSynergy_btn = findViewById(R.id.MMSynergy_btn);
-        //MMPuls_btn = findViewById(R.id.MMPuls_btn);
-        //ElectrodeMMA_btn = findViewById(R.id.ElectrodeMMA_btn);
-        minus_button = findViewById(R.id.minus);
+        Drossel_Minus = findViewById(R.id.Drossel_minus);
+        Drossel_Plus = findViewById(R.id.Drossel_plus);
+        progressBarPlus = findViewById(R.id.progress);
+        progressBarMinus = findViewById(R.id.progress1);
         Value1 = findViewById(R.id.btn_korrektur);
         Value2 = findViewById(R.id.btn_mmin);
         Value3 = findViewById(R.id.btn_voltage);
@@ -1152,8 +1087,14 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Fav2_btn = findViewById(R.id.Button_fav2);
         Fav3_btn = findViewById(R.id.Button_fav3);
         Fav4_btn = findViewById(R.id.Button_fav4);
+        Fav1_btn.setTextSize(27);
+        Fav2_btn.setTextSize(27);
+        Fav3_btn.setTextSize(27);
+        Fav4_btn.setTextSize(27);
         StromHoldwertTV = findViewById(R.id.strom_hold);
         SpannungHoldwertTV = findViewById(R.id.spannung_hold);
+        StromHoldwertTV.setTextSize(70);
+        SpannungHoldwertTV.setTextSize(70);
         HoldIst = findViewById(R.id.hold_ist);
         hold_layout = findViewById(R.id.hold_layout);
         Methode_btn = findViewById(R.id.methode_button); // Verfahren
@@ -1163,13 +1104,13 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
     private void setVisibility(){
         betriebsart_fragement.setVisibility(View.INVISIBLE);
-        plus.setVisibility(View.INVISIBLE);
+        Drossel_Minus.setVisibility(View.INVISIBLE);
         Value3.setVisibility(View.VISIBLE);
         progressBarPlus.setVisibility(View.INVISIBLE);
         progressBarMinus.setVisibility(View.INVISIBLE);
         //frame.setVisibility(View.INVISIBLE);
         circle_button.setVisibility(View.GONE);
-        minus_button.setVisibility(View.GONE);
+        Drossel_Plus.setVisibility(View.GONE);
     }
 
     private  void ausblinden(View view1, View view2){
@@ -1223,8 +1164,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         DROSSEL.setVisibility(View.VISIBLE);
         progressBarPlus.setVisibility(View.VISIBLE);
         progressBarMinus.setVisibility(View.VISIBLE);
-        minus_button.setVisibility(View.VISIBLE);
-        plus.setVisibility(View.VISIBLE);
+        Drossel_Plus.setVisibility(View.VISIBLE);
+        Drossel_Minus.setVisibility(View.VISIBLE);
         prograssHeid = true;
     }
 
@@ -1233,8 +1174,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         DROSSEL.setVisibility(View.INVISIBLE);
         progressBarPlus.setVisibility(View.GONE);
         progressBarMinus.setVisibility(View.INVISIBLE);
-        minus_button.setVisibility(View.GONE);
-        plus.setVisibility(View.INVISIBLE);
+        Drossel_Plus.setVisibility(View.GONE);
+        Drossel_Minus.setVisibility(View.INVISIBLE);
     }
 
     private void hold_layout_gone(){
@@ -1271,10 +1212,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         betriebsart_fragement.setVisibility(View.INVISIBLE);
         layout1.setVisibility(View.VISIBLE);
         Drossel_view();
-        hold_layout_view();
-        //hold_layout_gone();
     }
-
 
     private void SetDefautlTime(){
         /*if (ShellInterface.isSuAvailable()) {
@@ -1282,20 +1220,28 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             SystemClock.setCurrentTimeMillis(time);
             ShellInterface.runCommand("chmod 664 /dev/alarm");
         }*/
-
         Calendar c = Calendar.getInstance();
         c.set(2020, 10, 29, 12, 34, 56);
         AlarmManager am = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         am.setTime(c.getTimeInMillis());
+    }
 
-        /*try {
+    //------------------------------------- User set the default time -----------------------------------------
+    private void changeSystemTime(String year,String month,String day,String hour,String minute,String second){
+        try {
             Process process = Runtime.getRuntime().exec("su");
             DataOutputStream os = new DataOutputStream(process.getOutputStream());
-            os.writeBytes("date -s 20120419.024012; \n");
-            Log.i("Date","is set");
-        } catch (Exception e) {
-            Log.d(TAG,"error=="+e.toString());
+            String command = "date -s "+year+month+day+"."+hour+minute+second+"\n";
+            Log.e("command",command);
+            os.writeBytes(command);
+            os.flush();
+            os.writeBytes("exit\n");
+            os.flush();
+            process.waitFor();
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
