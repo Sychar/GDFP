@@ -41,7 +41,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="general_style">
+    <style name="Normal_Textstyle">
         <item name="android:textStyle">normal</item>
     </style>
 

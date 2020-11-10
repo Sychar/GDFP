@@ -17,6 +17,7 @@ public class GlobalVariable {
     public static int BETRIEBSART_MODE = 0;
     public static int MENU_MODE = 0;
     public static int JOB_MODE = 0;
+    public static int SETTING_MODE = 0;
     public static int DRAHTDURCHMESSER = 1;
     public static int GAS = 1;
     public static int VERFAHREN = 1;
@@ -42,6 +43,7 @@ public class GlobalVariable {
     public static boolean Betriebsart_Token = false;
     public static boolean Menu_Token = false;
     public static boolean Job_Token = false;
+    public static boolean Setting_Token = false;
     public static boolean Hold_Token = false;
     public static int countHold = 0;
     public static boolean Verfahren_Token = false;
@@ -53,6 +55,8 @@ public class GlobalVariable {
     public static boolean KENN_TOKEN = false;
     public static boolean Load_Job = false;
     public static boolean Save_Job = false;
+    public static boolean MOL_gedrückt = false;
+    public static boolean MOR_gedrückt = false;
 
     public static boolean SETTING_TOKEN = false;
     public static boolean CHANGE_TOKEN = false;
@@ -81,7 +85,13 @@ public class GlobalVariable {
     public static String Gas = "";
     public static String Werkstoff;
     public static String Reglertyp;
-    public static String StatusMSR_String;
+    public static String StatusMSR_Bit1 = "";
+    public static String StatusMSR_Bit2 = "";
+    public static String StatusMSR_Bit3 = "";
+    public static String StatusMSR_Bit4 = "";
+    public static String StatusMSR_Bit5 = "";
+    public static String StatusMSR_Bit6 = "";
+    public static String StatusMSR_Bit7 = "";
     public static int StatusMSR;
     public static String StatusMSR_BT;
     public static String StatusFLG_String;
@@ -113,7 +123,14 @@ public class GlobalVariable {
 
     public static int JobKommando;
     public static String JobStatus_String;
-    public static String JobStatus_Display = "";
+    public static String JobStatus_Bit0 = "";
+    public static String JobStatus_Bit1 = "";
+    public static String JobStatus_Bit2 = "";
+    public static String JobStatus_Bit3 = "";
+    public static String JobStatus_Bit4 = "";
+    public static String JobStatus_Bit5 = "";
+    public static String JobStatus_Bit6 = "";
+    public static String JobStatus_Bit7 = "";
     public static byte Verriegelungsstufe;
 
     //SV 3
@@ -859,4 +876,44 @@ public class GlobalVariable {
             sendToDatenObjekte.ChangeParameter(num, value, mode);
         }
     }
+
+    public static byte[] ChangeToJob (int jobnum){ //00 xx 28 00 3C 00 00 00 (xx is job number)
+        int temp = 0;
+        if (jobnum < 0) temp = 256 + jobnum;
+        else temp = jobnum;
+        byte[] TEMPBA = new byte[20];
+        TEMPBA[0] = 36;
+        TEMPBA[1] = 15;
+        TEMPBA[2] = 2;
+        TEMPBA[3] = 5;
+        TEMPBA[4] = (byte) 56; //38
+        TEMPBA[5] = 8;
+        TEMPBA[6] = 0;
+        TEMPBA[7] = (byte)temp;
+        TEMPBA[8] = 40; //28
+        TEMPBA[9] = 0;
+        TEMPBA[10] = 60; //3C
+        TEMPBA[10] = 0;
+        TEMPBA[11] = 0;
+        TEMPBA[12] = 0;
+        TEMPBA[13] = 35;
+        /**
+         * Calculate the checksum of dataframe
+         */
+        int MYCHECKSUM = 0;
+
+        for (int i = 0; i < 14; i++) {
+            int tempcheck;
+            if((TEMPBA[i])<0){
+                tempcheck = 256 + (TEMPBA[i]);
+            }else{
+                tempcheck = TEMPBA[i];
+            }
+            MYCHECKSUM = MYCHECKSUM + tempcheck;
+        }
+        TEMPBA[13] = (byte)(MYCHECKSUM & 0x000000FF);
+        TEMPBA[14] = 35;
+        return TEMPBA;
+    }
+
 }

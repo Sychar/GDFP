@@ -22,7 +22,7 @@
 
 <FrameLayout
     android:layout_marginLeft="180dp"
-    android:id="@+id/fram1"
+    android:id="@+id/frame_main"
     android:layout_width="500dp"
     android:layout_height="match_parent">
 
@@ -45,7 +45,8 @@
             android:textAlignment="center"
             android:textColor="#ffffff"
             android:textStyle="normal"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp">
+        </TextView>
 
         <ListView
             android:id="@+id/listview_content"
@@ -58,7 +59,6 @@
 
     </LinearLayout>
 </FrameLayout>
-
     <Button
         android:background="@drawable/daten_bank_button"
         android:onClick="onNext_perVios"
@@ -71,4 +71,235 @@
         android:textSize="18sp"
         android:textStyle="normal">
     </Button>
+
+ <FrameLayout
+     android:id="@+id/frame_geberge"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="horizontal"
+     tools:context=".Backend.Test">
+
+     <LinearLayout
+         android:id="@+id/top_geberge"
+         android:layout_width="840dp"
+         android:layout_height="240dp"
+         android:orientation="vertical">
+     </LinearLayout>
+
+     <LinearLayout
+        android:id="@+id/bottom_vertical"
+        android:layout_width="840dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="240dp"
+        android:orientation="vertical">
+
+         <LinearLayout
+             android:id="@+id/bottom_horizontal"
+             android:layout_width="840dp"
+             android:layout_height="240dp"
+             android:orientation="horizontal">
+
+             <LinearLayout
+                 android:id="@+id/bottom1_vertical"
+                 android:layout_width="185dp"
+                 android:layout_height="240dp"
+                 android:layout_marginLeft="15dp"
+                 android:background="#80000000"
+                 android:orientation="vertical">
+
+                 <Button
+                     android:id="@+id/Geberge_btn1"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="GASVOR  0.5s"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+
+                 <Button
+                     android:id="@+id/Geberge_btn2"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="EINSCHL 10%"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+
+                 <Button
+                     android:id="@+id/Geberge_btn3"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="DAUER1 0.2s"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+             </LinearLayout>
+
+             <LinearLayout
+                 android:id="@+id/bottom2_vertical"
+                 android:layout_width="185dp"
+                 android:layout_height="240dp"
+                 android:layout_marginLeft="20dp"
+                 android:background="#80000000"
+                 android:orientation="vertical">
+
+                 <Button
+                     android:id="@+id/Geberge_btn4"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="SLOPE1 0.3s"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+
+                 <Button
+                     android:id="@+id/Geberge_btn5"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="ENERGIE 8.0m/min"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+
+                 <Button
+                     android:id="@+id/Geberge_btn6"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="LB -10%"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+             </LinearLayout>
+
+             <LinearLayout
+                 android:id="@+id/bottom3_vertical"
+                 android:layout_width="185dp"
+                 android:layout_height="240dp"
+                 android:layout_marginLeft="20dp"
+                 android:background="#80000000"
+                 android:orientation="vertical">
+
+                 <Button
+                     android:id="@+id/Geberge_btn7"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="POWERPULS ON"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+
+                 <Button
+                     android:id="@+id/Geberge_btn8"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="DAUER2 0.7s"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+
+                 <Button
+                     android:id="@+id/Geberge_btn9"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="185dp"
+                     android:layout_height="60dp"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="FREIBREN. 70%"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+             </LinearLayout>
+
+             <LinearLayout
+                 android:id="@+id/bottom4_vertical"
+                 android:layout_width="184dp"
+                 android:layout_height="240dp"
+                 android:layout_marginLeft="20dp"
+                 android:background="#80000000"
+                 android:orientation="vertical">
+
+                 <Button
+                     android:id="@+id/Geberge_btn10"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="184dp"
+                     android:layout_height="60dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="GASNACH 0.3s"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+
+                 <Button
+                     android:id="@+id/Geberge_btn11"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="184dp"
+                     android:layout_height="60dp"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="DEFAULT"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+
+                 <Button
+                     android:id="@+id/Geberge_btn12"
+                     style="@style/Normal_Textstyle"
+                     android:layout_width="184dp"
+                     android:layout_height="60dp"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/border2"
+                     android:gravity="center"
+                     android:text="RESERVE"
+                     android:textAlignment="center"
+                     android:textColor="@android:color/white"
+                     android:textSize="20sp">
+                 </Button>
+             </LinearLayout>
+
+         </LinearLayout>
+     </LinearLayout>
+    </FrameLayout>
 </FrameLayout>

@@ -3,12 +3,12 @@ package com.jess.gdfp;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
@@ -93,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private TextView DROSSEL;
     private Button button_yes;
     private Button button_no;
+    private Button MOL;
+    private Button MOR;
     private static TextView txtprogress;
     private static TextView unitprogress;
     private View frame;
@@ -100,6 +103,21 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private View betriebsart_fragement;
     private Button Geberge;
     public static Button JOB_NUM;
+    private FrameLayout geberge_layout;
+    private FrameLayout frame_main;
+    private Button Geberge_Btn1;
+    private boolean Geberge_Btn1_gedrückt = false;
+    private Button Geberge_Btn2;
+    private Button Geberge_Btn3;
+    private Button Geberge_Btn4;
+    private Button Geberge_Btn5;
+    private Button Geberge_Btn6;
+    private Button Geberge_Btn7;
+    private Button Geberge_Btn8;
+    private Button Geberge_Btn9;
+    private Button Geberge_Btn10;
+    private Button Geberge_Btn11;
+    private Button Geberge_Btn12;
     private static String dateString = "";
     private static String dateString2 = "";
 
@@ -300,10 +318,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 };
                 BlankFragment.rv.setAdapter(adapter2);
                 BlankFragment.setButtonVisible();
+                geberge_layout_gone();
                 droessel_gone();
                 hold_layout_gone();
                 view = findViewById(R.id.fragment_test);
                 allgemeinOnclick(view);
+                frame_main.setVisibility(View.VISIBLE);
             }
         });
 
@@ -311,29 +331,132 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Geberge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                changeSystemTime("2020","11","3","9","31","50");
-                Log.i("Geberge button","is pressed");
-                //SetDefautlTime();
-                /*BlankFragment.tv.setText("DRAHTDURCHMESSER");
-                BlankFragment.detail = BlankFragment.init_durchmesser();
+                //Log.i("Geberge button","is pressed");
+                BlankFragment.tv.setText("");
+                BlankFragment.setButtonInvisible();
+                geberge_layout_view();
+                droessel_gone();
+                hold_layout_gone();
+                view = findViewById(R.id.fragment_test);
+                allgemeinOnclick(view);
+                frame_main.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        Geberge_Btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Log.i("Geberge_Btn1","is pressed");
+                if (!Geberge_Btn1_gedrückt) {
+                    Geberge_Btn1.setBackgroundColor(Color.GRAY);
+                    Geberge_Btn1.setTextColor(Color.BLACK);
+                    Geberge_Btn1_gedrückt = true;
+                } else {
+                    Geberge_Btn1.setBackground(getResources().getDrawable( R.drawable.border2));
+                    Geberge_Btn1.setTextColor(Color.WHITE);
+                    Geberge_Btn1_gedrückt = false;
+                }
+            }
+        });
+
+        JOB_NUM.setOnClickListener(view12 -> {
+            if (!job_gedrückt) {
+                BlankFragment.setButtonInvisible();
+                BlankFragment.tv.setText("JOB");
+                BlankFragment.detail = BlankFragment.init_Job();
                 ArrayAdapter<String> adapter2= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,BlankFragment.detail){
                     @NonNull
                     @Override
                     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                        View view1 =super.getView(position,convertView,parent);
+                        View view1 = super.getView(position,convertView,parent);
+                        return  view1;
+                    }
+                };
+                BlankFragment.rv.setAdapter(adapter2);
+                geberge_layout_gone();
+                droessel_gone();
+                hold_layout_gone();
+                view12 = findViewById(R.id.fragment_test);
+                allgemeinOnclick(view12);
+                GlobalVariable.JOB_PRESSED = true;
+                JOB_NUM.setTextColor(Color.BLACK);
+                JOB_NUM.setBackgroundColor(Color.GRAY);
+                job_gedrückt = true;
+                //---------------------------- Store Job -------------------------------------------
+                //DatenObjekteSend storeJob = new DatenObjekteSend();
+                //storeJob.ChangeParameter(37, 0, 1);
+            } else {
+                GlobalVariable.JOB_PRESSED = false;
+                GlobalVariable.Load_Job = false;
+                GlobalVariable.Save_Job = false;
+                //GlobalVariable.Job_Token = false; //so that load and save layout can work
+                WeldingChangeParam.HOME_COUNTER = 0;
+                JOB_NUM.setTextColor(Color.WHITE);
+                JOB_NUM.setBackgroundColor(Color.BLACK);
+                JOB_NUM.setBackground(getResources().getDrawable( R.drawable.border2));
+                sendEnergie.ChangeParameter(40,0,0); //deactivate job directly
+                hold_layout_gone();
+                home_view();
+                job_gedrückt = false;
+            }
+
+            //---------------------------Decrement Job number---------------------------------------
+            //DatenObjekteSend decrementJob = new DatenObjekteSend();
+            //decrementJob.ChangeParameter(6,0, 1);
+        });
+
+        MOL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!GlobalVariable.MOL_gedrückt) GlobalVariable.MOL_gedrückt = true;
+                else {
+                    GlobalVariable.MOL_gedrückt = false;
+                    HoldIst.setText("");
+                    StromHoldwertTV.setText("");
+                    SpannungHoldwertTV.setText("");
+                }
+            }
+        });
+
+        final ProgressBar progress = findViewById(R.id.progress);
+        progress.setVisibility(View.GONE);
+
+        home.setOnClickListener(view1 -> {
+            //---------------------------- Request Job -----------------------------------------
+            //String FIRSTSTR = UartService.getJob(); //ascii string
+            //String SECSTR = UartService.getJob1(1); //ascii string
+            home_view();
+            //tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+            //dialog_verfahren.show();
+        });
+
+        Menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view ) {
+                BlankFragment.setButtonInvisible();
+                BlankFragment.tv.setText("MENU");
+                BlankFragment.detail = BlankFragment.init_Menu();
+                ArrayAdapter<String> adapter2= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,BlankFragment.detail){
+                    @NonNull
+                    @Override
+                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                        View view1 = super.getView(position,convertView,parent);
                         return  view1;
                     }
                 };
                 BlankFragment.rv.setAdapter(adapter2);
                 droessel_gone();
                 hold_layout_gone();
-                view=findViewById(R.id.fragment_test);
-                allgemeinOnclick(view);*/
+                view = findViewById(R.id.fragment_test);
+                allgemeinOnclick(view);
+                //--------------------- For encoder -------------------------------------------
+                /*GlobalVariable.SETTING_TOKEN = true;
+                mainActivityController.onClick_newActivity(com.jess.gdfp.View.Menu.class);
+                WeldingChangeParam.MA_TOKEN = false;*/
             }
         });
+        Drossel_view();
 
-        final ProgressBar progress = findViewById(R.id.progress);
-        progress.setVisibility(View.GONE);
         Setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -356,87 +479,18 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             }
         });
 
-        Menu.setOnClickListener(new View.OnClickListener() {
+        MOR.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view ) {
-                BlankFragment.setButtonInvisible();
-                BlankFragment.tv.setText("MENU");
-                BlankFragment.detail = BlankFragment.init_Menu();
-                ArrayAdapter<String> adapter2= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,BlankFragment.detail){
-                    @NonNull
-                    @Override
-                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                        View view1 = super.getView(position,convertView,parent);
-                        return  view1;
-                    }
-                };
-                BlankFragment.rv.setAdapter(adapter2);
-                droessel_gone();
-                hold_layout_gone();
-                view = findViewById(R.id.fragment_test);
-                allgemeinOnclick(view);
-
-                //--------------------- For encoder -------------------------------------------
-                /*GlobalVariable.SETTING_TOKEN = true;
-                mainActivityController.onClick_newActivity(com.jess.gdfp.View.Menu.class);
-                WeldingChangeParam.MA_TOKEN = false;*/
+            public void onClick(View view) {
+                if (!GlobalVariable.MOR_gedrückt) GlobalVariable.MOR_gedrückt = true;
+                else {
+                    GlobalVariable.MOR_gedrückt = false;
+                    HoldIst.setText("");
+                    StromHoldwertTV.setText("");
+                    SpannungHoldwertTV.setText("");
+                }
             }
         });
-        Drossel_view();
-
-        home.setOnClickListener(view1 -> {
-            //---------------------------- Request Job -----------------------------------------
-            //String FIRSTSTR = UartService.getJob(); //ascii string
-            //String SECSTR = UartService.getJob1(1); //ascii string
-            home_view();
-            //tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
-            //dialog_verfahren.show();
-        });
-
-        JOB_NUM.setOnClickListener(view12 -> {
-            if (!job_gedrückt) {
-                BlankFragment.setButtonInvisible();
-                BlankFragment.tv.setText("JOB");
-                BlankFragment.detail = BlankFragment.init_Job();
-                ArrayAdapter<String> adapter2= new ArrayAdapter<String>(getApplicationContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,BlankFragment.detail){
-                    @NonNull
-                    @Override
-                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                        View view1 = super.getView(position,convertView,parent);
-                        return  view1;
-                    }
-                };
-                BlankFragment.rv.setAdapter(adapter2);
-                droessel_gone();
-                hold_layout_gone();
-                view12 = findViewById(R.id.fragment_test);
-                allgemeinOnclick(view12);
-                GlobalVariable.JOB_PRESSED = true;
-                JOB_NUM.setTextColor(Color.BLACK);
-                JOB_NUM.setBackgroundColor(Color.GRAY);
-                job_gedrückt = true;
-                //---------------------------- Store Job -------------------------------------------
-                //DatenObjekteSend storeJob = new DatenObjekteSend();
-                //storeJob.ChangeParameter(37, 0, 1);
-            } else {
-                GlobalVariable.JOB_PRESSED = false;
-                GlobalVariable.Load_Job = false;
-                GlobalVariable.Save_Job = false;
-               //GlobalVariable.Job_Token = false; //so that load and save layout can work
-                WeldingChangeParam.HOME_COUNTER = 0;
-                JOB_NUM.setTextColor(Color.WHITE);
-                JOB_NUM.setBackgroundColor(Color.BLACK);
-                JOB_NUM.setBackground(getResources().getDrawable( R.drawable.border2));
-                sendEnergie.ChangeParameter(40,0,0); //deactivate job directly
-                hold_layout_gone();
-                job_gedrückt = false;
-            }
-
-            //---------------------------Decrement Job number---------------------------------------
-            //DatenObjekteSend decrementJob = new DatenObjekteSend();
-            //decrementJob.ChangeParameter(6,0, 1);
-        });
-
         //---------------------------------------- Drossel -----------------------------------------
         Drossel_Minus.setOnClickListener(view1 -> {
             GlobalVariable.Drossel_token = true;
@@ -504,6 +558,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 } else fav4_gedrückt = false;
             }
         });
+        //MyCount counter = new MyCount(5000,1000);
+        //counter.start();
 
         newHandler.post(TimerHandler);
     }
@@ -589,7 +645,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             counterDisplay++;
             counterDisplay1++;
 
-            /*switch(WeldingChangeParam.HOME_COUNTER) {
+            switch(WeldingChangeParam.HOME_COUNTER) {
                 case 0:
                     if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display < 240)) { //Normal
                         progressBar.setProgress((int) (GlobalVariable.mpm_display) * (100 / 232) - (800 / 232));
@@ -599,7 +655,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         progressBar.setProgress(GlobalVariable.mpm_display - 20);
                     }
                     break;
-            }*/
+            }
 
             if (READVAL_STATUS[1] == 1) {
                 switch (WeldingChangeParam.HOME_COUNTER) {
@@ -707,13 +763,18 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 }
             }
                 if (CHECK) {
+                    //-------------------Motor Control------------------
+                    if (GlobalVariable.MOL_gedrückt)  UartService.Move_Motor(0);//sendEnergie.ChangeParameter(46,0,1); //Motor backwards
+                    if (GlobalVariable.MOR_gedrückt) UartService.Move_Motor(1);//sendEnergie.ChangeParameter(45,0,1); //Motor forward
+                    //--------------------------------------------------
+
+
                     if (!GlobalVariable.Verfahren_Token) ANZEIGE1.setText(GlobalVariable.Verfahren_String[GlobalVariable.SV1pos1]); // Verfahren
                     if (GlobalVariable.SV1pos1!=1 && GlobalVariable.SV1pos1!=4) {
-                        ANZEIGE2.setText(GlobalVariable.Werksotff_String[GlobalVariable.SV1pos5]); // Werkstoff
-                        ANZEIGE3.setText(GlobalVariable.Draht_String[GlobalVariable.Drahtdurchmesser]); // Drahtdurchmesser
-                        if (!GlobalVariable.Betriebsart_Token)
-                            ANZEIGE4.setText(GlobalVariable.Betriebsart_String[GlobalVariable.SV1pos2]); // Betriebsart
-                        ANZEIGE5.setText(GlobalVariable.Gas_String[GlobalVariable.SV1pos4]); // Gas
+                        if (!GlobalVariable.Werkstoff_Token) ANZEIGE2.setText(GlobalVariable.Werksotff_String[GlobalVariable.SV1pos5]); // Werkstoff
+                        if (!GlobalVariable.Drahtdurchmesser_Token) ANZEIGE3.setText(GlobalVariable.Draht_String[GlobalVariable.Drahtdurchmesser]); // Drahtdurchmesser
+                        if (!GlobalVariable.Betriebsart_Token) ANZEIGE4.setText(GlobalVariable.Betriebsart_String[GlobalVariable.SV1pos2]); // Betriebsart
+                        if (!GlobalVariable.Gas_Token) ANZEIGE5.setText(GlobalVariable.Gas_String[GlobalVariable.SV1pos4]); // Gas
                     } else {
                         ANZEIGE2.setText("");
                         ANZEIGE3.setText("");
@@ -723,7 +784,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
                     //------------------------------------------------ Brennertasten ---------------------------------------------------------------------------------------
                     if (GlobalVariable.Brennertasten1_string.equals("Brennertaste1 Active")){
-                        //Log.i("Brennertasten1_string","is active");
                         hold_layout_view();
                         HoldIst.setText("Ist");
                         StromHoldwertTV.setText(String.valueOf(GlobalVariable.StromIstwert)+" A");
@@ -746,11 +806,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     //------------------------------------------------------- Display variables in textview -----------------------------------------------------------------
                     if (GlobalVariable.KorrekturDrossel >= 0) DROSSEL.setText("DROSSEL   "+"[ "+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
                     else DROSSEL.setText("DROSSEL  "+"[ "+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
-
                     //-------------------------------------------------------------------- Job button -----------------------------------------------------------------------
                     if ((!GlobalVariable.JOB_PRESSED) && (GlobalVariable.Job_Token)){
-                        //System.out.println("is also here");
-                        if (!GlobalVariable.JobStatus_Display.equals("Inactive"))
+                        if (!GlobalVariable.JobStatus_Bit0.equals("Inactive"))
                             sendEnergie.ChangeParameter(6,0,0);  //decrement job
                         else {
                             GlobalVariable.Job_Token = false;
@@ -760,10 +818,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     }
 
                     if (GlobalVariable.Job_Token && !GlobalVariable.BT1_Interrupt) {
-                        //System.out.println("is here");
                         if (GlobalVariable.Load_Job) { //LOAD
-                            if (GlobalVariable.JobStatus_Display.equals("Inactive")) sendEnergie.ChangeParameter(5,0,0);
-                             //Log.i("LOAD","is here");
+                            if (GlobalVariable.JobStatus_Bit0.equals("Inactive")) sendEnergie.ChangeParameter(5,0,0);
                             home_view();
                             hold_layout_view();
                             HoldIst.setText("");
@@ -792,6 +848,19 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                                 break;
                         }
                     }
+
+
+                    if (GlobalVariable.StatusMSR_Bit3.equals("Einfädeln Vor")) {
+                        HoldIst.setText("MOTOR");
+                        StromHoldwertTV.setText(String.valueOf(GlobalVariable.Energie1 / 10) + "." + String.valueOf(GlobalVariable.Energie1 % 10));
+                        SpannungHoldwertTV.setText(">>");
+                    } else if (GlobalVariable.StatusMSR_Bit5.equals("Einfädeln Zurück")) {
+                        HoldIst.setText("MOTOR");
+                        StromHoldwertTV.setText(String.valueOf(GlobalVariable.Energie1 / 10) + "." + String.valueOf(GlobalVariable.Energie1 % 10));
+                        SpannungHoldwertTV.setText("<<");
+                    }
+
+
                     //-----------------------------------------------------------------------------------------------------------------------------------------------
                 }
                 Value2.setOnClickListener((View v) -> {
@@ -852,15 +921,15 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 tdate2.setText(dateString2);
                 //--------------------------------------------- Verfahren ------------------------------------------------------------------
                 if (GlobalVariable.Verfahren_Token){
-                    if (GlobalVariable.SV1pos1 != GlobalVariable.VERFAHREN_MODE && GlobalVariable.VERFAHREN_COUNTER<8) {
+                    if (GlobalVariable.SV1pos1 != GlobalVariable.VERFAHREN_MODE && GlobalVariable.VERFAHREN_COUNTER<4) {
                         sendEnergie.ChangeParameter(28, 5, 0);
                         GlobalVariable.VERFAHREN_COUNTER++;
-                    } else if (GlobalVariable.VERFAHREN_COUNTER<8){
+                    } else if (GlobalVariable.VERFAHREN_COUNTER<4){
                         GlobalVariable.Verfahren_Token = false;
                         GlobalVariable.VERFAHREN_COUNTER = 0;
                     } else {
                         GlobalVariable.Verfahren_Token = false;
-                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        Ver_Tv.setText("THE VERFAHREN IS NOT AVAILABLE!");
                         dialog_verfahren.show();
                         GlobalVariable.VERFAHREN_COUNTER = 0;
                     }
@@ -876,7 +945,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         GlobalVariable.GAS_COUNTER = 0;
                     } else {
                         GlobalVariable.Gas_Token = false;
-                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        Ver_Tv.setText("THE GAS IS NOT AVAILABLE!");
                         dialog_verfahren.show();
                         GlobalVariable.GAS_COUNTER = 0;
                     }
@@ -892,7 +961,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         GlobalVariable.BETRIEBSART_COUNTER = 0;
                     } else {
                         GlobalVariable.Betriebsart_Token = false;
-                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        Ver_Tv.setText("THE BETRIEBSART IS NOT AVAILABLE!");
                         dialog_verfahren.show();
                         GlobalVariable.BETRIEBSART_COUNTER = 0;
                     }
@@ -908,7 +977,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         GlobalVariable.DRAHTDURCHMESSER_COUNTER = 0;
                     } else {
                         GlobalVariable.Drahtdurchmesser_Token = false;
-                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        Ver_Tv.setText("THE WIRE DIAMETER IS NOT AVAILABLE!");
                         dialog_verfahren.show();
                         GlobalVariable.DRAHTDURCHMESSER_COUNTER = 0;
                     }
@@ -924,7 +993,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         GlobalVariable.WERKSTOFF_COUNTER = 0;
                     } else {
                         GlobalVariable.Werkstoff_Token = false;
-                        Ver_Tv.setText("ALERT! THIS PARAM IS NOT AVAILABLE!");
+                        Ver_Tv.setText("THE WERKSTOFF IS NOT AVAILABLE!");
                         dialog_verfahren.show();
                         GlobalVariable.WERKSTOFF_COUNTER = 0;
                     }
@@ -934,11 +1003,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 //if ((GlobalVariable.JOB_MODE==0) || GlobalVariable.JOB_MODE==1) hold_layout_gone();
                 if (GlobalVariable.CONTROL_PANEL_MODE == 1) {
                     if (DatenObjekte.SV1pos1 != 4) { //Not elektrode mode
-                        Log.i("Energie1",String.valueOf(GlobalVariable.Energie1));
+                        //Log.i("Energie1",String.valueOf(GlobalVariable.Energie1));
                         switch (WeldingChangeParam.HOME_COUNTER) {
                             case 0:
                                 if (GlobalVariable.mpm_display != GlobalVariable.Energie1) {
-                                    Log.i("mpm_display",String.valueOf(GlobalVariable.mpm_display));
+                                    //Log.i("mpm_display",String.valueOf(GlobalVariable.mpm_display));
                                     sendEnergie.ChangeParameter(2, GlobalVariable.mpm_display, 1); //m/min
                                     //System.out.println("Its here");
                                 } else GlobalVariable.CONTROL_PANEL_MODE = 0;
@@ -1016,8 +1085,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 }
                 counterDisplay1 = 0;
             }
-
-            newHandler.postDelayed(TimerHandler, 1); //reads data from service every 1ms
+            newHandler.postDelayed(TimerHandler, 1/100); //reads data from service every 1ms
             UartService.token = true;
         }
     };
@@ -1071,7 +1139,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Menu = findViewById(R.id.menu_btn);
         progressBar = findViewById(R.id.progressBar);
         circle_button = findViewById(R.id.button1);
-        //frame = findViewById(R.id.framelayout);
         ANZEIGE1 = findViewById(R.id.anzeige1);
         ANZEIGE2 = findViewById(R.id.anzeige2);
         ANZEIGE3 = findViewById(R.id.anzeige3);
@@ -1100,6 +1167,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Methode_btn = findViewById(R.id.methode_button); // Verfahren
         home = findViewById(R.id.home);
         DROSSEL = findViewById(R.id.drossel_value);
+        MOL = findViewById(R.id.MOL_btn);
+        MOR = findViewById(R.id.MOR_btn);
+        geberge_layout = findViewById(R.id.frame_geberge);
+        frame_main = findViewById(R.id.frame_main);
+        Geberge_Btn1 = findViewById(R.id.Geberge_btn1);
     }
 
     private void setVisibility(){
@@ -1108,9 +1180,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Value3.setVisibility(View.VISIBLE);
         progressBarPlus.setVisibility(View.INVISIBLE);
         progressBarMinus.setVisibility(View.INVISIBLE);
-        //frame.setVisibility(View.INVISIBLE);
         circle_button.setVisibility(View.GONE);
         Drossel_Plus.setVisibility(View.GONE);
+        //geberge_layout.setVisibility(View.INVISIBLE);
     }
 
     private  void ausblinden(View view1, View view2){
@@ -1119,7 +1191,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     }
 
     private void testbtn_onclick1(){
-        //----------------------------Deactivate data parsing-----------
+        //----------------------------------------- Deactivate data parsing --------------------------------------------
         TEMP_BA = GetKennlinieDaten.readKennDaten();
         StringBuilder tempsb = new StringBuilder();
         for(int i=0;i<23;i++){
@@ -1150,16 +1222,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         KENN_STRING = "";
     }
 
-    public void createAlertDialog(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        /*LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_layout,null);
-        builder.setView(dialogView);
-        final AlertDialog dialog = builder.create();
-        // Display the custom alert dialog on interface
-        dialog.show();*/
-    }
-
     private void Drossel_view(){
         DROSSEL.setVisibility(View.VISIBLE);
         progressBarPlus.setVisibility(View.VISIBLE);
@@ -1184,6 +1246,14 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
     private void hold_layout_view(){
         hold_layout.setVisibility(View.VISIBLE);
+    }
+
+    private void geberge_layout_gone(){
+        geberge_layout.setVisibility(View.INVISIBLE);
+    }
+
+    private void geberge_layout_view(){
+        geberge_layout.setVisibility(View.VISIBLE);
     }
 
     public void onClickJobUser(){
@@ -1231,7 +1301,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         try {
             Process process = Runtime.getRuntime().exec("su");
             DataOutputStream os = new DataOutputStream(process.getOutputStream());
-            String command = "date -s "+year+month+day+"."+hour+minute+second+"\n";
+            //String command = "date -s "+year+month+day+"."+hour+minute+second+"\n";
+            String command = "date 07171010.00 ; am broadcast -a android.intent.action.TIME_SET\n";
             Log.e("command",command);
             os.writeBytes(command);
             os.flush();
@@ -1242,6 +1313,27 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public class MyCount extends CountDownTimer {
+        public MyCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {
+            // TODO Auto-generated method stub
+            System.out.println("Finish");
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            // TODO Auto-generated method stub
+            //-------------------Motor Control------------------
+            System.out.println("Here");
+             sendEnergie.ChangeParameter(46,0,1); //Motor backwards
+           // if (GlobalVariable.MOR_gedrückt) sendEnergie.ChangeParameter(45,0,1); //Motor forward
         }
     }
 }

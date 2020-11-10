@@ -9,7 +9,7 @@
 
     <FrameLayout
         android:layout_marginLeft="180dp"
-        android:id="@+id/fram1"
+        android:id="@+id/frame_main"
         android:layout_width="500dp"
         android:layout_height="match_parent">
 

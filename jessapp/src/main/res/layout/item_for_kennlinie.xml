@@ -19,5 +19,5 @@
       android:textSize="25sp"
       android:text="hello"
       android:textAlignment="center"
-      style="@style/general_style"/>
+      style="@style/Normal_Textstyle"/>
 </LinearLayout>

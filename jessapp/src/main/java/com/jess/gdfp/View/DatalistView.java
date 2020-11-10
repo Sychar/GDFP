@@ -191,7 +191,7 @@ public class DatalistView extends AppCompatActivity  {
             GlobalVariable.Gas,
             GlobalVariable.Werkstoff,
             GlobalVariable.Reglertyp,
-            GlobalVariable.StatusMSR_String,
+            String.valueOf(GlobalVariable.StatusMSR),
             GlobalVariable.StatusFLG_String,
             String.valueOf(GlobalVariable.Kennliniennummer),
             String.valueOf(GlobalVariable.Jobnummer),
@@ -383,7 +383,7 @@ public class DatalistView extends AppCompatActivity  {
                 GlobalVariable.Gas_String[GlobalVariable.SV1pos2], //Gas
                 GlobalVariable.Werksotff_String[GlobalVariable.SV1pos5], //Werkstoff
                 GlobalVariable.Reglertyp,
-                GlobalVariable.StatusMSR_String,
+                String.valueOf(GlobalVariable.StatusMSR),
                 GlobalVariable.StatusFLG_String,
                 String.valueOf(GlobalVariable.Kennliniennummer),
                 String.valueOf(GlobalVariable.Jobnummer),
@@ -637,17 +637,23 @@ public class DatalistView extends AppCompatActivity  {
                   /*GlobalVariable.LichtbogenKorrektur3_ReglerDSP,
                   GlobalVariable.LichtbogenKorrektur4_ReglerDSP,
                   GlobalVariable.LichtbogenKorrektur5_ReglerDSP,
-                  GlobalVariable.Endpulsdauer_ReglerDSP,*/
-                  /*GlobalVariable.Gasvorströmen,
-                  GlobalVariable.EinschleichenAbsolut,
+                  GlobalVariable.Endpulsdauer_ReglerDSP,
+                  GlobalVariable.Gasvorströmen,
+                  GlobalVariable.Gasnachströmen,
                   GlobalVariable.UpSlope,
                   GlobalVariable.DownSlope,
                   GlobalVariable.Zündenergie,
                   GlobalVariable.Endkraterenergie,
-                  GlobalVariable.PowerpulsEinAus,
+                  GlobalVariable.PowerpulsEinAus, //281h
                   GlobalVariable.PowerpulsE2,
                   GlobalVariable.PowerpulsT1E1,
-                  GlobalVariable.PowerpulsT2E1,*/
+                  GlobalVariable.PowerpulsT2E1,
+                  GlobalVariable.PowerpulsLBKorrE2,
+                  GlobalVariable.PowerpulsUpSlope,
+                  GlobalVariable.PowerpulsDownSlope,
+                  GlobalVariable.JobSlope,
+                  GlobalVariable*/
+
 
 
 

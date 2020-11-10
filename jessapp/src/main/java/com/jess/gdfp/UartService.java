@@ -89,6 +89,7 @@ public class UartService extends Service {
     public static byte[] ByteArray = new byte[250];
     private static String sdata = "";
     private static String CAN_DATA = "";
+    private static String MOTOR_STRING = "";
     private static byte Input;
     private static String stringforjob = "";
     private static String stringforjob1 = "";
@@ -108,6 +109,9 @@ public class UartService extends Service {
     private static String ASCII_DATA;
     private static String HEX_DATA = "";
     public static String currentDateandTime;
+
+    public static String[] Motor_value = new String[50];
+    public static byte[] MOTOR_FRAME = new byte[9];
 
     protected static Application mApplication;
     protected static SerialPort mSerialPort;
@@ -414,12 +418,81 @@ public class UartService extends Service {
         }
     }
 
+    public static void Move_Motor(int mode){
+        String motorString = "";
+        if (mode==0) { //forward
+            MOTOR_FRAME[0] = 36; //header
+            MOTOR_FRAME[1] = 9; //frame length
+            MOTOR_FRAME[2] = 16; // frame id
+            MOTOR_FRAME[3] = 0; //can id
+            MOTOR_FRAME[4] = 0; //can id
+            MOTOR_FRAME[5] = 1; //data length
+            MOTOR_FRAME[6] = 1; //data
+            MOTOR_FRAME[7] = 35; //footer
+            /**
+             * Calculate the checksum of dataframe
+             */
+            int CHECKSUM = 0;
+            for (int i = 0; i < 8 ; i++) {
+                int temp;
+                if((MOTOR_FRAME[i]) < 0){ //negative value
+                    temp = 256 + (MOTOR_FRAME[i]);
+                }else{
+                    temp = MOTOR_FRAME[i];
+                }
+                CHECKSUM = CHECKSUM + temp;
+            }
+            MOTOR_FRAME[7] = (byte)(CHECKSUM & 0x000000FF);
+            MOTOR_FRAME[8] = 35;
+
+        } else {  //backwards
+            MOTOR_FRAME[0] = 36; //header
+            MOTOR_FRAME[1] = 9; //frame length
+            MOTOR_FRAME[2] = 16; // frame id
+            MOTOR_FRAME[3] = 0; //can id
+            MOTOR_FRAME[4] = 0; //can id
+            MOTOR_FRAME[5] = 1; //data length
+            MOTOR_FRAME[6] = 0; //data
+            MOTOR_FRAME[7] = 35; //footer
+            /**
+             * Calculate the checksum of dataframe
+             */
+            int CHECKSUM = 0;
+            for (int i = 0; i < 8 ; i++) {
+                int temp;
+                if((MOTOR_FRAME[i]) < 0){ //negative value
+                    temp = 256 + (MOTOR_FRAME[i]);
+                }else{
+                    temp = MOTOR_FRAME[i];
+                }
+                CHECKSUM = CHECKSUM + temp;
+            }
+            MOTOR_FRAME[7] = (byte)(CHECKSUM & 0x000000FF);
+            MOTOR_FRAME[8] = 35;
+        }
+        StringBuilder sbcanSend = new StringBuilder();
+        //StringBuilder shexSend = new StringBuilder();
+        for (int i = 0; i < 9; i++) {//parameterId and valueId ascii string
+            //value[i] = String.format("%02x", (int) ((MOTOR_FRAME[i]) & 0xFF)).toUpperCase(); //convert byte to hex value
+            //motorString = shexSend.append(value[i]).toString(); //hex string
+            MOTOR_STRING = sbcanSend.append((char)(MOTOR_FRAME[i]&0xFF)).toString(); //ascii string
+        }
+        try {
+            if (mOutputStream != null) {
+                mOutputStream.write(MOTOR_STRING.getBytes(iso88591charset));
+                //Log.i(TAG, "Write " + MOTOR_STRING + " to CAN");
+            }
+        } catch (IOException e) {
+            Log.e(TAG, "Cant write to the console");
+        }
+    }
+
     public static void sendCANValue(){
         try {
             if (mOutputStream != null) {
                 mOutputStream.write(CAN_DATA.getBytes(iso88591charset));
                 //Log.i(TAG, "Write " + CAN_DATA + " to CAN");
-                MainActivity.msg_for_can1 = "";
+                //MainActivity.msg_for_can1 = "";
             }
         } catch (IOException e) {
             Log.e(TAG, "Cant write to the console");
@@ -575,7 +648,7 @@ public class UartService extends Service {
                         Intent iiii = new Intent("Main.Activity1").putExtra("msg_service1", ASCII_DATA); //send ascii content to Main Activity
                         context.sendBroadcast(iiii);*/
                     } //else Log.i("Checksum ","is wrong");
-                } else Log.i("Checksum ","length");
+                } //else Log.i("Checksum ","length");
             }
             resetValue();
         }else if (CounterData > 15) resetValue();
@@ -780,7 +853,7 @@ public class UartService extends Service {
             switch (msg.what) {
                 case MESSAGE_FROM_SERIAL_PORT://case UartService.MESSAGE_FROM_SERIAL_PORT:
                     data1 = (String) msg.obj; // send byte per byte
-                    //Log.i(TAG,"handleMessage is called");
+                   //Log.i(TAG,"handleMessage is called");
                    buffParsing(data1);
                     break;
             }

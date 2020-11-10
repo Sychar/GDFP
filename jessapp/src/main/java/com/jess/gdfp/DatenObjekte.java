@@ -1,21 +1,16 @@
 package com.jess.gdfp;
 
 import android.util.Log;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
-
 import static com.jess.gdfp.MainActivity.PARSE_TOKEN;
 import static com.jess.gdfp.UartService.mOutputStream;
 
 public class DatenObjekte {
-
     private final static String TAG = DatenObjekte.class.getSimpleName(); //name of this class
     private static String HexData = "";
     private HeartBeat mHeartBeat;
     public static byte[] DO_FRAME = new byte[250];
-    //private static String strCanId = "";
-    //private static byte[] check1;
     private static byte[] str1;
     public static String gethex = "";
     private static int countertoken = 0;
@@ -279,7 +274,6 @@ public class DatenObjekte {
                         MainActivity.msg_for_can = "";
                         //OutputStream.write('\n');
                     }
-
                 } catch (IOException e) {
                     Log.e("Tag", "Cant write to the console");
                 }
@@ -290,7 +284,6 @@ public class DatenObjekte {
              */
             if (MainActivity.STOP_DATENOBJEKTE) {
                 if (gethex.equals("06F0")) {
-
                     //Log.i("Last Data  ",String.valueOf(DO_FRAME[219]));
                     //-----------------First frame-------------------------------------
                     //if ((DO_FRAME[6] == 22) && (DO_FRAME[7] == 1) && (HFound == 0)) {
@@ -336,7 +329,6 @@ public class DatenObjekte {
                     System.out.println("Kenn response : " + y);*/
                 }
             } else if (PARSE_TOKEN) {
-                //Log.i("PARSE_TOKEN","Datenobjekte");
                 if (gethex.equals("3232")) {
                     GlobalVariable.SV1pos1 = (int) DO_FRAME[6];//pos 1 Verfahren
                     GlobalVariable.VERFAHREN_VAL = (int) DO_FRAME[6];//pos 1
@@ -378,33 +370,37 @@ public class DatenObjekte {
 
                     result = result >>> 1;//shift first time
 
-                    if ((result & 1) == 0) GlobalVariable.StatusMSR_String = "akt. Koffer 1";
-                    else GlobalVariable.StatusMSR_String = "akt. Koffer 2";
+                    if ((result & 1) == 0) GlobalVariable.StatusMSR_Bit1 = "akt. Koffer 1";
+                    else GlobalVariable.StatusMSR_Bit1 = "akt. Koffer 2";
 
                     result = result >>> 1;//shift second time
 
-                    if ((result & 1) == 0) GlobalVariable.StatusMSR_String = "Synergie Ein";
-                    else GlobalVariable.StatusMSR_String = "Synergie Aus";
+                    if ((result & 1) == 0) GlobalVariable.StatusMSR_Bit2 = "Synergie Ein";
+                    else GlobalVariable.StatusMSR_Bit1 = "Synergie Aus";
 
                     result = result >>> 1;//shift third time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Einfädeln Vor";
+                    //Log.i("Einfädeln Vor",String.valueOf(result&1));
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_Bit3 = "Einfädeln Vor";
+                    else GlobalVariable.StatusMSR_Bit3 = "Inactive";
 
                     result = result >>> 1;//shift fourth time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Kühlen";
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_Bit4 = "Kühlen";
 
                     result = result >>> 1;//shift fifth time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Einfädeln Zurück";
+                    //Log.i("Einfädeln Zurück",String.valueOf(result));
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_Bit5 = "Einfädeln Zurück";
+                    else GlobalVariable.StatusMSR_Bit5 = "Inactive";
 
                     result = result >>> 1;//shift sixth time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Gas-Test";
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_Bit6 = "Gas-Test";
 
                     result = result >>> 1;//shift seventh time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Tastenklick Ein";
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_Bit7 = "Tastenklick Ein";
 
                     GlobalVariable.StatusFLG = (int) DO_FRAME[13];//pos 8 Status FLG
                     int iSFLG = GlobalVariable.StatusFLG;
@@ -482,39 +478,44 @@ public class DatenObjekte {
 
                     int iJS = (int) DO_FRAME[20];//pos 5 Job-Status
 
-                    //Log.i("JobStatus_Display",String.valueOf(iJS));
+                    //Log.i("JobStatus_Bit0",String.valueOf(iJS));
 
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Display = "Jobschweißen aktiv";
-                    else GlobalVariable.JobStatus_Display = "Inactive";
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Bit0 = "Jobschweißen aktiv";
+                    else GlobalVariable.JobStatus_Bit0 = "Inactive";
 
                     iJS = iJS >>> 1;//shift first time
 
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Job-Edit";
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Bit1 = "Job-Edit";
+                    else GlobalVariable.JobStatus_Bit1 = "Inactive";
 
                     iJS = iJS >>> 1;//shift second time
 
-                    if ((iJS & 1) == 0) GlobalVariable.JobStatus_String = "Job-Nr. Frei";
-                    else GlobalVariable.JobStatus_String = "Job-Nr. belegt";
+                    if ((iJS & 1) == 0) GlobalVariable.JobStatus_Bit2 = "Job-Nr. Frei";
+                    else GlobalVariable.JobStatus_Bit2 = "Job-Nr. belegt";
 
                     iJS = iJS >>> 1;//shift third time
 
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Keine Jobs im Speicher";
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Bit3 = "Keine Jobs im Speicher";
+                    else GlobalVariable.JobStatus_Bit3 = "Inactive";
 
                     iJS = iJS >>> 1;//shift fourth time
 
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Job gespeichert";
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Bit4 = "Job gespeichert";
+                    else GlobalVariable.JobStatus_Bit4 = "Inactive";
 
                     iJS = iJS >>> 1;//shift fifth time
 
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Display";
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Bit5 = "Display";
+                    else GlobalVariable.JobStatus_Bit5 = "Inactive";
 
                     iJS = iJS >>> 1;//shift sixth time
 
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String = "Job Extern";
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Bit6 = "Job Extern";
+                    else GlobalVariable.JobStatus_Bit6 = "Inactive";
 
                     iJS = iJS >>> 1;//shift seventh time
 
-                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_String  = "";
+                    if ((iJS & 1) == 1) GlobalVariable.JobStatus_Bit7  = "";
 
 
                     GlobalVariable.Verriegelungsstufe = DO_FRAME[21];//pos 8 Verriegelungsstufe

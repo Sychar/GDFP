@@ -53,7 +53,7 @@ public class WeldingChangeParam {
                     GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
                     //progressBar.setProgress(DatenObjekte.a_display - 20);
                 }
-                    Log.i("increase encoder",String.valueOf(GlobalVariable.mpm_display));
+                    //Log.i("increase encoder",String.valueOf(GlobalVariable.mpm_display));
                     break;
                 case 1:
                     GlobalVariable.mm_a_display = GlobalVariable.mirror_display + val_encoder; //mm
