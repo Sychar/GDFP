@@ -16,13 +16,8 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 
-import com.jess.gdfp.DatenBank.JobContract;
 import com.jess.gdfp.View.JobsDetails;
 
 import java.io.DataOutputStream;
@@ -1076,12 +1071,12 @@ public class ReserveFunction {
     //----------------------------------------------------------------------------------------------
 
     public void onpressedButton(View view) {
-        if (view.getId() == R.id.minus) {
+        if (view.getId() == R.id.Drossel_plus) {
             //progressBarMinus = (ProgressBar) findViewById(R.id.progress);
             //int y = progressBarMinus.getProgress();
             //progressBarMinus.setProgress(y - 4);
         }
-        if (view.getId() == R.id.plus) {
+        if (view.getId() == R.id.Drossel_minus) {
             //progressBarMinus = (ProgressBar) findViewById(R.id.progress);
             //int y = progressBarMinus.getProgress();
             //progressBarMinus.setProgress(y + 4);
@@ -1201,7 +1196,149 @@ public class ReserveFunction {
         }
     };
 
+    //----------------------------- For Encoder 2 --------------------------------------------------
 
+    /*if (GlobalVariable.ENCODER2_PRESSED){
+                if (GlobalVariable.ENCODER2_COUNT==1) {
+                    Value1.setTextColor(Color.BLACK);
+                    Value1.setBackgroundColor(Color.GRAY);
+                    Value2.setTextColor(Color.WHITE);
+                    Value2.setBackground(getResources().getDrawable(R.drawable.border2));
+                    Value3.setTextColor(Color.WHITE);
+                    Value3.setBackground(getResources().getDrawable(R.drawable.border2));
+                    if (Label1.getText().equals("KorrLB")) {
+                        GlobalVariable.ChangeValue[3] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label1.getText().equals("Voltage")) {
+                        GlobalVariable.ChangeValue[4] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                    } else if (Label1.getText().equals("Ampere")) {
+                        GlobalVariable.ChangeValue[2] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label1.getText().equals("mm")) {
+                        GlobalVariable.ChangeValue[1] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label1.getText().equals("m/min")) {
+                        GlobalVariable.ChangeValue[0] = 1;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    }
+                } else if (GlobalVariable.ENCODER2_COUNT==2) {
+                    Value2.setTextColor(Color.BLACK);
+                    Value2.setBackgroundColor(Color.GRAY);
+                    Value1.setTextColor(Color.WHITE);
+                    Value1.setBackground(getResources().getDrawable(R.drawable.border2));
+                    Value3.setTextColor(Color.WHITE);
+                    Value3.setBackground(getResources().getDrawable(R.drawable.border2));
+                    if (Label2.getText().equals("KorrLB")) {
+                        GlobalVariable.ChangeValue[3] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label2.getText().equals("Voltage")) {
+                        GlobalVariable.ChangeValue[4] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                    } else if (Label2.getText().equals("Ampere")) {
+                        GlobalVariable.ChangeValue[2] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label2.getText().equals("mm")) {
+                        GlobalVariable.ChangeValue[1] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label2.getText().equals("m/min")) {
+                        GlobalVariable.ChangeValue[0] = 1;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    }
+                } else if (GlobalVariable.ENCODER2_COUNT==3 && !Label3.getText().equals("")) {
+                    Value3.setTextColor(Color.BLACK);
+                    Value3.setBackgroundColor(Color.GRAY);
+                    Value1.setTextColor(Color.WHITE);
+                    Value1.setBackground(getResources().getDrawable(R.drawable.border2));
+                    Value2.setTextColor(Color.WHITE);
+                    Value2.setBackground(getResources().getDrawable(R.drawable.border2));
+                    if (Label3.getText().equals("KorrLB")) {
+                        GlobalVariable.ChangeValue[3] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label3.getText().equals("Voltage")) {
+                        GlobalVariable.ChangeValue[4] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                    } else if (Label3.getText().equals("Ampere")) {
+                        GlobalVariable.ChangeValue[2] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label3.getText().equals("mm")) {
+                        GlobalVariable.ChangeValue[1] = 1;
+                        GlobalVariable.ChangeValue[0] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    } else if (Label3.getText().equals("m/min")) {
+                        GlobalVariable.ChangeValue[0] = 1;
+                        GlobalVariable.ChangeValue[1] = 0;
+                        GlobalVariable.ChangeValue[2] = 0;
+                        GlobalVariable.ChangeValue[3] = 0;
+                        GlobalVariable.ChangeValue[4] = 0;
+                    }
+                } else if (GlobalVariable.ENCODER2_COUNT==3) GlobalVariable.ENCODER2_COUNT=1;
+            }*/
+
+    /*if (GlobalVariable.CONTROL_PANEL_MODE1 == 1) {
+                    if ((GlobalVariable.ChangeValue[0] == 1)) {
+                        if (GlobalVariable.mpm_display != GlobalVariable.Energie1)
+                            sendEnergie.ChangeParameter(2, GlobalVariable.mpm_display, 1); //m/min
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    } else if ((GlobalVariable.ChangeValue[4] == 1)) {
+                        if (GlobalVariable.voltage_display != GlobalVariable.Spannung1)
+                            sendEnergie.ChangeParameter(15, GlobalVariable.voltage_display, 1); //voltage
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    } else if ((GlobalVariable.ChangeValue[1] == 1)) {
+                        if (GlobalVariable.mm_a_display != GlobalVariable.mirror_display)
+                            sendEnergie.ChangeParameter(3, GlobalVariable.mm_a_display, 1); //Thickness mm
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    } else if ((GlobalVariable.ChangeValue[2] == 1)) {
+                        if (GlobalVariable.mm_a_display != GlobalVariable.mirror_display)
+                            sendEnergie.ChangeParameter(1, GlobalVariable.mm_a_display, 1); //strom
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    } else if ((GlobalVariable.ChangeValue[3] == 1)) {
+                        if (GlobalVariable.korrektur_display != GlobalVariable.Lichtbogenkorrektur1)
+                            sendEnergie.ChangeParameter(21, GlobalVariable.korrektur_display, 1);
+                        else GlobalVariable.CONTROL_PANEL_MODE1 = 0;
+                    }
+                }*/
 
 }
 

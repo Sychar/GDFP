@@ -9,42 +9,34 @@ public class SendEncoder {
 
     private final static String TAG = SendEncoder.class.getSimpleName(); //name of this class
     public static byte[] ENCODER_FRAME = new byte[20];
-    //private static String GETHEX = "";
 
     public static void changeEncoder(String HEXDATA){ //HEXDATA is 10 bytes
-
-        char POSITION_13 = HEXDATA.charAt(12);
-        char POSITION_14 = HEXDATA.charAt(13);
-        char POSITION_15 = HEXDATA.charAt(14);
-        char POSITION_16 = HEXDATA.charAt(15);
-        //StringBuilder JOINCHAR = new StringBuilder();
-        //GETHEX = JOINCHAR.append(POSITION_13).append(POSITION_14).append(POSITION_15).append(POSITION_16).toString();
 
         WeldingChangeParam WC_OBJECT = new WeldingChangeParam();
 
         if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 0 (left)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            WC_OBJECT.incrementEncoder0(UartService.ByteArray[7] & 0x0F);
+            //WC_OBJECT.incrementEncoder0(UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"incrementEncoder0 is called");
-        }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 0
+        }else if((UartService.ByteArray[6] & 0xFF) == 2 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 0 (left)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
-            WC_OBJECT.decrementEncoder0(16 - UartService.ByteArray[7] & 0x0F);
+            //WC_OBJECT.decrementEncoder0(16 - UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"decrementEncoder0 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 1 (middle)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            //WC_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
+            WC_OBJECT.incrementEncoder1(UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"incrementEncoder1 is called");
-        }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 1
+        }else if((UartService.ByteArray[6] & 0xFF) == 1 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 1 (middle)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
-            //WC_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
+            WC_OBJECT.decrementEncoder1(16 - UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"decrementEncoder1 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 0){ //increment encoder 2 (right)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            WC_OBJECT.incrementEncoder2(UartService.ByteArray[7] & 0x0F);
+            //WC_OBJECT.incrementEncoder2(UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"incrementEncoder2 is called");
-        }else if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 2
+        }else if((UartService.ByteArray[6] & 0xFF) == 0 && (UartService.ByteArray[7] & 0xF0) == 240){ //decrement encoder 2 (right)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always F0
-            WC_OBJECT.decrementEncoder2(16 - UartService.ByteArray[7] & 0x0F);
+            //WC_OBJECT.decrementEncoder2(16 - UartService.ByteArray[7] & 0x0F);
             //Log.i(TAG,"decrementEncoder2 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 0){ //button 0
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
@@ -80,11 +72,11 @@ public class SendEncoder {
             //Log.i(TAG,"button1 is called");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 10){ //encoder0 button(left)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            WC_OBJECT.pressbuttonEncoder0();
+            //WC_OBJECT.pressbuttonEncoder0();
             //Log.i(TAG,"encoder0 button is pressed");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 9){ //encoder1 button(middle)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            //WC_OBJECT.pressbuttonEncoder1();
+            WC_OBJECT.pressbuttonEncoder1();
             //Log.i(TAG,"encoder1 button is press");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 8){ //encoder2 button(right)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00

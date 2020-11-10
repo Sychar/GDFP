@@ -8,7 +8,6 @@
     tools:context=".Backend.Test">
 
     <Button
-
         android:id="@+id/next"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="720dp"
@@ -16,9 +15,11 @@
         android:onClick="onNext_perVios"
         android:background="@drawable/daten_bank_button"
         android:layout_height="80dp"
-        android:text="next">
-
+        android:text="next"
+        android:textSize="18sp"
+        android:textStyle="normal">
     </Button>
+
 <FrameLayout
     android:layout_marginLeft="180dp"
     android:id="@+id/fram1"
@@ -43,6 +44,7 @@
             android:text="DRAHTDURCHMESSER"
             android:textAlignment="center"
             android:textColor="#ffffff"
+            android:textStyle="normal"
             android:textSize="20sp"></TextView>
 
         <ListView
@@ -50,6 +52,7 @@
             android:layout_width="490dp"
             android:layout_height="372dp"
             android:layout_marginLeft="5dp"
+            android:textStyle="normal"
             android:layout_marginBottom="45dp">
         </ListView>
 
@@ -64,13 +67,8 @@
         android:layout_gravity="center_vertical"
         android:layout_width="100dp"
         android:layout_height="80dp"
-        android:text="previous">
-
+        android:text="previous"
+        android:textSize="18sp"
+        android:textStyle="normal">
     </Button>
 </FrameLayout>
-
-
-
-
-
-

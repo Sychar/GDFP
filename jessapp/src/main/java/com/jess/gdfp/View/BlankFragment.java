@@ -42,27 +42,15 @@ public class BlankFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private  ListView listView ;
-    private RecyclerView listView2 ;
-    private  ListView listView3;
-    private  ListView listView4;
     public static ArrayList detail;
-    private ArrayList detail2;
-    private ArrayList detail3;
-    private ArrayList detail4;
     protected Handler handler;
-    private FrameLayout frameLayout3;
-    private FrameLayout frameLayout4;
-    private FrameLayout frameLayout2;
-    private FrameLayout frameLayout;
     static int zähler =1;
     public static TextView tv;
     public static ListView rv;
-    private static Button next;
-    private static Button previous;
+    public static Button next;
+    public static Button previous;
 
     private Intent intent;
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -139,13 +127,13 @@ public class BlankFragment extends Fragment {
                 }else if(tv.getText().equals("GAS")){
                     //-------------------------------- GAS -----------------------------------------
                     //Log.i("GAS","is here");
-                    GlobalVariable.GAS_MODE = position + 1;
+                    GlobalVariable.GAS_MODE = position;
                     GlobalVariable.Gas_Token = true;
                 }else if(tv.getText().equals("WERKSTOFF")){
                     //-------------------------- Werkstoff -----------------------------------------
                     //Log.i("WERKSTOFF","is here");
-                    GlobalVariable.WERKSTOFF = position + 1;
-                    GlobalVariable.Kennlinie_Token = true;
+                    GlobalVariable.WERKSTOFF_MODE = position + 1;
+                    GlobalVariable.Werkstoff_Token = true;
                 }else if(tv.getText().equals("BETRIEBSART")){
                 //---------------------------- Betriebsart -----------------------------------------
                     //Log.i("BETRIEBSART","is here");
@@ -165,6 +153,8 @@ public class BlankFragment extends Fragment {
                     //---------------------------- job -----------------------------------------
                     //Log.i("JOB","is here");
                     GlobalVariable.JOB_MODE = position;
+                    if (GlobalVariable.JOB_MODE ==0) GlobalVariable.Load_Job = true;
+                    if (GlobalVariable.JOB_MODE ==1)  GlobalVariable.Save_Job = true;
                     GlobalVariable.Job_Token = true;
                 }
             }
@@ -211,61 +201,71 @@ public class BlankFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
- public static ArrayList init_verfahren(){
-   ArrayList detail = new ArrayList();
-     detail.add(("MIG/MAG NORMAL"));
-     detail.add(("MIG/MAG SYNERGIE"));
-     detail.add(("MIG/MAG PULS"));
-     detail.add(("ElEKTRODE"));
-     detail.add(("WIG"));
-     return detail;
- }
- public static ArrayList init_werkstoff(){
-     ArrayList detail2 = new ArrayList<>();
-     detail2.add(("Fe"));
-     detail2.add(("Cr/Ni"));
-     detail2.add(("AL/Mg"));
-     detail2.add(("AL/Si"));
-     detail2.add(("Cu/Si"));
-     detail2.add(("Al/mg3"));
-     detail2.add(("Al/mg5"));
-     detail2.add(("Al/mg4/5Mn"));
-     detail2.add(("Al/Bz"));
-     detail2.add(("Spezial"));
-     return detail2;
- }
+     public static ArrayList init_verfahren(){
+       ArrayList detail = new ArrayList();
+         detail.add(("MIG/MAG NORMAL"));
+         detail.add(("MIG/MAG SYNERGIE"));
+         detail.add(("MIG/MAG PULS"));
+         detail.add(("ElEKTRODE"));
+         detail.add(("WIG"));
+         detail.add(("WIG_Puls"));
+         detail.add(("WIG-Speed-Puls"));
+         detail.add(("WIG-Speed-Puls+Puls"));
+         detail.add(("HC-MAG"));
+         return detail;
+     }
 
- public static ArrayList init_durchmesser(){
-     ArrayList  detail3 = new ArrayList<>();
-     detail3.add(("0,6 mm"));
-     detail3.add(("0,8 mm"));
-     detail3.add(("0,9 mm"));
-     detail3.add(("1,0 mm"));
-     detail3.add(("1,2 mm"));
-     detail3.add(("1,4 mm"));
-     detail3.add(("1,6 mm"));
-     detail3.add(("2,0 mm"));
-     detail3.add(("2,4 mm"));
-     detail3.add(("Spezial"));
-     return detail3;
- }
+     public static ArrayList init_werkstoff(){
+         ArrayList detail2 = new ArrayList<>();
+         detail2.add(("Fe"));
+         detail2.add(("Cr/Ni"));
+         detail2.add(("AL/Mg"));
+         detail2.add(("AL/Si"));
+         detail2.add(("Cu/Si"));
+         detail2.add(("Al/mg3"));
+         detail2.add(("Al/mg5"));
+         detail2.add(("Al/mg4/5Mn"));
+         detail2.add(("Al/Bz"));
+         detail2.add(("Spezial"));
+         return detail2;
+     }
+
+     public static ArrayList init_durchmesser(){
+         ArrayList  detail3 = new ArrayList<>();
+         detail3.add(("0,6 mm"));
+         detail3.add(("0,8 mm"));
+         detail3.add(("0,9 mm"));
+         detail3.add(("1,0 mm"));
+         detail3.add(("1,2 mm"));
+         detail3.add(("1,4 mm"));
+         detail3.add(("1,6 mm"));
+         detail3.add(("2,0 mm"));
+         detail3.add(("2,4 mm"));
+         detail3.add(("Spezial"));
+         return detail3;
+     }
 
     public static ArrayList init_Betriebsart(){
         ArrayList detail3 = new ArrayList<>();
         detail3.add(("2-TAKT"));
         detail3.add(("4-TAKT"));
         detail3.add(("4-TAKT SONDER"));
+        detail3.add(("PROGRAMM"));
         detail3.add(("PUNKTEN"));
+        detail3.add(("INTERVALL"));
+        detail3.add(("EXTERN"));
+        detail3.add(("2-TAKT+HF"));
+        detail3.add(("4-TAKT+HF"));
         return detail3;
     }
 
  public static ArrayList init_Gas(){
      ArrayList detail4 = new ArrayList<>();
-     //detail4.add(("82%AR / 18%CO"));
+     detail4.add(("82%AR / 18%CO"));
      detail4.add(("98%AR / 2%CO"));
      detail4.add(("100%AR"));
      detail4.add(("100%CO"));
-     /*detail4.add(("92%AR / 8%CO"));
+     detail4.add(("92%AR / 8%CO"));
      detail4.add(("99%AR / 1%O2"));
      detail4.add(("98%AR / 2%O2"));
      detail4.add(("97%AR / 3%O2"));
@@ -279,7 +279,7 @@ public class BlankFragment extends Fragment {
      detail4.add(("94Ar / 6%H2"));
      detail4.add(("50Ar / 50%H2"));
      detail4.add(("30Ar / 70%H2"));
-     detail4.add(("Spezial"));*/
+     detail4.add(("Spezial"));
      return detail4;
  }
 
@@ -330,44 +330,46 @@ if( view.getId() == R.id.next) {
     CreateAdapter();
     }
 
-if(view.getId()==R.id.previous) {
-    if ((tv.getText().equals("VERFAHREN"))) {
-        tv.setText("GAS");
-        detail = init_Gas();
-    }else if ((tv.getText().equals("GAS"))){
-        tv.setText("BETRIEBSART");
-        detail = init_Betriebsart();
-    }else if ((tv.getText().equals("BETRIEBSART"))){
-        tv.setText("DRAHTDURCHMESSER");
-        detail = init_durchmesser();
-    }else if ((tv.getText().equals("DRAHTDURCHMESSER"))){
-        tv.setText("WERKSTOFF");
-        detail = init_werkstoff();
-    }else if ((tv.getText().equals("WERKSTOFF"))){
-        tv.setText("VERFAHREN");
-        detail = init_verfahren();
+        if(view.getId()==R.id.previous) {
+            if ((tv.getText().equals("VERFAHREN"))) {
+                tv.setText("GAS");
+                detail = init_Gas();
+            }else if ((tv.getText().equals("GAS"))){
+                tv.setText("BETRIEBSART");
+                detail = init_Betriebsart();
+            }else if ((tv.getText().equals("BETRIEBSART"))){
+                tv.setText("DRAHTDURCHMESSER");
+                detail = init_durchmesser();
+            }else if ((tv.getText().equals("DRAHTDURCHMESSER"))){
+                tv.setText("WERKSTOFF");
+                detail = init_werkstoff();
+            }else if ((tv.getText().equals("WERKSTOFF"))){
+                tv.setText("VERFAHREN");
+                detail = init_verfahren();
+            }
+            CreateAdapter();
+        }
     }
-    CreateAdapter();
-}
+
+     public void CreateAdapter(){
+         ArrayAdapter<String>adapter2= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail){
+             @NonNull
+             @Override
+             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                 View view1 =super.getView(position,convertView,parent);
+                 return  view1;
+             }
+         };
+         rv.setAdapter(adapter2);
+     }
+
+     public static void setButtonInvisible(){
+         next.setVisibility(View.INVISIBLE);
+         previous.setVisibility(View.INVISIBLE);
+     }
+
+    public static void setButtonVisible(){
+        next.setVisibility(View.VISIBLE);
+        previous.setVisibility(View.VISIBLE);
     }
-
- public void CreateAdapter(){
-     ArrayAdapter<String>adapter2= new ArrayAdapter<String>(getContext(),R.layout.item_for_kennlinie,R.id.textBetriebsart,detail){
-         @NonNull
-         @Override
-         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-             View view1 =super.getView(position,convertView,parent);
-             return  view1;
-         }
-     };
-     rv.setAdapter(adapter2);
- }
-
- public static void setButtonInvisible(){
-     next.setVisibility(View.INVISIBLE);
-     previous.setVisibility(View.INVISIBLE);
- }
-
-
-
 }

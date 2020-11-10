@@ -371,70 +371,73 @@ public class DatenObjekte {
                             GlobalVariable.Reglertyp = "Error";
                             break;
                     }
-                    int result = (int) DO_FRAME[12];//pos 7 Status MSR
-                    if ((result & 0x01) == 1) GlobalVariable.StatusMSR = "Schweißen Ein";
+                    GlobalVariable.StatusMSR = (int) DO_FRAME[12];//pos 7 Status MSR
+                    int result = GlobalVariable.StatusMSR;
+                    if ((result & 0x01) == 1) GlobalVariable.StatusMSR_BT = "Schweißen Ein";
+                    else GlobalVariable.StatusMSR_BT = "Schweißen Aus";
 
                     result = result >>> 1;//shift first time
 
-                    if ((result & 1) == 0) GlobalVariable.StatusMSR = "akt. Koffer 1";
-                    else GlobalVariable.StatusMSR = "akt. Koffer 2";
+                    if ((result & 1) == 0) GlobalVariable.StatusMSR_String = "akt. Koffer 1";
+                    else GlobalVariable.StatusMSR_String = "akt. Koffer 2";
 
                     result = result >>> 1;//shift second time
 
-                    if ((result & 1) == 0) GlobalVariable.StatusMSR = "Synergie Ein";
-                    else GlobalVariable.StatusMSR = "Synergie Aus";
+                    if ((result & 1) == 0) GlobalVariable.StatusMSR_String = "Synergie Ein";
+                    else GlobalVariable.StatusMSR_String = "Synergie Aus";
 
                     result = result >>> 1;//shift third time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Einfädeln Vor";
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Einfädeln Vor";
 
                     result = result >>> 1;//shift fourth time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Kühlen";
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Kühlen";
 
                     result = result >>> 1;//shift fifth time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Einfädeln Zurück";
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Einfädeln Zurück";
 
                     result = result >>> 1;//shift sixth time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Gas-Test";
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Gas-Test";
 
                     result = result >>> 1;//shift seventh time
 
-                    if ((result & 1) == 1) GlobalVariable.StatusMSR = "Tastenklick Ein";
+                    if ((result & 1) == 1) GlobalVariable.StatusMSR_String = "Tastenklick Ein";
 
-                    int iSFLG = (int) DO_FRAME[13];//pos 8 Status FLG
+                    GlobalVariable.StatusFLG = (int) DO_FRAME[13];//pos 8 Status FLG
+                    int iSFLG = GlobalVariable.StatusFLG;
 
-                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "FLG im Gebirge-Mode";
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "FLG im Gebirge-Mode";
 
                     iSFLG = iSFLG >>> 1;//shift first time
 
-                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "FLG mit Gebirge";
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "FLG mit Gebirge";
 
                     iSFLG = iSFLG >>> 1;//shift second time
 
-                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Zünden Aus";
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "Zünden Aus";
 
                     iSFLG = iSFLG >>> 1;//shift third time
 
-                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Rückzugs-Zündung Aus";
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "Rückzugs-Zündung Aus";
 
                     iSFLG = iSFLG >>> 1;//shift fourth time
 
-                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Endpuls Aus";
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "Endpuls Aus";
 
                     iSFLG = iSFLG >>> 1;//shift fifth time
 
-                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Locking-Edit_Mode";
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "Locking-Edit_Mode";
 
                     iSFLG = iSFLG >>> 1;//shift sixth time
 
-                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Wasser fließt";
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "Wasser fließt";
 
                     iSFLG = iSFLG >>> 1;//shift seventh time
 
-                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG = "Freiband-Warnung";
+                    if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "Freiband-Warnung";
 
                     GlobalVariable.Kennliniennummer = (DO_FRAME[14] & 0xFF) + ((DO_FRAME[15] & 0xFF) << 8);//pos 1 or 2 Kennliniennummer
                     //Log.i("(int) DO_FRAME[6]",String.valueOf((int) DO_FRAME[6]));
@@ -479,7 +482,7 @@ public class DatenObjekte {
 
                     int iJS = (int) DO_FRAME[20];//pos 5 Job-Status
 
-                    Log.i("JobStatus_Display",String.valueOf(iJS));
+                    //Log.i("JobStatus_Display",String.valueOf(iJS));
 
                     if ((iJS & 1) == 1) GlobalVariable.JobStatus_Display = "Jobschweißen aktiv";
                     else GlobalVariable.JobStatus_Display = "Inactive";
@@ -802,8 +805,14 @@ public class DatenObjekte {
                     GlobalVariable.Brennertasten = temp;
                     int BT = GlobalVariable.Brennertasten;
 
-                    if ((BT & 1) == 1) GlobalVariable.Brennertasten1_string = "Brennertaste1 Active";
-                    else GlobalVariable.Brennertasten1_string = "Not active";
+                    if ((BT & 1) == 1) {
+                        GlobalVariable.Brennertasten1_string = "Brennertaste1 Active";
+                        GlobalVariable.BT1_Interrupt = true;
+                    } else {
+                        GlobalVariable.Brennertasten1_string = "Not active";
+                        //GlobalVariable.BT1_Interrupt = false;
+                    }
+                    //System.out.println(GlobalVariable.Brennertasten1_string);
 
                     BT = BT >>> 1;//shift first time
 
@@ -1026,7 +1035,7 @@ public class DatenObjekte {
                             break;
                     }
                     int result = (int) DO_FRAME[12];//pos 7
-                    //System.out.println("StatusMSR  "+result);
+                    //System.out.println("StatusMSR_String  "+result);
 
                     if ((result & 0x01) == 1) {
                         StatusMSR = "Schweißen Ein";
