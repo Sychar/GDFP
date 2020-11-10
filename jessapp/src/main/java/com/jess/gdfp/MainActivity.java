@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     MainActivity_Controller mainActivityController = new MainActivity_Controller(MainActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        System.out.println(DatalistView.loadFile(this));
         READVAL_STATUS[1]=0; //m/min
         READVAL_STATUS[2]=0; //korrektur
         READVAL_STATUS[3]=0; //Value3

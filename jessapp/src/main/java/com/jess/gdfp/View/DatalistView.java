@@ -7,12 +7,16 @@
 package com.jess.gdfp.View;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.jess.gdfp.Controller.DatenLoggerAdapter;
@@ -24,20 +28,31 @@ import com.jess.gdfp.DatenObjekte;
 import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.R;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class DatalistView extends AppCompatActivity  {
-    public static int timer=1;
-    private static final int COUNT_LOADR=0;
+public class DatalistView extends AppCompatActivity {
+    public static int timer = 1;
+    private static final int COUNT_LOADR = 0;
     DatenLoggerAdapter datenLoggerAdapter;
     private TextView Time_view;
     private TextView Date_view;
     private ListView listView;
-    static public String dateString ="1";
-    private  String [] Array_Data = new String[infosArray.length];
+    static public String dateString = "1";
+    private String[] Array_Data = new String[infosArray.length];
     private Uri uri;
     //private static String[] NEW_STRING ;
 
@@ -46,17 +61,24 @@ public class DatalistView extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_datalist_view);
 
-        listView =(ListView) findViewById(R.id.datalistview);
-        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
+        listView = (ListView) findViewById(R.id.datalistview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         Time_view = findViewById(R.id.TIME_DL);
         Date_view = findViewById(R.id.DATE_DL);
         //datenLoggerAdapter=new DatenLoggerAdapter(this,initDatenlogger());
         //listView.setAdapter(datenLoggerAdapter);
-        datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
+        datenLoggerAdapter = new DatenLoggerAdapter(DatalistView.this, initDatenlogger());
+        Button button1 = findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             System.out.println(loadFile(view.getContext()));
+            }
+        });
         datetime_thread();
     }
 
-    static public String[] infosArray={
+    static public String[] infosArray = {
             //InfoContract.infoEntry.COLUMN_TIME_ ,
             InfoContract.infoEntry.Verfahren,
             InfoContract.infoEntry.Betriebsart,
@@ -86,14 +108,14 @@ public class DatalistView extends AppCompatActivity  {
             InfoContract.infoEntry.FreibrandKorrektur,
             InfoContract.infoEntry.KorrekturPulsamplitude,
             InfoContract.infoEntry.KorrekturDrossel,
-            InfoContract.infoEntry.Einfädeln ,
+            InfoContract.infoEntry.Einfädeln,
             InfoContract.infoEntry.GastestZeit,
             InfoContract.infoEntry.Pausenzeitbeiinterval,
             InfoContract.infoEntry.Punktzeit,
             InfoContract.infoEntry.ZündDauer,
             InfoContract.infoEntry.EndkraterDauer,
             InfoContract.infoEntry.SynergieVorgabeBasis,
-            InfoContract.infoEntry.AnzahlLeistungsmodule ,
+            InfoContract.infoEntry.AnzahlLeistungsmodule,
             InfoContract.infoEntry.PowerpulsEinAus,
             InfoContract.infoEntry.PowerpilsEnergie,
             InfoContract.infoEntry.PowerPulsTime1fürEnergie1,
@@ -110,12 +132,12 @@ public class DatalistView extends AppCompatActivity  {
             InfoContract.infoEntry.Strom1,
             InfoContract.infoEntry.Spannung1,
             InfoContract.infoEntry.Energie1,
-            InfoContract.infoEntry.Drossel1 ,
+            InfoContract.infoEntry.Drossel1,
             InfoContract.infoEntry.Lichtbogenkorrektur1,
             InfoContract.infoEntry.Strom2,
             InfoContract.infoEntry.Spannung2,
             InfoContract.infoEntry.Energie2,
-            InfoContract.infoEntry.Drossel2 ,
+            InfoContract.infoEntry.Drossel2,
             InfoContract.infoEntry.Lichtbogenkorrektur2,
             InfoContract.infoEntry.Strom3,
             InfoContract.infoEntry.Spannung3,
@@ -142,7 +164,7 @@ public class DatalistView extends AppCompatActivity  {
             InfoContract.infoEntry.SpannungHoldwert,
             InfoContract.infoEntry.SpannungStatus,
             InfoContract.infoEntry.SpannungInkremental,
-            InfoContract.infoEntry.BlechdickeSetwert ,
+            InfoContract.infoEntry.BlechdickeSetwert,
             InfoContract.infoEntry.BlechdickeIstwert,
             InfoContract.infoEntry.BlechdickeHoldwert,
             InfoContract.infoEntry.BlechdickeStatus,
@@ -151,7 +173,7 @@ public class DatalistView extends AppCompatActivity  {
             InfoContract.infoEntry.ElektrodeStromIstwert,
             InfoContract.infoEntry.HotstartDauer,
             InfoContract.infoEntry.Hotstart,
-            InfoContract.infoEntry.ArcForce ,
+            InfoContract.infoEntry.ArcForce,
             InfoContract.infoEntry.InnenwiderstandfürElektrode,
             InfoContract.infoEntry.RMTPosAmplitude,
             InfoContract.infoEntry.RMTNegAmplitude,
@@ -196,7 +218,7 @@ public class DatalistView extends AppCompatActivity  {
             InfoContract.infoEntry.KH_Status,
     };
 
-    private  static String[] VALUE_STRING = {
+    private static String[] VALUE_STRING = {
             GlobalVariable.Verfahren,
             GlobalVariable.Betriebsart_String[GlobalVariable.SV1pos2],
             String.valueOf(GlobalVariable.Drahtdurchmesser), //pos 3 DrahtDurchmesser
@@ -335,7 +357,7 @@ public class DatalistView extends AppCompatActivity  {
             GlobalVariable.KHStatus_String,
     };
 
-    private void datetime_thread(){
+    private void datetime_thread() {
         Thread t = new Thread() {
 
             @Override
@@ -349,33 +371,41 @@ public class DatalistView extends AppCompatActivity  {
                                 initDatenlogger();
                                 String[] DATALOGGER_PARAM = RefreshString();
                                 listView.setAdapter(datenLoggerAdapter);
-                                Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
-                                Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
-                              //  datenLoggerAdapter.clear();
+                                Time_view.setText(String.valueOf(DatenObjekte.HOUR) + ":" + String.valueOf(DatenObjekte.MINUTE) + ":" + String.valueOf(DatenObjekte.SECOND));
+                                Date_view.setText(String.valueOf(DatenObjekte.DAY) + "/" + String.valueOf(DatenObjekte.MONTH) + "/" + "20" + String.valueOf(DatenObjekte.YEAR));
+                                //  datenLoggerAdapter.clear();
                                 ArrayList Datenlogger = new ArrayList<>();
-                                for (int i=0; i<infosArray.length; i++) {
-                                    Datenlogger.add(new Datenlogger(infosArray[i],DATALOGGER_PARAM[i]));
+                                for (int i = 0; i < infosArray.length; i++) {
+                                    Datenlogger.add(new Datenlogger(infosArray[i], DATALOGGER_PARAM[i]));
                                     exportDB();
                                 }
-                                ContentValues values= new ContentValues();
-                                for(int  i=0;i<DATALOGGER_PARAM.length;i++){
-                                    values.put(infosArray[i],DATALOGGER_PARAM[i]);
+                                ContentValues values = new ContentValues();
+                                for (int i = 0; i < DATALOGGER_PARAM.length; i++) {
+                                    values.put(infosArray[i], DATALOGGER_PARAM[i]);
 
                                 }
 
-                                getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI,values);
-                                datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,Datenlogger);
-                                if(DatenObjekte.HOUR<10) Time_view.setText("0"+String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
-                                else if(DatenObjekte.MINUTE<10) Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":0"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
-                                else if(DatenObjekte.SECOND<10) Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":0"+String.valueOf(DatenObjekte.SECOND));
-                                else Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
+                                getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI, values);
+                                datenLoggerAdapter = new DatenLoggerAdapter(DatalistView.this, Datenlogger);
+                                if (DatenObjekte.HOUR < 10)
+                                    Time_view.setText("0" + String.valueOf(DatenObjekte.HOUR) + ":" + String.valueOf(DatenObjekte.MINUTE) + ":" + String.valueOf(DatenObjekte.SECOND));
+                                else if (DatenObjekte.MINUTE < 10)
+                                    Time_view.setText(String.valueOf(DatenObjekte.HOUR) + ":0" + String.valueOf(DatenObjekte.MINUTE) + ":" + String.valueOf(DatenObjekte.SECOND));
+                                else if (DatenObjekte.SECOND < 10)
+                                    Time_view.setText(String.valueOf(DatenObjekte.HOUR) + ":" + String.valueOf(DatenObjekte.MINUTE) + ":0" + String.valueOf(DatenObjekte.SECOND));
+                                else
+                                    Time_view.setText(String.valueOf(DatenObjekte.HOUR) + ":" + String.valueOf(DatenObjekte.MINUTE) + ":" + String.valueOf(DatenObjekte.SECOND));
 
-                                if(DatenObjekte.DAY<10) Date_view.setText("0"+String.valueOf(DatenObjekte.DAY)+"/0"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
-                                else if(DatenObjekte.MONTH<10) Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/0"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
-                                else if(DatenObjekte.YEAR<10) Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"200"+String.valueOf(DatenObjekte.YEAR));
-                                else Date_view.setText(String.valueOf(DatenObjekte.DAY)+"/"+String.valueOf(DatenObjekte.MONTH)+"/"+"20"+String.valueOf(DatenObjekte.YEAR));
+                                if (DatenObjekte.DAY < 10)
+                                    Date_view.setText("0" + String.valueOf(DatenObjekte.DAY) + "/0" + String.valueOf(DatenObjekte.MONTH) + "/" + "20" + String.valueOf(DatenObjekte.YEAR));
+                                else if (DatenObjekte.MONTH < 10)
+                                    Date_view.setText(String.valueOf(DatenObjekte.DAY) + "/0" + String.valueOf(DatenObjekte.MONTH) + "/" + "20" + String.valueOf(DatenObjekte.YEAR));
+                                else if (DatenObjekte.YEAR < 10)
+                                    Date_view.setText(String.valueOf(DatenObjekte.DAY) + "/" + String.valueOf(DatenObjekte.MONTH) + "/" + "200" + String.valueOf(DatenObjekte.YEAR));
+                                else
+                                    Date_view.setText(String.valueOf(DatenObjekte.DAY) + "/" + String.valueOf(DatenObjekte.MONTH) + "/" + "20" + String.valueOf(DatenObjekte.YEAR));
                                 initDatenlogger().clear();
-                              //  datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
+                                //  datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
                                 datenLoggerAdapter.notifyDataSetChanged();
                             }
                         });
@@ -387,16 +417,16 @@ public class DatalistView extends AppCompatActivity  {
         t.start();
     }
 
-    private ArrayList initDatenlogger(){
-        ArrayList Datenlogger =new ArrayList<>();
-        for (int i=0;i<infosArray.length;i++){
-            Datenlogger.add(new Datenlogger(infosArray[i],VALUE_STRING[i]));
+    private ArrayList initDatenlogger() {
+        ArrayList Datenlogger = new ArrayList<>();
+        for (int i = 0; i < infosArray.length; i++) {
+            Datenlogger.add(new Datenlogger(infosArray[i], VALUE_STRING[i]));
         }
         return Datenlogger;
     }
 
-    private static String[] RefreshString(){
-          String[] NEW_STRING = {
+    private static String[] RefreshString() {
+        String[] NEW_STRING = {
                 GlobalVariable.Verfahren_String[GlobalVariable.SV1pos1], //Verfahren
                 GlobalVariable.Betriebsart_String[GlobalVariable.SV1pos2], //Betriebsart
                 String.valueOf(GlobalVariable.Drahtdurchmesser), //pos 3 DrahtDurchmesser
@@ -534,26 +564,37 @@ public class DatalistView extends AppCompatActivity  {
                 String.valueOf(GlobalVariable.KaltdrahtpulsenT1SV22_7),
                 GlobalVariable.KHStatus_String
         };
-          return NEW_STRING;
+        return NEW_STRING;
     }
 
 
-    private  void exportDB(){
+    private void exportDB() {
         InfoDataBase infoDataBase = new InfoDataBase(getApplicationContext());
-        File exportDir = new File (Environment.getExternalStorageDirectory(),"");
-        if (!exportDir.exists()){
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "");
+        if (!exportDir.exists()) {
             exportDir.mkdir();
         }
-        File file =new File(exportDir,"Datalger.csv");
+        File file = new File(exportDir, "Datalger.csv");
+        String data = "Daten, die in die Datei geschrieben werden sollen.";
         try {
+            FileOutputStream fos = openFileOutput("DataLogger.txt", Context.MODE_PRIVATE);
+            fos.write(data.getBytes());
+            //String []arrayinternal =RefreshString();
+            //for(int i =0;i<RefreshString().length;i++){
+            //  fos.write(arrayinternal[i].getBytes());
+
+            //}
+            Log.i("this", "saved file on internal storage: " + "DataLoger.txt");
+            fos.close();
             file.createNewFile();
             CSVWriter csvWriter = new CSVWriter(new FileWriter(file));
+
             // uri = Uri.parse("content://com.felhr.serialportexample.jobs/jobs/");
-            uri=InfoContract.infoEntry.CONTENT_URI;
+            uri = InfoContract.infoEntry.CONTENT_URI;
             Cursor cursor = getContentResolver().query(uri, DatalistView.infosArray, null, null, null);
-            while (cursor.moveToNext()){
-                for (int i = 0;i<DatalistView.infosArray.length;i++){
-                    Array_Data[i]=cursor.getString(cursor.getColumnIndexOrThrow(DatalistView.infosArray[i]));
+            while (cursor.moveToNext()) {
+                for (int i = 0; i < DatalistView.infosArray.length; i++) {
+                    Array_Data[i] = cursor.getString(cursor.getColumnIndexOrThrow(DatalistView.infosArray[i]));
                     //FinalArray[i]=JobsDetails.jobdetails[i] + ":"+ Array_Data[i] ;
                     //System.out.println(Array_Data[i]);
 
@@ -566,12 +607,52 @@ public class DatalistView extends AppCompatActivity  {
             }
 
 
-
-
-
             csvWriter.close();
-        }catch (Exception E){
+        } catch (Exception E) {
             E.printStackTrace();
         }
+    }
+
+    private static String convertStreamToString(InputStream stream) throws IOException {
+        // To convert the InputStream to String we use the
+        // Reader.read(char[] buffer) method. We iterate until the
+        // Reader return -1 which means there's no more data to
+        // read. We use the StringWriter class to produce the string.
+        if (stream != null) {
+            Writer writer = new StringWriter();
+
+            char[] buffer = new char[1024];
+            try {
+                Reader reader = new BufferedReader(new InputStreamReader(stream,
+                        StandardCharsets.UTF_8));
+                int n;
+                while ((n = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, n);
+                }
+            } finally {
+                stream.close();
+            }
+            return writer.toString();
+        }
+        return "";
+    }
+
+    public static   String loadFile(Context context) {
+
+        String filename = "DataLogger.txt";
+        String data;
+
+        FileInputStream fileInputStream;
+        try {
+            fileInputStream = context.openFileInput(filename);
+            InputStream stream = new BufferedInputStream(fileInputStream);
+            data = convertStreamToString(stream);
+            fileInputStream.close();
+            return data;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+return null;
     }
 }

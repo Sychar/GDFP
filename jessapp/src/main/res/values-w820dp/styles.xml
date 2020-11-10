@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
 
-    <!-- Base application theme. -->
+    <style name="GebergeStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#ffff</item>
+        <item name="android:strokeColor">#fff</item>
+        <item name="android:background">#111</item>
+    </style>
 
 
         -

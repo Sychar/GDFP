@@ -167,6 +167,16 @@
         android:layout_toRightOf="@id/linke_layout">
     </fragment>
 
+
+    <fragment
+        android:id="@+id/fragment_geberge"
+        android:layout_width="820dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/obere_layout"
+        tools:layout="@layout/fragment_geberge"
+        class="com.jess.gdfp.Geberge"
+        android:layout_toRightOf="@id/linke_layout">
+    </fragment>
     <RelativeLayout
         android:textStyle="bold"
         android:id="@+id/circleButton"
