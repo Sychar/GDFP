@@ -88,8 +88,7 @@ public class BlankFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_kennline, container, false);
         next = view.findViewById(R.id.next);
@@ -116,22 +115,18 @@ public class BlankFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         /***************** JJ Code *************************/
                 if(tv.getText().equals("DRAHTDURCHMESSER")){
-                    //Log.i("DRAHTDURCHMESSER","is here");
                     GlobalVariable.DRAHTDURCHMESSER_MODE = position + 1;
                     GlobalVariable.Drahtdurchmesser_Token = true;
                 }else if(tv.getText().equals("VERFAHREN")){
                     //---------------------------------- Verfahren ---------------------------------
-                    //Log.i("VERFAHREN","is here");
                     GlobalVariable.VERFAHREN_MODE = position + 1;
                     GlobalVariable.Verfahren_Token = true;
                 }else if(tv.getText().equals("GAS")){
                     //-------------------------------- GAS -----------------------------------------
-                    //Log.i("GAS","is here");
                     GlobalVariable.GAS_MODE = position;
                     GlobalVariable.Gas_Token = true;
                 }else if(tv.getText().equals("WERKSTOFF")){
                     //-------------------------- Werkstoff -----------------------------------------
-                    //Log.i("WERKSTOFF","is here");
                     GlobalVariable.WERKSTOFF_MODE = position + 1;
                     GlobalVariable.Werkstoff_Token = true;
                 }else if(tv.getText().equals("BETRIEBSART")){
@@ -146,12 +141,10 @@ public class BlankFragment extends Fragment {
                     GlobalVariable.Menu_Token = true;
                 }else if(tv.getText().equals("SETTING")){
                     //---------------------------- setting -----------------------------------------
-                    //Log.i("MENU","is here");
-                    //GlobalVariable.MENU_MODE = position + 1;
-                    //GlobalVariable.Menu_Token = true;
+                    GlobalVariable.SETTING_MODE = position + 1;
+                    GlobalVariable.Setting_Token = true;
                 } else if(tv.getText().equals("JOB")){
                     //---------------------------- job -----------------------------------------
-                    //Log.i("JOB","is here");
                     GlobalVariable.JOB_MODE = position;
                     if (GlobalVariable.JOB_MODE ==0) GlobalVariable.Load_Job = true;
                     if (GlobalVariable.JOB_MODE ==1)  GlobalVariable.Save_Job = true;
@@ -206,12 +199,12 @@ public class BlankFragment extends Fragment {
          detail.add(("MIG/MAG NORMAL"));
          detail.add(("MIG/MAG SYNERGIE"));
          detail.add(("MIG/MAG PULS"));
-         detail.add(("ElEKTRODE"));
+         /*detail.add(("ElEKTRODE"));
          detail.add(("WIG"));
          detail.add(("WIG_Puls"));
          detail.add(("WIG-Speed-Puls"));
          detail.add(("WIG-Speed-Puls+Puls"));
-         detail.add(("HC-MAG"));
+         detail.add(("HC-MAG"));*/
          return detail;
      }
 

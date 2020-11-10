@@ -6,27 +6,17 @@
 
 package com.jess.gdfp.View;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.jess.gdfp.Controller.DatenLoggerAdapter;
-import com.jess.gdfp.DatenBank.CSVWriter;
 import com.jess.gdfp.DatenBank.Datenlogger;
 import com.jess.gdfp.DatenBank.InfoContract;
-import com.jess.gdfp.DatenBank.InfoDataBase;
 import com.jess.gdfp.DatenObjekte;
 import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.R;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.net.URI;
 import java.util.ArrayList;
 
 public class DatalistView extends AppCompatActivity  {
@@ -37,8 +27,6 @@ public class DatalistView extends AppCompatActivity  {
     private TextView Date_view;
     private ListView listView;
     static public String dateString ="1";
-    private  String [] Array_Data = new String[infosArray.length];
-    private Uri uri;
     //private static String[] NEW_STRING ;
 
     @Override
@@ -52,11 +40,11 @@ public class DatalistView extends AppCompatActivity  {
         Date_view = findViewById(R.id.DATE_DL);
         //datenLoggerAdapter=new DatenLoggerAdapter(this,initDatenlogger());
         //listView.setAdapter(datenLoggerAdapter);
-        datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
+        datenLoggerAdapter = new DatenLoggerAdapter(DatalistView.this,initDatenlogger());
         datetime_thread();
     }
 
-    static public String[] infosArray={
+    static public String[] infosArray = {
             //InfoContract.infoEntry.COLUMN_TIME_ ,
             InfoContract.infoEntry.Verfahren,
             InfoContract.infoEntry.Betriebsart,
@@ -203,8 +191,8 @@ public class DatalistView extends AppCompatActivity  {
             GlobalVariable.Gas,
             GlobalVariable.Werkstoff,
             GlobalVariable.Reglertyp,
-            GlobalVariable.StatusMSR,
-            GlobalVariable.StatusFLG,
+            String.valueOf(GlobalVariable.StatusMSR),
+            GlobalVariable.StatusFLG_String,
             String.valueOf(GlobalVariable.Kennliniennummer),
             String.valueOf(GlobalVariable.Jobnummer),
             GlobalVariable.KennlinienTyp_String,
@@ -355,15 +343,7 @@ public class DatalistView extends AppCompatActivity  {
                                 ArrayList Datenlogger = new ArrayList<>();
                                 for (int i=0; i<infosArray.length; i++) {
                                     Datenlogger.add(new Datenlogger(infosArray[i],DATALOGGER_PARAM[i]));
-                                    exportDB();
                                 }
-                                ContentValues values= new ContentValues();
-                                for(int  i=0;i<DATALOGGER_PARAM.length;i++){
-                                    values.put(infosArray[i],DATALOGGER_PARAM[i]);
-
-                                }
-
-                                getContentResolver().insert(InfoContract.infoEntry.CONTENT_URI,values);
                                 datenLoggerAdapter=new DatenLoggerAdapter(DatalistView.this,Datenlogger);
                                 if(DatenObjekte.HOUR<10) Time_view.setText("0"+String.valueOf(DatenObjekte.HOUR)+":"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
                                 else if(DatenObjekte.MINUTE<10) Time_view.setText(String.valueOf(DatenObjekte.HOUR)+":0"+String.valueOf(DatenObjekte.MINUTE)+":"+String.valueOf(DatenObjekte.SECOND));
@@ -403,8 +383,8 @@ public class DatalistView extends AppCompatActivity  {
                 GlobalVariable.Gas_String[GlobalVariable.SV1pos2], //Gas
                 GlobalVariable.Werksotff_String[GlobalVariable.SV1pos5], //Werkstoff
                 GlobalVariable.Reglertyp,
-                GlobalVariable.StatusMSR,
-                GlobalVariable.StatusFLG,
+                String.valueOf(GlobalVariable.StatusMSR),
+                GlobalVariable.StatusFLG_String,
                 String.valueOf(GlobalVariable.Kennliniennummer),
                 String.valueOf(GlobalVariable.Jobnummer),
                 GlobalVariable.KennlinienTyp_String,
@@ -532,46 +512,192 @@ public class DatalistView extends AppCompatActivity  {
                 String.valueOf(GlobalVariable.Vorpositionierungsstrecke),
                 String.valueOf(GlobalVariable.Rückzugsstrecke),
                 String.valueOf(GlobalVariable.KaltdrahtpulsenT1SV22_7),
-                GlobalVariable.KHStatus_String
+                GlobalVariable.KHStatus_String,
+                  //------------------------ DEV DSP --------------------------------------
+                /*GlobalVariable.StartZeit_WIG_DVE,
+                  GlobalVariable.EndZeit_WIG_DVE,
+                  GlobalVariable.Freibrand,
+                  GlobalVariable.Freibrand,
+                  GlobalVariable.KorrekturPulsamplitude,
+                  GlobalVariable.KorrekturDrossel,
+                  GlobalVariable.Einfädeln,
+                  GlobalVariable.VorschubSollLow_DVE,
+                  GlobalVariable.VorschubSollHigh_DVE,
+                  GlobalVariable.VorschubEindchleichenLow_DVE,
+        GlobalVariable.VorschubEindchleichenHigh_DVE,
+                  GlobalVariable.Brennertasten,
+                  GlobalVariable.Optionen,
+                  GlobalVariable.VorschubStatus0,
+                  GlobalVariable.VorschubStatus1,
+                  GlobalVariable.KHMode,
+                  GlobalVariable.VerzögerungsZeitKaltdrahtEin,
+                  GlobalVariable.VerzögerungsZeitKaltdrahtAus,
+                  GlobalVariable.VerzögerungsZeitHeißdrahtÜberwachung,
+                  GlobalVariable.Vorpositionierungsstrecke,
+                  GlobalVariable.KaltdrahtpulsenT1SV22_7, // 0x303
+                  GlobalVariable.KHStatus,
+                  GlobalVariable.InnenwiderstandfürDossel,
+                  GlobalVariable.Überblendzeit,
+                  GlobalVariable.DrosselAbfall,
+                  GlobalVariable.MotorFlanke,
+                  GlobalVariable.DrosselDynamic,
+                  GlobalVariable.MAGACPositiveZeit,
+                  GlobalVariable.MAGACStromschwellwert,
+                  GlobalVariable.LBRMode,
+                  GlobalVariable.IndexMOTORIni_DVE,
+                  GlobalVariable.Status_DVE //Status 0x701
+                  GlobalVariable.StatusMSR_DVE,
+                  GlobalVariable.SeriennummerMonat_DVE,
+                  GlobalVariable.SeriennummerJahr_DVE,
+                  GlobalVariable.SeriennummerLSB_DVE,
+                  GlobalVariable.SeriennummerMSB_DVE,
+                  GlobalVariable.PCBKennungBestückung_DVE,
+                  GlobalVariable.DrahtvorschubIst, //low and high bytes
+                  GlobalVariable.SchweissspanungIst, //low and high bytes
+                  GlobalVariable.Brennertasten,
+                  GlobalVariable.Optionen,
+                  GlobalVariable.VorschubStatus0,
+                  GlobalVariable.VorschubStatus1,
+                  GlobalVariable.PistoleIstLow_DVE,
+                  GlobalVariable.PistoleIstHigh_DVE,
+                  GlobalVariable.SchweissstromistLow_DVE,
+                  GlobalVariable.SchweissspgHigh_DVE,
+                  GlobalVariable.DrahtgeschwindigkeitLow_DVE,
+                  GlobalVariable.DrahtgeschwindigkeitHigh_DVE,
+                  GlobalVariable.DurchflussLow_DVE,
+                  GlobalVariable.DurchflussHigh_DVE,
+                  GlobalVariable.Status1_DVE,
+                  GlobalVariable.SeriennummerMonat1_DVE,
+                  GlobalVariable.SeriennummerJahr1_DVE,
+                  GlobalVariable.SeriennummerLSB1_DVE,
+                  GlobalVariable.SeriennummerMSB1_DVE,
+                  GlobalVariable.PCBKennungBestückung1_DVE,
+                  //------------------------------ IDSP ---------------------------------
+                  GlobalVariable.EffektivstromLow_IDSP,
+                  GlobalVariable.EffektivstromHigh_IDSP,
+                  GlobalVariable.EffektivspannungLow_IDSP,
+                  GlobalVariable.EffektivspannungHigh_IDSP,
+                  GlobalVariable.LüfterdrehzahlLow_IDSP,
+                  GlobalVariable.LüfterdrehzahlHigh_IDSP,
+                  GlobalVariable.StartStop_IDSP,
+                  GlobalVariable.Stromfließt_IDSP,
+                  GlobalVariable.Machinentyp_IDSP,
+                  GlobalVariable.Modulzahl_IDSP,
+                  GlobalVariable.Statusflag1_IDSP,
+                  GlobalVariable.Statusflag2_IDSP,
+                  GlobalVariable.Statusflag3_IDSP,
+                  GlobalVariable.Statusflag4_IDSP,
+                  GlobalVariable.Statusflag1_IDSP,
+                  GlobalVariable.Stromanteil_iDSP1,
+                  GlobalVariable.Stromanteil_iDSP2,
+                  GlobalVariable.Stromanteil_iDSP3,
+                  GlobalVariable.Stromanteil_iDSP4,
+                  GlobalVariable.Stromanteil_iDSP5,
+                  GlobalVariable.Stromanteil_iDSP6,
+                  GlobalVariable.Stromanteil_iDSP7,
+                  GlobalVariable.Stromanteil_iDSP8,
+                  GlobalVariable.Index_IDSP,
+                  GlobalVariable.Zugriffsart_IDSP,
+                  GlobalVariable.Status_IDSP,
+                  GlobalVariable.SeriennummerMonat_IDSP,
+                  GlobalVariable.SeriennummerJahr_IDSP,
+                  GlobalVariable.SeriennummerLSB_IDSP,
+                  GlobalVariable.SeriennummerMSB_IDSP,
+                  GlobalVariable.PCBKennung_Bestückung_IDSP,
+                  GlobalVariable.Status1_IDSP,
+                  GlobalVariable.Status2_IDSP,
+                  GlobalVariable.Status3_IDSP,
+                  GlobalVariable.Temperatur1_IDSP,
+                  GlobalVariable.Temperatur2_IDSP,
+                  GlobalVariable.ZwischenKreisspgLow_IDSP,
+                  GlobalVariable.ZwischenKreisspgHigh_IDSP,
+                  GlobalVariable.PrimärstromLow_IDSP,
+                  GlobalVariable.PrimärstromHigh_IDSP,
+                  GlobalVariable.Index1_IDSP,
+                  GlobalVariable.Zugriffsart1_IDSP,
+                  GlobalVariable.Status1_IDSP,
+                  GlobalVariable.SeriennummerMonat1_IDSP,
+                  GlobalVariable.SeriennummerJahr1_IDSP,
+                  GlobalVariable.SeriennummerLSB1_IDSP,
+                  GlobalVariable.SeriennummerMSB1_IDSP,
+                  GlobalVariable.PCBKennung_Bestückung1_IDSP,
+                  //------------------Regler DSP------------------------------
+                  GlobalVariable.SV1pos1,
+                  GlobalVariable.SV1pos2,
+                  GlobalVariable.Drahtdurchmesser,
+                  GlobalVariable.SV1pos4,
+                  GlobalVariable.SV1pos5,
+                  GlobalVariable.SV1pos6,
+                  GlobalVariable.StatusMSR,
+                  GlobalVariable.StatusFLG,
+                  GlobalVariable.LichtbogenLängeLow_ReglerDSP,
+                  GlobalVariable.LichtbogenLängeHigh_ReglerDSP,
+                  GlobalVariable.LichtbogenKorrektur1_ReglerDSP,
+                  GlobalVariable.LichtbogenKorrektur2_ReglerDSP,*/
+                  /*GlobalVariable.LichtbogenKorrektur3_ReglerDSP,
+                  GlobalVariable.LichtbogenKorrektur4_ReglerDSP,
+                  GlobalVariable.LichtbogenKorrektur5_ReglerDSP,
+                  GlobalVariable.Endpulsdauer_ReglerDSP,
+                  GlobalVariable.Gasvorströmen,
+                  GlobalVariable.Gasnachströmen,
+                  GlobalVariable.UpSlope,
+                  GlobalVariable.DownSlope,
+                  GlobalVariable.Zündenergie,
+                  GlobalVariable.Endkraterenergie,
+                  GlobalVariable.PowerpulsEinAus, //281h
+                  GlobalVariable.PowerpulsE2,
+                  GlobalVariable.PowerpulsT1E1,
+                  GlobalVariable.PowerpulsT2E1,
+                  GlobalVariable.PowerpulsLBKorrE2,
+                  GlobalVariable.PowerpulsUpSlope,
+                  GlobalVariable.PowerpulsDownSlope,
+                  GlobalVariable.JobSlope,
+                  GlobalVariable*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         };
           return NEW_STRING;
-    }
-
-
-    private  void exportDB(){
-        InfoDataBase infoDataBase = new InfoDataBase(getApplicationContext());
-        File exportDir = new File (Environment.getExternalStorageDirectory(),"");
-        if (!exportDir.exists()){
-            exportDir.mkdir();
-        }
-        File file =new File(exportDir,"Datalger.csv");
-        try {
-            file.createNewFile();
-            CSVWriter csvWriter = new CSVWriter(new FileWriter(file));
-            // uri = Uri.parse("content://com.felhr.serialportexample.jobs/jobs/");
-            uri=InfoContract.infoEntry.CONTENT_URI;
-            Cursor cursor = getContentResolver().query(uri, DatalistView.infosArray, null, null, null);
-            while (cursor.moveToNext()){
-                for (int i = 0;i<DatalistView.infosArray.length;i++){
-                    Array_Data[i]=cursor.getString(cursor.getColumnIndexOrThrow(DatalistView.infosArray[i]));
-                    //FinalArray[i]=JobsDetails.jobdetails[i] + ":"+ Array_Data[i] ;
-                    //System.out.println(Array_Data[i]);
-
-                }
-                // Array_Data[112]="-----------------------------------------------------------------------";
-
-                csvWriter.writeNext(RefreshString());
-
-
-            }
-
-
-
-
-
-            csvWriter.close();
-        }catch (Exception E){
-            E.printStackTrace();
-        }
     }
 }

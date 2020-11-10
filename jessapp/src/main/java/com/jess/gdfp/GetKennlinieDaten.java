@@ -266,7 +266,7 @@ public class GetKennlinieDaten {
         for (int i = 0; i < 221; i++) {
             int tempcheck;
             if((WHOLE_JOB_FRAME[i])<0){
-                tempcheck = 256+(WHOLE_JOB_FRAME[i]);
+                tempcheck = 256 + (WHOLE_JOB_FRAME[i]);
             }else{
                 tempcheck = WHOLE_JOB_FRAME[i];
             }

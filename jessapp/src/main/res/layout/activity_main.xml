@@ -10,7 +10,7 @@
     <!-- hier wurde eine vertikal layout geschrieben ,
      die in der linke Seite vom dem bildschirm liegz -->
     <LinearLayout
-        style="@style/general_style"
+        style="@style/Normal_Textstyle"
         android:id="@+id/linke_layout"
         android:layout_width="120dp"
         android:layout_height="match_parent"
@@ -26,13 +26,13 @@
             android:text="Datum"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            style="@style/general_style"
-            android:textSize="24sp"></TextView>
+            style="@style/Normal_Textstyle"
+            android:textSize="24sp">
+        </TextView>
 
         <Button
-
             android:id="@+id/methode_button"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="120dp"
             android:layout_height="160dp"
             android:background="@drawable/border2"
@@ -48,7 +48,7 @@
             android:textStyle="normal"
             android:layout_width="120dp"
             android:layout_height="160dp"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:background="@drawable/border2"
             android:drawableTop="@drawable/kenn"
             android:paddingTop="12dp"
@@ -61,7 +61,7 @@
             android:background="@drawable/border2"
             android:paddingTop="12dp"
             android:drawableTop="@drawable/disk"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:gravity="center"
@@ -73,26 +73,30 @@
         </Button>
 
         <Button
-            style="@style/general_style"
-            android:textSize="17dp"
-            android:textColor="@android:color/white"
-            android:layout_width="120dp"
+            android:background="@drawable/border2"
+            android:paddingTop="12dp"
+            style="@style/Normal_Textstyle"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:background="@drawable/border2">
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="MOL"
+            android:id="@+id/MOL_btn"
+            android:textColor="@android:color/white"
+            android:textSize="23sp">
         </Button>
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/obere_layout"
-        android:layout_width="865dp"
+        android:layout_width="840dp"
         android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:layout_toRightOf="@id/linke_layout">
+        android:layout_toRightOf="@id/linke_layout"
+        android:orientation="horizontal">
 
         <TextView
-            style="@style/general_style"
             android:id="@+id/anzeige1"
+            style="@style/Normal_Textstyle"
             android:layout_width="220dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
@@ -100,26 +104,25 @@
             android:text="Anzeige1"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="25sp">
-        </TextView>
+            android:textSize="25sp"></TextView>
 
         <TextView
-            style="@style/general_style"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textSize="25sp"
             android:id="@+id/anzeige2"
-            android:text="Anzeige2"
-            android:textColor="@android:color/white"
+            style="@style/Normal_Textstyle"
             android:layout_width="110dp"
             android:layout_height="74dp"
-            android:background="@drawable/border2">
+            android:background="@drawable/border2"
+            android:gravity="center"
+            android:text="Anzeige2"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="25sp">
 
         </TextView>
 
         <TextView
             android:id="@+id/anzeige3"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="110dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
@@ -127,12 +130,11 @@
             android:text="Anzeige3"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="25sp">
-        </TextView>
+            android:textSize="25sp"></TextView>
 
         <TextView
             android:id="@+id/anzeige4"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="110dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
@@ -140,20 +142,18 @@
             android:text="Anzeige4"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="25sp">
-        </TextView>
+            android:textSize="25sp"></TextView>
 
         <TextView
             android:id="@+id/anzeige5"
-            style="@style/general_style"
-            android:layout_width="310dp"
+            style="@style/Normal_Textstyle"
+            android:layout_width="290dp"
             android:layout_height="74dp"
             android:background="@drawable/border2"
             android:gravity="center"
             android:text="Anzeige5"
             android:textColor="@android:color/white"
-            android:textSize="24sp">
-        </TextView>
+            android:textSize="24sp"></TextView>
 
     </LinearLayout>
 
@@ -235,7 +235,7 @@
             </LinearLayout>
 
             <Button
-                style="@style/general_style"
+                style="@style/Normal_Textstyle"
                 android:id="@+id/button1"
                 android:layout_width="280dp"
                 android:layout_height="280dp"
@@ -247,18 +247,18 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:textStyle="bold"
         android:id="@+id/untere_layout"
         android:layout_width="840dp"
         android:layout_height="70dp"
-        android:layout_marginTop="24dp"
-        android:orientation="horizontal"
         android:layout_below="@id/circleButton"
-        android:layout_toRightOf="@id/linke_layout">
+        android:layout_marginTop="24dp"
+        android:layout_toRightOf="@id/linke_layout"
+        android:orientation="horizontal"
+        android:textStyle="bold">
 
         <Button
             android:id="@+id/Button_fav1"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="213dp"
             android:layout_height="70dp"
             android:background="@drawable/border2"
@@ -271,7 +271,7 @@
 
         <Button
             android:id="@+id/Button_fav2"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="213dp"
             android:layout_height="70dp"
             android:background="@drawable/border2"
@@ -281,23 +281,21 @@
 
         <Button
             android:id="@+id/Button_fav3"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="211dp"
             android:layout_height="70dp"
             android:background="@drawable/border2"
             android:text="Fav3"
-            android:textColor="@android:color/white">
-        </Button>
+            android:textColor="@android:color/white"></Button>
 
         <Button
             android:id="@+id/Button_fav4"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="210dp"
             android:layout_height="70dp"
             android:background="@drawable/border2"
             android:text="Fav4"
-            android:textColor="@android:color/white">
-        </Button>
+            android:textColor="@android:color/white"></Button>
 
     </LinearLayout>
 
@@ -311,7 +309,7 @@
 
         <TextView
             android:id="@+id/date"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="@drawable/border2"
@@ -325,7 +323,7 @@
         <Button
             android:paddingTop="12dp"
             android:drawableTop="@drawable/home2"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:id="@+id/home"
             android:layout_width="match_parent"
             android:layout_height="160dp"
@@ -338,7 +336,7 @@
         <Button
             android:drawableTop="@drawable/menuf"
             android:src="@drawable/menuf"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:id="@+id/menu_btn"
             android:textColor="@android:color/white"
             android:layout_width="120dp"
@@ -351,7 +349,7 @@
         <Button
             android:id="@+id/setting_btn"
             android:drawableTop="@drawable/betriebsart"
-            style="@style/general_style"
+            style="@style/Normal_Textstyle"
             android:layout_width="120dp"
             android:layout_height="160dp"
             android:background="@drawable/border2"
@@ -362,12 +360,14 @@
         </Button>
 
         <Button
-            style="@style/general_style"
-            android:textSize="17dp"
-            android:textColor="@android:color/white"
+            android:id="@+id/MOR_btn"
+            style="@style/Normal_Textstyle"
             android:layout_width="120dp"
             android:layout_height="70dp"
-            android:background="@drawable/border2">
+            android:background="@drawable/border2"
+            android:textColor="@android:color/white"
+            android:text="MOR"
+            android:textSize="23sp">
         </Button>
     </LinearLayout>
 
@@ -386,7 +386,7 @@
 
             <TextView
                 android:id="@+id/korrektur"
-                style="@style/general_style"
+                style="@style/Normal_Textstyle"
                 android:layout_width="155dp"
                 android:layout_height="60dp"
                 android:background="@drawable/border2"
@@ -400,7 +400,7 @@
 
             <TextView
                 android:id="@+id/mmin"
-                style="@style/general_style"
+                style="@style/Normal_Textstyle"
                 android:layout_width="155dp"
                 android:layout_height="60dp"
                 android:background="@drawable/border2"
@@ -414,7 +414,7 @@
 
             <TextView
                 android:id="@+id/strom"
-                style="@style/general_style"
+                style="@style/Normal_Textstyle"
                 android:layout_width="155dp"
                 android:layout_height="60dp"
                 android:background="@drawable/border2"
@@ -433,7 +433,7 @@
             android:orientation="horizontal">
 
             <Button
-                style="@style/general_style"
+                style="@style/Normal_Textstyle"
                 android:id="@+id/btn_korrektur"
                 android:layout_width="155dp"
                 android:layout_height="90dp"
@@ -442,7 +442,7 @@
                 android:textSize="55sp"></Button>
 
             <Button
-                style="@style/general_style"
+                style="@style/Normal_Textstyle"
                 android:id="@+id/btn_mmin"
                 android:layout_width="155dp"
                 android:layout_height="90dp"
@@ -452,7 +452,7 @@
                 android:textSize="55sp"></Button>
 
             <Button
-                style="@style/general_style"
+                style="@style/Normal_Textstyle"
                 android:id="@+id/btn_voltage"
                 android:layout_width="155dp"
                 android:layout_height="90dp"
@@ -482,7 +482,7 @@
         android:layout_marginTop="20dp"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        style="@style/general_style">
+        style="@style/Normal_Textstyle">
     </TextView>
 
     <LinearLayout
