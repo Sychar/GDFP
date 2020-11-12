@@ -20,12 +20,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jess.gdfp.Controller.MainActivity_Controller;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
@@ -38,7 +44,17 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
+
+import com.jjoe64.graphview.Viewport;
+import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.Series;
+import com.jjoe64.graphview.series.BaseSeries;
+import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.BarGraphSeries;
+import com.jjoe64.graphview.GraphView;
 
 import android_serialport_api.SerialPort;
 import static com.jess.gdfp.UartService.mOutputStream;
@@ -56,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private ProgressBar progressBarMinus;
     private LinearLayout hold_layout;
     private static ProgressBar progressBar;
-    private Handler handler = new Handler();
     private Handler KENN_HANDLER = new Handler();
     private Handler newHandler = new Handler();
     public Button Value2;
@@ -67,20 +82,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private Button Setting;
     private Button Menu;
     private Button Drossel_Minus;
-    private Button WIG_btn;
-    private Button MMNormal_btn;
-    private Button MMSynergy_btn;
-    private Button MMPuls_btn;
-    private Button ElectrodeMMA_btn;
-    private Button WIGPulsen_btn;
-    private Button WIGSpeed_btn;
-    private Button WIGSpeedPulsen_btn;
     private Button Fav1_btn;
     private Button Fav2_btn;
     private Button Fav3_btn;
     private Button Fav4_btn;
     private Button home;
-    private int len;
     public TextView Label1;
     public TextView Label2;
     public TextView Label3;
@@ -92,32 +98,31 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private TextView tdate;
     private TextView tdate2;
     private TextView DROSSEL;
-    private Button button_yes;
-    private Button button_no;
-    private Button MOL;
-    private Button MOR;
+    Button button_yes;
+    Button button_no;
+    private ImageButton MOL;
+    private ImageButton MOR;
     private static TextView txtprogress;
     private static TextView unitprogress;
-    private View frame;
     private View kenn_fragment;
+    private View geberge_fragment;
     private View betriebsart_fragement;
     private Button Geberge;
     public static Button JOB_NUM;
     private FrameLayout geberge_layout;
     private FrameLayout frame_main;
     private Button Geberge_Btn1;
+    private GraphView Geberge_graph;
+    private static final Random RANDOM = new Random();
+    private LineGraphSeries<DataPoint> series;
+    private int lastX = 0;
+
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+
     private boolean Geberge_Btn1_gedrückt = false;
-    private Button Geberge_Btn2;
-    private Button Geberge_Btn3;
-    private Button Geberge_Btn4;
-    private Button Geberge_Btn5;
-    private Button Geberge_Btn6;
-    private Button Geberge_Btn7;
-    private Button Geberge_Btn8;
-    private Button Geberge_Btn9;
-    private Button Geberge_Btn10;
-    private Button Geberge_Btn11;
-    private Button Geberge_Btn12;
     private static String dateString = "";
     private static String dateString2 = "";
 
@@ -134,9 +139,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     private static byte[] TEMP_BA = new byte[40];
     private static String TEMP_STRING = "";
     private static String KENN_STRING = "";
-    public static String msg_for_me = "";
     public static String msg_for_can = "";
-    public static String msg_for_can1 = "";
     private static int countFrame = 0;
 
     static boolean kennlinie_gedrückt = false;
@@ -191,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     MainActivity_Controller mainActivityController = new MainActivity_Controller(MainActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println(DatalistView.loadFile(this));
+        //System.out.println(DatalistView.loadFile(this));
         READVAL_STATUS[1]=0; //m/min
         READVAL_STATUS[2]=0; //korrektur
         READVAL_STATUS[3]=0; //Value3
@@ -200,28 +203,31 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         setContentView(R.layout.activity_main);
 
         init_view();
-        //progrssinit();
         setVisibility();
         serial_init();
         hold_layout_gone();
 
-        /*Intent intent=new Intent();
-        intent.setComponent(new ComponentName("com.android.settings",
-                "com.android.settings.DateTimeSettingsSetupWizard"));
-        startActivity(intent);*/
+        // data
+        /*series = new LineGraphSeries<DataPoint>();
+        Geberge_graph.addSeries(series);
+        // customize a little bit viewport
+        Viewport viewport = Geberge_graph.getViewport();
+        viewport.setYAxisBoundsManual(true);
+        viewport.setMinY(0);
+        viewport.setMaxY(10);
+        viewport.setScrollable(true);*/
 
-        //AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
-        //alarm.setTime(1330082817);
-        //boolean correct = SystemClock.setCurrentTimeMillis(500);
-        //((Activity)context).startActivity(intent);
-        /*Intent intent1 = new Intent(android.provider.Settings.ACTION_DATE_SETTINGS);
-        intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getApplicationContext().startActivity(intent1);*/
-        //Calendar cal = Calendar.getInstance();
-        //System.out.println("Current time is : " + cal.getTimeInMillis());
-        //SystemClock.setCurrentTimeMillis(1603887328868);
+        lineChart = findViewById(R.id.lineChart);
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+        //lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        //lineDataSet.setColors(Color.WHITE);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
 
-        //-------------------------------- For job button only -------------------------------------
+        //-------------------------------- For job button_left only -------------------------------------
         builder = new AlertDialog.Builder(MainActivity.this);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.custom_layout,null);
@@ -239,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Ver_Tv = dialogView_verfahren.findViewById(R.id.textView_ver);
 
         Button dialogButton = dialogView_verfahren.findViewById(R.id.button_ok);
-        // if button is clicked, close the custom dialog
+        // if button_left is clicked, close the custom dialog
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -331,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Geberge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.i("Geberge button","is pressed");
+                //Log.i("Geberge button_left","is pressed");
                 BlankFragment.tv.setText("");
                 BlankFragment.setButtonInvisible();
                 geberge_layout_view();
@@ -348,11 +354,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             public void onClick(View view) {
                 //Log.i("Geberge_Btn1","is pressed");
                 if (!Geberge_Btn1_gedrückt) {
-                    Geberge_Btn1.setBackgroundColor(Color.GRAY);
+                    //Geberge_Btn1.setBackgroundColor(Color.GRAY);
                     Geberge_Btn1.setTextColor(Color.BLACK);
                     Geberge_Btn1_gedrückt = true;
                 } else {
-                    Geberge_Btn1.setBackground(getResources().getDrawable( R.drawable.border2));
+                    //Geberge_Btn1.setBackground(getResources().getDrawable( R.drawable.border2));
+                    //Geberge_Btn1.setBackground(getResources().getDrawable( R.drawable.button_left));
                     Geberge_Btn1.setTextColor(Color.WHITE);
                     Geberge_Btn1_gedrückt = false;
                 }
@@ -373,6 +380,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     }
                 };
                 BlankFragment.rv.setAdapter(adapter2);
+                frame_main.setVisibility(View.VISIBLE);
                 geberge_layout_gone();
                 droessel_gone();
                 hold_layout_gone();
@@ -445,6 +453,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     }
                 };
                 BlankFragment.rv.setAdapter(adapter2);
+                frame_main.setVisibility(View.VISIBLE);
+                geberge_layout_gone();
                 droessel_gone();
                 hold_layout_gone();
                 view = findViewById(R.id.fragment_test);
@@ -472,6 +482,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     }
                 };
                 BlankFragment.rv.setAdapter(adapter2);
+                frame_main.setVisibility(View.VISIBLE);
+                geberge_layout_gone();
                 droessel_gone();
                 hold_layout_gone();
                 view=findViewById(R.id.fragment_test);
@@ -666,12 +678,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                             if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
                                 Label1.setText("mm");
                                 Label2.setText("Ampere");
-                                Label3.setText("KorrLB");
+                                Label3.setText("LB [ % ]");
                                 Value1.setText(String.valueOf((GlobalVariable.BlechdickeSetwert)/ 10 + "." + String.valueOf(GlobalVariable.BlechdickeSetwert % 10)));
                                 Value2.setText(String.valueOf(GlobalVariable.StromSetwert));
                                 Value3.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
                             } else if (GlobalVariable.SV1pos1 == 1) { // Normal mode
-                                Label1.setText("KorrLB");
+                                Label1.setText("LB [ % ]");
                                 Label2.setText("Voltage");
                                 Label3.setText("");
                                 Value1.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
@@ -686,7 +698,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
                             Label1.setText("m/min");
                             Label2.setText("Ampere");
-                            Label3.setText("KorrLB");
+                            Label3.setText("LB [ % ]");
                             Value1.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
                             Value2.setText(String.valueOf(GlobalVariable.StromSetwert));
                             Value3.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
@@ -698,13 +710,13 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
                             Label1.setText("m/min");
                             Label2.setText("mm");
-                            Label3.setText("KorrLB");
+                            Label3.setText("LB [ % ]");
 
                             Value1.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
                             Value2.setText(String.valueOf((GlobalVariable.BlechdickeSetwert)/ 10 + "." + String.valueOf(GlobalVariable.BlechdickeSetwert % 10)));
                             Value3.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
                         } else if (GlobalVariable.SV1pos1 == 4) { // Elektrode mode
-                            Label1.setText("KorrLB");
+                            Label1.setText("LB [ % ]");
                             Label2.setText("");
                             Label3.setText("");
                             Value1.setText(String.valueOf((GlobalVariable.Lichtbogenkorrektur1)));
@@ -714,7 +726,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         break;
                     case 3: // ----------------------------------------------- Korrektur ----------------------------------------------------------------------------
                         txtprogress.setText(String.valueOf(GlobalVariable.Lichtbogenkorrektur1));
-                        unitprogress.setText("%");
+                        unitprogress.setText("LB [ % ]");
                         if (GlobalVariable.SV1pos1 == 3 || GlobalVariable.SV1pos1 == 2) { // Puls mode and synergie mode
                             Label1.setText("m/min");
                             Label2.setText("mm");
@@ -743,7 +755,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         unitprogress.setText("V");
                         if (GlobalVariable.SV1pos1 == 1) { // Normal mode
                             Label1.setText("m/min");
-                            Label2.setText("KorrLB");
+                            Label2.setText("LB [ % ]");
                             Label3.setText("");
                             Value1.setText(String.valueOf((GlobalVariable.Energie1)/ 10 + "." + String.valueOf(GlobalVariable.Energie1 % 10)));
                             Value2.setText(String.valueOf(GlobalVariable.Lichtbogenkorrektur1));
@@ -763,25 +775,22 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 }
             }
                 if (CHECK) {
-                    //-------------------Motor Control------------------
+                    //-------------------Motor Control---------------------------------------------------------------------------------------------------------
                     if (GlobalVariable.MOL_gedrückt)  UartService.Move_Motor(0);//sendEnergie.ChangeParameter(46,0,1); //Motor backwards
                     if (GlobalVariable.MOR_gedrückt) UartService.Move_Motor(1);//sendEnergie.ChangeParameter(45,0,1); //Motor forward
-                    //--------------------------------------------------
-
+                    //------------------------------------------------------------------------------------------------------------------------------------------
 
                     if (!GlobalVariable.Verfahren_Token) ANZEIGE1.setText(GlobalVariable.Verfahren_String[GlobalVariable.SV1pos1]); // Verfahren
+                    if (!GlobalVariable.Betriebsart_Token) ANZEIGE4.setText(GlobalVariable.Betriebsart_String[GlobalVariable.SV1pos2]); // Betriebsart
                     if (GlobalVariable.SV1pos1!=1 && GlobalVariable.SV1pos1!=4) {
                         if (!GlobalVariable.Werkstoff_Token) ANZEIGE2.setText(GlobalVariable.Werksotff_String[GlobalVariable.SV1pos5]); // Werkstoff
                         if (!GlobalVariable.Drahtdurchmesser_Token) ANZEIGE3.setText(GlobalVariable.Draht_String[GlobalVariable.Drahtdurchmesser]); // Drahtdurchmesser
-                        if (!GlobalVariable.Betriebsart_Token) ANZEIGE4.setText(GlobalVariable.Betriebsart_String[GlobalVariable.SV1pos2]); // Betriebsart
                         if (!GlobalVariable.Gas_Token) ANZEIGE5.setText(GlobalVariable.Gas_String[GlobalVariable.SV1pos4]); // Gas
                     } else {
                         ANZEIGE2.setText("");
                         ANZEIGE3.setText("");
-                        ANZEIGE4.setText("");
                         ANZEIGE5.setText("");
                     }
-
                     //------------------------------------------------ Brennertasten ---------------------------------------------------------------------------------------
                     if (GlobalVariable.Brennertasten1_string.equals("Brennertaste1 Active")){
                         hold_layout_view();
@@ -803,9 +812,24 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         GlobalVariable.BT1_Interrupt = false;
                         hold_layout_gone();
                     }
-                    //------------------------------------------------------- Display variables in textview -----------------------------------------------------------------
-                    if (GlobalVariable.KorrekturDrossel >= 0) DROSSEL.setText("DROSSEL   "+"[ "+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
-                    else DROSSEL.setText("DROSSEL  "+"[ "+ String.valueOf(GlobalVariable.KorrekturDrossel)+" ]");
+                    //------------------------------------------------------- Display Korrektur Drossel in textview -----------------------------------------------------------------
+                    if (GlobalVariable.SV1pos1!=1) { //Not normal mode
+                        if (GlobalVariable.KorrekturDrossel > 0) DROSSEL.setText("DROSSEL   " + "[ +" + String.valueOf(GlobalVariable.KorrekturDrossel) + " ]");
+                        else DROSSEL.setText("DROSSEL  " + "[ " + String.valueOf(GlobalVariable.KorrekturDrossel) + " ]");
+                        //------------------------------------------------------ Korrektur Drossel ------------------------------------------------------------
+                        if (GlobalVariable.KorrekturDrossel > 0){
+                            progressBarPlus.setProgress(100*GlobalVariable.KorrekturDrossel/30);
+                            progressBarMinus.setProgress(0);
+                        } else {
+                            progressBarMinus.setProgress(abs(100*GlobalVariable.KorrekturDrossel/30));
+                            progressBarPlus.setProgress(0);
+                        }
+                    } else {
+                        DROSSEL.setText("DROSSEL   [ 0 ]");
+                        progressBarPlus.setProgress(0);
+                        progressBarMinus.setProgress(0);
+                    }
+
                     //-------------------------------------------------------------------- Job button -----------------------------------------------------------------------
                     if ((!GlobalVariable.JOB_PRESSED) && (GlobalVariable.Job_Token)){
                         if (!GlobalVariable.JobStatus_Bit0.equals("Inactive"))
@@ -815,7 +839,18 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                             GlobalVariable.JOBCOUNT = 0;
                             hold_layout_gone();
                         }
-                    }
+                    } /*else if (GlobalVariable.JOB_PRESSED && GlobalVariable.JobStatus_Bit0.equals("Inactive")) { //when deactivate job from machine
+                        GlobalVariable.JOB_PRESSED = false;
+                        GlobalVariable.Load_Job = false;
+                        GlobalVariable.Save_Job = false;
+                        WeldingChangeParam.HOME_COUNTER = 0;
+                        JOB_NUM.setTextColor(Color.WHITE);
+                        JOB_NUM.setBackgroundColor(Color.BLACK);
+                        JOB_NUM.setBackground(getResources().getDrawable( R.drawable.border2));
+                        job_gedrückt = false;
+                        hold_layout_gone();
+                        home_view();
+                    }*/
 
                     if (GlobalVariable.Job_Token && !GlobalVariable.BT1_Interrupt) {
                         if (GlobalVariable.Load_Job) { //LOAD
@@ -849,7 +884,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         }
                     }
 
-
                     if (GlobalVariable.StatusMSR_Bit3.equals("Einfädeln Vor")) {
                         HoldIst.setText("MOTOR");
                         StromHoldwertTV.setText(String.valueOf(GlobalVariable.Energie1 / 10) + "." + String.valueOf(GlobalVariable.Energie1 % 10));
@@ -859,7 +893,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                         StromHoldwertTV.setText(String.valueOf(GlobalVariable.Energie1 / 10) + "." + String.valueOf(GlobalVariable.Energie1 % 10));
                         SpannungHoldwertTV.setText("<<");
                     }
-
 
                     //-----------------------------------------------------------------------------------------------------------------------------------------------
                 }
@@ -897,14 +930,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 else if (GlobalVariable.MENU_MODE == 3) onClickKennlinie(); //Guide
                 GlobalVariable.Menu_Token = false;
             }
-            //------------------------------------------------------ Korrektur Drossel ------------------------------------------------------------
-            if(GlobalVariable.KorrekturDrossel > 0){
-                progressBarPlus.setProgress(100*GlobalVariable.KorrekturDrossel/30);
-                progressBarMinus.setProgress(0);
-            } else {
-                progressBarMinus.setProgress(abs(100*GlobalVariable.KorrekturDrossel/30));
-                progressBarPlus.setProgress(0);
-            }
 
             if(GlobalVariable.Save_Job && GlobalVariable.ENCODER_PRESSED){
                 GlobalVariable.ENCODER_PRESSED = false;
@@ -912,10 +937,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             }
 
             if (counterDisplay == 20) { //update every 0.02s
+                //addEntry();
                 long date = System.currentTimeMillis();
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm ss");
+                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
                 dateString = sdf.format(date);
-                SimpleDateFormat sdf2 = new SimpleDateFormat("MMM dd yyyy");
+                SimpleDateFormat sdf2 = new SimpleDateFormat("dd.MM.yy");
                 dateString2 = sdf2.format(date);
                 tdate.setText(dateString);
                 tdate2.setText(dateString2);
@@ -1033,7 +1059,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                 }
                counterDisplay = 0;
             }
-            //---------------------------------- button thread -------------------------------------
+            //---------------------------------- button_left thread -------------------------------------
 
             if (counterDisplay1 == 10) { //update every 10ms
                 if (WeldingChangeParam.TEST_TOKEN) {
@@ -1124,6 +1150,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
 
     private void init_view(){
         kenn_fragment = findViewById(R.id.fragment_test);
+        geberge_fragment = findViewById(R.id.fragment_geberge);
         betriebsart_fragement = findViewById(R.id.frgment_Betriebsart);
         Drossel_Minus = findViewById(R.id.Drossel_minus);
         Drossel_Plus = findViewById(R.id.Drossel_plus);
@@ -1148,8 +1175,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         txtprogress.setTextSize(120);
         unitprogress = findViewById(R.id.unit);
         JOB_NUM  = findViewById(R.id.job_btn);
-        tdate = findViewById(R.id.date); //right top button
-        tdate2 = findViewById(R.id.date2); //left top button
+        tdate = findViewById(R.id.date); //right top button_left
+        tdate2 = findViewById(R.id.date2); //left top button_left
         Fav1_btn = findViewById(R.id.Button_fav1);
         Fav2_btn = findViewById(R.id.Button_fav2);
         Fav3_btn = findViewById(R.id.Button_fav3);
@@ -1171,7 +1198,8 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         MOR = findViewById(R.id.MOR_btn);
         geberge_layout = findViewById(R.id.frame_geberge);
         frame_main = findViewById(R.id.frame_main);
-        Geberge_Btn1 = findViewById(R.id.Geberge_btn1);
+        Geberge_Btn1 = findViewById(R.id.Geberge_leftbtn);
+        //Geberge_graph = findViewById(R.id.graph);
     }
 
     private void setVisibility(){
@@ -1182,6 +1210,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         progressBarMinus.setVisibility(View.INVISIBLE);
         circle_button.setVisibility(View.GONE);
         Drossel_Plus.setVisibility(View.GONE);
+        geberge_fragment.setVisibility(View.INVISIBLE);
         //geberge_layout.setVisibility(View.INVISIBLE);
     }
 
@@ -1335,5 +1364,24 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
              sendEnergie.ChangeParameter(46,0,1); //Motor backwards
            // if (GlobalVariable.MOR_gedrückt) sendEnergie.ChangeParameter(45,0,1); //Motor forward
         }
+    }
+
+    // add random data to graph
+    /*private void addEntry() {
+        // here, we choose to display max 10 points on the viewport and we scroll to end
+        series.appendData(new DataPoint(lastX++, RANDOM.nextDouble() * 10d), true, 10);
+    }*/
+    private void getEntries() {
+        lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(1f, 0));
+        lineEntries.add(new Entry(2f, 8));
+        lineEntries.add(new Entry(3f, 1));
+        lineEntries.add(new Entry(4f, 3));
+        lineEntries.add(new Entry(5f, 4));
+        lineEntries.add(new Entry(6f, 3));
+        lineEntries.add(new Entry(7f, 1));
+        lineEntries.add(new Entry(8f, 0));
+        lineEntries.add(new Entry(9f, 2));
+        lineEntries.add(new Entry(10f, 1));
     }
 }

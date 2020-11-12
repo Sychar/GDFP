@@ -225,15 +225,15 @@ public class BlankFragment extends Fragment {
 
      public static ArrayList init_durchmesser(){
          ArrayList  detail3 = new ArrayList<>();
-         detail3.add(("0,6 mm"));
-         detail3.add(("0,8 mm"));
-         detail3.add(("0,9 mm"));
-         detail3.add(("1,0 mm"));
-         detail3.add(("1,2 mm"));
-         detail3.add(("1,4 mm"));
-         detail3.add(("1,6 mm"));
-         detail3.add(("2,0 mm"));
-         detail3.add(("2,4 mm"));
+         detail3.add(("0.6 mm"));
+         detail3.add(("0.8 mm"));
+         detail3.add(("0.9 mm"));
+         detail3.add(("1.0 mm"));
+         detail3.add(("1.2 mm"));
+         detail3.add(("1.4 mm"));
+         detail3.add(("1.6 mm"));
+         detail3.add(("2.0 mm"));
+         detail3.add(("2.4 mm"));
          detail3.add(("Spezial"));
          return detail3;
      }
@@ -281,7 +281,6 @@ public class BlankFragment extends Fragment {
         detail3.add(("JOBS"));
         detail3.add(("DATENLOGGER"));
         detail3.add(("KENNLINIE"));
-        detail3.add(("GUIDE"));
         return detail3;
     }
 
@@ -291,6 +290,7 @@ public class BlankFragment extends Fragment {
         detail3.add(("TIME"));
         detail3.add(("DISPLAY"));
         detail3.add(("LANGUAGE"));
+        detail3.add(("UPDATE"));
         return detail3;
     }
 

@@ -22,9 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="@drawable/border2"
-            android:padding="20dp"
             android:text="Datum"
             android:textAlignment="center"
+            android:gravity="center"
             android:textColor="@android:color/white"
             style="@style/Normal_Textstyle"
             android:textSize="24sp">
@@ -36,19 +36,17 @@
             android:layout_width="120dp"
             android:layout_height="160dp"
             android:background="@drawable/border2"
-            android:drawableTop="@drawable/verharen1"
+            android:drawableTop="@drawable/verfahren1"
             android:paddingTop="12dp"
             android:text="METHODE"
-            android:textSize="23sp"
-            android:textColor="@android:color/white">
-        </Button>
+            android:textColor="@android:color/white"
+            android:textSize="23sp"></Button>
 
         <Button
             android:id="@+id/geberge"
-            android:textStyle="normal"
+            style="@style/Normal_Textstyle"
             android:layout_width="120dp"
             android:layout_height="160dp"
-            style="@style/Normal_Textstyle"
             android:background="@drawable/border2"
             android:drawableTop="@drawable/kenn"
             android:paddingTop="12dp"
@@ -72,19 +70,14 @@
             android:textSize="23sp">
         </Button>
 
-        <Button
-            android:background="@drawable/border2"
-            android:paddingTop="12dp"
-            style="@style/Normal_Textstyle"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:text="MOL"
+        <ImageButton
             android:id="@+id/MOL_btn"
-            android:textColor="@android:color/white"
-            android:textSize="23sp">
-        </Button>
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/border2"
+            android:src="@drawable/rotate_left"
+            android:gravity="center"
+            ></ImageButton>
     </LinearLayout>
 
     <LinearLayout
@@ -177,81 +170,79 @@
         class="com.jess.gdfp.Geberge"
         android:layout_toRightOf="@id/linke_layout">
     </fragment>
+
     <RelativeLayout
-        android:textStyle="bold"
         android:id="@+id/circleButton"
         android:layout_width="450dp"
-        android:layout_height="450dp"
+        android:layout_height="500dp"
         android:layout_below="@id/obere_layout"
-        android:layout_marginLeft="80dp">
-<!--        android:layout_toRightOf="@id/linke_layout"-->
+        android:layout_marginLeft="80dp"
+        android:textStyle="bold">
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="500dp"
-                android:layout_height="500dp"
-                android:max="100"
-                android:progress="0"
-                android:progressDrawable="@drawable/custom_progressbar_drawable"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="500dp"
+            android:layout_height="500dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/custom_progressbar_drawable" />
 
-            <LinearLayout
-                android:textStyle="bold"
-                android:id="@+id/inside_circlebtn"
-                android:layout_width="350dp"
-                android:layout_height="250dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="130dp"
-                android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/inside_circlebtn"
+            android:layout_width="350dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="150dp"
+            android:orientation="vertical"
+            android:textStyle="bold">
 
-                <TextView
-                android:textColor="@android:color/white"
-                android:text="0"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:gravity="center"
-                android:textSize="70sp"
+            <TextView
                 android:id="@+id/txtpro"
                 android:layout_width="250dp"
                 android:layout_height="140dp"
                 android:layout_alignBottom="@+id/progressBar"
                 android:layout_centerInParent="true"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:gravity="center"
+                android:text="0"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white"
+                android:textSize="70sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:textColor="@android:color/white"
-                    android:text="A"
-                    android:textAlignment="center"
-                    android:textSize="50sp"
-                    android:textStyle="bold"
-                    android:id="@+id/unit"
-                    android:layout_width="150dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="60dp"
-                    android:layout_alignBottom="@+id/progressBar"
-                    android:layout_centerInParent="true"
-                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/unit"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_alignBottom="@+id/progressBar"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="LB [ % ]"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@android:color/white"
+                android:textSize="50sp"
+                android:textStyle="bold" />
 
-            </LinearLayout>
+        </LinearLayout>
 
-            <Button
-                style="@style/Normal_Textstyle"
-                android:id="@+id/button1"
-                android:layout_width="280dp"
-                android:layout_height="280dp"
-                android:layout_marginStart="11dp"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/round_button">
-            </Button>
+        <Button
+            android:id="@+id/button1"
+            style="@style/Normal_Textstyle"
+            android:layout_width="280dp"
+            android:layout_height="280dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/round_button"></Button>
 
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/untere_layout"
         android:layout_width="840dp"
-        android:layout_height="70dp"
-        android:layout_below="@id/circleButton"
-        android:layout_marginTop="24dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="555dp"
         android:layout_toRightOf="@id/linke_layout"
         android:orientation="horizontal"
         android:textStyle="bold">
@@ -260,30 +251,28 @@
             android:id="@+id/Button_fav1"
             style="@style/Normal_Textstyle"
             android:layout_width="213dp"
-            android:layout_height="70dp"
+            android:layout_height="match_parent"
             android:background="@drawable/border2"
             android:drawableEnd="@drawable/fav"
             android:drawableTint="@android:color/white"
             android:text="fav1"
             android:textAlignment="center"
-            android:textColor="@android:color/white">
-        </Button>
+            android:textColor="@android:color/white"></Button>
 
         <Button
             android:id="@+id/Button_fav2"
             style="@style/Normal_Textstyle"
             android:layout_width="213dp"
-            android:layout_height="70dp"
+            android:layout_height="match_parent"
             android:background="@drawable/border2"
             android:text="fav2"
-            android:textColor="@android:color/white">
-        </Button>
+            android:textColor="@android:color/white"></Button>
 
         <Button
             android:id="@+id/Button_fav3"
             style="@style/Normal_Textstyle"
             android:layout_width="211dp"
-            android:layout_height="70dp"
+            android:layout_height="match_parent"
             android:background="@drawable/border2"
             android:text="Fav3"
             android:textColor="@android:color/white"></Button>
@@ -292,7 +281,7 @@
             android:id="@+id/Button_fav4"
             style="@style/Normal_Textstyle"
             android:layout_width="210dp"
-            android:layout_height="70dp"
+            android:layout_height="match_parent"
             android:background="@drawable/border2"
             android:text="Fav4"
             android:textColor="@android:color/white"></Button>
@@ -313,8 +302,8 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:background="@drawable/border2"
-            android:padding="20dp"
             android:text=""
+            android:gravity="center"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="24sp">
@@ -359,16 +348,13 @@
             android:textColor="@android:color/white">
         </Button>
 
-        <Button
+        <ImageButton
             android:id="@+id/MOR_btn"
-            style="@style/Normal_Textstyle"
             android:layout_width="120dp"
-            android:layout_height="70dp"
+            android:layout_height="80dp"
             android:background="@drawable/border2"
-            android:textColor="@android:color/white"
-            android:text="MOR"
-            android:textSize="23sp">
-        </Button>
+            android:src="@drawable/rotate_right"
+            ></ImageButton>
     </LinearLayout>
 
     <LinearLayout
@@ -482,7 +468,7 @@
         android:layout_marginTop="20dp"
         android:textColor="@android:color/white"
         android:textSize="24sp"
-        style="@style/Normal_Textstyle">
+        android:textStyle="bold">
     </TextView>
 
     <LinearLayout

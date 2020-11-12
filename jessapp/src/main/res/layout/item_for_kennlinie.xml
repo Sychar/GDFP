@@ -16,8 +16,8 @@
       android:layout_height="100dp"
       android:gravity="center"
       android:textColor="#ffff"
-      android:textSize="25sp"
-      android:text="hello"
+      android:textSize="30sp"
+      android:text="TEST"
       android:textAlignment="center"
       style="@style/Normal_Textstyle"/>
 </LinearLayout>

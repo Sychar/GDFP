@@ -39,11 +39,11 @@ public class WeldingChangeParam {
             if (GlobalVariable.Save_Job) incrementJob.ChangeParameter(39, 0, 0);
             if(GlobalVariable.JOB_PRESSED_COUNTER > 100) GlobalVariable.JOB_PRESSED_COUNTER = 1;
 
-        } else if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button in home page is not pressed
+        } else if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button_left in home page is not pressed
             //Log.i(TAG,"job not pressed");
             GlobalVariable.CONTROL_PANEL_MODE = 1;
             switch(HOME_COUNTER){
-                case 0: if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display <= 240)) { //Normal
+                case 0: /*if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display <= GlobalVariable.MAX_MPM)) { //Normal
                     GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
                     //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
                 } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display <= 120)) { //Synergie
@@ -52,8 +52,10 @@ public class WeldingChangeParam {
                 } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display <= 120)) {//Pulse
                     GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
                     //progressBar.setProgress(DatenObjekte.a_display - 20);
-                }
-                    //Log.i("increase encoder",String.valueOf(GlobalVariable.mpm_display));
+                }*/
+                    if ((GlobalVariable.SV1pos1 != 4) && (GlobalVariable.mpm_display <= GlobalVariable.MAX_MPM)) { //Except Elektrode
+                        GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
+                    }
                     break;
                 case 1:
                     GlobalVariable.mm_a_display = GlobalVariable.mirror_display + val_encoder; //mm
@@ -92,26 +94,26 @@ public class WeldingChangeParam {
                 //if (GlobalVariable.VERFAHREN_COUNTER > 4) GlobalVariable.VERFAHREN_COUNTER = 1;
             }
 
-            if (GlobalVariable.SETTING_TOKEN) { //Setting button is pressed
+            if (GlobalVariable.SETTING_TOKEN) { //Setting button_left is pressed
                 //Log.i(TAG,"Turn encoder");
                 GlobalVariable.SETTING_COUNTER++;
                 if (GlobalVariable.SETTING_COUNTER > 5) GlobalVariable.SETTING_COUNTER = 1;
                 GlobalVariable.CHANGE_TOKEN = true;
                 //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
             }
-            if (JOBUSER_TOKEN) { //Job button in setting is pressed
+            if (JOBUSER_TOKEN) { //Job button_left in setting is pressed
                 GlobalVariable.JOBBTN_COUNTER++;
                 //Log.i("JOBBTN_COUNTER",String.valueOf(JOBBTN_COUNTER));
                 if (GlobalVariable.JOBBTN_COUNTER > 17) GlobalVariable.JOBBTN_COUNTER = 17;
                 JobsUser.changeBackground(GlobalVariable.JOBBTN_COUNTER);
             }
-            if (KENN_TOKEN) { //Kennlinie button in setting is pressed
+            if (KENN_TOKEN) { //Kennlinie button_left in setting is pressed
                 GlobalVariable.KENNBTN_COUNTER++;
                 //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
                 if (GlobalVariable.KENNBTN_COUNTER > 17) GlobalVariable.KENNBTN_COUNTER = 17;
                 Kennlinier_user.changeKennBackground(GlobalVariable.KENNBTN_COUNTER);
             }
-        } else { //Job button in home page is pressed
+        } else { //Job button_left in home page is pressed
             GlobalVariable.JOBCOUNT++;
 
             if (GlobalVariable.JOB_MODE==1 && GlobalVariable.JOBCOUNT==1) {
@@ -139,11 +141,11 @@ public class WeldingChangeParam {
             if (GlobalVariable.Save_Job) decrementJob1.ChangeParameter(40, 0, 0);
             if(GlobalVariable.JOB_PRESSED_COUNTER < 0) GlobalVariable.JOB_PRESSED_COUNTER = 0;
 
-        } else if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button in home page is not pressed
+        } else if(!GlobalVariable.JOB_NUM_TOKEN) { //Job button_left in home page is not pressed
             GlobalVariable.CONTROL_PANEL_MODE = 1;
             switch(HOME_COUNTER){
                 case 0:
-                    if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.Energie1 <= 240)) { //Normal
+                    /*if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mirror_display <= GlobalVariable.MIN_MPM)) { //Normal
                         GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
                         //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
                     } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display <= 120)) { //Synergie
@@ -153,8 +155,10 @@ public class WeldingChangeParam {
                     } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display <= 120)) {//Pulse
                         GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
                         //progressBar.setProgress(DatenObjekte.a_display - 20);
+                    }*/
+                    if ((GlobalVariable.SV1pos1 != 4) && (GlobalVariable.mpm_display >= GlobalVariable.MIN_MPM)) { //Except Elektrode
+                        GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
                     }
-
                     break;
                 case 1:
                     GlobalVariable.mm_a_display = GlobalVariable.mirror_display - val_encoder; //mm
@@ -193,26 +197,26 @@ public class WeldingChangeParam {
                 //if (GlobalVariable.VERFAHREN_COUNTER > 4) GlobalVariable.VERFAHREN_COUNTER = 1;
             }
 
-            if (GlobalVariable.SETTING_TOKEN) { //Setting button is pressed
+            if (GlobalVariable.SETTING_TOKEN) { //Setting button_left is pressed
                 //Log.i(TAG,"Turn encoder");
                 GlobalVariable.SETTING_COUNTER--;
                 if (GlobalVariable.SETTING_COUNTER < 1) GlobalVariable.SETTING_COUNTER = 5;
                 GlobalVariable.CHANGE_TOKEN = true;
                 //Log.i("SETTING_COUNTER",String.valueOf(SETTING_COUNTER));
             }
-            if (JOBUSER_TOKEN) { //Job button is pressed
+            if (JOBUSER_TOKEN) { //Job button_left is pressed
                 GlobalVariable.JOBBTN_COUNTER--;
                 //Log.i("JOBBTN_COUNTER",String.valueOf(JOBBTN_COUNTER));
                 if (GlobalVariable.JOBBTN_COUNTER < 1) GlobalVariable.JOBBTN_COUNTER = 0;
                 JobsUser.changeBackground(GlobalVariable.JOBBTN_COUNTER);
             }
-            if (KENN_TOKEN) { //Kennlinie button in setting is pressed
+            if (KENN_TOKEN) { //Kennlinie button_left in setting is pressed
                 GlobalVariable.KENNBTN_COUNTER--;
                 //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
                 if (GlobalVariable.KENNBTN_COUNTER < 1) GlobalVariable.KENNBTN_COUNTER = 0;
                 Kennlinier_user.changeKennBackground(GlobalVariable.KENNBTN_COUNTER);
             }
-        } else { //Job button in home page is pressed
+        } else { //Job button_left in home page is pressed
             //GlobalVariable.JOBCOUNT--;
             if(GlobalVariable.Jobnummer==1) GlobalVariable.JOBCOUNT = 0;
             //---------------------------Decrement Job number--------------------------------------
@@ -250,7 +254,7 @@ public class WeldingChangeParam {
                     GlobalVariable.voltage_display = GlobalVariable.voltage_display + val_encoder; //voltage
                 }
 
-        } else { //Job button in home page is pressed
+        } else { //Job button_left in home page is pressed
             GlobalVariable.JOBCOUNT++;
             //---------------------------- Activate Job ----------------------------------------
             if(GlobalVariable.JOBCOUNT==1) {
@@ -293,7 +297,7 @@ public class WeldingChangeParam {
             } else if(GlobalVariable.ChangeValue[4]==1){
                 GlobalVariable.voltage_display = GlobalVariable.voltage_display - val_encoder; //voltage
             }
-        } else { //Job button in home page is pressed
+        } else { //Job button_left in home page is pressed
             //GlobalVariable.JOBCOUNT--;
             if(GlobalVariable.Jobnummer==1) GlobalVariable.JOBCOUNT = 0;
             //---------------------------Decrement Job number--------------------------------------
@@ -354,8 +358,8 @@ public class WeldingChangeParam {
                         else if(HOME_COUNTER == 4) HOME_COUNTER = 5;
                         break;
                 }
-                //------------------------- When Kennlinie button is active ------------------------
-                /*if (MainActivity.kenn_token) { // if button is pressed
+                //------------------------- When Kennlinie button_left is active ------------------------
+                /*if (MainActivity.kenn_token) { // if button_left is pressed
                     //---------------- skip verfahren,gas,werkstoff and drahtdurchmesser -----------
                     if (HOME_COUNTER == 4 || HOME_COUNTER == 5 ||
                             HOME_COUNTER == 6 || HOME_COUNTER == 7) HOME_COUNTER = 8;

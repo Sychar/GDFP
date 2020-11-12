@@ -105,9 +105,9 @@ public class GlobalVariable {
             "Intervall","Extern","2-Takt + HF","4-Takt + HF"};
     public static String[] Verfahren_String = {"NONE","MAG_Normal","MAG-Synergie","MAG Puls","Elektrode","WIG","WIG-Puls",
             "WIG-Speed-Puls","WIG-Speed_Puls + Puls","HC_MAG"};
-    public static String[] Gas_String = {"82% Argon 18% CO2","98% Argon 2% CO2","100% Argon","100% CO2","92% Argon 8% CO2","99% Argon 1% O2",
-            "98% Argon 2% O2","97% Argon 3% O2","92% Argon 8% O2","90% Argon 5% O2 5% CO2","100% Helium","80% Argon 20% He","69% Argon 30% He 1% O2",
-            "50% Argon 50% Helium","98% Argon 2% H2","94% Argon 6% H2","50% Argon 50% H2","30% Argon 70% H2","Spezial"};
+    public static String[] Gas_String = {"82% Argon 18% CO₂","98% Argon 2% CO₂","100% Argon","100% CO₂","92% Argon 8% CO₂","99% Argon 1% O₂",
+            "98% Argon 2% O₂","97% Argon 3% O₂","92% Argon 8% O₂","90% Argon 5% O₂ 5% CO₂","100% Helium","80% Argon 20% He","69% Argon 30% He 1% O₂",
+            "50% Argon 50% Helium","98% Argon 2% H₂","94% Argon 6% H₂","50% Argon 50% H₂","30% Argon 70% H₂","Spezial"};
     public static String[] Werksotff_String = {"NONE","Fe","CrNi","AlMg","AlSi","CuSi","AlMg3","AlMg5","AlMg4,5Mn","AlBz","Spezial"};
     public static int[] ChangeValue = {0,0,0,0,0};
 
@@ -712,7 +712,10 @@ public class GlobalVariable {
     public static byte VorschubStatus1 = 0;
     public static String VorschubStatus1_string = "";
 
-    public static int MENUSELECT = 0;
+    //---------------------------------- Get from Database -----------------------------------------
+    public static int MIN_MPM = 0;
+    public static int MAX_MPM = 0;
+
     //----------------------------------------------------------------------------------------------
     public static void delayInMilli(int DELAY_MILLISEC){
         try {

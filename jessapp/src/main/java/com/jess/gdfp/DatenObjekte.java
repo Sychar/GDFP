@@ -8,14 +8,12 @@ import static com.jess.gdfp.UartService.mOutputStream;
 
 public class DatenObjekte {
     private final static String TAG = DatenObjekte.class.getSimpleName(); //name of this class
-    private static String HexData = "";
     private HeartBeat mHeartBeat;
     public static byte[] DO_FRAME = new byte[250];
     private static byte[] str1;
     public static String gethex = "";
     private static int countertoken = 0;
     public static int jobtoken = 0;
-    public static int checktoken = 0;
     private static int JOB_COUNTER = 0;
     public static byte[] KENNLINIE_FRAME = new byte[350];
     public static int y = 0;
@@ -23,7 +21,6 @@ public class DatenObjekte {
     private static int HeaderFound1 = 0;
     private static int LengthFound1 = 0;
     private static int LengthProtocol1 = 0;
-    public static int LengthProtocol2 = 0;
     private static int CounterData1 = 0;
 
     public static int Stromtest;
@@ -233,14 +230,11 @@ public class DatenObjekte {
     public static byte YEAR = 0;
 
     //-------------------------------------------
-
     public static int mpm_display = 0;
     public static int mm_display = 0;
     public static int a_display = 0;
 
     //-------------------------------------------
-
-    public static int counterTest = 0;
     private static int flag_first = 0;
 
     private static Charset iso88591charset = Charset.forName("ISO-8859-1");
@@ -338,10 +332,10 @@ public class DatenObjekte {
                     GlobalVariable.Drahtdurchmesser = (int) DO_FRAME[8];//pos 3 Drahtdurchmesser
                     mm_display = GlobalVariable.Drahtdurchmesser;
 
-                    GlobalVariable.SV1pos4 = (int) DO_FRAME[9];//pos 4 Gas
+                    GlobalVariable.SV1pos4 = (int)DO_FRAME[9] - 1;//pos 4 Gas
                     //Log.i("GlobalVariable.SV1pos4",String.valueOf(GlobalVariable.SV1pos4));
 
-                    GlobalVariable.SV1pos5 = (int) DO_FRAME[10];//pos 5 Werkstoff
+                    GlobalVariable.SV1pos5 = (int)DO_FRAME[10];//pos 5 Werkstoff
                     //Log.i("GlobalVariable.SV1pos5",String.valueOf(GlobalVariable.SV1pos5));
 
                     GlobalVariable.SV1pos6 = (int) DO_FRAME[11];//pos 6 Reglertyp
