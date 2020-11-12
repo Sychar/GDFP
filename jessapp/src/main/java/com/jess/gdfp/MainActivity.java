@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,19 +27,27 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jess.gdfp.Controller.JsonKennlinie;
 import com.jess.gdfp.Controller.MainActivity_Controller;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.DatalistView;
 import com.jess.gdfp.View.JobsUser;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 import android_serialport_api.SerialPort;
 import static com.jess.gdfp.UartService.mOutputStream;
@@ -191,7 +200,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
     MainActivity_Controller mainActivityController = new MainActivity_Controller(MainActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        System.out.println(DatalistView.loadFile(this));
+       // System.out.println(DatalistView.loadFile(this));
         READVAL_STATUS[1]=0; //m/min
         READVAL_STATUS[2]=0; //korrektur
         READVAL_STATUS[3]=0; //Value3
@@ -204,6 +213,15 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         setVisibility();
         serial_init();
         hold_layout_gone();
+
+JsonKennlinie.KennlinieSchrieben(this);
+JsonKennlinie.Kennlinielesen(this);
+String conditions[]={"Werkstof", "Gas"};
+String params[]={"CrNi","spezial"};
+List<org.json.simple.JSONObject> list =JsonKennlinie.query_kennlinie(1,"MIG/MAG pul","Verfahren" ,null,null,this );
+System.out.println(list.size());
+String[]filters={"Werkstof","Gas"};
+System.out.println(JsonKennlinie.getValue_mitFilter(filters,list));
 
         /*Intent intent=new Intent();
         intent.setComponent(new ComponentName("com.android.settings",

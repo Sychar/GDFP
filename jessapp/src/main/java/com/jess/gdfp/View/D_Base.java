@@ -107,7 +107,7 @@ private  String [] Array_Data = new String[113];
         if (!exportDir.exists()){
             exportDir.mkdir();
         }
-        File file =new File(exportDir,"Datalger.csv");
+        File file =new File(exportDir,"kennlinie.json");
         try {
             file.createNewFile();
             CSVWriter csvWriter = new CSVWriter(new FileWriter(file));
