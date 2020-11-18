@@ -10,19 +10,20 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.jess.gdfp.DatenBank.Jobs;
 import com.jess.gdfp.DatenBank.Kennlinie;
 import com.jess.gdfp.R;
 
 import java.util.ArrayList;
 
-public class kennlinieAdapte  extends ArrayAdapter<Kennlinie> {
+public class kennlinieAdapte  extends ArrayAdapter<Jobs> {
 
     private  View listView;
     TextView param;
     TextView wert;
-    private  Kennlinie kennlinie;
+    private Jobs kennlinie;
 
-    public kennlinieAdapte (Activity context , ArrayList<Kennlinie>Kennlinies  ){
+    public kennlinieAdapte (Activity context , ArrayList<Jobs>Kennlinies  ){
         super(context,0,Kennlinies );
     }
 
@@ -38,7 +39,7 @@ public class kennlinieAdapte  extends ArrayAdapter<Kennlinie> {
         wert=listView.findViewById(R.id.kennlinewert);
         kennlinie=getItem(position);
         param.setText(kennlinie.getName());
-        wert.setText(kennlinie.getWert());
+        wert.setText(kennlinie.getNum());
 
 
         return listView;

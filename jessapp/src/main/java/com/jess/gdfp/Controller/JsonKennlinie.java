@@ -112,6 +112,68 @@ public class JsonKennlinie {
 
 
     }
+public  static List<String[]> get_all_Daten(String Conditon[],Context context){
+
+      List<String[]>alldata =new ArrayList<>();
+    org.json.simple.JSONArray jsonArray=Kennlinielesen(context);
+    org.json.simple.JSONObject js1;
+    for( int i=0;i< jsonArray.size();i++){
+        js1=(org.json.simple.JSONObject) jsonArray.get(i);
+        String[] mydate =new String[4];
+        String s1 =js1.get(Conditon[0]).toString();
+        mydate[0]=s1;
+        String s2 =js1.get(Conditon[1]).toString();
+        mydate[1]=s2;
+        String s3 =js1.get(Conditon[2]).toString();
+        mydate[2]=s3;
+        String s4 =js1.get(Conditon[3]).toString();
+        mydate[3]=s4;
+        System.out.println(mydate);
+        alldata.add(mydate);
+    }
+
+    return  alldata;
+}
+    public  static List<String[]> get_all_Daten2(String Conditon[],Context context){
+
+        List<String[]>alldata =new ArrayList<>();
+        org.json.simple.JSONArray jsonArray=Kennlinielesen(context);
+        org.json.simple.JSONObject js1;
+        for( int i=0;i< jsonArray.size();i++){
+            js1=(org.json.simple.JSONObject) jsonArray.get(i);
+            String[] mydate =new String[13];
+            String s1 =js1.get(Conditon[0]).toString();
+            mydate[0]=s1;
+            String s2 =js1.get(Conditon[1]).toString();
+            mydate[1]=s2;
+            String s3 =js1.get(Conditon[2]).toString();
+            mydate[2]=s3;
+            String s4 =js1.get(Conditon[3]).toString();
+            mydate[3]=s4;
+            String s5 =js1.get(Conditon[4]).toString();
+            mydate[4]=s5;
+            String s6 =js1.get(Conditon[5]).toString();
+            mydate[5]=s6;
+            String s7 =js1.get(Conditon[6]).toString();
+            mydate[6]=s7;
+            String s8 =js1.get(Conditon[7]).toString();
+            mydate[7]=s8;
+            String s9 =js1.get(Conditon[8]).toString();
+            mydate[8]=s9;
+            String s10 =js1.get(Conditon[9]).toString();
+            mydate[9]=s10;
+            String s11 =js1.get(Conditon[10]).toString();
+            mydate[10]=s11;
+            String s12 =js1.get(Conditon[11]).toString();
+            mydate[11]=s12;
+            String s13 =js1.get(Conditon[12]).toString();
+            mydate[12]=s13;
+            System.out.println(mydate);
+            alldata.add(mydate);
+        }
+
+        return  alldata;
+    }
 
     public static List<org.json.simple.JSONObject> query_kennlinie(int counter, String string, String conditon, String[] conditions , String strings[],Context context) {
         List<org.json.simple.JSONObject> filters = new ArrayList<org.json.simple.JSONObject>();
@@ -159,7 +221,7 @@ public class JsonKennlinie {
                 String s1 = jsonObject1.get(conditions[0]).toString();
                 String s2 = jsonObject1.get(conditions[1]).toString();
                 String s3 =jsonObject1.get(conditions[2]).toString();
-                String s4 =jsonObject1.get(conditions[2]).toString();
+                String s4 =jsonObject1.get(conditions[3]).toString();
                 if (s1.equals(strings[0]) && s2.equals(strings[1]) && s3.equals(strings[2]) && s4.equals(strings[3])) {
 
                 }
