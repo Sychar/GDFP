@@ -84,7 +84,7 @@ public class Kennlinier_user extends AppCompatActivity {
     }
 
     private ArrayList initKENN() {
-        String conditions[]={"Verfahren", "Werkstof","Draht","Gas"};
+        String conditions[]={"Verfahren", "Werkstof","Draht","Gas","KennNr"};
         String[] params={
                 "Verfahren","Werkstof" ,"Gas" ,"Draht" , "Bezeichnung" ,"Vorsch-Min","Vorsch-max","A-min","A-max","v/Hz-Min","v/Hz-Max","mm-Max","ESS-Nr",
         };
@@ -94,7 +94,7 @@ public class Kennlinier_user extends AppCompatActivity {
             System.out.println(data.size());
         ArrayList Kennlinies = new ArrayList<>();
       for(int j=0;j<data.size();j++){
-          Kennlinie kennlinie =new Kennlinie(data.get(j)[0],data.get(j)[1],data.get(j)[2],data.get(j)[3]);
+          Kennlinie kennlinie =new Kennlinie(data.get(j)[0],data.get(j)[1],data.get(j)[2],data.get(j)[3],data.get(j)[4]);
           System.out.println(data.get(j)[0]);
           Kennlinies.add(kennlinie);
       }

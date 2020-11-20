@@ -55,4 +55,45 @@ public class ReadCSV {
 
 
     }
+
+    public static void readCSv_internal(Context context,String file_name) {
+        int i=0;
+
+
+        try {
+            String yourFilePath = context.getFilesDir() + "/" + file_name;
+            InputStream inputStream = new FileInputStream(yourFilePath);
+            InputStreamReader fis = new InputStreamReader(inputStream, StandardCharsets.UTF_8.name());
+            BufferedReader br = new BufferedReader(fis);
+            String line ="";
+
+            while ((line = br.readLine()) != null) {
+
+                String[] values = line.split(";");
+                myArray[i]=values[0];
+                i++;
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int l=0;
+        for(int j =0; j<myArray.length;j++){
+
+            myArray[j].trim();
+            myArray[j]=myArray[j].replace(" ","_");
+            myArray[j]=myArray[j].replace("-","");
+            for (int k = 0; k < UMLAUT_REPLACEMENTS.length; k++) {
+                myArray[j]= myArray[j].replace(UMLAUT_REPLACEMENTS[k][0], UMLAUT_REPLACEMENTS[k][1]);
+            }
+            System.out.println(myArray[j]);
+
+
+
+
+        }
+
+
+    }
+
 }

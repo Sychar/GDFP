@@ -5,14 +5,16 @@ public class Kennlinie {
     private String Werkstoff;
     private String Draht;
     private String Gas;
+    private String KennNR;
 
 
 
-    public Kennlinie(String Verfahren, String Werkstoff, String Draht, String Gas) {
+    public Kennlinie(String Verfahren, String Werkstoff, String  Draht, String Gas ,String KennNrR ){
         this.Verfahren = Verfahren;
         this.Werkstoff = Werkstoff;
         this.Gas = Gas;
-        this.Draht = Draht;
+        this.KennNR=KennNrR;
+        this.Draht=Draht;
     }
 
     public String getDraht() {
@@ -25,6 +27,10 @@ public class Kennlinie {
 
     public String getVerfahren() {
         return Verfahren;
+    }
+
+    public String getKennNR() {
+        return KennNR;
     }
 
     public String getWerkstoff() {

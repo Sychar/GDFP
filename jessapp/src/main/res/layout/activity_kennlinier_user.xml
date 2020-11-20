@@ -39,7 +39,40 @@
             <TextView
                 android:paddingLeft="20dp"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1.5"
+                android:layout_weight="1"
+                android:paddingRight="10dp"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gas"
+                android:textSize="20sp">
+            </TextView>
+            <TextView
+                android:paddingLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:paddingRight="10dp"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Verfahren"
+                android:textSize="20sp">
+            </TextView>
+            <TextView
+                android:paddingLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:paddingRight="10dp"
+                android:textColor="#ffffff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Werkstoff"
+                android:textSize="20sp">
+            </TextView>
+            <TextView
+                android:paddingLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
                 android:paddingRight="10dp"
                 android:textColor="#ffffff"
                 android:layout_width="wrap_content"
@@ -59,7 +92,7 @@
 
         <ListView
             android:id="@+id/list_for_jobs"
-            android:layout_width="826dp"
+            android:layout_width="866dp"
             android:layout_height="match_parent"></ListView>
         <LinearLayout
             android:focusable="false"

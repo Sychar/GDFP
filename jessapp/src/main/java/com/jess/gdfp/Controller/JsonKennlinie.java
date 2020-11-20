@@ -119,7 +119,7 @@ public  static List<String[]> get_all_Daten(String Conditon[],Context context){
     org.json.simple.JSONObject js1;
     for( int i=0;i< jsonArray.size();i++){
         js1=(org.json.simple.JSONObject) jsonArray.get(i);
-        String[] mydate =new String[4];
+        String[] mydate =new String[5];
         String s1 =js1.get(Conditon[0]).toString();
         mydate[0]=s1;
         String s2 =js1.get(Conditon[1]).toString();
@@ -128,6 +128,8 @@ public  static List<String[]> get_all_Daten(String Conditon[],Context context){
         mydate[2]=s3;
         String s4 =js1.get(Conditon[3]).toString();
         mydate[3]=s4;
+        String s5 =js1.get(Conditon[4]).toString();
+        mydate[4]=s5;
         System.out.println(mydate);
         alldata.add(mydate);
     }

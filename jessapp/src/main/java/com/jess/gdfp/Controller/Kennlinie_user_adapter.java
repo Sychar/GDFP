@@ -25,6 +25,7 @@ public class Kennlinie_user_adapter extends ArrayAdapter<Kennlinie> {
     private TextView Gas;
     private TextView Draht;
     private Kennlinie kennlinie;
+    private TextView KennNR;
     private CardView cardView;
 
     public Kennlinie_user_adapter (Activity context , ArrayList<Kennlinie>Kennlinies  ){
@@ -43,9 +44,11 @@ public class Kennlinie_user_adapter extends ArrayAdapter<Kennlinie> {
         Verfahren=listView.findViewById(R.id.Verfahren);
         Gas=listView.findViewById(R.id.Gas);
         Draht=listView.findViewById(R.id.Draht);
+        KennNR=listView.findViewById(R.id.KennNR);
         cardView = listView.findViewById(R.id.card_view);
 
         kennlinie=getItem(position);
+        KennNR.setText(kennlinie.getKennNR());
         Verfahren.setText(kennlinie.getVerfahren());
         Werkstof.setText(kennlinie.getWerkstoff());
         Draht.setText(kennlinie.getDraht());

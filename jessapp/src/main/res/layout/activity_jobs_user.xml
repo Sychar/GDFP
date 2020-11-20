@@ -60,7 +60,7 @@ android:background="#111111"
     <ListView
 
         android:id="@+id/list_for_jobs"
-        android:layout_width="832dp"
+        android:layout_width="872dp"
         android:layout_height="match_parent"></ListView>
 
 
