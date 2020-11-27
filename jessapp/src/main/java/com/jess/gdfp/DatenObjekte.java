@@ -241,18 +241,15 @@ public class DatenObjekte {
 
     public static void callme(String msgReceiver) {//msgReceiver is in hex String
 
-        char pos_7 = msgReceiver.charAt(6);
-        char pos_8 = msgReceiver.charAt(7);
-        char pos_9 = msgReceiver.charAt(8);
-        char pos_10 = msgReceiver.charAt(9);
+        char pos_4 = msgReceiver.charAt(4);
+        char pos_5 = msgReceiver.charAt(5);
 
         StringBuilder joinchar = new StringBuilder();
-        gethex = joinchar.append(pos_7).append(pos_8).append(pos_9).append(pos_10).toString();
+        gethex = joinchar.append(pos_4).append(pos_5).toString();
         //Log.i("gethex",gethex);
 
         if (flag_first == 0) {
             flag_first = 1;
-
             /**
              * Init mm
              */
@@ -323,22 +320,26 @@ public class DatenObjekte {
                     System.out.println("Kenn response : " + y);*/
                 }
             } else if (PARSE_TOKEN) {
-                if (gethex.equals("3232")) {
-                    GlobalVariable.SV1pos1 = (int) DO_FRAME[6];//pos 1 Verfahren
-                    GlobalVariable.VERFAHREN_VAL = (int) DO_FRAME[6];//pos 1
+                if (gethex.equals("02")) { //frame id 0x02
+                    GlobalVariable.SV1pos1 = (int) DO_FRAME[3];//pos 1 Verfahren
+                    GlobalVariable.VERFAHREN_VAL = (int) DO_FRAME[3];//pos 1
                     //Log.i("Verfahren",String.valueOf(GlobalVariable.SV1pos1));
 
-                    GlobalVariable.SV1pos2 = (int) DO_FRAME[7];//pos 2 Betriebsart
-                    GlobalVariable.Drahtdurchmesser = (int) DO_FRAME[8];//pos 3 Drahtdurchmesser
+
+                    GlobalVariable.SV1pos2 = (int) DO_FRAME[4];//pos 2 Betriebsart
+                    GlobalVariable.Drahtdurchmesser = (int) DO_FRAME[5];//pos 3 Drahtdurchmesser
                     mm_display = GlobalVariable.Drahtdurchmesser;
 
-                    GlobalVariable.SV1pos4 = (int)DO_FRAME[9] - 1;//pos 4 Gas
-                    //Log.i("GlobalVariable.SV1pos4",String.valueOf(GlobalVariable.SV1pos4));
+                    if (GlobalVariable.SV1pos4!=0) GlobalVariable.SV1pos4 = (int)DO_FRAME[6] - 1;//pos 4 Gas
+                    //Log.i("Gas",String.valueOf(GlobalVariable.SV1pos4));
 
-                    GlobalVariable.SV1pos5 = (int)DO_FRAME[10];//pos 5 Werkstoff
-                    //Log.i("GlobalVariable.SV1pos5",String.valueOf(GlobalVariable.SV1pos5));
+                    int temp = (int)DO_FRAME[7];//pos 5 Werkstoff
+                    if (temp < 0) temp = temp +256;
+                    GlobalVariable.SV1pos5 = temp;
 
-                    GlobalVariable.SV1pos6 = (int) DO_FRAME[11];//pos 6 Reglertyp
+                    //Log.i("Werkstoff",String.valueOf(GlobalVariable.SV1pos5));
+
+                    GlobalVariable.SV1pos6 = (int) DO_FRAME[8];//pos 6 Reglertyp
                     //Log.i("GlobalVariable.SV1pos6",String.valueOf(GlobalVariable.SV1pos6));
                     switch (GlobalVariable.SV1pos6) {
                         case 0:
@@ -357,7 +358,7 @@ public class DatenObjekte {
                             GlobalVariable.Reglertyp = "Error";
                             break;
                     }
-                    GlobalVariable.StatusMSR = (int) DO_FRAME[12];//pos 7 Status MSR
+                    GlobalVariable.StatusMSR = (int) DO_FRAME[9];//pos 7 Status MSR
                     int result = GlobalVariable.StatusMSR;
                     if ((result & 0x01) == 1) GlobalVariable.StatusMSR_BT = "Schweißen Ein";
                     else GlobalVariable.StatusMSR_BT = "Schweißen Aus";
@@ -396,7 +397,7 @@ public class DatenObjekte {
 
                     if ((result & 1) == 1) GlobalVariable.StatusMSR_Bit7 = "Tastenklick Ein";
 
-                    GlobalVariable.StatusFLG = (int) DO_FRAME[13];//pos 8 Status FLG
+                    GlobalVariable.StatusFLG = (int) DO_FRAME[10];//pos 8 Status FLG
                     int iSFLG = GlobalVariable.StatusFLG;
 
                     if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "FLG im Gebirge-Mode";
@@ -429,14 +430,14 @@ public class DatenObjekte {
 
                     if ((iSFLG & 1) == 1) GlobalVariable.StatusFLG_String = "Freiband-Warnung";
 
-                    GlobalVariable.Kennliniennummer = (DO_FRAME[14] & 0xFF) + ((DO_FRAME[15] & 0xFF) << 8);//pos 1 or 2 Kennliniennummer
+                    GlobalVariable.Kennliniennummer = (DO_FRAME[11] & 0xFF) + ((DO_FRAME[12] & 0xFF) << 8);//pos 1 or 2 Kennliniennummer
                     //Log.i("(int) DO_FRAME[6]",String.valueOf((int) DO_FRAME[6]));
                     //System.out.println("DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8 "+(DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8));
-                    GlobalVariable.Jobnummer = (DO_FRAME[16] & 0xFF) + ((DO_FRAME[17] & 0xFF) << 8);//pos 3 or 4 Jobnummer
+                    GlobalVariable.Jobnummer = (DO_FRAME[13] & 0xFF) + ((DO_FRAME[14] & 0xFF) << 8);//pos 3 or 4 Jobnummer
 
                     //Log.i("Jobnummer",String.valueOf(GlobalVariable.Jobnummer));
-                    GlobalVariable.KennlinienTyp = DO_FRAME[18];
-                    int iKT = (int) DO_FRAME[18];//pos 5 Kennlinien-Typ
+                    GlobalVariable.KennlinienTyp = DO_FRAME[15];
+                    int iKT = (int) DO_FRAME[16];//pos 5 Kennlinien-Typ
 
                     if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Typ-Bit 1 = 2^0";
 
@@ -468,9 +469,9 @@ public class DatenObjekte {
 
                     if ((iKT & 1) == 1) GlobalVariable.KennlinienTyp_String = "Kennlinie sichtbar";
 
-                    GlobalVariable.JobKommando = (int) DO_FRAME[19];//pos 6 Job-Kommando
+                    GlobalVariable.JobKommando = (int) DO_FRAME[16];//pos 6 Job-Kommando
 
-                    int iJS = (int) DO_FRAME[20];//pos 5 Job-Status
+                    int iJS = (int) DO_FRAME[17];//pos 5 Job-Status
 
                     //Log.i("JobStatus_Bit0",String.valueOf(iJS));
 
@@ -511,59 +512,64 @@ public class DatenObjekte {
 
                     if ((iJS & 1) == 1) GlobalVariable.JobStatus_Bit7  = "";
 
+                    GlobalVariable.Verriegelungsstufe = DO_FRAME[18];//pos 8 Verriegelungsstufe
+                    GlobalVariable.Gasvorströmen = (int)DO_FRAME[19];//pos 1 Gasvorströmen
+                    GlobalVariable.Gasnachströmen = DO_FRAME[20];//pos 2 Gasnachströmen
+                    temp = DO_FRAME[21];//pos 3 Einschleichen absolut
+                    if (temp < 0) temp = temp + 256;
+                    GlobalVariable.EinschleichenAbsolut = (byte)temp;//pos 3 Einschleichen absolut
+                    GlobalVariable.EinschleichenKorrektur = DO_FRAME[22];//pos 4 Einschliechen Korrektur in %
+                    GlobalVariable.UpSlope = DO_FRAME[23];//pos 5 Up-Slope
+                    GlobalVariable.DownSlope = DO_FRAME[24];//pos 6 Down-Slope
+                    temp = DO_FRAME[25]; //pos 7 Zündenergie in %
+                    if (temp < 0) temp = temp + 256;
+                    GlobalVariable.Zündenergie = temp;//pos 7 Zündenergie in %
+                    GlobalVariable.Endkraterenergie = (int) DO_FRAME[26];//pos 8 Endkraterenergie in %
 
-                    GlobalVariable.Verriegelungsstufe = DO_FRAME[21];//pos 8 Verriegelungsstufe
-                    GlobalVariable.Gasvorströmen = DO_FRAME[22];//pos 1 Gasvorströmen
-                    GlobalVariable.Gasnachströmen = DO_FRAME[23];//pos 2 Gasnachströmen
-                    GlobalVariable.EinschleichenAbsolut = DO_FRAME[24];//pos 3 Einschleichen absolut
-                    GlobalVariable.EinschleichenKorrektur = DO_FRAME[25];//pos 4 Einschliechen Korrektur in %
-                    GlobalVariable.UpSlope = DO_FRAME[26];//pos 5 Up-Slope
-                    GlobalVariable.DownSlope = DO_FRAME[27];//pos 6 Down-Slope
-                    GlobalVariable.Zündenergie = DO_FRAME[28];//pos 7 Zündenergie in %
-                    GlobalVariable.Endkraterenergie = (int) DO_FRAME[29];//pos 8 Endkraterenergie in %
+                    GlobalVariable.GebirgeStatus = DO_FRAME[27];//pos 1 Gebirge-Status
+                    GlobalVariable.SchweißState = DO_FRAME[28];//pos 2 Schweiß-State
+                    GlobalVariable.Freibrand = DO_FRAME[29];//pos 3 Freiband
+                    GlobalVariable.FreibandKorrektur = DO_FRAME[30];//pos 4 Freiband Korrektur
+                    GlobalVariable.KorrekturPulsamplitude = DO_FRAME[31];//pos 5 Korrektur Pulsamplitude
+                    GlobalVariable.KorrekturDrossel = DO_FRAME[32];//pos 6 Korrektur Drossel
+                    GlobalVariable.Einfädeln = DO_FRAME[33];//pos 7 Einfädeln
+                    GlobalVariable.GastestZeit = DO_FRAME[34];//pos 8 Gastest-Zeit
 
-                    GlobalVariable.GebirgeStatus = DO_FRAME[30];//pos 1 Gebirge-Status
-                    GlobalVariable.SchweißState = DO_FRAME[31];//pos 2 Schweiß-State
-                    GlobalVariable.Freibrand = DO_FRAME[32];//pos 3 Freiband
-                    GlobalVariable.FreibandKorrektur = DO_FRAME[33];//pos 4 Freiband Korrektur
-                    GlobalVariable.KorrekturPulsamplitude = DO_FRAME[34];//pos 5 Korrektur Pulsamplitude
-                    GlobalVariable.KorrekturDrossel = DO_FRAME[35];//pos 6 Korrektur Drossel
-                    GlobalVariable.Einfädeln = DO_FRAME[36];//pos 7 Einfädeln
-                    GlobalVariable.GastestZeit = DO_FRAME[37];//pos 8 Gastest-Zeit
+                    GlobalVariable.PausenZeit = (DO_FRAME[35] & 0xFF) + ((DO_FRAME[36] & 0xFF) << 8);//pos 1 or 2 Pausenzeit bei Intervall
+                    GlobalVariable.Punktzeit = (DO_FRAME[37] & 0xFF) + ((DO_FRAME[38] & 0xFF) << 8);//pos 3 or 4 Punktzeit
+                    GlobalVariable.ZündDauer = DO_FRAME[39];//pos 5 Zünd-Dauer
+                    GlobalVariable.EndkraterDauer = DO_FRAME[40];//pos 6 Endkrater-Dauer
+                    GlobalVariable.SynergieVorgabe = DO_FRAME[41];//pos 7 Synergie Vorgabe-Basis
+                    GlobalVariable.AnzahlLeistungsmodule = DO_FRAME[42];//pos 8 Anzahl Leistungsmodule
 
-                    GlobalVariable.PausenZeit = (DO_FRAME[38] & 0xFF) + ((DO_FRAME[39] & 0xFF) << 8);//pos 1 or 2 Pausenzeit bei Intervall
-                    GlobalVariable.Punktzeit = (DO_FRAME[40] & 0xFF) + ((DO_FRAME[41] & 0xFF) << 8);//pos 3 or 4 Punktzeit
-                    GlobalVariable.ZündDauer = DO_FRAME[42];//pos 5 Zünd-Dauer
-                    GlobalVariable.EndkraterDauer = DO_FRAME[43];//pos 6 Endkrater-Dauer
-                    GlobalVariable.SynergieVorgabe = DO_FRAME[44];//pos 7 Synergie Vorgabe-Basis
-                    GlobalVariable.AnzahlLeistungsmodule = DO_FRAME[45];//pos 8 Anzahl Leistungsmodule
-
-                    GlobalVariable.PowerpulsEinAus = DO_FRAME[46];//pos 1 Powerpuls Ein/Aus
+                    GlobalVariable.PowerpulsEinAus = DO_FRAME[43];//pos 1 Powerpuls Ein/Aus
                     if (GlobalVariable.PowerpulsEinAus == 0) GlobalVariable.PowerpulsEinAus_String = "Aus";
                     else if (GlobalVariable.PowerpulsEinAus == 1) GlobalVariable.PowerpulsEinAus_String = "Aktiv";
-                    GlobalVariable.PowerpulsE2 = DO_FRAME[47];//pos 2 Powerpuls Energie 2
-                    GlobalVariable.PowerpulsT1E1 = DO_FRAME[48];//pos 3 Power-Puls Time 1 für Energie 1
-                    GlobalVariable.PowerpulsT2E1 = DO_FRAME[49];//pos 4 Power-Puls Time 2 für Energie 1
-                    GlobalVariable.PowerpulsLBKorrE2 = DO_FRAME[50];//pos 5 Power-Puls LB-Korr. Energie 2
-                    GlobalVariable.PowerpulsUpSlope = DO_FRAME[51];//pos 6 Power-Puls Up-Slope
-                    GlobalVariable.PowerpulsDownSlope = DO_FRAME[52];//pos 7 Power-Puls Down-Slope
-                    GlobalVariable.JobSlope = DO_FRAME[53];//pos 8 Job-Slope
+                    GlobalVariable.PowerpulsE2 = DO_FRAME[44];//pos 2 Powerpuls Energie 2
+                    GlobalVariable.PowerpulsT1E1 = DO_FRAME[45];//pos 3 Power-Puls Time 1 für Energie 1
+                    GlobalVariable.PowerpulsT2E1 = DO_FRAME[46];//pos 4 Power-Puls Time 2 für Energie 1
+                    GlobalVariable.PowerpulsLBKorrE2 = DO_FRAME[47];//pos 5 Power-Puls LB-Korr. Energie 2
+                    GlobalVariable.PowerpulsUpSlope = DO_FRAME[48];//pos 6 Power-Puls Up-Slope
+                    GlobalVariable.PowerpulsDownSlope = DO_FRAME[49];//pos 7 Power-Puls Down-Slope
+                    GlobalVariable.JobSlope = DO_FRAME[50];//pos 8 Job-Slope
 
-                    GlobalVariable.ZündStrom = (DO_FRAME[54] & 0xFF) + ((DO_FRAME[55] & 0xFF) << 8);//pos 1 or 2 Zünd-Strom
-                    GlobalVariable.ZündSpannung = (DO_FRAME[56] & 0xFF) + ((DO_FRAME[57] & 0xFF) << 8);//pos 3 or 4 Zünd-Spannung
-                    GlobalVariable.ZündEnergie = (DO_FRAME[58] & 0xFF) + ((DO_FRAME[59] & 0xFF) << 8);//pos 5 or 6 Zünd-Energie
-                    GlobalVariable.ZündDrossel = DO_FRAME[60];//pos 7 Zünd-Drossel
-                    GlobalVariable.ZündLichtbogenkorrektur = DO_FRAME[61];//pos 8 Zünd-Lichtbogenkorrektur
+                    GlobalVariable.ZündStrom = (DO_FRAME[51] & 0xFF) + ((DO_FRAME[52] & 0xFF) << 8);//pos 1 or 2 Zünd-Strom
+                    GlobalVariable.ZündSpannung = (DO_FRAME[53] & 0xFF) + ((DO_FRAME[54] & 0xFF) << 8);//pos 3 or 4 Zünd-Spannung
+                    temp = (DO_FRAME[55] & 0xFF) + ((DO_FRAME[56] & 0xFF) << 8);//pos 5 or 6 Zünd-Energie
+                    if (temp < 0) temp = temp + 256;
+                    GlobalVariable.ZündEnergie = temp;
+                    GlobalVariable.ZündDrossel = DO_FRAME[57];//pos 7 Zünd-Drossel
+                    GlobalVariable.ZündLichtbogenkorrektur = DO_FRAME[58];//pos 8 Zünd-Lichtbogenkorrektur
 
-                    GlobalVariable.Strom1 = (DO_FRAME[62] & 0xFF) + ((DO_FRAME[63] & 0xFF) << 8);//pos 1 or 2 Strom 1
-                    GlobalVariable.Spannung1 = (DO_FRAME[64] & 0xFF) + ((DO_FRAME[65] & 0xFF) << 8);//pos 3 or 4 Spannung 1
+                    GlobalVariable.Strom1 = (DO_FRAME[59] & 0xFF) + ((DO_FRAME[60] & 0xFF) << 8);//pos 1 or 2 Strom 1
+                    GlobalVariable.Spannung1 = (DO_FRAME[61] & 0xFF) + ((DO_FRAME[62] & 0xFF) << 8);//pos 3 or 4 Spannung 1
                     if (MainActivity.READVAL_STATUS[3] != 1) {
                         MainActivity.READVAL_STATUS[3] = 1;
                         GlobalVariable.voltage_display = GlobalVariable.Spannung1;
                     }
-                    GlobalVariable.Energie1 = (DO_FRAME[66] & 0xFF) + ((DO_FRAME[67] & 0xFF) << 8);//pos 5 or 6 Energie 1
-                    GlobalVariable.Drossel1 = DO_FRAME[68];//pos 7 Drossel 1
-                    GlobalVariable.Lichtbogenkorrektur1 = DO_FRAME[69];//pos 8 Lichtbogenkorrektur 1
+                    GlobalVariable.Energie1 = (DO_FRAME[63] & 0xFF) + ((DO_FRAME[64] & 0xFF) << 8);//pos 5 or 6 Energie 1
+                    GlobalVariable.Drossel1 = DO_FRAME[65];//pos 7 Drossel 1
+                    GlobalVariable.Lichtbogenkorrektur1 = DO_FRAME[66];//pos 8 Lichtbogenkorrektur 1
                     if (MainActivity.READVAL_STATUS[2] != 1) {
                         MainActivity.READVAL_STATUS[2] = 1;
                         GlobalVariable.korrektur_display = GlobalVariable.Lichtbogenkorrektur1;
@@ -574,97 +580,101 @@ public class DatenObjekte {
                         //GlobalVariable.mm_a_display = GlobalVariable.mpm_display;
                     }
 
-                    GlobalVariable.Strom2 = (DO_FRAME[70] & 0xFF) + ((DO_FRAME[71] & 0xFF) << 8);//pos 1 or 2 Strom 2
-                    GlobalVariable.Spannung2 = (DO_FRAME[72] & 0xFF) + ((DO_FRAME[73] & 0xFF) << 8);//pos 3 or 4 Spannung 2
-                    GlobalVariable.Energie2 = (DO_FRAME[74] & 0xFF) + ((DO_FRAME[75] & 0xFF) << 8);//pos 5 or 6 Energie 2
-                    GlobalVariable.Drossel2 = DO_FRAME[76];//pos 7 Drossel 2
-                    GlobalVariable.Lichtbogenkorrektur2 = DO_FRAME[77];//pos 8 Lichtbogenkorrektur 2
+                    GlobalVariable.Strom2 = (DO_FRAME[67] & 0xFF) + ((DO_FRAME[68] & 0xFF) << 8);//pos 1 or 2 Strom 2
+                    GlobalVariable.Spannung2 = (DO_FRAME[69] & 0xFF) + ((DO_FRAME[70] & 0xFF) << 8);//pos 3 or 4 Spannung 2
+                    temp = (DO_FRAME[71] & 0xFF) + ((DO_FRAME[72] & 0xFF) << 8);//pos 5 or 6 Energie 2
+                    if (temp < 0) temp = temp + 256;
+                    GlobalVariable.Energie2 = temp;
+                    GlobalVariable.Drossel2 = DO_FRAME[73];//pos 7 Drossel 2
+                    GlobalVariable.Lichtbogenkorrektur2 = DO_FRAME[74];//pos 8 Lichtbogenkorrektur 2
 
-                    GlobalVariable.Strom3 = (DO_FRAME[78] & 0xFF) + ((DO_FRAME[79] & 0xFF) << 8);//pos 1 or 2 Strom 3
-                    GlobalVariable.Spannung3 = (DO_FRAME[80] & 0xFF) + ((DO_FRAME[81] & 0xFF) << 8);//pos 3 or 4 Spannung 3
-                    GlobalVariable.Energie3 = (DO_FRAME[82] & 0xFF) + ((DO_FRAME[83] & 0xFF) << 8);//pos 5 or 6 Energie 3
-                    GlobalVariable.Drossel3 = DO_FRAME[84];//pos 7 Drossel 3
-                    GlobalVariable.Lichtbogenkorrektur3 = DO_FRAME[85];//pos 8 Lichtbogenkorrektur 3
+                    GlobalVariable.Strom3 = (DO_FRAME[75] & 0xFF) + ((DO_FRAME[76] & 0xFF) << 8);//pos 1 or 2 Strom 3
+                    GlobalVariable.Spannung3 = (DO_FRAME[77] & 0xFF) + ((DO_FRAME[78] & 0xFF) << 8);//pos 3 or 4 Spannung 3
+                    temp = (DO_FRAME[79] & 0xFF) + ((DO_FRAME[80] & 0xFF) << 8);//pos 5 or 6 Energie 3
+                    if (temp < 0) temp = temp + 256;
+                    GlobalVariable.Energie3 = temp;
+                    GlobalVariable.Drossel3 = DO_FRAME[81];//pos 7 Drossel 3
+                    GlobalVariable.Lichtbogenkorrektur3 = DO_FRAME[82];//pos 8 Lichtbogenkorrektur 3
 
-                    GlobalVariable.EndkraterStrom = (DO_FRAME[86] & 0xFF) + ((DO_FRAME[87] & 0xFF) << 8);//pos 1 or 2 Endkrater Strom
-                    GlobalVariable.EndkraterSpannung = (DO_FRAME[88] & 0xFF) + ((DO_FRAME[89] & 0xFF) << 8);//pos 3 or 4 Endkrater Spannung
-                    GlobalVariable.EndkraterEnergie = (DO_FRAME[90] & 0xFF) + ((DO_FRAME[91] & 0xFF) << 8);//pos 5 or 6 Endkrater Energie
-                    GlobalVariable.EndkraterDrossel = DO_FRAME[92];//pos 7 Endkrater Drossel
-                    GlobalVariable.EndKraterLichtbogenkorrektur = DO_FRAME[93];//pos 8 Endkrater Lichtbogenkorrektur
+                    GlobalVariable.EndkraterStrom = (DO_FRAME[83] & 0xFF) + ((DO_FRAME[84] & 0xFF) << 8);//pos 1 or 2 Endkrater Strom
+                    GlobalVariable.EndkraterSpannung = (DO_FRAME[85] & 0xFF) + ((DO_FRAME[86] & 0xFF) << 8);//pos 3 or 4 Endkrater Spannung
+                    GlobalVariable.EndkraterEnergie = (DO_FRAME[87] & 0xFF) + ((DO_FRAME[88] & 0xFF) << 8);//pos 5 or 6 Endkrater Energie
+                    GlobalVariable.EndkraterDrossel = DO_FRAME[89];//pos 7 Endkrater Drossel
+                    GlobalVariable.EndKraterLichtbogenkorrektur = DO_FRAME[90];//pos 8 Endkrater Lichtbogenkorrektur
 
-                    GlobalVariable.VorschubSetwert = (DO_FRAME[94] & 0xFF) + ((DO_FRAME[95] & 0xFF) << 8);//pos 1 or 2 Vorschub Setwert
-                    GlobalVariable.VorschubIstwert = (DO_FRAME[96] & 0xFF) + ((DO_FRAME[97] & 0xFF) << 8);//pos 3 or 4 Vorschub Istwert
-                    GlobalVariable.VorschubHoldwert = (DO_FRAME[98] & 0xFF) + ((DO_FRAME[99] & 0xFF) << 8);//pos 5 or 6 Vorschub Holdwert
-                    GlobalVariable.VorschubStatus = DO_FRAME[100];//pos 7 Vorschub Status
-                    GlobalVariable.VorschubAusKennlinie = DO_FRAME[101];//pos 8 Vorschub aus Kennlinie
+                    GlobalVariable.VorschubSetwert = (DO_FRAME[91] & 0xFF) + ((DO_FRAME[92] & 0xFF) << 8);//pos 1 or 2 Vorschub Setwert
+                    GlobalVariable.VorschubIstwert = (DO_FRAME[93] & 0xFF) + ((DO_FRAME[94] & 0xFF) << 8);//pos 3 or 4 Vorschub Istwert
+                    GlobalVariable.VorschubHoldwert = (DO_FRAME[95] & 0xFF) + ((DO_FRAME[96] & 0xFF) << 8);//pos 5 or 6 Vorschub Holdwert
+                    GlobalVariable.VorschubStatus = DO_FRAME[97];//pos 7 Vorschub Status
+                    GlobalVariable.VorschubAusKennlinie = DO_FRAME[98];//pos 8 Vorschub aus Kennlinie
 
-                    GlobalVariable.StromSetwert = (DO_FRAME[102] & 0xFF) + ((DO_FRAME[103] & 0xFF) << 8);//pos 1 and 2 Strom Setwert
-                    GlobalVariable.StromIstwert = (DO_FRAME[104] & 0xFF) + ((DO_FRAME[105] & 0xFF) << 8);//pos 3 and 4 Strom Istwert
-                    GlobalVariable.StromHoldwert = (DO_FRAME[106] & 0xFF) + ((DO_FRAME[107] & 0xFF) << 8);//pos 5 and 6 Strom Holdwert
-                    GlobalVariable.StromStatus = DO_FRAME[108];//pos 7 Strom Status
-                    GlobalVariable.StromInkremental = DO_FRAME[109];//pos 8 Strom Inkremental
+                    GlobalVariable.StromSetwert = (DO_FRAME[99] & 0xFF) + ((DO_FRAME[100] & 0xFF) << 8);//pos 1 and 2 Strom Setwert
+                    GlobalVariable.StromIstwert = (DO_FRAME[101] & 0xFF) + ((DO_FRAME[102] & 0xFF) << 8);//pos 3 and 4 Strom Istwert
+                    GlobalVariable.StromHoldwert = (DO_FRAME[103] & 0xFF) + ((DO_FRAME[104] & 0xFF) << 8);//pos 5 and 6 Strom Holdwert
+                    GlobalVariable.StromStatus = DO_FRAME[105];//pos 7 Strom Status
+                    GlobalVariable.StromInkremental = DO_FRAME[106];//pos 8 Strom Inkremental
 
-                    GlobalVariable.SpannungSetwert = (DO_FRAME[110] & 0xFF) + ((DO_FRAME[111] & 0xFF) << 8);//pos 1 and 2 Spannung Setwert
-                    GlobalVariable.SpannungIstwert = (DO_FRAME[112] & 0xFF) + ((DO_FRAME[113] & 0xFF) << 8);//pos 3 or 4 Spannung Istwert
-                    GlobalVariable.SpannungHoldwert = (DO_FRAME[114] & 0xFF) + ((DO_FRAME[115] & 0xFF) << 8);//pos 5 or 6 Spannung Holdwert
-                    GlobalVariable.SpannungStatus = DO_FRAME[116];//pos 7 Spannung Status
-                    GlobalVariable.SpannungInkremental = DO_FRAME[117];//pos 8 Spannung Inkremental
+                    GlobalVariable.SpannungSetwert = (DO_FRAME[107] & 0xFF) + ((DO_FRAME[108] & 0xFF) << 8);//pos 1 and 2 Spannung Setwert
+                    GlobalVariable.SpannungIstwert = (DO_FRAME[109] & 0xFF) + ((DO_FRAME[110] & 0xFF) << 8);//pos 3 or 4 Spannung Istwert
+                    GlobalVariable.SpannungHoldwert = (DO_FRAME[111] & 0xFF) + ((DO_FRAME[112] & 0xFF) << 8);//pos 5 or 6 Spannung Holdwert
+                    GlobalVariable.SpannungStatus = DO_FRAME[113];//pos 7 Spannung Status
+                    GlobalVariable.SpannungInkremental = DO_FRAME[114];//pos 8 Spannung Inkremental
 
-                    GlobalVariable.BlechdickeSetwert = (DO_FRAME[118] & 0xFF) + ((DO_FRAME[119] & 0xFF) << 8);//pos 1 and 2 mm
+                    GlobalVariable.BlechdickeSetwert = (DO_FRAME[115] & 0xFF) + ((DO_FRAME[116] & 0xFF) << 8);//pos 1 and 2 mm
                     if (MainActivity.READVAL_STATUS[4] != 1) {
                         MainActivity.READVAL_STATUS[4] = 1;
                         GlobalVariable.blechdicke_display = GlobalVariable.BlechdickeSetwert;
                     }
-                    GlobalVariable.BlechdickeIstwert = (DO_FRAME[120] & 0xFF) + ((DO_FRAME[121] & 0xFF) << 8);//pos 3 and 4
-                    GlobalVariable.BlechdickeHoldwert = (DO_FRAME[122] & 0xFF) + ((DO_FRAME[123] & 0xFF) << 8);//pos 5 and 6
-                    GlobalVariable.BlechdickeStatus = DO_FRAME[124];//pos 7
+                    GlobalVariable.BlechdickeIstwert = (DO_FRAME[117] & 0xFF) + ((DO_FRAME[118] & 0xFF) << 8);//pos 3 and 4
+                    GlobalVariable.BlechdickeHoldwert = (DO_FRAME[119] & 0xFF) + ((DO_FRAME[120] & 0xFF) << 8);//pos 5 and 6
+                    GlobalVariable.BlechdickeStatus = DO_FRAME[121];//pos 7
 
-                    GlobalVariable.Reset = DO_FRAME[125];//pos 8
+                    GlobalVariable.Reset = DO_FRAME[122];//pos 8
                     if ((GlobalVariable.Reset & 1) == 1) GlobalVariable.Reset_String = "Error-Reset";
                     else GlobalVariable.Reset_String = "No Error";
 
-                    GlobalVariable.ElektrodeStromSetwert = (DO_FRAME[126] & 0xFF) + ((DO_FRAME[127] & 0xFF) << 8);//pos 1 and 2
-                    GlobalVariable.ElektrodeStromIstwert = (DO_FRAME[128] & 0xFF) + ((DO_FRAME[129] & 0xFF) << 8);//pos 3 or 4
-                    GlobalVariable.HotstartDauer = DO_FRAME[130];//pos 5
-                    GlobalVariable.Hotstart = DO_FRAME[131];//pos 6
-                    GlobalVariable.ArcForce = DO_FRAME[132];//pos 7
-                    GlobalVariable.InnenwiderstandfürElektrode = DO_FRAME[133];//pos 8
+                    GlobalVariable.ElektrodeStromSetwert = (DO_FRAME[123] & 0xFF) + ((DO_FRAME[124] & 0xFF) << 8);//pos 1 and 2
+                    GlobalVariable.ElektrodeStromIstwert = (DO_FRAME[125] & 0xFF) + ((DO_FRAME[126] & 0xFF) << 8);//pos 3 or 4
+                    GlobalVariable.HotstartDauer = DO_FRAME[127];//pos 5
+                    GlobalVariable.Hotstart = DO_FRAME[128];//pos 6
+                    GlobalVariable.ArcForce = DO_FRAME[129];//pos 7
+                    GlobalVariable.InnenwiderstandfürElektrode = DO_FRAME[130];//pos 8
 
-                    GlobalVariable.RMTPosAmplitude = (DO_FRAME[134] & 0xFF) + ((DO_FRAME[135] & 0xFF) << 8);//pos 1 and 2
-                    GlobalVariable.RMTNegAmplitude = (DO_FRAME[136] & 0xFF) + ((DO_FRAME[137] & 0xFF) << 8);//pos 3 and 4
-                    GlobalVariable.StartAmplitude = (DO_FRAME[138] & 0xFF) + ((DO_FRAME[139] & 0xFF) << 8);//pos 5 or 6
-                    GlobalVariable.StartZeit = DO_FRAME[140];//pos 7
-                    GlobalVariable.StartÜberhöhung = (int) DO_FRAME[141];//pos 8
+                    GlobalVariable.RMTPosAmplitude = (DO_FRAME[131] & 0xFF) + ((DO_FRAME[132] & 0xFF) << 8);//pos 1 and 2
+                    GlobalVariable.RMTNegAmplitude = (DO_FRAME[133] & 0xFF) + ((DO_FRAME[134] & 0xFF) << 8);//pos 3 and 4
+                    GlobalVariable.StartAmplitude = (DO_FRAME[135] & 0xFF) + ((DO_FRAME[136] & 0xFF) << 8);//pos 5 or 6
+                    GlobalVariable.StartZeit = DO_FRAME[137];//pos 7
+                    GlobalVariable.StartÜberhöhung = (int) DO_FRAME[138];//pos 8
 
-                    GlobalVariable.InnenwiderstandfürDossel = DO_FRAME[142];//pos 1
-                    GlobalVariable.Überblendzeit = DO_FRAME[143];//pos 2
-                    GlobalVariable.DrosselAbfall = DO_FRAME[144];//pos 3
-                    GlobalVariable.MotorFlanke = (int) DO_FRAME[145];//pos 4
-                    GlobalVariable.DrosselDynamic = DO_FRAME[146];//pos 5
-                    GlobalVariable.MAGACPositiveZeit = DO_FRAME[147];//pos 6
-                    GlobalVariable.MAGACStromschwellwert = (int) DO_FRAME[148];//pos 7
-                    GlobalVariable.LBRMode = DO_FRAME[149];//pos 8
+                    GlobalVariable.InnenwiderstandfürDossel = DO_FRAME[139];//pos 1
+                    GlobalVariable.Überblendzeit = DO_FRAME[140];//pos 2
+                    GlobalVariable.DrosselAbfall = DO_FRAME[141];//pos 3
+                    GlobalVariable.MotorFlanke = (int) DO_FRAME[142];//pos 4
+                    GlobalVariable.DrosselDynamic = DO_FRAME[143];//pos 5
+                    GlobalVariable.MAGACPositiveZeit = DO_FRAME[144];//pos 6
+                    GlobalVariable.MAGACStromschwellwert = (int) DO_FRAME[145];//pos 7
+                    GlobalVariable.LBRMode = DO_FRAME[146];//pos 8
 
-                    GlobalVariable.MAGACBetriebsart = DO_FRAME[150];//pos 1
+                    GlobalVariable.MAGACBetriebsart = DO_FRAME[147];//pos 1
                     if (GlobalVariable.MAGACBetriebsart == 0) GlobalVariable.MAGACBetriebsart_String = "DC+ (entspricht AUS)";
                     else if (GlobalVariable.MAGACBetriebsart == 1) GlobalVariable.MAGACBetriebsart_String = "DC-";
                     else if (GlobalVariable.MAGACBetriebsart == 2) GlobalVariable.MAGACBetriebsart_String = "AC";
 
-                    GlobalVariable.MAGACKältewert = DO_FRAME[151];//pos 2
-                    GlobalVariable.MAGACNegativZeit = (DO_FRAME[152] & 0xFF) + ((DO_FRAME[153] & 0xFF) << 8);//pos 3 and 4
-                    GlobalVariable.MAGACKurzschlusserkennung = DO_FRAME[154];//pos 5
-                    GlobalVariable.MAGACKurzschlussaufhebung = DO_FRAME[155];//pos 6
-                    GlobalVariable.MACAGVerweilzeitPosNeg = (int) DO_FRAME[156];//pos 7
-                    GlobalVariable.MACAGVerweilzeitNegPos = (int) DO_FRAME[157];//pos 8
+                    GlobalVariable.MAGACKältewert = DO_FRAME[148];//pos 2
+                    GlobalVariable.MAGACNegativZeit = (DO_FRAME[149] & 0xFF) + ((DO_FRAME[150] & 0xFF) << 8);//pos 3 and 4
+                    GlobalVariable.MAGACKurzschlusserkennung = DO_FRAME[151];//pos 5
+                    GlobalVariable.MAGACKurzschlussaufhebung = DO_FRAME[152];//pos 6
+                    GlobalVariable.MACAGVerweilzeitPosNeg = (int) DO_FRAME[153];//pos 7
+                    GlobalVariable.MACAGVerweilzeitNegPos = (int) DO_FRAME[154];//pos 8
 
-                    GlobalVariable.WIGSpeedPulsFrequenz = (DO_FRAME[158] & 0xFF) + ((DO_FRAME[159] & 0xFF) << 8);//pos 1 and 2
-                    GlobalVariable.WIGSpeedPulsI1Anteil = DO_FRAME[160];//pos 3
-                    GlobalVariable.WIGSpeedPulsI3 = DO_FRAME[161];//pos 4
-                    GlobalVariable.GasSollwert = DO_FRAME[162];//pos 5
-                    GlobalVariable.UserNummer = (int) DO_FRAME[163];//pos 6
-                    GlobalVariable.WIGACStromoffset = DO_FRAME[164];//pos 7
+                    GlobalVariable.WIGSpeedPulsFrequenz = (DO_FRAME[155] & 0xFF) + ((DO_FRAME[156] & 0xFF) << 8);//pos 1 and 2
+                    GlobalVariable.WIGSpeedPulsI1Anteil = DO_FRAME[157];//pos 3
+                    GlobalVariable.WIGSpeedPulsI3 = DO_FRAME[158];//pos 4
+                    GlobalVariable.GasSollwert = DO_FRAME[159];//pos 5
+                    GlobalVariable.UserNummer = (int) DO_FRAME[160];//pos 6
+                    GlobalVariable.WIGACStromoffset = DO_FRAME[161];//pos 7
 
-                    GlobalVariable.WIGStatus = DO_FRAME[165]; //pos 8
+                    GlobalVariable.WIGStatus = DO_FRAME[162]; //pos 8
                     int iWIGStatus = (int) GlobalVariable.WIGStatus;
 
                     if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "WIG-Brennertaste 2 ein";
@@ -697,11 +707,11 @@ public class DatenObjekte {
 
                     if ((iWIGStatus & 1) == 1) GlobalVariable.WIGStatus_String = "Reserve";
 
-                    GlobalVariable.WIGACFrequenz = (DO_FRAME[166] & 0xFF) + ((DO_FRAME[167] & 0xFF) << 8);//pos 1 and 2
-                    GlobalVariable.WIGACBalance = DO_FRAME[168];//pos 3
-                    GlobalVariable.WIGDurchmesserWolframElektrode = DO_FRAME[169];//pos 4
+                    GlobalVariable.WIGACFrequenz = (DO_FRAME[163] & 0xFF) + ((DO_FRAME[164] & 0xFF) << 8);//pos 1 and 2
+                    GlobalVariable.WIGACBalance = DO_FRAME[165];//pos 3
+                    GlobalVariable.WIGDurchmesserWolframElektrode = DO_FRAME[166];//pos 4
 
-                    GlobalVariable.WIGBetriebsartWechselrichter = DO_FRAME[170];//pos 5
+                    GlobalVariable.WIGBetriebsartWechselrichter = DO_FRAME[167];//pos 5
                     if (GlobalVariable.WIGBetriebsartWechselrichter == 0) GlobalVariable.WIGBetriebsartWechselrichter_String = "NONE";
                     else if (GlobalVariable.WIGBetriebsartWechselrichter == 1) GlobalVariable.WIGBetriebsartWechselrichter_String = "DC - Minus";
                     else if (GlobalVariable.WIGBetriebsartWechselrichter == 2) GlobalVariable.WIGBetriebsartWechselrichter_String = "DC - Plus";
@@ -709,10 +719,10 @@ public class DatenObjekte {
                     else if (GlobalVariable.WIGBetriebsartWechselrichter == 4) GlobalVariable.WIGBetriebsartWechselrichter_String = "AC - Rechteck";
                     else if (GlobalVariable.WIGBetriebsartWechselrichter == 5) GlobalVariable.WIGBetriebsartWechselrichter_String = "AC - MIX";
 
-                    GlobalVariable.KaltdrahtpulsenT1SV21_5 = (int) DO_FRAME[171];//pos 6
-                    GlobalVariable.WIGStromLimit = (DO_FRAME[172] & 0xFF) + ((DO_FRAME[173] & 0xFF) << 8);//pos 7 and 8
+                    GlobalVariable.KaltdrahtpulsenT1SV21_5 = (int) DO_FRAME[168];//pos 6
+                    GlobalVariable.WIGStromLimit = (DO_FRAME[169] & 0xFF) + ((DO_FRAME[170] & 0xFF) << 8);//pos 7 and 8
 
-                    GlobalVariable.KHMode = DO_FRAME[174]; //pos 1
+                    GlobalVariable.KHMode = DO_FRAME[171]; //pos 1
                     int iKHMode = (int) GlobalVariable.KHMode;
 
                     if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Kaltdraht Freigabe";
@@ -745,14 +755,14 @@ public class DatenObjekte {
 
                     if ((iKHMode & 1) == 1) GlobalVariable.KHMode_String = "Kaltdraht V2 Absolut in m/min";
 
-                    GlobalVariable.VerzögerungsZeitKaltdrahtEin = DO_FRAME[175];//pos 2
-                    GlobalVariable.VerzögerungsZeitKaltdrahtAus = DO_FRAME[176];//pos 3
-                    GlobalVariable.VerzögerungsZeitHeißdrahtÜberwachung = DO_FRAME[177];//pos 4
-                    GlobalVariable.Vorpositionierungsstrecke = DO_FRAME[178];//pos 5
-                    GlobalVariable.Rückzugsstrecke = DO_FRAME[179];//pos 6
-                    GlobalVariable.KaltdrahtpulsenT1SV22_7 = (int) DO_FRAME[180];//pos 7
+                    GlobalVariable.VerzögerungsZeitKaltdrahtEin = DO_FRAME[172];//pos 2
+                    GlobalVariable.VerzögerungsZeitKaltdrahtAus = DO_FRAME[173];//pos 3
+                    GlobalVariable.VerzögerungsZeitHeißdrahtÜberwachung = DO_FRAME[174];//pos 4
+                    GlobalVariable.Vorpositionierungsstrecke = DO_FRAME[175];//pos 5
+                    GlobalVariable.Rückzugsstrecke = DO_FRAME[176];//pos 6
+                    GlobalVariable.KaltdrahtpulsenT1SV22_7 = (int) DO_FRAME[177];//pos 7
 
-                    GlobalVariable.KHStatus = DO_FRAME[181];//pos 8
+                    GlobalVariable.KHStatus = DO_FRAME[178];//pos 8
                     int iKHStatus = (int) GlobalVariable.KHStatus;
                     if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = "Kaltdraht ok(DVC im System";
 
@@ -784,18 +794,15 @@ public class DatenObjekte {
 
                     if ((iKHStatus & 1) == 1) GlobalVariable.KHStatus_String = "Heiß-Draht-Strom ok";
 
-                    GlobalVariable.YEAR = DO_FRAME[184];
-                    GlobalVariable.MONTH = DO_FRAME[185];
-                    GlobalVariable.DAY = DO_FRAME[186];
-                    GlobalVariable.HOUR = DO_FRAME[187];
-                    GlobalVariable.MINUTE = DO_FRAME[188];
-                    GlobalVariable.SECOND = DO_FRAME[189];
-                    GlobalVariable.Mirror = ((int) (DO_FRAME[190])) & 0xFF; //8 bytes DO_FRAME[190] to DO_FRAME[197]
+                    GlobalVariable.Mirror = ((int) (DO_FRAME[179])) & 0xFF; //8 bytes DO_FRAME[190] to DO_FRAME[197]
                     GlobalVariable.mirror_display = GlobalVariable.Mirror;
 
-                    GlobalVariable.DrahtvorschubIst = (DO_FRAME[198] & 0xFF) + ((DO_FRAME[199] & 0xFF) << 8);//pos 0 and 1
-                    GlobalVariable.SchweissspanungIst = (DO_FRAME[200] & 0xFF) + ((DO_FRAME[201] & 0xFF) << 8);//pos 2 and 3
-                    int temp = (int) DO_FRAME[202];
+                } else if(gethex.equals("03")) {//DVE
+
+                    GlobalVariable.DrahtvorschubIst = (DO_FRAME[3] & 0xFF) + ((DO_FRAME[4] & 0xFF) << 8);//pos 0 and 1
+                    //Log.i("DrahtvorschubIst",String.valueOf(GlobalVariable.DrahtvorschubIst));
+                    GlobalVariable.SchweissspanungIst = (DO_FRAME[5] & 0xFF) + ((DO_FRAME[6] & 0xFF) << 8);//pos 2 and 3
+                    int temp = (int) DO_FRAME[7];
                     if(temp < 0) temp = temp +256;
                     GlobalVariable.Brennertasten = temp;
                     int BT = GlobalVariable.Brennertasten;
@@ -844,7 +851,7 @@ public class DatenObjekte {
                     if ((BT & 1) == 1) GlobalVariable.Drahtende_string = "Drahtende active";
                     else GlobalVariable.Drahtende_string = "Not active";
 
-                    GlobalVariable.Optionen = DO_FRAME[203];
+                    GlobalVariable.Optionen = DO_FRAME[8];
                     int Op = (int) GlobalVariable.Optionen;
                     if ((Op & 1) == 1) GlobalVariable.Gasventil_string = "Gasventil Active";
                     else GlobalVariable.Gasventil_string = "Not active";
@@ -884,7 +891,7 @@ public class DatenObjekte {
                     if ((Op & 1) == 1) GlobalVariable.EinfädelnZüruck_string = "Einfädeln Zurück active";
                     else GlobalVariable.EinfädelnZüruck_string = "Not active";
 
-                    GlobalVariable.VorschubStatus0 = DO_FRAME[204];
+                    GlobalVariable.VorschubStatus0 = DO_FRAME[9];
                     int VorStatus0 = (int) GlobalVariable.VorschubStatus0;
                     if ((VorStatus0 & 1) == 1) GlobalVariable.VorschubStatus0_string = "An/Aus";
                     else GlobalVariable.VorschubStatus0_string = "Not active";
@@ -924,7 +931,7 @@ public class DatenObjekte {
                     if ((VorStatus0 & 1) == 1) GlobalVariable.VorschubStatus0_string = "kein Encoder für Drahtvorschub";
                     else GlobalVariable.VorschubStatus0_string = "Not active";
 
-                    GlobalVariable.VorschubStatus1 = DO_FRAME[205];
+                    GlobalVariable.VorschubStatus1 = DO_FRAME[10];
                     int VorStatus1 = (int) GlobalVariable.VorschubStatus1;
                     if ((VorStatus1 & 1) == 1) GlobalVariable.VorschubStatus1_string = "kein Encoder für Pistole";
 
@@ -961,7 +968,7 @@ public class DatenObjekte {
 
                 } else if (gethex.equals("0181")) {
                     Log.i("gethex ","0181");
-                    SV1pos1 = (int) DO_FRAME[6];//pos 1
+                    if(DO_FRAME[6] < 10 )SV1pos1 = (int) DO_FRAME[6];//pos 1
                     GlobalVariable.VERFAHREN_VAL = (int) DO_FRAME[6];//pos 1
                     //Log.i("Verfahren mode",String.valueOf(SV1pos1));
                     //VerfahrenParam(SV1pos1);
@@ -1296,7 +1303,6 @@ public class DatenObjekte {
 
                     Strom1 = (DO_FRAME[6] & 0xFF) + ((DO_FRAME[7] & 0xFF) << 8);//pos 1 or 2
                     Spannung1 = (DO_FRAME[8] & 0xFF) + ((DO_FRAME[9] & 0xFF) << 8);//pos 3 or 4
-                    //Energie1 = DO_FRAME[10] & 0xFF;//pos 5 or 6
                     Energie1 = (DO_FRAME[10] & 0xFF) + ((DO_FRAME[11] & 0xFF) << 8);//pos 5 or 6
                     Drossel1 = DO_FRAME[12];//pos 7
                     Lichtbogenkorrektur1 = DO_FRAME[13];//pos 8
@@ -1689,7 +1695,7 @@ public class DatenObjekte {
                 String[] value = new String[250];
                 StringBuilder sb_data = new StringBuilder(); //data in hex
 
-                int tempCANID=DO_FRAME[4];
+                int tempCANID = DO_FRAME[4];
                 if (DO_FRAME[4]<0) tempCANID=DO_FRAME[4]+256;
                 if((DO_FRAME[3]==6) && (tempCANID== 240) && (DO_FRAME[9]==5)  ) { //CanID 06F0
                     //Log.i("Length Protocol1",String.valueOf(LengthProtocol1));

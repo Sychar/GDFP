@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".Backend.Test">
+    tools:context="com.jess.gdfp.MainActivity">
 
     <Button
         android:id="@+id/next"
@@ -13,8 +13,7 @@
         android:layout_height="100dp"
         android:layout_marginLeft="690dp"
         android:layout_marginTop="200dp"
-        android:background="@drawable/button_right"
-        android:onClick="onNext_perVios">
+        android:background="@drawable/button_right">
     </Button>
 
     <FrameLayout
@@ -45,21 +44,29 @@
                 android:textStyle="normal">
             </TextView>
 
-            <ListView
-                android:id="@+id/listview_content"
+            <com.webianks.library.scroll_choice.ScrollChoice
+                android:id="@+id/scroll_choice"
                 android:layout_width="490dp"
                 android:layout_height="372dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginLeft="5dp"
-                android:layout_marginBottom="45dp"
-                android:textStyle="normal">
-            </ListView>
-
+                app:scroll_item_text_size="30sp"
+                app:scroll_background_color="#212121"
+                app:scroll_selected_item_background="#000000"
+                app:scroll_item_text_color="#f5f5f5"
+                app:scroll_atmospheric="true"
+                app:scroll_indicator="true"
+                app:scroll_indicator_size="1dp"
+                app:scroll_indicator_color="#000000"
+                app:scroll_item_align="center"
+                app:scroll_visible_item_count="5"
+                app:scroll_item_space="30dp"
+                app:scroll_selected_item_text_color="@color/colorScroll"/>
         </LinearLayout>
+
     </FrameLayout>
     <Button
         android:background="@drawable/button_left"
-        android:onClick="onNext_perVios"
         android:id="@+id/previous"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="200dp"
@@ -80,290 +87,17 @@
          android:layout_height="240dp"
          android:orientation="vertical">
 
-         <!--<LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:orientation="horizontal">
-
-             <View
-                 android:layout_width="80dp"
-                 android:layout_height="5dp"
-                 android:layout_marginTop="100dp"
-                 android:rotation="-45"
-                 android:background="@color/white" />
-
-             <View
-                 android:layout_width="80dp"
-                 android:layout_height="5dp"
-                 android:layout_marginTop="100dp"
-                 android:rotation="45"
-                 android:background="@color/white" />
-
-         </LinearLayout>-->
-
          <RelativeLayout
              android:layout_width="match_parent"
-             android:layout_height="200dp"
+             android:layout_height="240dp"
              android:layout_marginBottom="0dp">
 
-             <!--<com.jjoe64.graphview.GraphView
-                 android:id="@+id/graph"
-                 android:layout_width="match_parent"
-                 android:layout_height="240dp" />-->
-
              <com.github.mikephil.charting.charts.LineChart
-                 android:id = "@+id/lineChart"
-                 android:layout_width = "fill_parent"
-                 android:layout_height = "fill_parent" />
-
-
-             <!--<TextView
-                 android:id="@+id/geberge1"
-                 android:layout_width="70dp"
-                 android:layout_height="20dp"
-                 android:layout_marginLeft="25dp"
-                 android:layout_marginTop="225dp"
-                 android:background="@drawable/borderbold" />
-
-             <TextView
-                 android:id="@+id/geberge2"
-                 android:layout_width="10dp"
-                 android:layout_height="70dp"
-                 android:layout_marginTop="175dp"
-                 android:layout_toRightOf="@id/geberge1"
-                 android:background="@drawable/borderbold"
-
-                 ></TextView>
-
-             <TextView
-                 android:id="@+id/geberge3"
-                 android:layout_width="85dp"
-                 android:layout_height="14dp"
-                 android:layout_marginTop="165dp"
-                 android:rotation="-14"
-
-                 android:layout_marginLeft="100dp"
-
-                 android:background="@drawable/borderbold" />
-
-
-             <TextView
-                 android:id="@+id/geberge4"
-                 android:layout_width="14dp"
-                 android:layout_height="81dp"
-                 android:layout_marginTop="85dp"
-                 android:layout_marginLeft="180dp"
-                 android:background="@drawable/borderbold"></TextView>
-
-             <TextView
-                 android:id="@+id/geberge5"
-                 android:layout_width="87dp"
-                 android:layout_height="15dp"
-                 android:layout_marginTop="85dp"
-                 android:layout_toRightOf="@id/geberge4"
-                 android:background="@drawable/borderbold" />
-             <FrameLayout
-                 android:layout_marginLeft="80dp"
-                 android:id="@+id/geberge6"
-                 android:layout_width="100dp"
-                 android:layout_marginTop="70dp"
-                 android:rotation="-19"
-                 android:background="@drawable/borderbold"
-                 android:layout_toRightOf="@id/geberge4"
-                 android:layout_height="15dp" >
-             </FrameLayout>
-
-
-             <FrameLayout
-                 android:layout_marginLeft="80dp"
-                 android:id="@+id/geberge7"
-                 android:layout_width="77dp"
-                 android:layout_height="16dp"
-                 android:layout_marginTop="55dp"
-                 android:layout_toRightOf="@id/geberge5"
-                 android:background="@drawable/borderbold" />
-
-             <TextView
-                 android:id="@+id/geberge8"
-                 android:layout_width="15dp"
-                 android:layout_height="65dp"
-                 android:layout_marginTop="55dp"
-                 android:layout_toRightOf="@id/geberge7"
-                 android:background="@drawable/borderbold"></TextView>
-
-             <TextView
-                 android:id="@+id/geberge9"
-                 android:layout_width="70dp"
-                 android:layout_height="15dp"
-                 android:layout_marginTop="105dp"
-                 android:layout_toRightOf="@id/geberge8"
-                 android:background="@drawable/borderbold" />
-
-             <TextView
-                 android:id="@+id/geberge10"
-                 android:layout_width="20dp"
-                 android:layout_height="70dp"
-                 android:layout_marginTop="105dp"
-                 android:layout_toRightOf="@id/geberge9"
-                 android:background="@drawable/borderbold"></TextView>
-
-             <TextView
-                 android:id="@+id/geberge11"
-                 android:layout_width="80dp"
-                 android:layout_height="20dp"
-                 android:layout_marginTop="155dp"
-                 android:layout_toRightOf="@id/geberge10"
-                 android:background="@drawable/borderbold" />
-
-             <TextView
-                 android:id="@+id/geberge12"
-                 android:layout_width="80dp"
-                 android:layout_height="20dp"
-                 android:rotation="12"
-                 android:layout_marginLeft="75dp"
-                 android:layout_marginTop="165dp"
-                 android:layout_toRightOf="@id/geberge10"
-                 android:background="@drawable/borderbold" />
-
-             <TextView
-                 android:id="@+id/geberge13"
-                 android:layout_width="80dp"
-                 android:layout_height="20dp"
-                 android:layout_marginTop="175dp"
-                 android:layout_marginLeft="72dp"
-                 android:layout_toRightOf="@id/geberge11"
-                 android:background="@drawable/borderbold" />
-
-             <TextView
-                 android:id="@+id/geberge14"
-                 android:layout_width="20dp"
-                 android:layout_height="70dp"
-                 android:layout_marginTop="175dp"
-                 android:layout_toRightOf="@id/geberge13"
-                 android:background="@drawable/borderbold"></TextView>
-
-             <TextView
-                 android:id="@+id/geberge15"
-                 android:layout_width="80dp"
-                 android:layout_height="20dp"
-                 android:layout_marginTop="225dp"
-                 android:layout_toRightOf="@id/geberge13"
-                 android:background="@drawable/borderbold" />
-
-             <TextView
-                 android:id="@+id/geberge16"
-                 android:layout_width="20dp"
-                 android:layout_height="70dp"
-                 android:layout_marginTop="225dp"
-                 android:layout_toRightOf="@id/geberge15"
-                 android:background="@drawable/borderbold"></TextView>
-
-             <TextView
-                 android:id="@+id/geberge17"
-                 android:layout_width="80dp"
-                 android:layout_height="20dp"
-                 android:layout_marginTop="275dp"
-                 android:layout_toRightOf="@id/geberge16"
-                 android:background="@drawable/borderbold" />
-
-
-             <TextView
-                 android:layout_toRightOf="@id/geberge2"
-                 android:layout_marginTop="110dp"
-                 android:textAlignment="center"
-                 android:gravity="center"
-                 android:layout_width="40dp"
-                 android:layout_height="80dp"
-                 android:text="IN"
-                 android:textSize="20sp"
-                 android:textColor="#ffff"
-
-                 >
-             </TextView>
-
-             <TextView
-                 android:layout_toRightOf="@id/geberge4"
+                 android:id="@+id/chart"
+                 android:layout_width="750dp"
+                 android:layout_height="220dp"
                  android:layout_marginTop="30dp"
-                 android:textAlignment="center"
-                 android:gravity="center"
-                 android:layout_width="40dp"
-                 android:layout_height="80dp"
-                 android:text="EZ"
-                 android:textSize="20sp"
-                 android:textColor="#ffff"
-
-                 >
-             </TextView>
-
-             <TextView
-                 android:layout_toRightOf="@+id/geberge5"
-                 android:layout_marginTop="20dp"
-                 android:layout_marginLeft="8dp"
-                 android:rotation="-12"
-                 android:textAlignment="center"
-                 android:gravity="center"
-                 android:layout_width="40dp"
-                 android:layout_height="80dp"
-                 android:text="T"
-                 android:textSize="20sp"
-                 android:textColor="#ffff"
-
-                 >
-             </TextView>
-
-             <TextView
-                 android:layout_toRightOf="@+id/geberge6"
-                 android:layout_marginTop="03dp"
-                 android:layout_marginLeft="8dp"
-                 android:textAlignment="center"
-                 android:gravity="center"
-                 android:layout_width="40dp"
-                 android:layout_height="80dp"
-                 android:text="E1"
-                 android:textSize="20sp"
-                 android:textColor="#ffff"
-
-                 >
-             </TextView>
-             <TextView
-                 android:layout_toRightOf="@+id/geberge8"
-                 android:layout_marginTop="50dp"
-                 android:layout_marginLeft="8dp"
-                 android:textAlignment="center"
-                 android:gravity="center"
-                 android:layout_width="40dp"
-                 android:layout_height="80dp"
-                 android:text="E2"
-                 android:textSize="20sp"
-                 android:textColor="#ffff"
-
-                 >
-             </TextView>
-             <TextView
-                 android:layout_toRightOf="@+id/geberge10"
-                 android:layout_marginTop="100dp"
-                 android:layout_marginLeft="8dp"
-                 android:textAlignment="center"
-                 android:gravity="center"
-                 android:layout_width="40dp"
-                 android:layout_height="80dp"
-                 android:text="T"
-                 android:textSize="20sp"
-                 android:textColor="#ffff">
-             </TextView>
-             <TextView
-                 android:layout_toRightOf="@+id/geberge11"
-                 android:layout_marginTop="110dp"
-                 android:layout_marginLeft="8dp"
-                 android:textAlignment="center"
-                 android:gravity="center"
-                 android:layout_width="40dp"
-                 android:layout_height="80dp"
-                 android:text="EK"
-                 android:textSize="20sp"
-                 android:textColor="#ffff">
-             </TextView>-->
-
+                 android:layout_marginLeft="30dp"/>
          </RelativeLayout>
 
      </LinearLayout>
@@ -389,7 +123,6 @@
                  android:layout_height="240dp"
                  android:background="#80000000"
                  android:orientation="vertical">
-
                  <Button
                      android:id="@+id/Geberge_leftbtn"
                      style="@style/Normal_Textstyle"
@@ -397,41 +130,59 @@
                      android:layout_height="100dp"
                      android:layout_marginLeft="200dp"
                      android:layout_marginTop="5dp"
-                     android:background="@drawable/button_left"
-                     android:textAlignment="center"
-                     android:textColor="@android:color/white"></Button>
-
+                     android:background="@drawable/button_left">
+                 </Button>
              </LinearLayout>
 
              <LinearLayout
                  android:id="@+id/bottom2_vertical"
-                 android:layout_width="220dp"
+                 android:layout_width="223dp"
                  android:layout_height="240dp"
                  android:background="#80000000"
                  android:orientation="vertical">
 
-                 <TextView
-                     android:id="@+id/Geberge_btn4"
-                     style="@style/Bold_Textstyle"
-                     android:layout_width="match_parent"
+                 <LinearLayout
+                     android:id="@+id/tv1_layout"
+                     android:layout_width="223dp"
                      android:layout_height="110dp"
-                     android:background="@drawable/border2"
-                     android:gravity="center"
-                     android:text="0.0 s"
-                     android:textAlignment="center"
-                     android:textColor="@android:color/white"
-                     android:textSize="55sp"></TextView>
+                     android:orientation="vertical"
+                     android:background="@color/gray">
+                     <TextView
+                         android:id="@+id/Geberge_tv1"
+                         style="@style/Bold_Textstyle"
+                         android:layout_width="220dp"
+                         android:layout_height="108dp"
+                         android:layout_marginTop="1dp"
+                         android:layout_marginStart="1dp"
+                         android:background="@color/black"
+                         android:gravity="center"
+                         android:text="0.0"
+                         android:textAlignment="center"
+                         android:textColor="@android:color/white"
+                         android:textSize="55sp">
+                     </TextView>
+                 </LinearLayout>
 
-                 <TextView
-                     android:id="@+id/Geberge_btn5"
-                     style="@style/Bold_Textstyle"
-                     android:layout_width="match_parent"
+                 <LinearLayout
+                     android:id="@+id/tv2_layout"
+                     android:layout_width="223dp"
                      android:layout_height="60dp"
-                     android:gravity="center"
-                     android:text="GASVOR"
-                     android:textAlignment="center"
-                     android:textColor="@android:color/white"
-                     android:textSize="20sp"></TextView>
+                     android:orientation="vertical"
+                     android:background="@color/gray">
+                     <TextView
+                         android:id="@+id/Geberge_tv2"
+                         style="@style/Bold_Textstyle"
+                         android:layout_width="220dp"
+                         android:layout_height="58dp"
+                         android:layout_marginStart="1dp"
+                         android:gravity="center"
+                         android:text="GASVOR"
+                         android:background="@color/black"
+                         android:textAlignment="center"
+                         android:textColor="@android:color/white"
+                         android:textSize="24sp">
+                     </TextView>
+                 </LinearLayout>
 
              </LinearLayout>
 
@@ -449,9 +200,8 @@
                      android:layout_height="100dp"
                      android:layout_marginLeft="20dp"
                      android:layout_marginTop="5dp"
-                     android:background="@drawable/button_right"
-                     android:textAlignment="center"
-                     android:textColor="@android:color/white"></Button>
+                     android:background="@drawable/button_right">
+                 </Button>
 
              </LinearLayout>
 

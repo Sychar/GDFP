@@ -26,6 +26,11 @@ public class GlobalVariable {
 
     public static boolean JOB_NUM_TOKEN = false;
     public static boolean JOB_PRESSED = false;
+    public static boolean MENU_PRESSED = false;
+    public static boolean SETTING_PRESSED = false;
+    public static boolean INSIDE_JOB = false;
+    public static boolean INSIDE_MENU = false;
+    public static boolean INSIDE_SETTING = false;
     public static boolean ENCODER_PRESSED = false;
     public static boolean ENCODER2_PRESSED = false;
     public static int ENCODER2_COUNT = 0;
@@ -57,6 +62,12 @@ public class GlobalVariable {
     public static boolean Save_Job = false;
     public static boolean MOL_gedrückt = false;
     public static boolean MOR_gedrückt = false;
+    public static boolean Methode_Token = false;
+    public static boolean Methode_Verfahren = false;
+    public static boolean Methode_Werkstoff = false;
+    public static boolean Methode_Drahtdurchmesser = false;
+    public static boolean Methode_Betriebsart = false;
+    public static boolean Methode_Gas = false;
 
     public static boolean SETTING_TOKEN = false;
     public static boolean CHANGE_TOKEN = false;
@@ -76,7 +87,6 @@ public class GlobalVariable {
     public static int voltage_display = 0;
     public static int Mirror = 0;
     public static int mirror_display = 0;
-    public static String[][] VER_PAR_ARR = new String[1][2]; //[Row_size][Column_size]
 
     //-------------------------------- Variables for daten objekte ---------------------------------
     //SV 1
@@ -100,7 +110,7 @@ public class GlobalVariable {
     public static int SV1pos2;
     public static int Drahtdurchmesser;
 
-    public static String[] Draht_String = {"NONE","0,6 Ø","0,8 Ø","0,9 Ø","1,0 Ø","1,2 Ø","1,4 Ø","1,6 Ø","2,0 Ø","2,4 Ø","Spez"};
+    public static String[] Draht_String = {"NONE","0.6 Ø","0.8 Ø","0.9 Ø","1.0 Ø","1.2 Ø","1.4 Ø","1.6 Ø","2.0 Ø","2.4 Ø","Spez"};
     public static String[] Betriebsart_String = {"NONE","2-Takt","4-Takt","4-TaktS","Programm","Punkten",
             "Intervall","Extern","2-Takt + HF","4-Takt + HF"};
     public static String[] Verfahren_String = {"NONE","MAG_Normal","MAG-Synergie","MAG Puls","Elektrode","WIG","WIG-Puls",
@@ -110,6 +120,76 @@ public class GlobalVariable {
             "50% Argon 50% Helium","98% Argon 2% H₂","94% Argon 6% H₂","50% Argon 50% H₂","30% Argon 70% H₂","Spezial"};
     public static String[] Werksotff_String = {"NONE","Fe","CrNi","AlMg","AlSi","CuSi","AlMg3","AlMg5","AlMg4,5Mn","AlBz","Spezial"};
     public static int[] ChangeValue = {0,0,0,0,0};
+
+    //-------------------------------------------- For Geberge Normal mode ------------------------------------------------------------------------
+    public static String[] Geberge_Normal_Punkten = {"GASVOR [s]","EINSCHLEISEN [%]","ENERGIE1 [m/min]", //8
+            "SPANNUNG1 [V]","DROSSEL1 [%]","PUNKTZ. [s]","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Normal_2Takt = {"GASVOR [s]","EINSCHLEISEN [%]","ENERGIE1 [m/min]",//7
+            "SPANNUNG [V]","DROSSEL","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Normal_4Takt = {"GASVOR [s]","EINSCHLEISEN [%]","ENERGIE1 [m/min]",//7
+            "SPANNUNG1 [V]","DROSSEL1 [%]","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Normal_4TaktSonder = {"GASVOR [s]","EINSCHLEISEN [%]","ZÜNDENERGIE [m/min]",//17
+            "ZÜNDSPANNUNG [V]","ZÜNDDROSSEL [%]","UP-SLP [s]","ENERGIE1 [m/min]","SPANNUNG1 [V]","DROSSEL1 [%]","ENERGIE2 [m/min]",
+            "ENERGIE3 [m/min]","DOWN-SLP [s]","END. ENERGIE [m/min]","END. SPANNUNG [V]","END. DROSSEL [%]","FREIBRENNER [%]","GASNACH [s]"};
+    //-------------------------------------------- For Geberge Synergie mode ------------------------------------------------------------------------
+    public static String[] Geberge_Synergie_Punkten = {"GASVOR [s]","EINSCHLEISEN [%]","ZÜNDDAUER [s]",//10
+            "ZÜNDENERGIE [m/min]","ZÜNDLBKORR [%]","PUNKTZ. [s]","POWERPULS","END. DAUER [s]","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Synergie_2Takt = {"GASVOR [s]","EINSCHLEISEN [%]","ZÜNDDAUER",//9
+            "ZÜNDENERGIE [m/min]","ZÜNDLBKORR [%]","POWERPULS","END. DAUER [s]","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Synergie_4Takt = {"GASVOR [s]","EINSCHLEISEN [%]","DAUER1",//9
+            "ENERGIE1 [m/min]","LBKORR","POWERPULS","DAUER2","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Synergie_4TaktSonder = {"GASVOR [s]","EINSCHLEISEN [%]","ZÜNDENERGIE [m/min]",//17
+            "ZÜNDLBKORR [%]","UP-SLP [s]","ENERGIE1 [m/min]","LBKORR1 [%]","POWERPULS","ENERGIE2 [m/min]","LBKORR2 [%]","ENERGIE3 [m/min]",
+            "LBKORR3 [%]","DOWN-SLP [s]","End. Energie [m/min]","End. LBKORR [%]","FREIBRENNER [%]","GASNACH [s]"};
+    //-------------------------------------------- For Geberge Puls mode -----------------------------------------------------------------------------
+    public static String[] Geberge_Puls_Punkten = {"GASVOR [s]","EINSCHLEISEN [%]","ZÜNDDAUER [s]",//10
+            "ENERGIE1 [m/min]","LBKORR [%]", "PUNKTZ. [s]","POWERPULS","END. DAUER [s]","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Puls_2Takt = {"GASVOR [s]","EINSCHLEISEN [%]","DAUER1 [s]",//9
+            "ENERGIE1 [m/min]","LBKORR [%]","POWERPULS","DAUER2 [s]","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Puls_4Takt = {"GASVOR [s]","EINSCHLEISEN [%]","DAUER1 [s]",//9
+            "ENERGIE1 [m/min]","LBKORR [%]","POWERPULS","DAUER2 [s]","FREIBRENNER [%]","GASNACH [s]"};
+    public static String[] Geberge_Puls_4TaktSonder = {"GASVOR [s]","EINSCHLEISEN [%]",//15
+            "ENERGIE [m/min]","LBKORR [%]","UP-SLP [s]","ENERGIE [m/min]","LBKORR [%]","POWERPULS","ENERGIE [m/min]",
+            "ENERGIE [m/min]","DOWN-SLP [s]","ENERGIE/E1 [m/min]","LBKORR [%]","FREIBRENNER [%]","GASNACH [s]"};
+    //-------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public static int Boot_time = 0;
+    public static boolean Boot_token = false;
+
+    public static float Geberge_XNorm4TaktS = 0;
+    public static float Geberge_YNorm4TaktS = 0;
+    public static float Geberge_XNorm24Takt = 0;
+    public static float Geberge_YNorm24Takt = 0;
+    public static float Geberge_XNormPunkt = 0;
+    public static float Geberge_YNormPunkt = 0;
+
+    public static float Geberge_XSyn4TaktS = 0;
+    public static float Geberge_YSyn4TaktS = 0;
+    public static float Geberge_XSyn24Takt = 0;
+    public static float Geberge_YSyn24Takt = 0;
+    public static float Geberge_XSynPunkt = 0;
+    public static float Geberge_YSynPunkt = 0;
+
+    public static float Geberge_XPuls4TaktS = 0;
+    public static float Geberge_YPuls4TaktS = 0;
+    public static float Geberge_XPuls24Takt = 0;
+    public static float Geberge_YPuls24Takt = 0;
+    public static float Geberge_XPulsPunkt = 0;
+    public static float Geberge_YPulsPunkt = 0;
+
+    public static int GEBERGE_NORMAL_PUNKTEN = 0;
+    public static int GEBERGE_NORMAL_2TAKT = 0;
+    public static int GEBERGE_NORMAL_4TAKT = 0;
+    public static int GEBERGE_NORMAL_4TAKTSONDER = 0;
+    public static int GEBERGE_SYNERGIE_PUNKTEN = 0;
+    public static int GEBERGE_SYNERGIE_2TAKT = 0;
+    public static int GEBERGE_SYNERGIE_4TAKT = 0;
+    public static int GEBERGE_SYNERGIE_4TAKTSONDER = 0;
+    public static int GEBERGE_PULS_PUNKTEN = 0;
+    public static int GEBERGE_PULS_2TAKT = 0;
+    public static int GEBERGE_PULS_4TAKT = 0;
+    public static int GEBERGE_PULS_4TAKTSONDER = 0;
+    public static boolean GEBERGE_PRESSED = false;
 
     public static int SV1pos4;
     public static int SV1pos5;
@@ -134,15 +214,22 @@ public class GlobalVariable {
     public static byte Verriegelungsstufe;
 
     //SV 3
-    public static byte Gasvorströmen;
+    public static int Gasvorströmen;
+    public static boolean Gasvorströmen_token = false;
     public static byte Gasnachströmen;
+    public static boolean Gasnachströmen_token = false;
     public static byte EinschleichenAbsolut;
+    public static boolean EinschleichenAbsolut_token = false;
     public static byte EinschleichenKorrektur;
+    public static boolean EinschleichenKorrektur_token = false;
     public static byte UpSlope;
+    public static boolean UpSlope_token = false;
     public static byte DownSlope;
+    public static boolean DownSlope_token = false;
     public static int Zündenergie;
+    public static boolean Zündenergie_token = false;
     public static int Endkraterenergie;
-
+    public static boolean Endkraterenergie_token = false;
     //SV 4
     public static int GebirgeStatus;
     public static byte SchweißState;
@@ -182,9 +269,13 @@ public class GlobalVariable {
     //SV 8
     public static int Strom1;
     public static int Spannung1;
+    public static boolean Spannung1_token = false;
     public static int Energie1;
+    public static boolean Energie1_token = false;
     public static byte Drossel1;
+    public static boolean Drossel1_token = false;
     public static byte Lichtbogenkorrektur1;
+    public static boolean Lichtbogenkorrektur1_token = false;
     public static int korrektur_display;
 
     //SV 9
@@ -724,136 +815,6 @@ public class GlobalVariable {
         }catch(InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
-    }
-
-    public static void MMNormal_btn_onclick(){
-        //Log.i("Normal","called");
-        /*DatenObjekteSend SendMMNormal = new DatenObjekteSend();
-        if(GlobalVariable.SV1pos1 == 4) { // Elektrode
-            SendMMNormal.ChangeParameter(28,5,0);
-            delayInMilli(200);
-            SendMMNormal.ChangeParameter(28,5,0);
-        }else if(GlobalVariable.SV1pos1 == 3){ //Puls
-            SendMMNormal.ChangeParameter(28,5,0);
-            delayInMilli(200);
-            SendMMNormal.ChangeParameter(28,5,0);
-            delayInMilli(200);
-            SendMMNormal.ChangeParameter(28,5,0);
-        }else if(GlobalVariable.SV1pos1 == 2) { //Synergie
-            SendMMNormal.ChangeParameter(28, 5, 0);
-            delayInMilli(200);
-            SendMMNormal.ChangeParameter(28, 5, 0);
-            delayInMilli(200);
-            SendMMNormal.ChangeParameter(28, 5, 0);
-            delayInMilli(200);
-            SendMMNormal.ChangeParameter(28, 5, 0);
-        } else if(GlobalVariable.SV1pos1 == 5) { //WIG
-            SendMMNormal.ChangeParameter(28, 5, 0);
-        }else Log.i("Verfahren mode ","MMNormal");*/
-    }
-
-    public static void MMSynergy_btn_onclick(){
-        /*DatenObjekteSend SendMMSynergie = new DatenObjekteSend();
-        if(GlobalVariable.SV1pos1 == 4) { // Elektrode
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-            delayInMilli(200);
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-            delayInMilli(200);
-            SendMMSynergie.ChangeParameter(25,5,0);
-        }else if(GlobalVariable.SV1pos1 == 3){ //Puls
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-            delayInMilli(200);
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-            delayInMilli(200);
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-            delayInMilli(200);
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-        }else if(GlobalVariable.SV1pos1 == 1){ //Normal
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-        } else if(GlobalVariable.SV1pos1 == 5) { //WIG
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-            delayInMilli(200);
-            SendMMSynergie.ChangeParameter(25, 10, 0);
-        }else Log.i("Verfahren mode ","MMSynergy");*/
-    }
-
-    public static void MMPuls_btn_onclick(){
-
-        /*DatenObjekteSend SendMMPuls = new DatenObjekteSend();
-        if(GlobalVariable.SV1pos1 == 4){ // Elektrode
-            SendMMPuls.ChangeParameter(29,5,0);
-            delayInMilli(200);
-            SendMMPuls.ChangeParameter(29,5,0);
-            delayInMilli(200);
-            SendMMPuls.ChangeParameter(29,5,0);
-            delayInMilli(200);
-            SendMMPuls.ChangeParameter(29,5,0);
-        }else if(GlobalVariable.SV1pos1 == 2){ // Synergie
-            SendMMPuls.ChangeParameter(29,5,0);
-        }else if(GlobalVariable.SV1pos1 == 1){ // Normal
-            SendMMPuls.ChangeParameter(29,5,0);
-            delayInMilli(200);
-            SendMMPuls.ChangeParameter(29,5,0);
-        } else if(GlobalVariable.SV1pos1 == 5) { //WIG
-            SendMMPuls.ChangeParameter(29,5,0);
-            delayInMilli(200);
-            SendMMPuls.ChangeParameter(29,5,0);
-            delayInMilli(200);
-            SendMMPuls.ChangeParameter(29,5,0);
-        }else Log.i("Verfahren mode ","MMPuls");*/
-    }
-
-    public static void ElektrodeMMA_btn_onclick(){
-
-        /*DatenObjekteSend SendElectrodeMMA = new DatenObjekteSend();
-        if(GlobalVariable.SV1pos1 == 3){ // Puls
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-        }else if(GlobalVariable.SV1pos1 == 2){ // Synergie
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-            delayInMilli(200);
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-        }else if(GlobalVariable.SV1pos1 == 1){ // Normal
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-            delayInMilli(200);
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-            delayInMilli(200);
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-        } else if(GlobalVariable.SV1pos1 == 5) { //WIG
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-            delayInMilli(200);
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-            delayInMilli(200);
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-            delayInMilli(200);
-            SendElectrodeMMA.ChangeParameter(30,30,0);
-        }else Log.i("Verfahren mode ","ElektrodeMMA");*/
-    }
-
-    public static void WIG_btn_onclick(){
-        //Log.i("WIG","called");
-
-        /*DatenObjekteSend SendWIG = new DatenObjekteSend();
-        if(GlobalVariable.SV1pos1 == 4) { // Elektrode
-            SendWIG.ChangeParameter(28,5,0);
-        }else if(GlobalVariable.SV1pos1 == 3){ //Puls
-            SendWIG.ChangeParameter(28,5,0);
-            delayInMilli(200);
-            SendWIG.ChangeParameter(28,5,0);
-        }else if(GlobalVariable.SV1pos1 == 2) { //Synergie
-            SendWIG.ChangeParameter(28, 5, 0);
-            delayInMilli(200);
-            SendWIG.ChangeParameter(28, 5, 0);
-            delayInMilli(200);
-            SendWIG.ChangeParameter(28, 5, 0);
-        } else if(GlobalVariable.SV1pos1 == 1) { //Normal
-            SendWIG.ChangeParameter(28, 5, 0);
-            delayInMilli(200);
-            SendWIG.ChangeParameter(28, 5, 0);
-            delayInMilli(200);
-            SendWIG.ChangeParameter(28, 5, 0);
-            delayInMilli(200);
-            SendWIG.ChangeParameter(28, 5, 0);
-        }else Log.i("Verfahren mode ","WIG");*/
     }
 
     /**

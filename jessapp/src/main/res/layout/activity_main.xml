@@ -14,54 +14,89 @@
         android:id="@+id/linke_layout"
         android:layout_width="120dp"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/gray">
         <!--datum zeigen-->
         <!-- verfaheren Button -->
+      <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/linke_1"
+        android:layout_width="120dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="#383838">
         <TextView
             android:id="@+id/date2"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@drawable/border2"
+            android:layout_width="119dp"
+            android:layout_height="73dp"
+            android:paddingRight="5dp"
             android:text="Datum"
+            android:background="@color/black"
             android:textAlignment="center"
             android:gravity="center"
             android:textColor="@android:color/white"
             style="@style/Normal_Textstyle"
             android:textSize="24sp">
         </TextView>
+      </LinearLayout>
 
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/linke_2"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
         <Button
             android:id="@+id/methode_button"
             style="@style/Normal_Textstyle"
-            android:layout_width="120dp"
-            android:layout_height="160dp"
-            android:background="@drawable/border2"
+            android:layout_width="119dp"
+            android:layout_height="158dp"
+            android:theme="@android:style/ThemeOverlay.Material.Dark"
+            android:background="@drawable/normal_button"
             android:drawableTop="@drawable/verfahren1"
             android:paddingTop="12dp"
             android:text="METHODE"
             android:textColor="@android:color/white"
-            android:textSize="23sp"></Button>
+            android:textSize="23sp">
+        </Button>
+    </LinearLayout>
 
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/linke_3"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="#383838">
         <Button
             android:id="@+id/geberge"
             style="@style/Normal_Textstyle"
-            android:layout_width="120dp"
-            android:layout_height="160dp"
-            android:background="@drawable/border2"
+            android:layout_width="119dp"
+            android:layout_height="158dp"
+            android:background="@color/black"
             android:drawableTop="@drawable/kenn"
             android:paddingTop="12dp"
             android:text="GEBERGE"
             android:textSize="23sp"
             android:textColor="@android:color/white">
         </Button>
+    </LinearLayout>
 
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/linke_4"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
         <Button
-            android:background="@drawable/border2"
+            android:background="@color/black"
             android:paddingTop="12dp"
             android:drawableTop="@drawable/disk"
             style="@style/Normal_Textstyle"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_width="119dp"
+            android:layout_height="158dp"
             android:gravity="center"
             android:textAlignment="center"
             android:text="JOB"
@@ -69,15 +104,25 @@
             android:textColor="@android:color/white"
             android:textSize="23sp">
         </Button>
+    </LinearLayout>
 
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/linke_5"
+        android:layout_width="120dp"
+        android:layout_height="85dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
         <ImageButton
             android:id="@+id/MOL_btn"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@drawable/border2"
+            android:layout_width="119dp"
+            android:layout_height="85dp"
+            android:background="@drawable/normal_button"
             android:src="@drawable/rotate_left"
-            android:gravity="center"
-            ></ImageButton>
+            android:gravity="center">
+
+        </ImageButton>
+    </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -87,24 +132,43 @@
         android:layout_toRightOf="@id/linke_layout"
         android:orientation="horizontal">
 
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/obere_1"
+        android:layout_width="220dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
+
         <TextView
             android:id="@+id/anzeige1"
             style="@style/Normal_Textstyle"
-            android:layout_width="220dp"
-            android:layout_height="74dp"
-            android:background="@drawable/border2"
+            android:layout_width="219dp"
+            android:layout_height="73dp"
             android:gravity="center"
+            android:background="@color/black"
             android:text="Anzeige1"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="25sp"></TextView>
+            android:textSize="25sp">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/obere_2"
+        android:layout_width="110dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
 
         <TextView
             android:id="@+id/anzeige2"
             style="@style/Normal_Textstyle"
-            android:layout_width="110dp"
-            android:layout_height="74dp"
-            android:background="@drawable/border2"
+            android:layout_width="109dp"
+            android:layout_height="73dp"
+            android:background="@color/black"
             android:gravity="center"
             android:text="Anzeige2"
             android:textAlignment="center"
@@ -112,41 +176,78 @@
             android:textSize="25sp">
 
         </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/obere_3"
+        android:layout_width="110dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
 
         <TextView
             android:id="@+id/anzeige3"
             style="@style/Normal_Textstyle"
-            android:layout_width="110dp"
-            android:layout_height="74dp"
-            android:background="@drawable/border2"
+            android:layout_width="109dp"
+            android:layout_height="73dp"
+            android:background="@color/black"
             android:gravity="center"
             android:text="Anzeige3"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="25sp"></TextView>
+            android:textSize="25sp">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/obere_4"
+        android:layout_width="110dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
 
         <TextView
             android:id="@+id/anzeige4"
             style="@style/Normal_Textstyle"
-            android:layout_width="110dp"
-            android:layout_height="74dp"
-            android:background="@drawable/border2"
+            android:layout_width="109dp"
+            android:layout_height="73dp"
+            android:background="@color/black"
             android:gravity="center"
             android:text="Anzeige4"
             android:textAlignment="center"
             android:textColor="@android:color/white"
-            android:textSize="25sp"></TextView>
+            android:textSize="25sp">
+
+        </TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/obere_5"
+        android:layout_width="290dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
 
         <TextView
             android:id="@+id/anzeige5"
             style="@style/Normal_Textstyle"
-            android:layout_width="290dp"
-            android:layout_height="74dp"
-            android:background="@drawable/border2"
+            android:layout_width="289dp"
+            android:layout_height="73dp"
+            android:background="@color/black"
             android:gravity="center"
             android:text="Anzeige5"
             android:textColor="@android:color/white"
-            android:textSize="24sp"></TextView>
+            android:textSize="24sp">
+
+        </TextView>
+
+    </LinearLayout>
 
     </LinearLayout>
 
@@ -160,21 +261,10 @@
         android:layout_toRightOf="@id/linke_layout">
     </fragment>
 
-
-    <fragment
-        android:id="@+id/fragment_geberge"
-        android:layout_width="820dp"
-        android:layout_height="match_parent"
-        android:layout_below="@id/obere_layout"
-        tools:layout="@layout/fragment_geberge"
-        class="com.jess.gdfp.Geberge"
-        android:layout_toRightOf="@id/linke_layout">
-    </fragment>
-
     <RelativeLayout
         android:id="@+id/circleButton"
         android:layout_width="450dp"
-        android:layout_height="500dp"
+        android:layout_height="550dp"
         android:layout_below="@id/obere_layout"
         android:layout_marginLeft="80dp"
         android:textStyle="bold">
@@ -190,7 +280,7 @@
 
         <LinearLayout
             android:id="@+id/inside_circlebtn"
-            android:layout_width="350dp"
+            android:layout_width="250dp"
             android:layout_height="250dp"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="150dp"
@@ -213,8 +303,8 @@
 
             <TextView
                 android:id="@+id/unit"
-                android:layout_width="200dp"
-                android:layout_height="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
                 android:layout_alignBottom="@+id/progressBar"
                 android:layout_centerInParent="true"
                 android:gravity="center"
@@ -234,57 +324,104 @@
             android:layout_height="280dp"
             android:layout_marginStart="11dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/round_button"></Button>
+            android:background="@drawable/round_button">
+
+        </Button>
 
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/untere_layout"
         android:layout_width="840dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="555dp"
+        android:layout_height="85dp"
+        android:layout_marginTop="553dp"
         android:layout_toRightOf="@id/linke_layout"
         android:orientation="horizontal"
         android:textStyle="bold">
 
-        <Button
-            android:id="@+id/Button_fav1"
-            style="@style/Normal_Textstyle"
+        <LinearLayout
+            android:id="@+id/untere_1"
             android:layout_width="213dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/border2"
-            android:drawableEnd="@drawable/fav"
-            android:drawableTint="@android:color/white"
-            android:text="fav1"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"></Button>
+            android:layout_height="85dp"
+            android:orientation="vertical"
+            android:background="@color/gray">
+            <Button
+                android:id="@+id/Button_fav1"
+                style="@style/Bold_Textstyle"
+                android:layout_width="212dp"
+                android:layout_height="85dp"
+                android:drawableEnd="@drawable/fav"
+                android:drawableTint="@android:color/white"
+                android:text="fav1"
+                android:background="@drawable/normal_button"
+                android:textAlignment="center"
+                android:layout_marginTop="1dp"
+                android:textColor="@android:color/white">
+
+            </Button>
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/untere_2"
+        android:layout_width="213dp"
+        android:layout_height="85dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
 
         <Button
             android:id="@+id/Button_fav2"
-            style="@style/Normal_Textstyle"
-            android:layout_width="213dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/border2"
+            style="@style/Bold_Textstyle"
+            android:layout_width="212dp"
+            android:layout_height="85dp"
+            android:background="@drawable/normal_button"
             android:text="fav2"
-            android:textColor="@android:color/white"></Button>
+            android:textAlignment="center"
+            android:layout_marginTop="1dp"
+            android:textColor="@android:color/white">
 
-        <Button
-            android:id="@+id/Button_fav3"
-            style="@style/Normal_Textstyle"
-            android:layout_width="211dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/border2"
-            android:text="Fav3"
-            android:textColor="@android:color/white"></Button>
+        </Button>
+    </LinearLayout>
 
-        <Button
-            android:id="@+id/Button_fav4"
-            style="@style/Normal_Textstyle"
-            android:layout_width="210dp"
-            android:layout_height="match_parent"
-            android:background="@drawable/border2"
-            android:text="Fav4"
-            android:textColor="@android:color/white"></Button>
+        <LinearLayout
+            android:id="@+id/untere_3"
+            android:layout_width="213dp"
+            android:layout_height="85dp"
+            android:orientation="vertical"
+            android:background="@color/gray">
+
+            <Button
+                android:id="@+id/Button_fav3"
+                style="@style/Bold_Textstyle"
+                android:layout_width="212dp"
+                android:layout_height="85dp"
+                android:background="@drawable/normal_button"
+                android:text="fav3"
+                android:textAlignment="center"
+                android:layout_marginTop="1dp"
+                android:textColor="@android:color/white">
+
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/untere_4"
+            android:layout_width="213dp"
+            android:layout_height="85dp"
+            android:orientation="vertical"
+            android:background="@color/gray">
+
+            <Button
+                android:id="@+id/Button_fav4"
+                style="@style/Bold_Textstyle"
+                android:layout_width="212dp"
+                android:layout_height="85dp"
+                android:background="@drawable/normal_button"
+                android:text="fav4"
+                android:textAlignment="center"
+                android:layout_marginTop="1dp"
+                android:textColor="@android:color/white">
+            </Button>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -296,12 +433,21 @@
         android:layout_toLeftOf="@id/untere_layout"
         android:orientation="vertical">
 
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/rechte_1"
+        android:layout_width="120dp"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
+
         <TextView
             android:id="@+id/date"
             style="@style/Normal_Textstyle"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:background="@drawable/border2"
+            android:layout_width="119dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="1dp"
+            android:background="@color/black"
             android:text=""
             android:gravity="center"
             android:textAlignment="center"
@@ -309,52 +455,97 @@
             android:textSize="24sp">
         </TextView>
 
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/rechte_2"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
+
         <Button
+            android:id="@+id/home"
             android:paddingTop="12dp"
             android:drawableTop="@drawable/home2"
-            style="@style/Normal_Textstyle"
-            android:id="@+id/home"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_width="119dp"
+            android:layout_height="158dp"
+            android:layout_marginStart="1dp"
             android:textColor="@android:color/white"
-            android:background="@drawable/border2"
+            android:background="@drawable/normal_button"
             android:text="HOME"
             android:textSize="23sp">
         </Button>
 
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/Normal_Textstyle"
+        android:id="@+id/rechte_3"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:orientation="vertical"
+        android:background="@color/gray">
+
         <Button
+            android:id="@+id/menu_btn"
             android:drawableTop="@drawable/menuf"
             android:src="@drawable/menuf"
-            style="@style/Normal_Textstyle"
-            android:id="@+id/menu_btn"
             android:textColor="@android:color/white"
-            android:layout_width="120dp"
-            android:layout_height="160dp"
-            android:background="@drawable/border2"
+            android:layout_width="119dp"
+            android:layout_height="158dp"
+            android:layout_marginStart="1dp"
+            android:background="@drawable/normal_button"
             android:text="MENU"
             android:textSize="23sp">
         </Button>
 
-        <Button
-            android:id="@+id/setting_btn"
-            android:drawableTop="@drawable/betriebsart"
+    </LinearLayout>
+
+        <LinearLayout
             style="@style/Normal_Textstyle"
+            android:id="@+id/rechte_4"
             android:layout_width="120dp"
             android:layout_height="160dp"
-            android:background="@drawable/border2"
-            android:paddingTop="12dp"
-            android:text="SETTING"
-            android:textSize="23sp"
-            android:textColor="@android:color/white">
-        </Button>
+            android:orientation="vertical"
+            android:background="@color/gray">
 
-        <ImageButton
-            android:id="@+id/MOR_btn"
+            <Button
+                android:id="@+id/setting_btn"
+                android:drawableTop="@drawable/betriebsart"
+                android:layout_width="119dp"
+                android:layout_height="158dp"
+                android:layout_marginStart="1dp"
+                android:background="@drawable/normal_button"
+                android:paddingTop="12dp"
+                android:text="SETTING"
+                android:textSize="23sp"
+                android:textColor="@android:color/white">
+            </Button>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Normal_Textstyle"
+            android:id="@+id/rechte_5"
             android:layout_width="120dp"
-            android:layout_height="80dp"
-            android:background="@drawable/border2"
-            android:src="@drawable/rotate_right"
-            ></ImageButton>
+            android:layout_height="85dp"
+            android:orientation="vertical"
+            android:background="@color/gray">
+
+            <ImageButton
+                android:id="@+id/MOR_btn"
+                android:layout_width="119dp"
+                android:layout_height="85dp"
+                android:layout_marginStart="1dp"
+                android:background="@drawable/normal_button"
+                android:src="@drawable/rotate_right"
+                android:gravity="center">
+
+            </ImageButton>
+
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
@@ -366,51 +557,80 @@
         android:layout_below="@+id/obere_layout">
 
         <LinearLayout
-            android:layout_width="500dp"
+            android:layout_width="490dp"
             android:layout_height="60dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/korrektur"
+            <LinearLayout
                 style="@style/Normal_Textstyle"
+                android:id="@+id/zweite_1"
                 android:layout_width="155dp"
                 android:layout_height="60dp"
-                android:background="@drawable/border2"
-                android:gravity="center"
-                android:text="KorrLB"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="30sp">
-            </TextView>
+                android:orientation="vertical"
+                android:background="@color/gray">
 
-            <TextView
-                android:id="@+id/mmin"
-                style="@style/Normal_Textstyle"
-                android:layout_width="155dp"
-                android:layout_height="60dp"
-                android:background="@drawable/border2"
-                android:gravity="center"
-                android:text="m/min"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="30sp">
-            </TextView>
+                <TextView
+                    android:id="@+id/Label1"
+                    style="@style/Normal_Textstyle"
+                    android:layout_width="154dp"
+                    android:layout_height="58dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/black"
+                    android:gravity="center"
+                    android:text="KorrLB"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp">
+                </TextView>
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/strom"
+            <LinearLayout
                 style="@style/Normal_Textstyle"
+                android:id="@+id/zweite_2"
                 android:layout_width="155dp"
                 android:layout_height="60dp"
-                android:background="@drawable/border2"
-                android:gravity="center"
-                android:text="Voltage"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="30sp">
-            </TextView>
+                android:orientation="vertical"
+                android:background="@color/gray">
+                <TextView
+                    android:id="@+id/Label2"
+                    style="@style/Normal_Textstyle"
+                    android:layout_width="154dp"
+                    android:layout_height="58dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:gravity="center"
+                    android:text="m/min"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Normal_Textstyle"
+                android:id="@+id/zweite_3"
+                android:layout_width="155dp"
+                android:layout_height="60dp"
+                android:orientation="vertical"
+                android:background="@color/gray">
+                <TextView
+                    android:id="@+id/Label3"
+                    style="@style/Normal_Textstyle"
+                    android:layout_width="152dp"
+                    android:layout_height="58dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginLeft="1dp"
+                    android:layout_marginRight="1dp"
+                    android:background="@color/black"
+                    android:gravity="center"
+                    android:text="Voltage"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp">
+                </TextView>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -418,34 +638,74 @@
             android:layout_height="190dp"
             android:orientation="horizontal">
 
-            <Button
-                style="@style/Normal_Textstyle"
-                android:id="@+id/btn_korrektur"
-                android:layout_width="155dp"
-                android:layout_height="90dp"
-                android:background="@drawable/border2"
-                android:textColor="@android:color/white"
-                android:textSize="55sp"></Button>
 
-            <Button
+            <LinearLayout
                 style="@style/Normal_Textstyle"
-                android:id="@+id/btn_mmin"
+                android:id="@+id/zweite_4"
                 android:layout_width="155dp"
                 android:layout_height="90dp"
-                android:background="@drawable/border2"
-                android:textAlignment="center"
-                android:textColor="@android:color/white"
-                android:textSize="55sp"></Button>
+                android:orientation="vertical"
+                android:background="@color/gray">
+                <Button
+                    style="@style/Normal_Textstyle"
+                    android:id="@+id/Value1"
+                    android:layout_width="154dp"
+                    android:layout_height="88dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/black"
+                    android:textColor="@android:color/white"
+                    android:textSize="55sp">
+                </Button>
+            </LinearLayout>
 
-            <Button
+            <LinearLayout
                 style="@style/Normal_Textstyle"
-                android:id="@+id/btn_voltage"
+                android:id="@+id/zweite_5"
                 android:layout_width="155dp"
                 android:layout_height="90dp"
-                android:textColor="@android:color/white"
-                android:textSize="55sp"
-                android:background="@drawable/border2"
-                ></Button>
+                android:orientation="vertical"
+                android:background="@color/gray">
+
+                <Button
+                    style="@style/Normal_Textstyle"
+                    android:id="@+id/Value2"
+                    android:layout_width="154dp"
+                    android:layout_height="88dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/black"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="55sp">
+
+                </Button>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Normal_Textstyle"
+                android:id="@+id/zweite_6"
+                android:layout_width="155dp"
+                android:layout_height="90dp"
+                android:orientation="vertical"
+                android:background="@color/gray">
+
+                <Button
+                    style="@style/Normal_Textstyle"
+                    android:id="@+id/Value3"
+                    android:layout_width="152dp"
+                    android:layout_height="88dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="55sp"
+                    android:background="@color/black">
+                </Button>
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
 
@@ -480,15 +740,15 @@
         android:layout_marginLeft="20dp"
         android:orientation="horizontal">
 
-        <Button
-            android:layout_marginTop="10dp"
+        <TextView
             android:id="@+id/Drossel_plus"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:onClick="onpressed_Minus_plus"
             android:text="+"
-            android:textSize="35sp">
-        </Button>
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="50sp">
+        </TextView>
 
         <ProgressBar
             android:id="@+id/progress"
@@ -515,15 +775,16 @@
             android:minHeight="30dip"
             android:progress="30" />
 
-        <Button
-            android:layout_marginTop="10dp"
+        <TextView
             android:id="@+id/Drossel_minus"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:onClick="onpressed_Minus_plus"
             android:text="-"
-            android:textSize="35sp">
-            </Button>
+            android:gravity="center"
+            android:textColor="@color/white"
+            style="@style/Bold_Textstyle"
+            android:textSize="50sp">
+            </TextView>
 
         <fragment
             android:id="@+id/frgment_Betriebsart"
@@ -542,16 +803,16 @@
         android:layout_above="@id/untere_layout"
         android:layout_toLeftOf="@id/rechte_layout"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/hold_ist"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
-            android:text="Hold"
             android:layout_marginLeft="180dp"
+            android:text="Hold"
             android:textColor="#FFC200"
             android:textSize="40sp"
-            android:textStyle="bold">
-        </TextView>
+            android:textStyle="bold"></TextView>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1340,5 +1340,94 @@ public class ReserveFunction {
                     }
                 }*/
 
+    //--------------------------------------- Encoder button 2 -----------------------------------------------
+    public void pressbuttonEncoder2() { //right
+        /*GlobalVariable.ENCODER2_PRESSED = true;
+        GlobalVariable.ENCODER2_COUNT++;
+        if(GlobalVariable.ENCODER2_COUNT > 3) GlobalVariable.ENCODER2_COUNT = 1;
+        if (!GlobalVariable.JOB_PRESSED) {
+        }*/
+    }
+
+    public void incrementEncoder2(int val_encoder){ //right
+        GlobalVariable.encoder = true;
+        //Log.i("incrementEncoder1","is called");
+        if (!GlobalVariable.JOB_PRESSED){
+            GlobalVariable.CONTROL_PANEL_MODE1 = 1;
+            if(GlobalVariable.ChangeValue[0]==1) {
+                if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display < 240)) { //Normal
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
+                    //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
+                } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display < 120)) { //Synergie
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
+                    //progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
+                } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display < 120)) {//Pulse
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 + val_encoder; // m/min
+                    //progressBar.setProgress(DatenObjekte.a_display - 20);
+                }
+            } else if(GlobalVariable.ChangeValue[1]==1){
+                GlobalVariable.mm_a_display = GlobalVariable.mirror_display + val_encoder; //mm
+            } else if(GlobalVariable.ChangeValue[2]==1){
+                GlobalVariable.mm_a_display = GlobalVariable.mirror_display + val_encoder; //A
+            } else if(GlobalVariable.ChangeValue[3]==1){
+                GlobalVariable.korrektur_display = GlobalVariable.korrektur_display + val_encoder; //korrektur
+                if(GlobalVariable.korrektur_display > 30) GlobalVariable.korrektur_display = 30;
+            } else if(GlobalVariable.ChangeValue[4]==1){
+                GlobalVariable.voltage_display = GlobalVariable.voltage_display + val_encoder; //voltage
+            }
+
+        } else { //Job button_left in home page is pressed
+            GlobalVariable.JOBCOUNT++;
+            //---------------------------- Activate Job ----------------------------------------
+            if(GlobalVariable.JOBCOUNT==1) {
+                DatenObjekteSend activateJob = new DatenObjekteSend();
+                activateJob.ChangeParameter(5, 0, 1);
+                //GlobalVariable.delayInMilli(200);
+                //activateJob.ChangeParameter(4,0, 1);
+            }else {
+                //---------------------------Increment Job number---------------------------------------
+                DatenObjekteSend incrementJob = new DatenObjekteSend();
+                incrementJob.ChangeParameter(4,0, 1);
+                //Log.i("incrementJob","is called");
+            }
+        }
+    }
+
+    public void decrementEncoder2(int val_encoder){ //right
+        GlobalVariable.encoder = true;
+        //Log.i("decrementEncoder1","is called");
+        if (!GlobalVariable.JOB_PRESSED){
+            GlobalVariable.CONTROL_PANEL_MODE1 = 1;
+            if(GlobalVariable.ChangeValue[0]==1) {
+                if ((GlobalVariable.SV1pos1 == 1) && (GlobalVariable.mpm_display < 240)) { //Normal
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
+                    //progressBar.setProgress((int) (DatenObjekte.a_display) * (100 / 232) - (800 / 232));
+                } else if ((GlobalVariable.SV1pos1 == 2) && (GlobalVariable.mpm_display < 120)) { //Synergie
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
+                    //progressBar.setProgress((int) ((DatenObjekte.a_display) * 100 / 80 - 50));
+                } else if ((GlobalVariable.SV1pos1 == 3) && (GlobalVariable.mpm_display < 120)) {//Pulse
+                    GlobalVariable.mpm_display = GlobalVariable.Energie1 - val_encoder; // m/min
+                    //progressBar.setProgress(DatenObjekte.a_display - 20);
+                }
+            } else if(GlobalVariable.ChangeValue[1]==1){
+                GlobalVariable.mm_a_display = GlobalVariable.mirror_display - val_encoder; //mm
+            } else if(GlobalVariable.ChangeValue[2]==1){
+                GlobalVariable.mm_a_display = GlobalVariable.mirror_display - val_encoder; //A
+            } else if(GlobalVariable.ChangeValue[3]==1){
+                GlobalVariable.korrektur_display = GlobalVariable.korrektur_display - val_encoder; //korrektur
+                if(GlobalVariable.korrektur_display > 30) GlobalVariable.korrektur_display = 30;
+            } else if(GlobalVariable.ChangeValue[4]==1){
+                GlobalVariable.voltage_display = GlobalVariable.voltage_display - val_encoder; //voltage
+            }
+        } else { //Job button_left in home page is pressed
+            //GlobalVariable.JOBCOUNT--;
+            if(GlobalVariable.Jobnummer==1) GlobalVariable.JOBCOUNT = 0;
+            //---------------------------Decrement Job number--------------------------------------
+            DatenObjekteSend decrementJob = new DatenObjekteSend();
+            decrementJob.ChangeParameter(6,0, 1);
+            //Log.i("decrementJob","is called");
+        }
+    }
+
 }
 

@@ -207,7 +207,7 @@ public class DatenObjekteJob {
         ucGasTyp = GlobalVariable.SV1pos4;
         ucWerkstoff = GlobalVariable.SV1pos5;
         ucReglerTyp = GlobalVariable.SV1pos6;
-        ucGasVor = GlobalVariable.Gasvorströmen;
+        ucGasVor = (byte)GlobalVariable.Gasvorströmen;
         ucGasNach = GlobalVariable.Gasnachströmen;
         ucEinSchlAbs = GlobalVariable.EinschleichenAbsolut;
         scEinSchlProz = GlobalVariable.EinschleichenKorrektur;

@@ -64,8 +64,6 @@ public class JsonKennlinie {
             object.put("name", "sakhr");
             object1.put("name", "jj");
             object2.put("name", "dkd");
-
-
             // org.json.simple.JSONArray jsonArray= new org.json.simple.JSONArray();
 
             JSONObject main = new JSONObject();
@@ -85,7 +83,6 @@ public class JsonKennlinie {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     public static org.json.simple.JSONArray Kennlinielesen(Context context) {
@@ -102,15 +99,12 @@ public class JsonKennlinie {
 
             //System.out.println("mein kennlinie"+jsonArray.get(70));
             org.json.simple.JSONObject jsonObject14 = (org.json.simple.JSONObject) jsonArray.get(70);
-            System.out.println(jsonObject14.get("Verfahren"));
+            //System.out.println(jsonObject14.get("Verfahren"));
             return jsonArray;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
-
-
     }
 
     public static List<org.json.simple.JSONObject> query_kennlinie(int counter, String string, String conditon, String[] conditions , String strings[],Context context) {

@@ -36,8 +36,8 @@ public  void minus_plus_interagieren(ProgressBar progressBar_minus ,ProgressBar 
     public void ChangeTextprogressBar(Button btn , TextView txtProgress ,String temp ,boolean cheack )
                                      {
         int id = btn.getId();
-        if (id == R.id.btn_korrektur) {
-            TextView textView =  findViewById(R.id.korrektur);
+        if (id == R.id.Value1) {
+            TextView textView =  findViewById(R.id.Label1);
             String s = textView.getText().toString();
             String s1 = btn.getText().toString();
             String s2 = txtProgress.getText().toString();
@@ -47,9 +47,9 @@ public  void minus_plus_interagieren(ProgressBar progressBar_minus ,ProgressBar 
             temp = s;
             cheack = false;
         }
-        if (id == R.id.btn_mmin) {
+        if (id == R.id.Value2) {
 
-            TextView textView = findViewById(R.id.mmin);
+            TextView textView = findViewById(R.id.Label2);
             String s = textView.getText().toString();
             String s1 = btn.getText().toString();
 
@@ -60,8 +60,8 @@ public  void minus_plus_interagieren(ProgressBar progressBar_minus ,ProgressBar 
             temp = s;
             cheack = false;
         }
-        if (id == R.id.btn_voltage) {
-            TextView textView = findViewById(R.id.strom);
+        if (id == R.id.Value3) {
+            TextView textView = findViewById(R.id.Label3);
             String s = textView.getText().toString();
             String s1 = btn.getText().toString();
             String s2 = txtProgress.getText().toString();

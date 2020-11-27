@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.Set;
 import java.lang.String;
 
@@ -172,9 +173,6 @@ public class UartService extends Service {
         }
     };
 
-
-
-
     /*
      * Different notifications from OS will be received here (USB attached, detached, permission responses...)
      * About BroadcastReceiver: http://developer.android.com/reference/android/content/BroadcastReceiver.html
@@ -208,24 +206,6 @@ public class UartService extends Service {
             }
         }
     };
-
-/*    public void changeParam(String canid, int data, int position){ //canid in hex
-
-        StringBuilder sbchangeParam = new StringBuilder();
-
-        String ci1 = canid.substring(0,1); //pos 1
-        String ci2 = canid.substring(2,3); //pos 2
-
-        for (int i = 0; i <19; i++) {
-            if (i==3)  sdata=sbchangeParam.append(ci1).toString(); //msb CanId
-            else if (i==4)  sdata=sbchangeParam.append(ci2).toString(); //lsb CanId
-            else if ((position!=i-6))  sdata = sbchangeParam.append(Integer.toHexString((int)ByteArray[i])).toString();
-            else if ((position==i-6)) sdata = sbchangeParam.append(Integer.toHexString(data)).toString();
-        }
-
-        Intent var = new Intent("Main.Activity2").putExtra("change_param",sdata); //send hex content to Main Activity
-        context.sendBroadcast(var);
-    }*/
 
     public static void WriteToSerial(String s){
         try {
@@ -360,7 +340,7 @@ public class UartService extends Service {
 
         frameArray[0]=36;    		//Header 0x24
         frameArray[1]=12;    		//LengthProtocol
-        frameArray[2]=2;     		//Frame ID
+        frameArray[2]=0x08;     		//Frame ID
         frameArray[3]=1;     		//msb CAN ID
         frameArray[4]=(byte)144;    //lsb CAN ID
         frameArray[5]=4;     		//CAN Length
@@ -420,15 +400,14 @@ public class UartService extends Service {
 
     public static void Move_Motor(int mode){
         String motorString = "";
-        if (mode==0) { //forward
-            MOTOR_FRAME[0] = 36; //header
-            MOTOR_FRAME[1] = 9; //frame length
-            MOTOR_FRAME[2] = 16; // frame id
-            MOTOR_FRAME[3] = 0; //can id
-            MOTOR_FRAME[4] = 0; //can id
-            MOTOR_FRAME[5] = 1; //data length
-            MOTOR_FRAME[6] = 1; //data
-            MOTOR_FRAME[7] = 35; //footer
+            MOTOR_FRAME[0] = 0x24; //header
+            MOTOR_FRAME[1] = 0x09; //frame length
+            MOTOR_FRAME[2] = 0x10; // frame id
+            MOTOR_FRAME[3] = 0x00; //can id
+            MOTOR_FRAME[4] = 0x00; //can id
+            MOTOR_FRAME[5] = 0x01; //data length
+            MOTOR_FRAME[6] = (byte)mode; //data
+            MOTOR_FRAME[7] = 0x23; //footer
             /**
              * Calculate the checksum of dataframe
              */
@@ -443,33 +422,8 @@ public class UartService extends Service {
                 CHECKSUM = CHECKSUM + temp;
             }
             MOTOR_FRAME[7] = (byte)(CHECKSUM & 0x000000FF);
-            MOTOR_FRAME[8] = 35;
+            MOTOR_FRAME[8] = 0x23;
 
-        } else {  //backwards
-            MOTOR_FRAME[0] = 36; //header
-            MOTOR_FRAME[1] = 9; //frame length
-            MOTOR_FRAME[2] = 16; // frame id
-            MOTOR_FRAME[3] = 0; //can id
-            MOTOR_FRAME[4] = 0; //can id
-            MOTOR_FRAME[5] = 1; //data length
-            MOTOR_FRAME[6] = 0; //data
-            MOTOR_FRAME[7] = 35; //footer
-            /**
-             * Calculate the checksum of dataframe
-             */
-            int CHECKSUM = 0;
-            for (int i = 0; i < 8 ; i++) {
-                int temp;
-                if((MOTOR_FRAME[i]) < 0){ //negative value
-                    temp = 256 + (MOTOR_FRAME[i]);
-                }else{
-                    temp = MOTOR_FRAME[i];
-                }
-                CHECKSUM = CHECKSUM + temp;
-            }
-            MOTOR_FRAME[7] = (byte)(CHECKSUM & 0x000000FF);
-            MOTOR_FRAME[8] = 35;
-        }
         StringBuilder sbcanSend = new StringBuilder();
         //StringBuilder shexSend = new StringBuilder();
         for (int i = 0; i < 9; i++) {//parameterId and valueId ascii string
@@ -528,13 +482,13 @@ public class UartService extends Service {
             ch = Input;
             LengthProtocol = (int) ch;
             if(LengthProtocol<0) LengthProtocol = LengthProtocol + 256;
-            //Log.i("Length is ",String.valueOf(LengthProtocol));
+            Log.i("Length is ",String.valueOf(LengthProtocol));
             ByteArray[CounterData] = Input;
             CounterData++;
         } else if (CounterData < LengthProtocol-1 && CounterData < 223) {
                 ByteArray[CounterData] = Input;
                 CounterData++;
-        } else if (CounterData == LengthProtocol-1 && CounterData < 223) { //at this point, CounterData = 222
+        } else if ((CounterData == LengthProtocol-1) && (CounterData < 223)) { //at this point, CounterData = 222
             ByteArray[CounterData] = Input;
 
             /**
@@ -571,12 +525,14 @@ public class UartService extends Service {
                     //Log.i("CHECKSUM ",String.valueOf(CHECKSUM));
 
                     //CHECKSUM = CHECKSUM & 0xFF;
-                    //Log.i("Masked Checksum ",String.valueOf(CHECKSUM & 0x000000FF));
+                    Log.i("Masked Checksum ",String.valueOf(CHECKSUM & 0x000000FF));
 
                     /**
                      * Compare received checksum with calculated checksum
                      */
                     if (RECEIVED_CHECKSUM == (CHECKSUM & 0x000000FF)) {
+                        RECEIVED_CHECKSUM = 0;
+                        CHECKSUM = 0;
                         //Log.i("byte1",String.valueOf(ByteArray[102]));
                         //Log.i("byte2",String.valueOf(ByteArray[103]));
                         //Log.i("Checksum ","is correct");
@@ -633,25 +589,26 @@ public class UartService extends Service {
                                 tempDO = ByteArray[20]; //Werkstoff
                                 if (tempDO < 0) tempDO = tempDO + 256;
                                 GlobalVariable.SV1pos5 = tempDO;
-
                                 MainActivity.PARSE_TOKEN = false;
                             }
                             if (UpdateJobFlag != 1) { // Parsing in DatenObjekte
-                                //Log.i("HEX_DATA",HEX_DATA);
+                                Log.i("HEX_DATA",HEX_DATA);
                                 DatenObjekte.buffParsing(ASCII_DATA);
                                 DatenObjekte.callme(HEX_DATA);
                             }
                         }
-                        /*Intent iii = new Intent("Main.Activity").putExtra("msg_service", HEX_DATA); //send hex content to Main Activity
-                        context.sendBroadcast(iii);
+                        Arrays.fill(ByteArray,(byte)0);
 
-                        Intent iiii = new Intent("Main.Activity1").putExtra("msg_service1", ASCII_DATA); //send ascii content to Main Activity
-                        context.sendBroadcast(iiii);*/
-                    } //else Log.i("Checksum ","is wrong");
+                    }  else Log.i("Checksum ","is wrong");
                 } //else Log.i("Checksum ","length");
             }
             resetValue();
-        }else if (CounterData > 15) resetValue();
+        } else  {
+            resetValue();
+            Log.i("lengdata ","is wrong");
+        }
+
+        //else if (CounterData > 15) resetValue();
     }
 
     public static void resetValue(){
@@ -855,6 +812,7 @@ public class UartService extends Service {
                     data1 = (String) msg.obj; // send byte per byte
                    //Log.i(TAG,"handleMessage is called");
                    buffParsing(data1);
+                   data1 = "";
                     break;
             }
         }

@@ -80,7 +80,7 @@ public class SendEncoder {
             //Log.i(TAG,"encoder1 button_left is press");
         }else if((UartService.ByteArray[6] & 0xFF) == 153 && (UartService.ByteArray[7] & 0xFF) == 8){ //encoder2 button_left(right)
             //Log.i(TAG,String.valueOf((UartService.ByteArray[8] & 0xF0))); //always 00
-            WC_OBJECT.pressbuttonEncoder2();
+            //WC_OBJECT.pressbuttonEncoder2();
             //Log.i(TAG,"encoder2 is called");
         }
 

@@ -44,7 +44,7 @@ public class JobsUser extends AppCompatActivity {
         JOB_POINTER = counter;
         myjobAdapte.notifyDataSetChanged();
         rv.smoothScrollToPosition(JOB_POINTER);
-        //else if ( JOB_POINTER > 5) rv.smoothScrollToPosition(JOB_POINTER);
+        //else if ( JOB_POINTER > 5) sc.smoothScrollToPosition(JOB_POINTER);
     }
 
     //------------------------- goes into activity_jobs_details.xml --------------------------------
