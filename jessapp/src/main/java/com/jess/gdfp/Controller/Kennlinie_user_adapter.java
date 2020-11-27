@@ -18,14 +18,17 @@ import com.jess.gdfp.R;
 
 import java.util.ArrayList;
 
-public class Kennlinie_user_adapter extends ArrayAdapter<Jobs> {
+public class Kennlinie_user_adapter extends ArrayAdapter<Kennlinie> {
     private View listView;
-    private TextView param;
-    private TextView wert;
-    private Jobs kennlinie;
+    private TextView Verfahren;
+    private TextView Werkstof;
+    private TextView Gas;
+    private TextView Draht;
+    private Kennlinie kennlinie;
+    private TextView KennNR;
     private CardView cardView;
 
-    public Kennlinie_user_adapter (Activity context , ArrayList<Jobs>Kennlinies  ){
+    public Kennlinie_user_adapter (Activity context , ArrayList<Kennlinie>Kennlinies  ){
         super(context,0,Kennlinies );
     }
 
@@ -37,13 +40,19 @@ public class Kennlinie_user_adapter extends ArrayAdapter<Jobs> {
             listView= LayoutInflater.from(getContext()).inflate(R.layout.item_for_job,parent,false);
 
         }
-        param=listView.findViewById(R.id.job_name);
-        wert=listView.findViewById(R.id.job_nr);
+       Werkstof=listView.findViewById(R.id.Werkstoff);
+        Verfahren=listView.findViewById(R.id.Verfahren);
+        Gas=listView.findViewById(R.id.Gas);
+        Draht=listView.findViewById(R.id.Draht);
+        KennNR=listView.findViewById(R.id.KennNR);
         cardView = listView.findViewById(R.id.card_view);
 
         kennlinie=getItem(position);
-        param.setText(kennlinie.getName());
-        wert.setText(kennlinie.getNum());
+        KennNR.setText(kennlinie.getKennNR());
+        Verfahren.setText(kennlinie.getVerfahren());
+        Werkstof.setText(kennlinie.getWerkstoff());
+        Draht.setText(kennlinie.getDraht());
+        Gas.setText(kennlinie.getGas());
         changeKennbackround(position, Kennlinier_user.KENN_POINTER);
 
         return listView;
@@ -51,12 +60,16 @@ public class Kennlinie_user_adapter extends ArrayAdapter<Jobs> {
 
     void changeKennbackround(int pos,int pointer){
         if(pos!=pointer){
-            param.setTextColor(Color.WHITE);
-            wert.setTextColor(Color.WHITE);
+            Verfahren.setTextColor(Color.WHITE);
+            Werkstof.setTextColor(Color.WHITE);
+            Gas.setTextColor(Color.WHITE);
+            Draht.setTextColor(Color.WHITE);
             cardView.setCardBackgroundColor(Color.BLACK);
         }else{
-            param.setTextColor(Color.BLACK);
-            wert.setTextColor(Color.BLACK);
+            Verfahren.setTextColor(Color.BLACK);
+            Werkstof.setTextColor(Color.BLACK);
+            Gas.setTextColor(Color.BLACK);
+            Draht.setTextColor(Color.BLACK);
             cardView.setCardBackgroundColor(Color.GRAY);
         }
     }
