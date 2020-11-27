@@ -7,10 +7,10 @@
     <!-- <uses-sdk android:targetSdkVersion="19" /> -->
 <!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 <!--    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />-->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<!--    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
 <!--    <uses-permission android:name="android.permission.SET_TIME_ZONE" />-->
     <!-- Allows applications to set the system time -->
-    <uses-permission android:name="android.permission.SET_TIME" android:protectionLevel="signature|system" />
+<!--    <uses-permission android:name="android.permission.SET_TIME" android:protectionLevel="signature|system" />-->
   <!--  <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> --><!-- <uses-permission android:name= "android.permission.CALL_PHONE" /> -->
     <!-- If your app targets Android 9 or lower, you can declareACCESS_COARSE_LOCATION instead. -->
@@ -88,9 +88,9 @@
         <service
             android:name=".UartService"
             android:enabled="true" />
-        <service
+       <!-- <service
             android:name=".BluetoothLEService"
-            android:enabled="true" />
+            android:enabled="true" />-->
 
         <provider
             android:name=".DatenBank.MyDataProvider"

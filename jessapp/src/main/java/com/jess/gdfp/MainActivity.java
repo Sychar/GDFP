@@ -202,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Stop_Can();
         //Init_Can();
         mHandler = new UartService.MyHandler();
-
         //-------------------------------------- For Json ------------------------------------------------------------------------------------------
         JsonKennlinie.KennlinieSchrieben(this);
         JsonKennlinie.Kennlinielesen(this);
@@ -342,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             @Override
             public void onClick(View view) {
                 if ((!GlobalVariable.JOB_PRESSED) && (!GlobalVariable.GEBERGE_PRESSED)) {//if job and geberge button not pressed
-                    /*Disable_AllMenuToken();
+                    Disable_AllMenuToken();
                     Disable_AllSettingToken();
                     BlankFragment.tv.setText("VERFAHREN");
                     GlobalVariable.Methode_Token = true;
@@ -353,11 +352,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
                     geberge_layout_gone();
                     droessel_gone();
                     hold_layout_gone();
-                    main_frame_view(view);*/
-                    UartService UsbObj = new UartService(MainActivity.this);//mine
+                    main_frame_view(view);
+                   /* UartService UsbObj = new UartService(MainActivity.this);//mine
                     UsbObj.startService(UartService.class, UartService.usbConnection, null); // Start UartService(if it was not started before) and Bind it
                     Init_Can();
-                    newHandler.post(TimerHandler);
+                    newHandler.post(TimerHandler);*/
                 }
             }
         });
@@ -672,6 +671,12 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             }
         });
         //newHandler.post(TimerHandler);
+        UartService UsbObj = new UartService(MainActivity.this);//mine
+        UsbObj.startService(UartService.class, UartService.usbConnection, null); // Start UartService(if it was not started before) and Bind it
+        Init_Can();
+        newHandler.post(TimerHandler);
+
+
     }
 /*--------------------------------------------------------------------------------------------------
                                   END of onCreate() method

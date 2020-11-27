@@ -164,7 +164,7 @@ public class WeldingChangeParam {
                 if (KENN_TOKEN) { //Kennlinie button_left in setting is pressed
                     GlobalVariable.KENNBTN_COUNTER++;
                     if (GlobalVariable.KENNBTN_COUNTER > 17) GlobalVariable.KENNBTN_COUNTER = 17;
-                    Kennlinier_user.changeKennBackground(GlobalVariable.KENNBTN_COUNTER);
+                    //Kennlinier_user.changeKennBackground(GlobalVariable.KENNBTN_COUNTER);
                 }
             }
         } else { //Job button_left in home page is pressed
@@ -306,7 +306,7 @@ public class WeldingChangeParam {
                     GlobalVariable.KENNBTN_COUNTER--;
                     //Log.i("KENNBTN_COUNTER",String.valueOf(KENNBTN_COUNTER));
                     if (GlobalVariable.KENNBTN_COUNTER < 1) GlobalVariable.KENNBTN_COUNTER = 0;
-                    Kennlinier_user.changeKennBackground(GlobalVariable.KENNBTN_COUNTER);
+                    //Kennlinier_user.changeKennBackground(GlobalVariable.KENNBTN_COUNTER);
                 }
             }
         } else { //Job button_left in home page is pressed
