@@ -1,6 +1,6 @@
 # Dev_Branch
 
-## Waring
+## Attention
 please don’t pull/merge this code directly because i changed the main package to AndroidX 
  more Infos you will find here  :
 
@@ -16,9 +16,9 @@ you habe tow ways:
 ## 1
 you can simply set up dev_branch for you and then pull my code and test it
 
-but do not do it in
-### Master_branch please
+but do not do it in Master_branch please
 
+---
 ## 2
 in case you are not sure about the first way you can copy the files/folder from mein code 
 
