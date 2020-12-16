@@ -25,11 +25,11 @@ import java.util.List;
 public class JsonKennlinie {
 
 
-    public static JSONObject readjson(Context context) {
+    public static JSONObject readjson(Context context,String Filename) {
         Gson gson = new Gson();
         MyJeson myJeson = new MyJeson();
         JSONObject obj;
-        String s = myJeson.readJeson("kennlinie_json.json", context);
+        String s = myJeson.readJeson(Filename, context);
         // String kennlinieJson = myJeson.readJeson("kennlinie_json.json", context);
         //try {
         //  JSONArray kennlines = new JSONArray(kennlinieJson);
@@ -67,7 +67,7 @@ public class JsonKennlinie {
             // org.json.simple.JSONArray jsonArray= new org.json.simple.JSONArray();
 
             JSONObject main = new JSONObject();
-            main.put("DatenBank", readjson(context));
+            main.put("DatenBank", readjson(context,"kennlinie_json.json"));
             String userString = main.toString();
             //FileOutputStream fOut = openFileOutput("kennline.json",Context.MODE_PRIVATE);
             //String str = "test data";

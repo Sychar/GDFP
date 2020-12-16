@@ -2,11 +2,9 @@ package com.jess.gdfp;
 
 import android.app.AlertDialog;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
@@ -29,6 +27,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.jess.gdfp.Controller.JsonKennlinie;
+import com.jess.gdfp.Controller.Json_Setting;
 import com.jess.gdfp.Controller.MainActivity_Controller;
 import com.jess.gdfp.Controller.Read_Usb_Device;
 import com.jess.gdfp.View.BetriebsArt;
@@ -209,6 +208,9 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         Stop_Can();
         //Init_Can();
         //Read_Usb_Device.permession(this);
+        Json_Setting.JsonWrite_Favorit(this);
+        Json_Setting.editing_Default_config(this);
+        Json_Setting.editing_setting_config(this);
 
         mHandler = new UartService.MyHandler();
 
