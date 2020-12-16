@@ -15,13 +15,14 @@ palce make sure that you make backup form your code befor yor merge your code.
 ## 2
 just copy the files/folder  wich you need from the code
 
----
+
 
 1. Xml folder
 2. activity_pop_up_menu.xml
 3. class pop_up_Menu
 4. class Read_Usb_Device
  
- ###############################.
+---
+
  if dos not Work place let me know .
 
