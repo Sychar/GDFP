@@ -16,7 +16,7 @@ you habe tow ways:
 ## 1
 you can simply set up dev_branch for you and then pull my code and test it
 
-but do not do it in ##Maste_branch please
+but do not do it in ##Master_branch please
 
 ## 2
 in case you are not sure about the first way you can copy the files/folder from mein code 
@@ -31,7 +31,7 @@ here is alist what you need:
 3. class pop_up_Menu
 4. class Read_Usb_Device
 
-### do not forget to add implementation 'me.jahnen:libaums:0.8.0' on your gradle 
+### do not forget to add (implementation 'me.jahnen:libaums:0.8.0') on your gradle.build 
 
 
 
