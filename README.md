@@ -20,7 +20,7 @@ i have sdk 28.0.0
 ---
 
 # install
-you habe tow ways:
+you have two ways:
 ## 1
 you can simply set up dev_branch for you and then pull my code and test it
 
