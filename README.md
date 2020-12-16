@@ -2,8 +2,8 @@
 
 ## Waring
 place do not pull/merge this code dierekt 
-i hava changed the package our Application to AndroidX :  https://developer.android.com/jetpack/androidx/migrate
-because the library for Usb plug in do not work with normal package
+i hava changed the package our Application to AndroidX :.  https://developer.android.com/jetpack/androidx/migrate
+because the library for Usb plug in do not work with normal package.
 
 # install
 you habe tow ways:
@@ -19,6 +19,6 @@ just copy the files/folder  wich you need from the code
 3. class pop_up_Menu
 4. class Read_Usb_Device
  
- ###############################
+ ###############################.
  if dos not Work place let me know .
 
