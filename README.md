@@ -1,9 +1,9 @@
 # Dev_Branch
 
 ## Attention
-please don’t pull/merge this code directly because i changed the main package to AndroidX 
+please don’t pull/merge this code directly because i changed the main apk-package to AndroidX 
 
-for  more Infos you will find here  :
+for more Infos you will find here  :
  
 
 https://developer.android.com/jetpack/androidx/migrate 
@@ -12,7 +12,10 @@ https://developer.android.com/jetpack/androidx/migrate
 
 ## why i did it?
 
-because the library  ## libaums for Usb plugin do not work with normal package.
+because the library (libaums) for Usb Plugin did not work with my normal apk-Package.
+
+i have sdk 28.0.0
+
 
 ---
 
@@ -25,12 +28,12 @@ but do not do it in Master_branch please
 
 ---
 ## 2
-in case you are not sure about the first way you can copy the files/folder from mein code 
+in case you are not sure about the first way you can try to copy the files/folder from mein code 
 
-to your code (old way)
+to yours  (old way)
 
 
-here is alist what you need:
+here is list what you need:
 
 1. Xml folder
 2. activity_pop_up_menu.xml
