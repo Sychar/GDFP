@@ -2,12 +2,14 @@
 
 ## Attention
 please don’t pull/merge this code directly because i changed the main package to AndroidX 
- more Infos you will find here  :
+
+for  more Infos you will find here  :
  
 ---
 
 https://developer.android.com/jetpack/androidx/migrate 
-#why i did it?
+
+## why i did it?
 
 because the library  ## libaums for Usb plugin do not work with normal package.
 
