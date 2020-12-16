@@ -2,7 +2,9 @@
 
 ## Waring
 place do not pull/merge this code dierekt 
-i hava changed the package our Application to AndroidX :.  https://developer.android.com/jetpack/androidx/migrate 
+i hava changed the package our Application to AndroidX :
+
+https://developer.android.com/jetpack/androidx/migrate 
 
 because the library for Usb plug in do not work with normal package.
 
