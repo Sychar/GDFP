@@ -24,21 +24,13 @@ just copy the files/folder  wich you need from the code
 2. activity_pop_up_menu.xml
 3. class pop_up_Menu
 4. class Read_Usb_Device
- 
+
+
+
+
 ---
+
 
  if dos not Work place let me know .
 
-```html
-<h2>Example of code</h2>
 
-<pre>
-    <div class="container">
-        <div class="block two first">
-            <h2>Your title</h2>
-            <div class="wrap">
-            //Your content
-            </div>
-        </div>
-    </div>
-</pre
