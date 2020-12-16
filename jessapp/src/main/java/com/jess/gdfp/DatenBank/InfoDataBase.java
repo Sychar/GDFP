@@ -9,7 +9,7 @@ package com.jess.gdfp.DatenBank;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v4.app.INotificationSideChannel;
+//import androidx.core.app.INotificationSideChannel;
 
 
 public class InfoDataBase extends SQLiteOpenHelper {

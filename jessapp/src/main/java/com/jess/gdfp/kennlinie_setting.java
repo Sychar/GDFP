@@ -2,13 +2,10 @@ package com.jess.gdfp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.jess.gdfp.Controller.kennlinieAdapte;
-import com.jess.gdfp.DatenBank.Jobs;
-import com.jess.gdfp.DatenBank.Kennlinie;
-import com.jess.gdfp.View.kennlinie;
 
 import java.util.ArrayList;
 

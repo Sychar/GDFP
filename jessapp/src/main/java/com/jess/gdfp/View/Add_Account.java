@@ -2,7 +2,7 @@ package com.jess.gdfp.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -11,7 +11,6 @@ import android.widget.RadioButton;
 import com.jess.gdfp.DatenBank.User_Datenbank;
 import com.jess.gdfp.DatenBank.Users;
 import com.jess.gdfp.R;
-import com.jess.gdfp.View.Account_deteils;
 
 public class Add_Account extends AppCompatActivity {
     private String name ;

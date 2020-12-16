@@ -202,7 +202,12 @@ public class UartService extends Service {
                 Intent intent = new Intent(ACTION_USB_DISCONNECTED);
                 arg0.sendBroadcast(intent);
                 serialPortConnected = false;
-                serialPort.close();
+                try {
+                    serialPort.close();
+                }catch (RuntimeException r){
+                    r.printStackTrace();
+                }
+
             }
         }
     };

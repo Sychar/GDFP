@@ -1,26 +1,18 @@
 package com.jess.gdfp;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.cardview.widget.CardView;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 
 import com.jess.gdfp.Controller.Kennlinie_user_adapter;
-import com.jess.gdfp.Controller.jobAdapter;
-import com.jess.gdfp.DatenBank.Jobs;
 import com.jess.gdfp.DatenBank.Kennlinie;
-import com.jess.gdfp.DatenBank.MyJeson;
-import com.jess.gdfp.View.JobsDetails;
 import com.jess.gdfp.View.Setting;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;

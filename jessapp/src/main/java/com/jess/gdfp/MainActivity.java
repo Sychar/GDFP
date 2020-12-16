@@ -2,12 +2,18 @@ package com.jess.gdfp;
 
 import android.app.AlertDialog;
 
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +30,7 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.jess.gdfp.Controller.JsonKennlinie;
 import com.jess.gdfp.Controller.MainActivity_Controller;
+import com.jess.gdfp.Controller.Read_Usb_Device;
 import com.jess.gdfp.View.BetriebsArt;
 import com.jess.gdfp.View.BlankFragment;
 import com.jess.gdfp.View.DatalistView;
@@ -47,7 +54,7 @@ import static com.jess.gdfp.UartService.mOutputStream;
 
 import static java.lang.StrictMath.abs;
 
-public class MainActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener , BetriebsArt.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements BlankFragment.OnFragmentInteractionListener , BetriebsArt.OnFragmentInteractionListener {
 
     private final static String TAG = MainActivity.class.getSimpleName(); //name of this class
     static TextView txtProgress ;
@@ -201,7 +208,14 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         hold_layout_gone();
         Stop_Can();
         //Init_Can();
+        //Read_Usb_Device.permession(this);
+
         mHandler = new UartService.MyHandler();
+
+
+
+
+
         //-------------------------------------- For Json ------------------------------------------------------------------------------------------
         JsonKennlinie.KennlinieSchrieben(this);
         JsonKennlinie.Kennlinielesen(this);
@@ -550,6 +564,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
             @Override
             public void onClick(View view) {
                 if ((!GlobalVariable.JOB_PRESSED) && (!GlobalVariable.GEBERGE_PRESSED)) {
+                    long i= Read_Usb_Device.readusb(MainActivity.this) ;
+                    System.out.println("return "+i);
+                    Intent intent =new Intent(MainActivity.this,Pop_up_Menu.class);
+                    intent.putExtra("Isusb",i);
+                    startActivity(intent);
                     Disable_AllMethodeToken();
                     Disable_AllMenuToken();
                     geberge_layout_gone();
@@ -749,6 +768,28 @@ public class MainActivity extends AppCompatActivity implements BlankFragment.OnF
         if (UartService.mReadThread != null) UartService.mReadThread.interrupt();
         UartService.mSerialPort = null;
     }
+    private static final String ACTION_USB_PERMISSION =
+            "com.android.example.USB_PERMISSION";
+    private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
+
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (ACTION_USB_PERMISSION.equals(action)) {
+                synchronized (this) {
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                        if(device != null){
+                            //call method to set up device communication
+                        }
+                    }
+                    else {
+                        Log.d(TAG, "permission denied for device " + device);
+                    }
+                }
+            }
+        }
+    };
 
     /**
      * Start timer to display data

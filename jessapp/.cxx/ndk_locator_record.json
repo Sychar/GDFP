@@ -1,5 +1,5 @@
 {
-  "ndkFolder": "C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462",
+  "ndkFolder": "/home/sakhr/Android/Sdk/ndk-bundle",
   "messages": [
     {
       "level": "INFO",
@@ -15,23 +15,15 @@
     },
     {
       "level": "INFO",
-      "message": "sdkFolder is C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk"
+      "message": "sdkFolder is /home/sakhr/Android/Sdk"
     },
     {
       "level": "INFO",
-      "message": "Considering C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk-bundle in SDK ndk-bundle folder"
+      "message": "Considering /home/sakhr/Android/Sdk/ndk-bundle in SDK ndk-bundle folder"
     },
     {
       "level": "INFO",
-      "message": "Considering C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462 in SDK ndk folder"
-    },
-    {
-      "level": "INFO",
-      "message": "Rejected C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk-bundle in SDK ndk-bundle folder because that location has no source.properties"
-    },
-    {
-      "level": "INFO",
-      "message": "No user requested version, choosing C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462 which is version 21.1.6352462"
+      "message": "No user requested version, choosing /home/sakhr/Android/Sdk/ndk-bundle which is version 22.0.6917172-rc1"
     }
   ]
 }

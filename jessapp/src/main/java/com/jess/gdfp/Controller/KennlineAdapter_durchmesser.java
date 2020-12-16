@@ -1,25 +1,20 @@
 package com.jess.gdfp.Controller;
 
 import android.graphics.Color;
-import android.graphics.Point;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.FrameLayout;
 
 import com.jess.gdfp.DatenBank.Kennline_text;
-import com.jess.gdfp.GlobalVariable;
 import com.jess.gdfp.IO.OnloadMoreListener;
-import com.jess.gdfp.MainActivity;
 import com.jess.gdfp.R;
 import com.jess.gdfp.WeldingProcess;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KennlineAdapter_durchmesser extends RecyclerView.Adapter{

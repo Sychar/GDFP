@@ -28,29 +28,31 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:28.0.0' // saha's code
-    //implementation 'com.android.support:support-v4:23.1.1' //original code
-    implementation 'com.android.support:support-v4:28.0.0'
+    //noinspection GradleCompatible
+    implementation 'androidx.appcompat:appcompat:1.0.0' // saha's code
+   // implementation 'com.android.support:support-v4:23.1.1' //original code
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //compile 'com.android.support:appcompat-v7:23.1.1' //original code
-    implementation 'com.android.support:design:28.0.0' //saha's code
+    implementation 'com.google.android.material:material:1.0.0' //saha's code
     //implementation 'com.android.support:design:23.1.1'
     //implementation 'com.android.support:cardview-v7:23.3.+' //original code
-    implementation 'com.android.support:cardview-v7:28.0.0' //saha's code
+    implementation 'androidx.cardview:cardview:1.0.0' //saha's code
     implementation 'com.github.felHR85:UsbSerial:3.3'
     //compile 'com.github.felHR85:UsbSerial:6.1.0'
     implementation 'com.google.android.things:androidthings:1.0' //to access Raspberry Pi UART pin
     //compile project(':library:project')
     //implementation project(path:':library:project', configuration:'default')
     implementation 'org.greenrobot:eventbus:3.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.github.Stericson:RootShell:1.6'
     implementation('com.github.Stericson:RootTools:5.0') { transitive = false }
     //implementation 'com.android.support:appcompat-v7:24.1.1' //new for bluetooth //original code
     //implementation 'com.android.support:recyclerview-v7:24.1.1' //new for bluetooth //original code
-    implementation 'com.android.support:recyclerview-v7:28.0.0' //saha's code
+    implementation 'androidx.recyclerview:recyclerview:1.0.0' //saha's code
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     //implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.webianks.library:scroll-choice:1.0.1'
+    implementation 'me.jahnen:libaums:0.8.0'
 }

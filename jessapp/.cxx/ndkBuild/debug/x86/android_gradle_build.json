@@ -1,30 +1,30 @@
 {
   "buildFiles": [
-    "O:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\Android.mk",
-    "O:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\Application.mk"
+    "/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/Android.mk",
+    "/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/Application.mk"
   ],
   "cleanCommands": [
-    "C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-22 NDK_OUT\u003dO:/PraktikantenRD/Jiajing/17.08_Version/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\build\\intermediates\\ndkBuild\\debug\\lib clean"
+    "/home/sakhr/Android/Sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-22 NDK_OUT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/build/intermediates/ndkBuild/debug/lib clean"
   ],
-  "buildTargetsCommand": "C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-22 NDK_OUT\u003dO:/PraktikantenRD/Jiajing/17.08_Version/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\build\\intermediates\\ndkBuild\\debug\\lib {LIST_OF_TARGETS_TO_BUILD}",
+  "buildTargetsCommand": "/home/sakhr/Android/Sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-22 NDK_OUT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/build/intermediates/ndkBuild/debug/lib {LIST_OF_TARGETS_TO_BUILD}",
   "libraries": {
     "serial_port-debug-x86": {
-      "buildCommand": "C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462\\ndk-build.cmd NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\Android.mk NDK_APPLICATION_MK\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-22 NDK_OUT\u003dO:/PraktikantenRD/Jiajing/17.08_Version/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003dO:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\build\\intermediates\\ndkBuild\\debug\\lib O:/PraktikantenRD/Jiajing/17.08_Version/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj/local/x86/libserial_port.so",
+      "buildCommand": "/home/sakhr/Android/Sdk/ndk-bundle/ndk-build NDK_PROJECT_PATH\u003dnull APP_BUILD_SCRIPT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/Android.mk NDK_APPLICATION_MK\u003d/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/Application.mk APP_ABI\u003dx86 NDK_ALL_ABIS\u003dx86 NDK_DEBUG\u003d1 APP_PLATFORM\u003dandroid-22 NDK_OUT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj NDK_LIBS_OUT\u003d/home/sakhr/StudioProjects/GDFP/jessapp/build/intermediates/ndkBuild/debug/lib /home/sakhr/StudioProjects/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj/local/x86/libserial_port.so",
       "toolchain": "toolchain-x86",
       "abi": "x86",
       "artifactName": "serial_port",
       "files": [
         {
-          "src": "O:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\src\\main\\jni\\SerialPort.c",
-          "flags": "-target i686-none-linux-android22 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot C:/Users/jtan/AppData/Local/Android/Sdk/ndk/21.1.6352462/build//../toolchains/llvm/prebuilt/windows-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -D_FORTIFY_SOURCE\u003d2 -fPIC -O0 -UNDEBUG -fno-limit-debug-info -IO:/PraktikantenRD/Jiajing/17.08_Version/GDFP/jessapp/src/main/jni -DANDROID -Wformat -Werror\u003dformat-security -mstackrealign"
+          "src": "/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni/SerialPort.c",
+          "flags": "-target i686-none-linux-android22 -fdata-sections -ffunction-sections -fstack-protector-strong -funwind-tables -no-canonical-prefixes --sysroot /home/sakhr/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -g -Wno-invalid-command-line-argument -Wno-unused-command-line-argument -D_FORTIFY_SOURCE\u003d2 -fPIC -O0 -UNDEBUG -fno-limit-debug-info -I/home/sakhr/StudioProjects/GDFP/jessapp/src/main/jni -DANDROID -Wformat -Werror\u003dformat-security -mstackrealign"
         }
       ],
-      "output": "O:\\PraktikantenRD\\Jiajing\\17.08_Version\\GDFP\\jessapp\\build\\intermediates\\ndkBuild\\debug\\obj\\local\\x86\\libserial_port.so"
+      "output": "/home/sakhr/StudioProjects/GDFP/jessapp/build/intermediates/ndkBuild/debug/obj/local/x86/libserial_port.so"
     }
   },
   "toolchains": {
     "toolchain-x86": {
-      "cCompilerExecutable": "C:\\Users\\jtan\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462\\build\\..\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe"
+      "cCompilerExecutable": "/home/sakhr/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang"
     }
   },
   "cFileExtensions": [
