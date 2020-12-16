@@ -31,7 +31,7 @@ here is alist what you need:
 3. class pop_up_Menu
 4. class Read_Usb_Device
 
-# do not forget to add implementation 'me.jahnen:libaums:0.8.0' on your gradle 
+### do not forget to add implementation 'me.jahnen:libaums:0.8.0' on your gradle 
 
 
 
