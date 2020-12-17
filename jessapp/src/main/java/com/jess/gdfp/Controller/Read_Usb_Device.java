@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.util.Log;
-
 import com.github.mjdev.libaums.UsbMassStorageDevice;
 import com.github.mjdev.libaums.fs.FileSystem;
 import com.github.mjdev.libaums.fs.UsbFile;
@@ -20,12 +19,12 @@ import static android.content.ContentValues.TAG;
 public class Read_Usb_Device {
     public static String str;
 
-
+    /***** cheak for usb plug in *******/
     public static long readusb(Context context) {
         long i = 0;
         UsbMassStorageDevice[] devices = UsbMassStorageDevice.getMassStorageDevices(context);
         for (UsbMassStorageDevice device : devices) {
-            permession(context, device);
+           permession(context, device);
             try {
                 device.init();
                 FileSystem curentFs = device.getPartitions().get(0).getFileSystem();
@@ -45,7 +44,7 @@ public class Read_Usb_Device {
         }
         return i;
     }
-
+     /******* read apk from usb *******/
     private static String readApkfile(FileSystem currentFs) {
         String str = " nix ";
         String apk = " ";
@@ -71,15 +70,17 @@ public class Read_Usb_Device {
             e.printStackTrace();
         }
         if (count == 1) {
-            str = " apk found  " + apk;
+            str = " apk found " + apk;
         } else if (count == 0) {
-            str = " Error :apk not found";
+            str = " Error:apk not found";
         } else if (count > 1) {
-            str = " Error; more than 1 available apk ";
+            str = " Error:more than 1 available apk ";
         }
         return str;
     }
 
+
+    /******* ask for permession ******/
     public static void permession(Context context, UsbMassStorageDevice device) {
         UsbManager usbManager = (UsbManager) context.getSystemService(Context.USB_SERVICE);
         final String ACTION_USB_PERMISSION =
@@ -92,7 +93,7 @@ public class Read_Usb_Device {
 
     }
 
-
+    /****** cheak for apk file ****/
     public static int findApk(String str) {
         if (str.contains(".apk"))
             return 1;

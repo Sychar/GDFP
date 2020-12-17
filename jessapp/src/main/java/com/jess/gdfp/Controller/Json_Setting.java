@@ -14,18 +14,10 @@ import java.io.FileWriter;
 import static com.jess.gdfp.Controller.JsonKennlinie.readjson;
 
 public class Json_Setting {
-
-        public static void JsonWrite_Favorit(Context context) {
+    /*** write data in Favorits.json **/
+    public static void JsonWrite_Favorit(Context context) {
             try {
-                JSONObject object = new JSONObject();
-                JSONObject object1 = new JSONObject();
-                JSONObject object2 = new JSONObject();
-                JSONObject object3 = new JSONObject();
 
-                object.put("name", "sakhr");
-                object1.put("name", "jj");
-                object2.put("name", "dkd");
-                // org.json.simple.JSONArray jsonArray= new org.json.simple.JSONArray();
 
                 JSONObject main = new JSONObject();
                 main.put("DatenBank", readjson(context,"Favorit.json"));
@@ -41,18 +33,10 @@ public class Json_Setting {
                 e.printStackTrace();
             }
         }
+
+    /*** write data in  Default_config.json **/
     public static void editing_Default_config(Context context) {
         try {
-            JSONObject object = new JSONObject();
-            JSONObject object1 = new JSONObject();
-            JSONObject object2 = new JSONObject();
-            JSONObject object3 = new JSONObject();
-
-
-            object.put("name", "sakhr");
-            object1.put("name", "jj");
-            object2.put("name", "dkd");
-            // org.json.simple.JSONArray jsonArray= new org.json.simple.JSONArray();
 
             JSONObject main = new JSONObject();
             main.put("DatenBank", readjson(context,"Default_config.json"));
@@ -68,17 +52,10 @@ public class Json_Setting {
             e.printStackTrace();
         }
     }
+    /*** write data in  Setting _config.json **/
     public static void editing_setting_config(Context context) {
         try {
-            JSONObject object = new JSONObject();
-            JSONObject object1 = new JSONObject();
-            JSONObject object2 = new JSONObject();
-            JSONObject object3 = new JSONObject();
 
-            object.put("name", "sakhr");
-            object1.put("name", "jj");
-            object2.put("name", "dkd");
-            // org.json.simple.JSONArray jsonArray= new org.json.simple.JSONArray();
 
             JSONObject main = new JSONObject();
             main.put("DatenBank", readjson(context,"Setting_config.json"));
