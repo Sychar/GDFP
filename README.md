@@ -48,10 +48,6 @@ here is list what you need:
 
 ---
 
-<div class="box-shadow p-3">
-  .box-shadow
-</div>
-
 
 
  if dos not Work place let me know .
