@@ -48,6 +48,10 @@ here is list what you need:
 
 ---
 
+<div class="text-purple">
+  This text is purple, <a href="#" class="text-inherit">including the link</a>
+</div>
+
 
  if dos not Work place let me know .
 
